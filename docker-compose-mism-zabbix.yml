@@ -36,7 +36,7 @@ services:
 #      - ./zabbix/server/ssl/ssl_ca:/var/lib/zabbix/ssl/ssl_ca
 #       - ./zabbix/server/zabbix_server.conf:/etc/zabbix/zabbix_server.conf
     depends_on:
-      - zabbix_postgres
+      - zabbix-postgres
 
   zabbix-web:
     image: mism_zabbix-web
