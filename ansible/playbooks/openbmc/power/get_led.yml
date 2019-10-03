@@ -1,0 +1,25 @@
+---
+- hosts: all
+  connection: local
+  name: Get LED Light
+  gather_facts: False
+
+  tasks:
+
+  - include_tasks: ../utils/utils_create_token.yml
+
+  - name: get LED Light
+    uri:
+      url: https://{{ baseuri }}/xyz/openbmc_project/led/groups/enclosure_identify
+      method: GET
+      validate_certs: no
+      headers:
+        X-Auth-Token: "{{ x_token }}"        
+    register: result_led
+
+  - set_fact:
+      led: "{{ result_led.json.data }}"
+   
+  - debug:
+      var: led
+    when: led is defined

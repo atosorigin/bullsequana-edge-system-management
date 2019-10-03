@@ -1,0 +1,72 @@
+{
+    "ANSIBLE_MODULE_ARGS": {
+        "category": "Update",
+        "command": "EvaluateFirmwareUpdate",
+        "technical_state_path": "/mnt",
+        "firmwares": 
+        {
+            "/xyz/openbmc_project/software/430f8393": {
+                "Activation": "xyz.openbmc_project.Software.Activation.Activations.Active",
+                "Path": "",
+                "Priority": 0,
+                "Purpose": "xyz.openbmc_project.Software.Version.VersionPurpose.BMC",
+                "RequestedActivation": "xyz.openbmc_project.Software.Activation.RequestedActivations.None",
+                "Version": "11.00.0103",
+                "associations": [
+                    [
+                        "inventory",
+                        "activation",
+                        ""
+                    ]
+                ]
+            },
+            "/xyz/openbmc_project/software/430f8393/inventory": {
+                "endpoints": [
+                    ""
+                ]
+            },
+            "/xyz/openbmc_project/software/430f8393/software_version": {
+                "endpoints": [
+                    "/xyz/openbmc_project/software"
+                ]
+            },
+            "/xyz/openbmc_project/software/active": {
+                "endpoints": [
+                    "/xyz/openbmc_project/software/c9448040",
+                    "/xyz/openbmc_project/software/430f8393"
+                ]
+            },
+            "/xyz/openbmc_project/software/c9448040": {
+                "Activation": "xyz.openbmc_project.Software.Activation.Activations.Active",
+                "Path": "",
+                "Priority": 255,
+                "Purpose": "xyz.openbmc_project.Software.Version.VersionPurpose.Host",
+                "RequestedActivation": "xyz.openbmc_project.Software.Activation.RequestedActivations.None",
+                "Version": "BIOS_SKD080.13.05.006",
+                "associations": [
+                    [
+                        "inventory",
+                        "activation",
+                        ""
+                    ]
+                ]
+            },
+            "/xyz/openbmc_project/software/c9448040/inventory": {
+                "endpoints": [
+                    ""
+                ]
+            },
+            "/xyz/openbmc_project/software/c9448040/software_version": {
+                "endpoints": [
+                    "/xyz/openbmc_project/software"
+                ]
+            },
+            "/xyz/openbmc_project/software/functional": {
+                "endpoints": [
+                    "/xyz/openbmc_project/software/c9448040",
+                    "/xyz/openbmc_project/software/430f8393"
+                ]
+            }
+        }
+    }
+}

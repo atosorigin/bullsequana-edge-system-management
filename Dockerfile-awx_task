@@ -1,0 +1,53 @@
+#set base image 
+FROM ansible/awx_task:latest
+
+ARG mism_version
+
+ENV MISM_VERSION=$mism_version
+
+USER root 
+
+ENV HTTP_PROXY="http://193.56.47.20:8080"
+ENV HTTPS_PROXY="http://193.56.47.20:8080"
+ENV NO_PROXY="127.0.0.1,localhost,webserver,0.0.0.0:9090,0.0.0.0,ansible,zabbix,awx,awx_web,awx_task,rabbitmq,postgres,memcached,elasticsearch,kibana,logstash,filebeat,metricbeat,heartbeat,auditbeat,grafana,prometheus,nodeexporter,caddy,cadvisor,alertmanager,172.31.130.224,172.31.60.18,172.31.92.239,172.31.100.156,172.31.60.18,172.31.92.249,172.31.92.222,172.31.92.44,172.31.92.34"
+
+COPY ansible.credentials.py /etc/tower/conf.d/credentials.py
+COPY ansible.environment.sh /etc/tower/conf.d/environment.sh
+COPY ansible.SECRET_KEY /etc/tower/SECRET_KEY
+
+
+# To be done manually from container : RUN yum update
+RUN yum install -y nano dnsutils which nmap software-properties-common
+#git
+#RUN yum install -y python-dev zlib1g-dev libffi-dev libssl-dev libxml2-dev libxslt1-dev 
+
+RUN pip install --upgrade pip 
+
+# Incompatible with .py external docker volume files
+# Do it with docker exec after removing volumes
+
+# Warning TODO with [root@vm247-1 mism]# docker-compose -f docker-compose-awx.yml build NOT directly with docker exec => lost
+# cd /usr/lib/python2.7/site-packages/ansible/
+# RUN pip install git+https://github.com/ansible/ansible.git@devel 
+# not used --proxy=193.56.47.8:8080
+
+# Warning : NOT nmap => https://stackoverflow.com/questions/14913153/module-object-has-no-attribute-portscanner
+RUN pip install python-nmap
+RUN pip install requests
+RUN pip install lxml
+RUN pip install urllib3
+RUN pip install ansible-vault
+
+# RUN pip install ansible-cmdb
+RUN pip install pika
+RUN pip install paramiko --upgrade
+#Install netaddr so we can use ipaddr filter in ansible
+RUN pip install netaddr
+
+# unset proxy for production
+ENV HTTP_PROXY=
+ENV HTTPS_PROXY=
+# except internal hostnames
+ENV NO_PROXY="127.0.0.1,localhost,zabbix-web,zabbix-server,zabbix-agent,awx_web,awx_task,rabbitmq,postgres,memcached"
+
+WORKDIR /var/lib/awx

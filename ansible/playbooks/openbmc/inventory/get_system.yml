@@ -1,0 +1,26 @@
+---
+- hosts: all
+  name: Get System Inventory
+  connection: local
+  gather_facts: False
+
+  tasks:
+  - include_tasks: ../utils/utils_create_token.yml
+
+  - name: get System Inventory
+    uri:
+      url: https://{{ baseuri }}/xyz/openbmc_project/inventory/system/enumerate
+      method: GET
+      validate_certs: no
+      headers:
+        X-Auth-Token: "{{ x_token }}"
+    register: result_system_inventory
+
+  - set_fact:
+      system_inventory: "{{ result_system_inventory.json.data }}"
+
+  - name: render System Inventory
+    debug:
+      var: system_inventory
+    when: system_inventory is defined
+

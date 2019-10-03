@@ -1,0 +1,17 @@
+---
+  - name: get reboot BMC transition
+    uri:
+      url: https://{{ baseuri }}/xyz/openbmc_project/state/bmc0/attr/RequestedBMCTransition
+      method: GET
+      validate_certs: no
+      headers:
+        X-Auth-Token: "{{ x_token }}"
+    register: result_reboot
+
+  - set_fact:
+      check_reboot: "{{ result_reboot.json.data }}"
+
+  - name: check reboot BMC transition
+    fail:
+      msg: "BMC is rebooting..."
+    when: check_reboot != "xyz.openbmc_project.State.BMC.Transition.Reboot"

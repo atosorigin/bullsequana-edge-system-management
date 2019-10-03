@@ -1,0 +1,124 @@
+version: '3.6'
+services:
+
+  awx_web:
+    build: 
+      context: .
+      dockerfile: Dockerfile-awx_web
+      args:
+        mism_version: ${MISM_VERSION}
+    container_name: awx_web
+    depends_on:
+      - rabbitmq
+      - memcached
+      - awx_postgres
+    ports:
+      - "443:8052"
+    hostname: awx_web
+    user: root
+    restart: unless-stopped
+    volumes:
+      - ./ansible/playbooks:/var/lib/awx/projects:rw
+      - ./ansible/inventory:/var/lib/awx/inventory:rw
+      - ./ansible/inventory:/etc/ansible:rw
+#      - ./ansible/plugins/inventory/redfish_plugin_ansible_inventory.yml:/usr/lib/python2.7/site-packages/ansible/plugins/inventory/redfish_plugin_ansible_inventory.yml
+      - ./ansible/plugins/inventory/redfish_plugin_ansible_inventory.yml:/usr/share/ansible/plugins/inventory/redfish_plugin_ansible_inventory.yml
+      - ./ansible/plugins/inventory/redfish_plugin_ansible_inventory.py:/usr/lib/python2.7/site-packages/ansible/plugins/inventory/redfish_plugin_ansible_inventory.py
+#      - ./ansible/plugins/inventory/:/usr/share/ansible/plugins/inventory
+      - ./ansible/plugins/callback/ansible_stdout_compact_logger:/usr/share/ansible/plugins/callback/ansible_stdout_compact_logger
+      - ./ansible/plugins/modules/remote_management/openbmc/atos_openbmc.py:/usr/lib/python2.7/site-packages/ansible/modules/remote_management/openbmc/atos_openbmc.py:ro
+      - ./ansible/plugins/modules/remote_management/openbmc/atos_openbmc_utils.py:/usr/lib/python2.7/site-packages/ansible/module_utils/atos_openbmc_utils.py:ro
+      - ./ansible/awx-ssl:/var/lib/awx-ssl:rw
+      - /:/host:ro
+    environment:
+      ANSIBLE_INVENTORY: /var/lib/awx/inventory
+#      ANSIBLE_VAULT_PASSWORD_FILE: ansible_password.txt
+#      ANSIBLE_INVENTORY_CACHE: yes
+      http_proxy: http://193.56.47.8:8080
+      https_proxy: http://193.56.47.8:8080
+      no_proxy: 127.0.0.1,localhost,webserver,0.0.0.0:9090,0.0.0.0,ansible,zabbix,awx,awx_web,awx_task,rabbitmq,postgres,memcached,elasticsearch,kibana,logstash,filebeat,metricbeat,heartbeat,auditbeat,grafana,prometheus,nodeexporter,caddy,cadvisor,alertmanager,172.31.130.224,172.31.60.18,172.31.92.239,172.31.100.156,172.31.60.18,172.31.92.249,172.31.92.222,172.31.92.44,172.31.92.34,172.31.92.49,172.31.120.13
+
+  awx_task:
+    build: 
+      context: .
+      dockerfile: Dockerfile-awx_task
+      args:
+        mism_version: ${MISM_VERSION}
+    container_name: awx_task
+    depends_on:
+      - rabbitmq
+      - memcached
+      - awx_web
+      - awx_postgres
+    # command: ["/var/lib/awx/projects/add_playbooks.py", "/var/lib/awx/projects/playbooks.yml"]
+    hostname: awx
+    user: root
+    restart: unless-stopped
+    volumes:
+      - ./ansible/playbooks:/var/lib/awx/projects:rw
+      - ./ansible/inventory:/var/lib/awx/inventory:rw
+      - ./ansible/inventory:/etc/ansible:rw
+      - ./ansible/plugins/inventory/redfish_plugin_ansible_inventory.yml:/usr/share/ansible/plugins/inventory/redfish_plugin_ansible_inventory.yml
+      - ./ansible/plugins/inventory/redfish_plugin_ansible_inventory.py:/usr/lib/python2.7/site-packages/ansible/plugins/inventory/redfish_plugin_ansible_inventory.py
+#      - ./ansible/plugins/inventory/:/usr/share/ansible/plugins/inventory
+      - ./ansible/plugins/callback/ansible_stdout_compact_logger:/usr/share/ansible/plugins/callback/ansible_stdout_compact_logger
+      - ./ansible/plugins/modules/remote_management/openbmc/atos_openbmc.py:/usr/lib/python2.7/site-packages/ansible/modules/remote_management/openbmc/atos_openbmc.py:ro
+      - ./ansible/plugins/modules/remote_management/openbmc/atos_openbmc_utils.py:/usr/lib/python2.7/site-packages/ansible/module_utils/atos_openbmc_utils.py:ro
+      - ./ansible/awx-ssl:/var/lib/awx-ssl:rw
+      - /:/host:ro
+    environment:
+      ANSIBLE_INVENTORY: /var/lib/awx/inventory
+#      ANSIBLE_VAULT_PASSWORD_FILE: ansible_password.txt
+#      ANSIBLE_INVENTORY_CACHE: yes
+      http_proxy: http://193.56.47.8:8080
+      https_proxy: http://193.56.47.8:8080
+      no_proxy: 127.0.0.1,localhost,zabbix,webserver,nodered,0.0.0.0:9090,0.0.0.0,ansible,awx,awx_web,awx_task,rabbitmq,postgres,memcached,elasticsearch,kibana,logstash,filebeat,metricbeat,heartbeat,auditbeat,grafana,prometheus,nodeexporter,caddy,cadvisor,alertmanager,172.31.130.224,172.31.60.18,172.31.92.239,172.31.100.156,172.31.60.18,172.31.92.249,172.31.92.222,172.31.92.44,172.31.92.34,172.31.92.49,172.31.120.13
+
+
+  rabbitmq:
+    build:
+      context: .
+      dockerfile: Dockerfile-rabbitmq 
+    container_name: awx_rabbitmq
+    restart: unless-stopped
+    hostname: rabbitmq
+    expose:
+      - 15672
+      - 5672
+    ports:
+      - 15672:15672
+      - 5672:5672    
+
+  memcached:
+    image: memcached:alpine
+    container_name: awx_memcached
+    restart: unless-stopped
+
+  awx_postgres:
+    build:
+      context: .
+      dockerfile: Dockerfile-awx-postgres
+    container_name: awx_postgres
+    hostname: awx_postgres
+    restart: unless-stopped
+    ports:
+      - 5432:5432
+    expose: 
+      - 5432
+    volumes:
+      - ./ansible/pgdata:/var/lib/postgresql/data/pgdata:Z
+
+  pgadmin:
+    build: 
+      context: .
+      dockerfile: Dockerfile-pgadmin4
+    container_name: pgadmin
+    depends_on:
+      - awx_postgres
+    user: root
+    restart: unless-stopped
+    ports:
+      - 7070:80
+    volumes:
+      - ./pgadmin:/var/lib/pgadmin/storage:Z
+

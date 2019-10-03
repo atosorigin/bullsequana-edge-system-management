@@ -1,0 +1,25 @@
+---
+- hosts: all
+  name: Chassis State Inventory
+  connection: local
+  gather_facts: False
+  
+  tasks:
+  - include_tasks: ../utils/utils_create_token.yml
+
+  - name: get Chassis State Inventory
+    uri:
+      url: https://{{ baseuri }}/xyz/openbmc_project/state/chassis0/attr/CurrentPowerState
+      method: GET
+      validate_certs: no
+      headers:
+        X-Auth-Token: "{{ x_token }}"
+    register: result_chassis_state    
+
+  - set_fact:
+      chassis_state_inventory: "{{ result_chassis_state.json.data }}"
+
+  - name: render chassis_state_inventory
+    debug:
+      var: chassis_state_inventory
+    when: chassis_state_inventory is defined

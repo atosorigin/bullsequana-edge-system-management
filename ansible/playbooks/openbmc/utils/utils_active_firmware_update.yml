@@ -1,0 +1,17 @@
+---
+  - name: activate firmware update
+    uri:
+      url: https://{{ baseuri }}{{item.key}}/attr/RequestedActivation
+      method: PUT
+      validate_certs: no
+      headers:
+        X-Auth-Token: "{{ x_token }}"
+        Content-Type: "application/json"
+      body:
+        data: xyz.openbmc_project.Software.Activation.RequestedActivations.Active
+      body_format: json
+    when: item.value.Activation is defined and item.value.Activation == "xyz.openbmc_project.Software.Activation.Activations.Ready"
+    with_dict: "{{ firmware_inventory }}"
+
+ 
+

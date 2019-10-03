@@ -1,0 +1,98 @@
+version: '3.6'
+services:
+
+  awx_web:
+    image: mism_awx_web:latest
+    container_name: awx_web
+    depends_on:
+      - rabbitmq
+      - memcached
+      - awx_postgres
+    ports:
+      - "443:8052"
+    hostname: awx_web
+    user: root
+    restart: unless-stopped
+    volumes:
+      - ./ansible/playbooks:/var/lib/awx/projects:rw
+      - ./ansible/inventory/ansible.cfg:/etc/ansible/ansible.cfg
+      - ./ansible/inventory:/var/lib/awx/inventory:rw
+      - ./ansible/plugins/inventory:/usr/share/ansible/plugins/inventory
+      - ./ansible/plugins/callback/ansible_stdout_compact_logger:/usr/share/ansible/plugins/callback/ansible_stdout_compact_logger
+      - ./ansible/plugins/modules/remote_management/openbmc/atos_openbmc.py:/usr/lib/python2.7/site-packages/ansible/modules/remote_management/openbmc/atos_openbmc.py:ro
+      - ./ansible/plugins/modules/remote_management/openbmc/atos_openbmc_utils.py:/usr/lib/python2.7/site-packages/ansible/module_utils/atos_openbmc_utils.py:ro
+      - ./ansible/awx-ssl:/var/lib/awx-ssl:rw
+      - /:/host:ro
+    environment:
+      ANSIBLE_INVENTORY: /var/lib/awx/inventory # /usr/share/ansible/plugins/inventory
+#       ANSIBLE_INVENTORY_CACHE: yes
+
+  awx_task:
+    image: mism_awx_task:latest
+    container_name: awx_task
+    depends_on:
+      - rabbitmq
+      - memcached
+      - awx_web
+      - awx_postgres
+    # command: ["/var/lib/awx/projects/add_playbooks.py", "/var/lib/awx/projects/playbooks.yml"]
+    hostname: awx
+    user: root
+    restart: unless-stopped
+    volumes:
+      - ./ansible/playbooks:/var/lib/awx/projects:rw
+      - ./ansible/inventory/ansible.cfg:/etc/ansible/ansible.cfg
+      - ./ansible/inventory:/var/lib/awx/inventory
+      - ./ansible/plugins/inventory:/usr/share/ansible/plugins/inventory
+      - ./ansible/plugins:/usr/share/ansible/plugins:rw
+      - ./ansible/plugins/callback/ansible_stdout_compact_logger:/usr/share/ansible/plugins/callback/ansible_stdout_compact_logger
+      - ./ansible/plugins/modules/remote_management/openbmc/atos_openbmc.py:/usr/lib/python2.7/site-packages/ansible/modules/remote_management/openbmc/atos_openbmc.py:ro
+      - ./ansible/plugins/modules/remote_management/openbmc/atos_openbmc_utils.py:/usr/lib/python2.7/site-packages/ansible/module_utils/atos_openbmc_utils.py:ro
+      - /:/host:ro
+    environment:
+      ANSIBLE_INVENTORY: /var/lib/awx/inventory
+#      ANSIBLE_INVENTORY_CACHE: yes
+      
+  rabbitmq:
+    image: mism_rabbitmq:latest 
+    container_name: awx_rabbitmq
+    restart: unless-stopped
+    hostname: rabbitmq
+    expose:
+      - 15672
+      - 5672
+    ports:
+      - 15672:15672
+      - 5672:5672    
+
+  memcached:
+    image: memcached:alpine
+    container_name: awx_memcached
+    restart: unless-stopped
+
+  awx_postgres:
+    image: awx_postgres:latest
+    container_name: awx_postgres
+    hostname: awx_postgres
+    restart: unless-stopped
+    ports:
+      - 5432:5432
+    expose: 
+      - 5432
+    volumes:
+      - ./ansible/pgdata:/var/lib/postgresql/data/pgdata:Z
+
+  pgadmin:
+    image: mism_pgadmin:latest
+    container_name: pgadmin
+    depends_on:
+      - awx_postgres
+    user: root
+    restart: unless-stopped
+    ports:
+      - 7070:80
+    volumes:
+      - ./pgadmin:/var/lib/pgadmin/storage:Z
+    depends_on:
+      - awx_postgres
+

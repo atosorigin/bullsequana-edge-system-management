@@ -1,0 +1,18 @@
+---
+- hosts: all
+  connection: local
+  name: Manage System Power off - 
+  gather_facts: False
+
+  tasks:
+
+  - include_tasks: ../utils/utils_create_token.yml
+
+  - include_tasks: ../utils/utils_host_power_off.yml
+
+  # Pause for 15 seconds to check power off
+  - pause:
+      seconds: 15
+
+  - include_tasks: ../utils/utils_check_power_off.yml    
+

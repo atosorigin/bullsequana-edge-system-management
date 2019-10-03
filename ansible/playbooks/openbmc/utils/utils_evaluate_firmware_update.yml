@@ -1,0 +1,44 @@
+---
+
+  - name: get technical state path
+    stat:
+      path: "{{ technical_state_path }}"
+    register: check_technical_state_path_exists
+
+  - name: validate technical state directory exists
+    assert:
+      that:
+        - check_technical_state_path_exists.stat.exists == True
+      fail_msg: "The technical state path {{ technical_state_path }} does NOT exist on host"
+      success_msg: "The variable technical_state_path exist on host"
+
+  - name: validate technical state directory is a directory
+    assert:
+      that:
+        - check_technical_state_path_exists.stat.isdir == True
+      fail_msg: "The technical state path {{ technical_state_path }} is NOT a directory on host"
+      success_msg: "The variable technical_state_path is a directory on host"
+
+  - name: load functional firmwares from Technical State xml file
+    local_action: atos_openbmc technical_state_path={{ technical_state_path }} category=Update command=EvaluateFirmwareUpdate firmwares={{ firmware_inventory }}
+    register: result_evaluate_firmware_update
+    when: check_technical_state_path_exists.stat.exists == True and check_technical_state_path_exists.stat.isdir == True
+
+  - set_fact:
+      evaluate_firmware_update: "{{ result_evaluate_firmware_update.result.Firmwares }}"
+    when: check_technical_state_path_exists.stat.exists == True and check_technical_state_path_exists.stat.isdir == True
+
+  - name: debug Evaluate Firmware to update
+    debug: 
+      msg: "NO firmware to update"
+    when: evaluate_firmware_update is defined and evaluate_firmware_update|length==0
+
+  - name: no Firmware to update 
+    meta: end_host
+    when: evaluate_firmware_update is defined and evaluate_firmware_update|length==0
+
+  - name: render Evaluate Firmware update
+    debug: 
+      var: evaluate_firmware_update
+    when: evaluate_firmware_update is defined
+

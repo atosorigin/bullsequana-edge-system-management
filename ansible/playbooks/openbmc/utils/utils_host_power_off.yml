@@ -1,0 +1,15 @@
+---
+  - name: orderly Shutdown
+    uri:
+      url: https://{{ baseuri }}/xyz/openbmc_project/state/host0/attr/RequestedHostTransition
+      method: PUT
+      validate_certs: no
+      headers:
+        X-Auth-Token: "{{ x_token }}"
+        X-XSRF-TOKEN: "{{ x_token }}"
+      body_format: json
+      body: 
+        data: xyz.openbmc_project.State.Host.Transition.Off
+
+
+

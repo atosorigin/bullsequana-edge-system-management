@@ -1,0 +1,25 @@
+---
+- hosts: all
+  connection: local
+  name: Get Boot Source
+  gather_facts: False
+
+  tasks:
+  - include_tasks: ../utils/utils_create_token.yml
+
+  - name: get boot source
+    uri:
+      url: https://{{ baseuri }}/xyz/openbmc_project/control/host0/boot/one_time/attr/BootSource
+      method: GET
+      validate_certs: no
+      headers:
+        X-Auth-Token: "{{ x_token }}"
+    register: result_boot_source
+
+  - set_fact:
+      boot_source: "{{ result_boot_source.json.data }}"
+
+  - name: Bios Boot Source
+    debug:
+      var: boot_source
+

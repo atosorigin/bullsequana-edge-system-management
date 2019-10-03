@@ -1,0 +1,33 @@
+---
+- hosts: all
+  connection: local
+  name: Set Rsyslog Server Ip
+  gather_facts: False
+  vars_files:
+    - /var/lib/awx/projects/vars/external_vars.yml
+
+  tasks:
+  - name: validate rsyslog_server_ip variable
+    assert:
+      that:
+        - rsyslog_server_ip is defined
+      fail_msg: "The variable rsyslog_server_ip is NOT defined in inventory (AWX) or vars/external_vars file (Ansible). See readme.md for more details."
+      success_msg: "The variable rsyslog_server_ip is defined"
+  
+  - debug:
+      msg: "rsyslog server ip = {{ rsyslog_server_ip }}"
+    when: rsyslog_server_ip is defined
+
+  - include_tasks: ../utils/utils_create_token.yml
+
+  - name: set Rsyslog Server Ip
+    uri:
+      url: https://{{ baseuri }}/xyz/openbmc_project/logging/config/remote/attr/Address
+      method: PUT
+      validate_certs: no
+      headers:
+        X-Auth-Token: "{{ x_token }}"
+      body_format: json
+      body: 
+        data: "{{ rsyslog_server_ip }}"
+    register: result_rsyslog_server_ip  

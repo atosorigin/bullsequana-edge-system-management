@@ -1,0 +1,72 @@
+#!/bin/bash
+docker stop $(docker ps -a -q)
+docker system prune --force
+docker image prune --force
+docker volume prune --force
+docker network prune --force
+docker container prune --force
+
+docker rm $(docker container ps -a -q)
+docker rmi $(docker images -a -q)
+
+docker container rm awx_task
+docker container rm awx_web
+docker container rm awx_postgres
+docker container rm awx_rabbitmq
+docker container rm awx_memcached
+docker container rm zabbix-server 
+docker container rm zabbix-web 
+docker container rm zabbix-agent
+docker container rm pgadmin4
+docker container rm postgres
+docker container rm trusting_shannon
+docker container rm wonderful_kare
+
+docker image rm redfish_dockers_dev_nodered
+docker image rm nodered/node-red-docker
+docker image rm mism_nodered
+docker image rm mism_rabbitmq
+docker image rm mism_postgres
+docker image rm mism_pgadmin
+docker image rm mism_memcached
+docker image rm mism_awx_task
+docker image rm mism_awx_web
+docker image rm mism_zabbix-server
+docker image rm mism_zabbix-web
+docker image rm mism_zabbix-agent
+
+docker image rm ansible/awx_task
+docker image rm ansible/awx_web
+docker image rm dpage/pgadmin4 
+docker image rm ansible/awx_rabbitmq
+docker image rm ansible/awx_postgres
+docker image rm ansible/awx_pgadmin4
+docker image rm ansible/awx_memcached
+docker image rm rabbitmq
+docker image rm postgres
+docker image rm pgadmin4
+docker image rm memcached
+docker image rm zabbix/zabbix-web-nginx-pgsql
+docker image rm zabbix/zabbix-agent
+docker image rm zabbix/zabbix-server
+docker image rm zabbix/zabbix-web
+
+docker rmi $(docker images |grep 'mism_pgadmin')
+docker rmi $(docker images |grep 'mism_rabbitmq')
+docker rmi $(docker images |grep 'mism_postgres')
+docker rmi $(docker images |grep 'mism_memcached')
+docker rmi $(docker images |grep 'mism_awx_task')
+docker rmi $(docker images |grep 'mism_awx_web')
+docker rmi $(docker images |grep 'mism_zabbix-server')
+docker rmi $(docker images |grep 'mism_zabbix-web')
+docker rmi $(docker images |grep 'mism_zabbix-agent')
+
+docker container prune --force
+docker image prune --force
+docker volume prune --force
+docker volume rm mism_mnt
+docker volume rm mism_pgdata
+
+docker images
+docker container list
+docker volume list

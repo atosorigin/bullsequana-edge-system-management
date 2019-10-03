@@ -1,0 +1,19 @@
+---
+- hosts: all
+  connection: local
+  name: Manage System Power - Reboot BMC
+  gather_facts: False
+
+  tasks:
+
+  - include_tasks: ../utils/utils_create_token.yml
+
+  - include_tasks: ../utils/utils_reboot.yml   
+
+  # Pause for 3 minutes to check reboot
+  - name: pause for 3 minutes before checking reboot
+    pause:
+      minutes: 3
+
+  - include_tasks: ../utils/utils_check_reboot.yml   
+

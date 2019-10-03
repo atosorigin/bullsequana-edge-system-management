@@ -1,0 +1,41 @@
+---
+- hosts: all
+  connection: local
+  name: Set Boot Mode Safe
+  gather_facts: False
+  vars_files:
+    - /var/lib/awx/projects/vars/external_vars.yml
+
+  tasks:
+  - include_tasks: ../utils/utils_create_token.yml
+
+  - name: set boot mode Safe
+    uri:
+      url: https://{{ baseuri }}/xyz/openbmc_project/control/host0/boot/one_time/attr/BootMode
+      method: PUT
+      validate_certs: no
+      headers:
+        X-Auth-Token: "{{ x_token }}"
+        X-XSRF-TOKEN: "{{ x_token }}"
+      body_format: json
+      body: 
+        data: xyz.openbmc_project.Control.Boot.Mode.Modes.Safe
+
+  - name: get boot mode Safe
+    uri:
+      url: https://{{ baseuri }}/xyz/openbmc_project/control/host0/boot/one_time/attr/BootMode
+      method: GET
+      validate_certs: no
+      headers:
+        X-Auth-Token: "{{ x_token }}"
+    register: result_boot_mode
+
+  - set_fact:
+      boot_mode: "{{ result_boot_mode.json.data }}"
+
+  - name: validate boot mode Safe
+    assert:
+      that:
+        - boot_mode  == "xyz.openbmc_project.Control.Boot.Mode.Modes.Safe"
+      fail_msg: "Bios Boot Mode NOT set to Safe"
+      success_msg: "The Bios Boot Mode is Safe"

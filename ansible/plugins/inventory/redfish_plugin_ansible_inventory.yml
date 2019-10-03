@@ -1,0 +1,7 @@
+plugin: "redfish_plugin_ansible_inventory"
+address: "172.31.92.34-44"
+port: "443"
+cache: True
+cache_plugin: "jsonfile"
+cache_timeout: 20
+cache_connection: ansible-inventory-cache

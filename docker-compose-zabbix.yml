@@ -1,0 +1,128 @@
+version: '3.6'
+services:
+  zabbix-server:
+    build:
+      context:  .
+      dockerfile: Dockerfile-zabbix
+      args:
+        mism_version: ${MISM_VERSION}
+    ports:
+      - 10051:10051
+    expose: 
+      - 10051
+    user: root
+    privileged : true
+    restart: always       
+    container_name: zabbix-server
+    hostname: zabbix-server
+    environment:
+      ZBX_SERVER_HOST: zabbix-server
+      ZBX_SERVER_PORT: 10051
+      DB_SERVER_HOST: zabbix-postgres
+      ZBX_HOSTNAME: zabbix-server
+      POSTGRES_USER: mism
+      POSTGRES_PASSWORD: mismpass
+      POSTGRES_DB: zabbix
+      POSTGRES_PORT: 5555
+#      ZBX_DEBUGLEVEL: 4
+      ZBX_ACTIVE_ALLOW: 1
+      ZBX_ACTIVESERVERS: zabbix-server
+      ZBX_ENABLEREMOTECOMMANDS: 1
+#      ZBX_PASSIVE_ALLOW: 1
+#      ZBX_PASSIVESERVERS: zabbix-server
+    volumes:
+#      - ./zabbix:/francine:rw
+       - ./zabbix/server/alertscripts:/usr/lib/zabbix/alertscripts:rw
+       - ./zabbix/server/externalscripts:/usr/lib/zabbix/externalscripts:rw
+       - ./zabbix/agent/zabbix_agentd.psk:/etc/zabbix/zabbix_agentd.psk:ro
+       - /var/log/rsyslog:/var/log/zabbix/rsyslog:rw
+#      - ./zabbix/dockerdata/server/modules:/var/lib/zabbix/modules
+#      - ./zabbix/dockerdata/server/enc:/var/lib/zabbix/enc
+#      - ./zabbix/dockerdata/server/ssh_keys:/var/lib/zabbix/ssh_keys
+#      - ./zabbix/dockerdata/server/ssl/certs:/var/lib/zabbix/ssl/certs
+#      - ./zabbix/dockerdata/server/ssl/keys:/var/lib/zabbix/ssl/keys
+#      - ./zabbix/dockerdata/server/ssl/ssl_ca:/var/lib/zabbix/ssl/ssl_ca
+#      - /usr/share/zoneinfo/Asia/Shanghai:/etc/localtime
+#       - ./zabbix/zabbix_server.conf:/etc/zabbix/zabbix_server.conf
+    depends_on:
+      - zabbix-postgres
+
+  zabbix-web:
+    build:
+      context:  .
+      dockerfile: Dockerfile-zabbix-web
+      args:
+        mism_version: ${MISM_VERSION}
+    restart: always    
+    container_name: zabbix-web
+    environment:
+      ZBX_SERVER_HOST: zabbix-server
+      ZBX_SERVER: zabbix-server
+      ZBX_SERVER_NAME: zabbix-server
+      ZBX_SERVER_PORT: 10051
+      DB_SERVER_HOST: zabbix-postgres
+      POSTGRES_USER: mism
+      POSTGRES_PASSWORD: mismpass
+      POSTGRES_DB: zabbix
+      POSTGRES_PORT: 5555
+    ports:
+      - 4443:443
+    volumes:
+      - ./zabbix/ssl:/etc/ssl/nginx:ro
+    user: root
+    depends_on:
+      - zabbix-server
+    links:
+      - zabbix-server:zabbix-server
+  
+  zabbix-agent:
+    build:
+      context:  .
+      dockerfile: Dockerfile-zabbix-agent
+      args:
+        mism_version: ${MISM_VERSION}
+    ports:
+      - 10050:10050
+    expose: 
+      - 10050
+    user: root
+    privileged : true
+    depends_on:
+      - zabbix-server
+    restart: always
+    container_name: zabbix-agent
+    hostname: zabbix-agent
+    environment:
+      ZBX_SERVER_HOST: zabbix-server
+      ZBX_SERVER_PORT: 10051
+      ZBX_HOSTNAME: zabbix-server
+      ZBX_ACTIVE_ALLOW: 1
+      ZBX_ACTIVESERVERS: zabbix-server
+#      ZBX_PASSIVE_ALLOW: 1
+#      ZBX_PASSIVESERVERS: zabbix-server
+
+    volumes:
+      - /var/log/rsyslog:/var/log/zabbix/rsyslog:rw
+      - ./zabbix/agent/zabbix_agentd.conf:/etc/zabbix/zabbix_agentd.conf:Z
+      - ./zabbix/agent/zabbix_agentd.psk:/etc/zabbix/zabbix_agentd.psk:Z
+#      - ./zabbix/agent/zabbix_agentd.userparams.conf:/etc/zabbix/zabbix_agentd.d/zabbix_agentd.userparams.conf:Z
+#      - ./zabbix/externalscripts:/usr/lib/zabbix/externalscripts:rw
+#      - ./zabbix/alertscripts:/usr/lib/zabbix/alertscripts:rw
+#      - ./zabbix/agent/modules:/var/lib/zabbix/modules
+      - ./zabbix/agent/zabbix_agentd.d:/etc/zabbix/zabbix_agentd.d
+    links:
+      - zabbix-server:zabbix-server
+
+  zabbix-postgres:
+    build:
+      context: .
+      dockerfile: Dockerfile-zabbix-postgres
+    container_name: zabbix-postgres
+    hostname: zabbix-postgres
+    restart: unless-stopped
+    ports:
+      - 5555:5432
+    expose: 
+      - 5555
+    volumes:
+      - ./zabbix/pgdata:/var/lib/postgresql/data/pgdata:Z

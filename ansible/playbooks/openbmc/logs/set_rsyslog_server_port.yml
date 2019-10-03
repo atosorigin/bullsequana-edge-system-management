@@ -1,0 +1,33 @@
+---
+- hosts: all
+  connection: local
+  name: Set Rsyslog Server Port
+  gather_facts: False
+  vars_files:
+    - /var/lib/awx/projects/vars/external_vars.yml
+
+  tasks:
+  - name: validate rsyslog_server_port variable
+    assert:
+      that:
+        - rsyslog_server_port is defined
+      fail_msg: "The variable rsyslog_server_port is NOT defined in inventory (AWX) or vars/external_vars file (Ansible). See readme.md for more details."
+      success_msg: "The variable rsyslog_server_port is defined"
+  
+  - debug:
+      msg: "rsyslog server port = {{ rsyslog_server_port }}"
+    when: rsyslog_server_port is defined
+
+  - include_tasks: ../utils/utils_create_token.yml
+
+  - name: set Rsyslog Server Port
+    uri:
+      url: https://{{ baseuri }}/xyz/openbmc_project/logging/config/remote/attr/Port
+      method: PUT
+      validate_certs: no
+      headers:
+        X-Auth-Token: "{{ x_token }}"
+      body_format: json
+      body: 
+        data: "{{ rsyslog_server_port }}"
+    register: result_rsyslog_server_port  

@@ -1,0 +1,41 @@
+---
+- hosts: all
+  connection: local
+  name: Set Boot Source Disk
+  gather_facts: False
+  vars_files:
+    - /var/lib/awx/projects/vars/external_vars.yml
+
+  tasks:
+  - include_tasks: ../utils/utils_create_token.yml
+
+  - name: set boot source Disk
+    uri:
+      url: https://{{ baseuri }}/xyz/openbmc_project/control/host0/boot/one_time/attr/BootSource
+      method: PUT
+      validate_certs: no
+      headers:
+        X-Auth-Token: "{{ x_token }}"
+        X-XSRF-TOKEN: "{{ x_token }}"
+      body_format: json
+      body: 
+        data: xyz.openbmc_project.Control.Boot.Source.Sources.Disk
+
+  - name: get boot source Disk
+    uri:
+      url: https://{{ baseuri }}/xyz/openbmc_project/control/host0/boot/one_time/attr/BootSource
+      method: GET
+      validate_certs: no
+      headers:
+        X-Auth-Token: "{{ x_token }}"
+    register: result_boot_source
+
+  - set_fact:
+      boot_source: "{{ result_boot_source.json.data }}"
+
+  - name: validate boot source is Disk
+    assert:
+      that:
+        - boot_source  == "xyz.openbmc_project.Control.Boot.Source.Sources.Disk"
+      fail_msg: "Bios Boot Source NOT set to Disk"
+      success_msg: "The Bios Boot Source is Disk"

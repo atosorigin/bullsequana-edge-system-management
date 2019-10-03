@@ -1,0 +1,29 @@
+---
+- hosts: all
+  connection: local
+  name: Sensor Inventory
+  gather_facts: False
+  vars:
+    sensors_dict: {}
+
+  tasks:
+  - include_tasks: ../utils/utils_create_token.yml
+
+  - name: Get sensors
+    uri:
+      url: "https://{{ baseuri }}/xyz/openbmc_project/sensors/enumerate"
+      method: GET
+      validate_certs: no
+      headers:
+        X-Auth-Token: "{{ x_token }}"    
+    register: result_sensors
+
+  - set_fact:
+      sensors: "{{ result_sensors.json.data }}"
+    
+  - name: Render sensors
+    debug: 
+      var: sensors
+    when: sensors is defined
+
+

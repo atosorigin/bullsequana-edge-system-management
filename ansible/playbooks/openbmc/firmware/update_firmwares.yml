@@ -1,0 +1,112 @@
+---
+- hosts: all
+  name: Firmware Update
+  connection: local
+  gather_facts: False
+  vars_files:
+    - /var/lib/awx/projects/vars/external_vars.yml
+
+  tasks:
+
+  - name: assert forceoff variable
+    assert:
+      that:
+        - forceoff is defined
+      fail_msg: "The variable forceoff is NOT defined in inventory (AWX) or vars/external_vars file (Ansible). See readme.md for more details."
+      success_msg: "The variable forceoff is defined"
+
+  - debug:
+      msg: "forceoff is {{ forceoff }}"
+    when: forceoff is defined
+
+  - name: assert reboot variable
+    assert:
+      that:
+        - reboot is defined
+      fail_msg: "The variable reboot is NOT defined in inventory (AWX) or vars/external_vars file (Ansible). See readme.md for more details."
+      success_msg: "The variable reboot is defined"
+
+  - debug:
+      msg: "reboot is {{ reboot }}"
+    when: reboot is defined
+
+  - name: assert technical_state_path variable
+    assert:
+      that:
+        - technical_state_path is defined
+      fail_msg: "The variable technical_state_path is NOT defined in inventory (AWX) or vars/external_vars file (Ansible). See readme.md for more details."
+      success_msg: "The variable technical_state_path is defined"
+
+  - debug:
+      msg: "technical_state_path is {{ technical_state_path }}"
+    when: technical_state_path is defined
+
+  - include_tasks: ../utils/utils_create_token.yml
+
+  - include_tasks: ../utils/utils_firmware_inventory.yml
+
+  - name: render Active Firmwares before Upload
+    debug:
+      msg: "Active {{ item.value.Purpose }} - {{ item.value.Version }} ({{ item.key }})"
+    with_dict: "{{ firmware_inventory }}"
+    when: item.value.Activation is defined and item.value.Activation == "xyz.openbmc_project.Software.Activation.Activations.Active"
+
+  - include_tasks: ../utils/utils_evaluate_firmware_update.yml
+
+  - include_tasks: ../utils/utils_upload_firmwares.yml
+
+  - include_tasks: ../utils/utils_firmware_inventory.yml
+
+  - name: render Ready Firmwares after Upload
+    debug:
+      msg: "Ready {{ item.value.Purpose }} - {{ item.value.Version }} ({{ item.key }})"
+    when: item.value.Activation is defined and item.value.Activation == "xyz.openbmc_project.Software.Activation.Activations.Ready"
+    with_dict: "{{ firmware_inventory }}"
+ 
+  - include_tasks: ../utils/utils_chassis_power_off.yml    
+    when: forceoff == True
+
+  - include_tasks: ../utils/utils_active_firmware_update.yml
+
+  - name: pause for 3 minutes for BIOS activation
+    pause:
+      minutes: 3
+    when: forceoff == True and item.value.Activation is defined and item.value.Purpose is defined and item.value.Activation == "xyz.openbmc_project.Software.Activation.Activations.Ready" and item.value.Purpose == "xyz.openbmc_project.Software.Version.VersionPurpose.Host"
+    with_dict: "{{ firmware_inventory }}"
+
+  - include_tasks: ../utils/utils_firmware_inventory.yml
+
+  - name: render Active Firmwares after Activation
+    debug:
+      msg: "Active {{ item.value.Purpose }} - {{ item.value.Version }} ({{ item.key }})"
+    when: item.value.RequestedActivation is defined and item.value.RequestedActivation == "xyz.openbmc_project.Software.Activation.RequestedActivations.Active"
+    with_dict: "{{ firmware_inventory }}"
+
+  - name: reboot BMC
+    uri:
+      url: https://{{ baseuri }}/xyz/openbmc_project/state/bmc0/attr/RequestedBMCTransition
+      method: PUT
+      validate_certs: no
+      headers:
+        X-Auth-Token: "{{ x_token }}"
+        Content-Type: "application/json"
+      body:
+        data: xyz.openbmc_project.State.BMC.Transition.Reboot
+      body_format: json
+    when: reboot == True and item.value.Purpose is defined and item.value.RequestedActivation is defined and item.value.Purpose == "xyz.openbmc_project.Software.Version.VersionPurpose.BMC" and item.value.RequestedActivation == "xyz.openbmc_project.Software.Activation.RequestedActivations.Active"
+    with_dict: "{{ firmware_inventory }}"
+
+  - name: render Updated Firmwares
+    debug: 
+      var: evaluate_firmware_update
+    when: evaluate_firmware_update is defined
+
+  - include_tasks: ../utils/utils_firmware_inventory.yml
+    when: reboot == False
+
+  - name: check Activation Failures
+    fail: 
+      msg: "Failure in activation for {{item.value.Purpose}} - {{item.value.Version}}"
+    when: reboot == False and item.value.Activation is defined and item.value.Activation == 'xyz.openbmc_project.Software.Activation.Activations.Failed' and item.value.RequestedActivation is defined and item.value.RequestedActivation =='xyz.openbmc_project.Software.Activation.RequestedActivations.Active'
+    with_dict: "{{ firmware_inventory }}"
+

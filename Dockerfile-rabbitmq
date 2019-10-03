@@ -1,0 +1,11 @@
+#set base image 
+FROM rabbitmq:3-management
+#FROM ansible/awx_rabbitmq:3.7.4
+
+USER root 
+
+ENV RABBITMQ_DEFAULT_VHOST=awx
+ENV RABBITMQ_DEFAULT_USER=mism
+ENV RABBITMQ_DEFAULT_PASS=mismpass
+ENV RABBITMQ_ERLANG_COOKIE=cookiemonster
+

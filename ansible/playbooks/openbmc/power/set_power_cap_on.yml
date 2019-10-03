@@ -1,0 +1,35 @@
+---
+- hosts: all
+  connection: local
+  name: Enable Power Cap 
+  gather_facts: False
+  vars_files:
+    - /var/lib/awx/projects/vars/external_vars.yml
+
+  tasks:
+
+  - include_tasks: ../utils/utils_create_token.yml
+
+  - name: set Power Cap
+    uri:
+      url: https://{{ baseuri }}/xyz/openbmc_project/control/host0/power_cap/attr/PowerCap
+      method: PUT
+      validate_certs: no
+      headers:
+        X-Auth-Token: "{{ x_token }}"
+      body_format: json
+      body: 
+        data: "{{ power_cap }}"
+    register: result_power_cap
+
+  - name: enable Power Cap
+    uri:
+      url: https://{{ baseuri }}/xyz/openbmc_project/control/host0/power_cap/attr/PowerCapEnable
+      method: PUT
+      validate_certs: no
+      headers:
+        X-Auth-Token: "{{ x_token }}"
+      body_format: json
+      body: 
+        data: true
+    register: result_enable_power_cap

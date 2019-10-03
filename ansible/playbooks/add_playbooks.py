@@ -1,0 +1,107 @@
+#!/usr/bin/env python
+# # -*- coding: utf-8 -*-
+
+# Inspired from https://github.com/jsmartin/tower_populator
+
+import yaml
+import sys
+import tower_cli
+import time
+from select import select
+from os import path
+from os import environ
+
+class Config:
+    def __init__(self, **entries):
+        self.__dict__.update(entries)
+
+# load configuration
+playbooks = "projects/playbooks.yml" # by default 
+if len(sys.argv) > 1:
+    playbooks = sys.argv[1]
+
+c = yaml.load(open(playbooks).read())
+tower = Config(**c)
+
+org_res = tower_cli.get_resource('organization')
+inv_res = tower_cli.get_resource('inventory')
+host_res = tower_cli.get_resource('host')
+group_res = tower_cli.get_resource('group')
+project_res = tower_cli.get_resource('project')
+job_template_res = tower_cli.get_resource('job_template')
+
+print "\nCreating Organization\n"
+print tower.org, tower.org_desc
+#check if Atos already exists
+#if org_res.get_resource() :
+#    return
+# create organization
+org = org_res.create(name=tower.org, description=tower.org_desc)
+org_id = org['id']
+
+if tower.inventories:
+    # create inventories
+    print "\nCreating Inventories\n"
+    for i in tower.inventories:
+        print i
+        i['organization'] = org_id
+        inv = inv_res.create(**i)
+        # create dynamic groups, static ones can be imported better with awx-manage
+        if i.has_key('groups'):
+            for g in i['groups']:
+                print(g)
+                g['inventory'] = inv['id']
+                # set the credential if this group has one
+                group = group_res.create(**g)
+                # sync the group if it has a credential
+                if group.has_key('group'):
+                    id = group['group']
+                elif group.has_key('id'):
+                    id = group['id']
+                if g.has_key('credential'):
+                    group_res.sync(id)
+                if g.has_key('hosts'):
+                    for h in g['hosts']:
+                        h['inventory'] = inv['id']
+                        print(h)
+                        host = host_res.create(**h)
+                        host_res.associate(host=host['id'], group=group['id'])
+
+if tower.projects:
+    # create projects 
+    print "\nCreating Projects\n"
+    for p in tower.projects:
+        print(p)
+        p['organization'] = org_id
+        p['description'] = "Openbmc playbooks {version} for Mipocket".format(version=os.environ.get('MISM_VERSION'))
+        project_res.create(**p)
+
+if tower.job_templates:
+    print "Waiting 60 seconds for projects to index."
+    print "Press any key to skip if you know what you're doing."
+    timeout = 60
+    rlist, wlist, xlist = select([sys.stdin], [], [], timeout)
+    # create job templates
+    print "\nCreating Job Templates\n"
+    for j in tower.job_templates:
+        print(j)
+        inv = inv_res.get(name=j['inventory'])
+        j['inventory'] = inv['id']
+        project = project_res.get(name=j['project'])
+        j['project'] = project['id']
+        j['organization'] = org_id
+        job_template_res.create(**j)
+
+
+print("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
+print("now define your variables in your AWX inventory : ")
+print("- reboot (default is True)")
+print("- forceoff (default is True)")
+print("- rsyslog_server_ip (default is 0.0.0.0)")
+print("- rsyslog_server_port (default is 514)")
+print("- technical_state_path (default is /host/mnt meaning /mnt on your docker host)")
+print("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
+
+
+
+

@@ -1,0 +1,18 @@
+#set base image 
+FROM zabbix/zabbix-web-nginx-pgsql:centos-latest
+
+ARG mism_version
+
+ENV MISM_VERSION=$mism_version
+
+COPY items.inc.php /usr/share/zabbix/include/
+COPY logo-header.svg /usr/share/zabbix/assets/img/
+COPY dark-theme.css /usr/share/zabbix/assets/styles/
+COPY blue-theme.css /usr/share/zabbix/assets/styles/
+
+# unset proxy for production
+ENV HTTP_PROXY=
+ENV HTTPS_PROXY=
+# except internal hostnames
+ENV NO_PROXY="127.0.0.1,localhost,zabbix-web,zabbix-server,zabbix-agent,awx_web,awx_task,rabbitmq,postgres,memcached"
+

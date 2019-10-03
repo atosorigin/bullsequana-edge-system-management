@@ -1,0 +1,62 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
+############################
+#
+# OpenBMC Firmware Reader for Zabbix
+#
+# This script reads firmware data from software inventory
+#
+# by francine.sauvage@atos.net
+#
+#
+
+import sys
+import os
+import json
+import argparse
+
+def get_json_from_file(file_name):
+  with open(os.path.join(os.getcwd(), "openbmc", file_name), 'r') as file_to_read:
+    cache = json.load(file_to_read)
+  return cache
+
+def main(args):
+  parser = argparse.ArgumentParser(description="This script reads firmware data previously collected from OpenBMC Mipocket")
+  parser.add_argument("-f", "--file", dest="file", help="file name for the item", required=True)
+  parser.add_argument("-i", "--item", dest="item", help="item identifier like Host BMC or CPLD... with the same uppercase/lowercase as MANIFEST file ", default="Host")
+  parser.add_argument("-p", "--property", dest="property", help="json property of the item", default="Version")
+  parser.add_argument("-a", "--activation", dest="activation", help="Activation", default="Active")
+  args = parser.parse_args()
+  file_item = args.file.strip()  
+
+  items = get_json_from_file(file_item)
+  targeted_purpose = args.item.strip()
+  targeted_activation = args.activation.strip()
+  response = "N/A"
+  for _, item in items.iteritems() :    
+    # Activation
+    item_activation = item.get("Activation", None)
+    if not item_activation:
+      continue
+    item_activation = item_activation.split('xyz.openbmc_project.Software.Activation.Activations.')[-1]
+    if not targeted_activation == item_activation:
+      continue
+    
+    # Purpose
+    item_purpose = item.get("Purpose", None)
+    if not item_purpose:
+      continue
+    item_purpose = item_purpose.split('xyz.openbmc_project.Software.Version.VersionPurpose.')[-1]
+    if not targeted_purpose == item_purpose :
+      continue
+    # Found same Activation and Purpose
+    item_version = item.get("Version", None)
+    response = item_version
+    break
+  if type(response) == unicode and response.startswith("xyz.openbmc_project.Software."):
+    response = response.replace('xyz.openbmc_project.Software.','')
+  if response:
+    print(response)
+
+main(sys.argv)

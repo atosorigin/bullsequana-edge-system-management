@@ -1,0 +1,14 @@
+---
+- hosts: all
+  connection: local
+  name: Check System Power - Turn on
+  gather_facts: False
+  vars:
+    datatype: power_on
+
+  tasks:
+
+  - include_tasks: ../utils/utils_create_token.yml
+
+  - include_tasks: ../utils/utils_check_power_on.yml    
+

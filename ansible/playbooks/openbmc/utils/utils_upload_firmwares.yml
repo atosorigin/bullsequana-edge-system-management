@@ -1,0 +1,15 @@
+---
+  - name: upload Firmware Images
+    uri:
+      url: https://{{ baseuri }}/upload/image
+      method: PUT
+      validate_certs: no
+      src: "{{ item.path }}/{{ item.file }}"
+      headers:
+        X-Auth-Token: "{{ x_token }}"
+        Content-Type: "application/octet-stream"
+    with_items: "{{ evaluate_firmware_update }}"
+    ignore_errors: yes
+    register: result_upload_firmwares
+
+

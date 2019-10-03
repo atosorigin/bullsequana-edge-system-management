@@ -1,0 +1,39 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
+############################
+#
+# OpenBMC Collector for Zabbix
+#
+# This script send an SMS to SMS-mode web site
+#
+# by francine.sauvage@atos.net
+#
+#
+
+import sys
+import requests
+import urllib
+import urllib3
+from requests.auth import HTTPBasicAuth
+import os
+import json
+import argparse
+
+urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
+
+def send_message(accessToken, to, message):
+  url = "https://api.smsmode.com/http/1.6/sendSMS.do?accessToken={accessToken}&message={message}&numero={numero}".format(accessToken=accessToken, message=message, numero=to)
+  response = requests.get(url)
+  print(response)
+
+def main(args):
+  parser = argparse.ArgumentParser(description="This script send an sms to sms-mode provider for OpenBMC Mipocket")
+  parser.add_argument("-a", "--accessToken", dest="accessToken", help="smsmode access token", required=True)
+  parser.add_argument("-m", "--message", dest="message", help="message to send", required=True)
+  parser.add_argument("-t", "--to", dest="to", help="to phone number", required=True)
+  args = parser.parse_args()
+  send_message(args.accessToken, args.to, args.message)
+
+main(sys.argv)
+

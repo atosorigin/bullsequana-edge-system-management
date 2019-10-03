@@ -1,0 +1,17 @@
+---
+  - name: get Host Power
+    uri:
+      url: https://{{ baseuri }}/xyz/openbmc_project/state/host0/attr/CurrentHostState
+      method: GET
+      validate_certs: no
+      headers:
+        X-Auth-Token: "{{ x_token }}"
+    register: result_power_on
+
+  - set_fact:
+      check_power_on: "{{ result_power_on.json.data }}"
+
+  - name: check Host Power is On
+    fail:
+      msg: "The host NOT On"
+    when: check_power_on != "xyz.openbmc_project.State.Host.HostState.Running"

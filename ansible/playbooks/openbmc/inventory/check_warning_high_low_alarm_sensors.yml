@@ -1,0 +1,40 @@
+---
+- hosts: all
+  connection: local
+  name: Sensor Inventory
+  gather_facts: False
+
+  tasks:
+  - name: create auth token
+    include_tasks: ../utils/utils_create_token.yml
+
+  - name: get sensors
+    uri:
+      url: "https://{{ baseuri }}/xyz/openbmc_project/sensors/enumerate"
+      method: GET
+      validate_certs: no
+      headers:
+        X-Auth-Token: "{{ x_token }}"    
+    register: result_sensors
+
+  - set_fact:
+      check_sensors: "{{ result_sensors.json.data }}"
+
+  - name: check Warning alarms
+    debug: 
+      var: check_sensors
+    when: check_sensors is defined
+
+  - name: check Warning Alarm Low
+    debug:
+      var: item.value
+      verbosity: 2
+    failed_when: "{{ item.value.WarningAlarmLow }} == true and {{ item.value.Value }} != 0"
+    with_dict: "{{ check_sensors }}"
+
+  - name: check Warning Alarm High
+    debug:
+      var: item.value
+      verbosity: 2
+    failed_when: "{{ item.value.WarningAlarm=High }} == true and {{ item.value.Value }} != 0"
+    with_dict: "{{ check_sensors }}"

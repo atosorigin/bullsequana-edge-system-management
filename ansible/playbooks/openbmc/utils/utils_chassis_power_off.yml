@@ -1,0 +1,13 @@
+---
+  - name: immediate Shutdown
+    uri:
+      url: https://{{ baseuri }}/xyz/openbmc_project/state/chassis0/attr/RequestedPowerTransition
+      method: PUT
+      validate_certs: no
+      headers:
+        X-Auth-Token: "{{ x_token }}"
+      body_format: json
+      body: 
+        data: xyz.openbmc_project.State.Chassis.Transition.Off
+    register: result_power_off
+

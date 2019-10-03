@@ -1,0 +1,17 @@
+---
+- hosts: all
+  name: Firmware Update
+  connection: local
+  gather_facts: False
+  
+  tasks:
+  - include_tasks: ../utils/utils_create_token.yml
+
+  - include_tasks: ../utils/utils_firmware_inventory.yml
+
+  - name: render Ready Firmwares
+    debug:
+      msg: "Ready {{ item.value.Purpose }} - {{ item.value.Version }} ({{ item.key }})"
+    when: item.value.Activation is defined and item.value.Activation == "xyz.openbmc_project.Software.Activation.Activations.Active"
+    with_dict: "{{ firmware_inventory }}"
+

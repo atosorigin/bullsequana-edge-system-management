@@ -1,0 +1,17 @@
+---
+
+  - name: create token from OpenBMC
+    uri:
+      url: https://{{ baseuri }}/login
+      method: POST
+      validate_certs: no
+      headers:
+       Content-Type: "application/json"
+      body_format: json
+      body: 
+        username: "{{ username }}"
+        password: "{{ password }}"
+    register: result
+
+  - set_fact: 
+      x_token: "{{ result.json.token }}"

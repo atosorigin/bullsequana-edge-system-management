@@ -1,0 +1,26 @@
+---
+- hosts: all
+  connection: local
+  name: Get Power Cap
+  gather_facts: False
+
+  tasks:
+
+  - include_tasks: ../utils/utils_create_token.yml
+
+  - name: get Power Cap
+    uri:
+      url: https://{{ baseuri }}/xyz/openbmc_project/control/host0/power_cap
+      method: GET
+      validate_certs: no
+      headers:
+        X-Auth-Token: "{{ x_token }}"
+    register: result_power_cap
+
+  - set_fact:
+      power_cap: "{{ result_power_cap.json.data }}"
+   
+  - debug:
+      var: power_cap
+    when: power_cap is defined
+

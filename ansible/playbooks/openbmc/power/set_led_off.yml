@@ -1,0 +1,22 @@
+---
+- hosts: all
+  connection: local
+  name: Manage Server LED Light off -
+  gather_facts: False
+
+  tasks:
+
+  - include_tasks: ../utils/utils_create_token.yml
+
+  - name: set Off
+    uri:
+      url: https://{{ baseuri }}/xyz/openbmc_project/led/groups/enclosure_identify/attr/Asserted
+      method: PUT
+      validate_certs: no
+      headers:
+        X-Auth-Token: "{{ x_token }}"
+      body_format: json
+      body: 
+        data: false
+    register: result_led_off
+

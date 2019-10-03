@@ -1,0 +1,13 @@
+---
+  - name: get firmware inventory
+    uri:
+      url: https://{{ baseuri }}/xyz/openbmc_project/software/enumerate
+      method: GET
+      validate_certs: no
+      headers:
+        X-Auth-Token: "{{ x_token }}"
+    register: result_firmware_inventory
+
+  - set_fact:
+      firmware_inventory: "{{ result_firmware_inventory.json.data }}"
+

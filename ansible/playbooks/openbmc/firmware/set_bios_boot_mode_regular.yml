@@ -1,0 +1,41 @@
+---
+- hosts: all
+  connection: local
+  name: Set Boot Mode Regular
+  gather_facts: False
+  vars_files:
+    - /var/lib/awx/projects/vars/external_vars.yml
+
+  tasks:
+  - include_tasks: ../utils/utils_create_token.yml
+
+  - name: set boot mode Regular
+    uri:
+      url: https://{{ baseuri }}/xyz/openbmc_project/control/host0/boot/one_time/attr/BootMode
+      method: PUT
+      validate_certs: no
+      headers:
+        X-Auth-Token: "{{ x_token }}"        
+      body_format: json
+      body: 
+        data: xyz.openbmc_project.Control.Boot.Mode.Modes.Regular
+
+  - name: get boot mode Regular
+    uri:
+      url: https://{{ baseuri }}/xyz/openbmc_project/control/host0/boot/one_time/attr/BootMode
+      method: GET
+      validate_certs: no
+      headers:
+        X-Auth-Token: "{{ x_token }}"
+    register: result_boot_mode
+
+  - set_fact:
+      boot_mode: "{{ result_boot_mode.json.data }}"
+
+  - name: validate boot mode Regular
+    assert:
+      that:
+        - boot_mode  == "xyz.openbmc_project.Control.Boot.Mode.Modes.Regular"
+      fail_msg: "Bios Boot Mode NOT set to Regular"
+      success_msg: "The Bios Boot Mode is Regular"
+

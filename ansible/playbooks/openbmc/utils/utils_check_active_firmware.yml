@@ -1,0 +1,13 @@
+---
+  - name: load firmwares from Technical State xml file
+    local_action: atos_openbmc technical_state_path='/mnt' category=Update command=EvaluateFirmwareUpdate firmwares={{ firmware_inventory }}    
+    register: result_evaluate_firmware_update
+
+  - set_fact:
+      evaluate_firmware_update: "{{ result_evaluate_firmware_update.result.Firmwares }}"
+
+  - name: evaluated firmware
+    debug:
+      msg: "Evaluated firmware update = {{ item.name }} - version = {{ item.version }} - path = {{ item.path }} - file = {{ item.file }} "
+    with_items: "{{ evaluate_firmware_update }}"
+

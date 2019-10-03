@@ -1,0 +1,26 @@
+---
+- hosts: all
+  name: BMC State Inventory
+  connection: local
+  gather_facts: False
+  
+  tasks:
+  - include_tasks: ../utils/utils_create_token.yml
+
+  - name: get BMC State Inventory
+    uri:
+      url: https://{{ baseuri }}/xyz/openbmc_project/state/bmc0/attr/CurrentBMCState
+      method: GET
+      validate_certs: no
+      headers:
+        X-Auth-Token: "{{ x_token }}"
+    register: result_bmc_state    
+
+  - set_fact:
+      bmc_state_inventory: "{{ result_bmc_state.json.data }}"
+
+  - name: Render bmc_state_inventory
+    debug:
+      var: bmc_state_inventory
+    when: bmc_state_inventory is defined
+

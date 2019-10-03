@@ -1,0 +1,5 @@
+{
+  {% for host in ansible_play_hosts %} 
+    "{{ hostvars[host].inventory_hostname }}" : {{ sensors | to_json }}
+  {% endfor %}
+}

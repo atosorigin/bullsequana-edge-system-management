@@ -1,0 +1,12 @@
+---
+  - name: reboot BMC
+    uri:
+      url: https://{{ baseuri }}/xyz/openbmc_project/state/bmc0/attr/RequestedBMCTransition
+      method: PUT
+      validate_certs: no
+      headers:
+        X-Auth-Token: "{{ x_token }}"
+        Content-Type: "application/json"
+      body:
+        data: xyz.openbmc_project.State.BMC.Transition.Reboot
+      body_format: json

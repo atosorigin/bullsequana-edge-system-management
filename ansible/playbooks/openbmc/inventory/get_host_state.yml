@@ -1,0 +1,25 @@
+---
+- hosts: all
+  name: Host State Inventory
+  connection: local
+  gather_facts: False
+  
+  tasks:
+  - include_tasks: ../utils/utils_create_token.yml
+
+  - name: get Host State Inventory
+    uri:
+      url: https://{{ baseuri }}/xyz/openbmc_project/state/host0/attr/CurrentHostState
+      method: GET
+      validate_certs: no
+      headers:
+        X-Auth-Token: "{{ x_token }}"
+    register: result_host_state    
+
+  - set_fact:
+      host_state: "{{ result_host_state.json.data }}"
+
+  - name: render one host_state_inventory
+    debug:
+      var: host_state
+    when: host_state is defined

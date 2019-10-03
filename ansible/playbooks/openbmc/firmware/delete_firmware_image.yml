@@ -1,0 +1,19 @@
+---
+- hosts: all
+  name: Delete Firmware Image
+  connection: local
+  gather_facts: False
+  
+  tasks:
+
+  - name: assert image variable
+    assert:
+      that:
+        - image is defined
+      fail_msg: "Please enter the image to delete like image=3f4512a12"
+      success_msg: "The image is defined"
+
+  - include_tasks: ../utils/utils_create_token.yml
+
+  - include_tasks: ../utils/utils_delete_uploaded_firmware.yml
+  

@@ -1,0 +1,25 @@
+---
+- hosts: all
+  name: Get FRU Inventory
+  connection: local
+  gather_facts: False
+  
+  tasks:
+  - include_tasks: ../utils/utils_create_token.yml
+
+  - name: Get FRU Inventory
+    uri:
+      url: https://{{ baseuri }}/xyz/openbmc_project/inventory/system
+      method: GET
+      validate_certs: no
+      headers:
+        X-Auth-Token: "{{ x_token }}"
+    register: result_FRU_inventory
+
+  - set_fact:
+      FRU_inventory: "{{ result_FRU_inventory.json.data }}"
+
+  - name: Render json FRU
+    debug:
+      var: FRU_inventory
+    when: FRU_inventory is defined

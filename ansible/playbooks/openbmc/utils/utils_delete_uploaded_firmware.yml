@@ -1,0 +1,14 @@
+---
+  - name: Delete Uploaded Firmware Images
+    uri:
+      url: https://{{ baseuri }}/xyz/openbmc_project/software/{{ image }}/action/Delete
+      method: POST
+      validate_certs: no
+      headers:
+        X-Auth-Token: "{{ x_token }}"
+        Content-Type: "application/json"
+      body_format: json
+      body: 
+        data: []
+
+

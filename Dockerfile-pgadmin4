@@ -1,0 +1,9 @@
+#set base image 
+FROM dpage/pgadmin4
+
+USER root 
+
+ENV PGADMIN_DEFAULT_EMAIL=pgadmin@mism.com
+ENV PGADMIN_DEFAULT_PASSWORD=SuperSecret
+
+WORKDIR /var/lib/pgadmin/storage

@@ -1,0 +1,62 @@
+---
+- hosts: all
+  connection: local
+  name: Sensor Inventory
+  gather_facts: False
+  vars_files:
+    - /var/lib/awx/projects/vars/external_vars.yml
+
+  tasks:
+  - include_tasks: ../utils/utils_create_token.yml
+
+  - include_tasks: ../utils/utils_firmware_inventory.yml
+
+  - name: assert forceoff variable
+    assert:
+      that:
+        - forceoff is defined
+      fail_msg: "The variable forceoff is NOT defined in inventory (AWX) or vars/external_vars file (Ansible). See readme.md for more details."
+      success_msg: "The variable forceoff is defined"
+
+  - debug:
+      msg: "forceoff is {{ forceoff }}"
+    when: forceoff is defined
+
+  - name: assert reboot variable
+    assert:
+      that:
+        - reboot is defined
+      fail_msg: "The variable reboot is NOT defined in inventory (AWX) or vars/external_vars file (Ansible). See readme.md for more details."
+      success_msg: "The variable reboot is defined"
+
+  - debug:
+      msg: "reboot is {{ reboot }}"
+    when: reboot is defined
+
+  - name: render Ready Firmwares after Upload
+    debug:
+      msg: "Ready {{ item.value.Purpose }} - {{ item.value.Version }} ({{ item.key }})"
+    when: item.value.Activation is defined and item.value.Activation == "xyz.openbmc_project.Software.Activation.Activations.Ready"
+    with_dict: "{{ firmware_inventory }}"
+
+  - include_tasks: ../utils/utils_active_firmware_update.yml
+
+  - name: pause for 3 minutes for BIOS activation
+    pause:
+      minutes: 3
+    when: forceoff == True and item.value.Activation is defined and item.value.Purpose is defined and item.value.Activation == "xyz.openbmc_project.Software.Activation.Activations.Ready" and item.value.Purpose == "xyz.openbmc_project.Software.Version.VersionPurpose.Host"
+    with_dict: "{{ firmware_inventory }}"
+
+  - name: reboot BMC
+    uri:
+      url: https://{{ baseuri }}/xyz/openbmc_project/state/bmc0/attr/RequestedBMCTransition
+      method: PUT
+      validate_certs: no
+      headers:
+        X-Auth-Token: "{{ x_token }}"
+        Content-Type: "application/json"
+      body:
+        data: xyz.openbmc_project.State.BMC.Transition.Reboot
+      body_format: json
+    when: reboot == True
+

@@ -1,0 +1,70 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
+############################
+#
+# OpenBMC Reader for Zabbix
+#
+# This script will be able to read information previously discovered via Collect or LLD
+#
+# by francine.sauvage@atos.net
+#
+#
+# be careful from web side : to truncate to 50 characters : see https://mypoorbraindump.wordpress.com/2012/06/13/zabbix-modify-last-value-column-width/
+
+import sys
+import os
+import json
+import argparse
+
+def get_json_from_file(file_name):
+  try:    
+    with open(os.path.join(os.getcwd(), "openbmc", file_name), 'r') as file_to_read:
+      cache = json.load(file_to_read)
+    return cache
+  except:
+    return
+
+def main(args):
+  parser = argparse.ArgumentParser(description="This script reads previously collected information from OpenBMC Mipocket")
+  parser.add_argument("-f", "--file", dest="file", help="file name for the item", required=True)
+  parser.add_argument("-i", "--item", dest="item", help="item identifier like /xyz/openbmc_project/sensors/enumerate or /xyz/openbmc_project/inventory/system")
+  parser.add_argument("-p", "--property", dest="property", help="json property of the item", required=False)
+  args = parser.parse_args()
+  file_item = args.file.strip()  
+
+  item = None
+  if not args.item:
+    item = get_json_from_file(file_item)
+    if not item:
+      #print None
+      return
+  else:
+    items = get_json_from_file(file_item)
+    if not items:
+      #print None
+      return    
+    item = args.item.strip()
+    if file_item.endswith('temperature.json'):
+      item = '/xyz/openbmc_project/sensors/temperature/' + item
+    if file_item.endswith('voltage.json'):
+      item = '/xyz/openbmc_project/sensors/voltage/' + item
+    if file_item.endswith('fan_tach.json'):
+      item = '/xyz/openbmc_project/sensors/fan_tach/' + item
+    item = items.get(item, None)
+  if not item:
+    #print None
+    return
+  if args.property:
+    response = item.get(args.property.strip(),None) # a property is specified
+  else:
+    response = item # no property specified => return json object
+  if type(response) == unicode and response.startswith("xyz.openbmc_project.State."):
+    response = response.replace('xyz.openbmc_project.State.','')
+  if type(response) == unicode and response.startswith("xyz.openbmc_project.Control."):
+    response = response.replace('xyz.openbmc_project.Control.','')  
+  if type(response) == unicode and response.startswith("xyz.openbmc_project."):
+    response = response.replace('xyz.openbmc_project.','')
+  print(response)
+
+main(sys.argv)

@@ -1,0 +1,17 @@
+---
+- hosts: all
+  connection: local
+  name: Check BMC Alive
+  gather_facts: False
+
+  tasks:
+
+  - name: Check if BMC is alive
+    uri:
+      url: https://{{ baseuri }}
+      method: GET
+      validate_certs: no
+    register: result_bmc_alive
+
+  
+

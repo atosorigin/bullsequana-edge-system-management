@@ -1,0 +1,85 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
+############################
+#
+# OpenBMC Low-Level Discovery for Zabbix
+#
+# This script discovers enumerables from OpenBMC Mipocket like sensors ...
+#
+# by francine.sauvage@atos.net
+#
+#
+#print('{"data": [{"{#SENSORS}": "sensors/temperature/vr13_pch_temp"}, {"{#SENSORS}": "sensors/voltage/p3v3_aux"}]}')
+#exit(0)
+import sys
+import requests
+import urllib
+import urllib3
+from requests.auth import HTTPBasicAuth
+import os
+import json
+import argparse
+from openbmc_psk_password import AESCipher
+
+urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
+
+def get_filename(item_to_file, host):
+  if not item_to_file.endswith("/enumerate"):
+    raise TypeError('item should ends with /enumerate : ({item} given)'.format(item=item_to_file))
+
+  filename = item_to_file.split("/")
+  macroname = filename[-2]
+  filename = "{host}-{item}.json".format(host=host, item=macroname)
+  return os.path.join(os.getcwd(), "openbmc", filename), macroname.upper()
+
+def write_collect(file_name, json_to_write):
+  with open(file_name, 'w') as file_to_write:
+    json.dump(json_to_write, file_to_write)
+
+def create_macro_lld(macro, json_lld, substring_to_remove):
+  macros = {}
+  discovery_list = []
+  macro_key = r"{#" + macro + r"}"
+  #macro_unit = r"{#UNIT}"
+  #macro_name = r"{#NAME}""
+  #loop = 0
+#  for key, item in json_lld.iteritems(): 
+  
+  for key in json_lld:
+    #name = key.split('/')[-1]    
+    #unit = item.get("Unit", None).replace('xyz.openbmc_project.Sensor.Value.Unit.','')
+    #loop = loop + 1
+    #if loop > 2:
+    #  break
+    item_macro = {macro_key:key.replace(substring_to_remove,'')} #,macro_unit:unit
+    discovery_list.append(item_macro)
+  macros["data"] = discovery_list
+  return macros
+    
+def main(args):
+  parser = argparse.ArgumentParser(description="This script discover enumerable data from OpenBMC Mipocket")
+  parser.add_argument("-u", "--user", dest="user", help="user name for BMC", required=True)
+  parser.add_argument("-p", "--password", dest="password", help="password for BMC", required=True)
+  parser.add_argument("-b", "--bmc", dest="bmc", help="IP for the BMC", required=True)
+  parser.add_argument("-i", "--item", dest="item", help="item identifier like /xyz/openbmc_project/sensors/enumerate or /xyz/openbmc_project/inventory/system", required=True)
+  args = parser.parse_args()
+  if not args.user or not args.password or not args.bmc or not args.item:
+    raise TypeError('openbmc_collect() takes 4 arguments ({} given)'.format(len(args) + 1))
+
+  password = args.password.strip()
+  decrypted_password = AESCipher(args.password.strip()).decrypt()
+  if decrypted_password:
+    password = decrypted_password
+
+  uri = "https://{host}{item_url}".format(host=args.bmc.strip(), item_url=args.item.strip())
+  response = requests.get(uri, auth=HTTPBasicAuth(args.user.strip(), password), verify=False)
+  data = response.json()
+  item = args.item.strip()
+  filename, macro = get_filename(item, args.bmc.strip())
+  write_collect(filename, data["data"])
+  macro_list = create_macro_lld(macro, data["data"], item.split('enumerate')[0])
+  macro_json = json.dumps(macro_list)
+  print('{macro_json}'.format(macro_json=macro_json))
+
+main(sys.argv)

@@ -1,0 +1,26 @@
+---
+- hosts: all
+  connection: local
+  name: Network Inventory
+  gather_facts: False
+
+  tasks:
+  - name: create auth token
+    include_tasks: ../utils/utils_create_token.yml
+
+  - name: get Network
+    uri:
+      url: "https://{{ baseuri }}/xyz/openbmc_project/network/enumerate"
+      method: GET
+      validate_certs: no
+      headers:
+        X-Auth-Token: "{{ x_token }}"    
+    register: result_network
+
+  - set_fact:
+      network: "{{ result_network.json.data }}"
+   
+  - name: render network
+    debug:
+      var: network
+    when: network is defined

@@ -1,0 +1,49 @@
+---
+- hosts: all
+  connection: local
+  name: Get Rsyslog Server IP and Port
+  gather_facts: False
+  vars_files:
+    - /var/lib/awx/projects/vars/external_vars.yml
+
+  tasks:
+
+  - debug:
+      msg: "rsyslog server ip in vars file = {{ rsyslog_server_ip }}"
+    when: rsyslog_server_ip is defined
+
+  - debug:
+      msg: "rsyslog server port in vars file = {{ rsyslog_server_port }}"
+    when: rsyslog_server_port is defined
+
+  - include_tasks: ../utils/utils_create_token.yml
+
+  - name: get Rsyslog Server IP
+    uri:
+      url: https://{{ baseuri }}/xyz/openbmc_project/logging/config/remote/attr/Address
+      method: GET
+      validate_certs: no
+      headers:
+        X-Auth-Token: "{{ x_token }}"
+    register: result_rsyslog_server_ip 
+
+  - name: get Rsyslog Server Port
+    uri:
+      url: https://{{ baseuri }}/xyz/openbmc_project/logging/config/remote/attr/Port
+      method: GET
+      validate_certs: no
+      headers:
+        X-Auth-Token: "{{ x_token }}"
+    register: result_rsyslog_server_port
+
+  - set_fact:
+      address_ip: "{{ result_rsyslog_server_ip.json.data }}"
+
+  - set_fact:
+      port: "{{ result_rsyslog_server_port.json.data }}"
+
+  - name: debug Rsyslog Server Ip and port
+    debug:
+      msg: "Rsyslog Ip = {{address_ip}} / Port = {{port}}"
+    when: address_ip is defined and port is defined
+
