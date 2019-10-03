@@ -14,7 +14,7 @@ COPY logo-header.svg /var/lib/awx/venv/awx/lib64/python3.6/site-packages/awx/ui/
 COPY logo-login.svg /var/lib/awx/venv/awx/lib64/python3.6/site-packages/awx/ui/static/assets/ 
 COPY loginModal.partial.html /var/lib/awx/venv/awx/lib64/python3.6/site-packages/awx/ui/static/partials/login/loginModal/
 
-RUN yum update
+#RUN yum update
 RUN yum install -y nano dnsutils which nmap software-properties-common -y
 RUN pip install --upgrade pip
 

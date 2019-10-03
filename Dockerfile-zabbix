@@ -16,7 +16,6 @@ RUN yum -y install openssl
 RUN yum -y install python-pip && yum clean all
 RUN yum -y update
 
-
 #RUN yum -y install gammu
 RUN pip install --upgrade pip
 RUN pip install requests
