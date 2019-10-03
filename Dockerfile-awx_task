@@ -7,10 +7,6 @@ ENV MISM_VERSION=$mism_version
 
 USER root 
 
-ENV HTTP_PROXY="http://193.56.47.20:8080"
-ENV HTTPS_PROXY="http://193.56.47.20:8080"
-ENV NO_PROXY="127.0.0.1,localhost,webserver,0.0.0.0:9090,0.0.0.0,ansible,zabbix,awx,awx_web,awx_task,rabbitmq,postgres,memcached,elasticsearch,kibana,logstash,filebeat,metricbeat,heartbeat,auditbeat,grafana,prometheus,nodeexporter,caddy,cadvisor,alertmanager,172.31.130.224,172.31.60.18,172.31.92.239,172.31.100.156,172.31.60.18,172.31.92.249,172.31.92.222,172.31.92.44,172.31.92.34"
-
 COPY ansible.credentials.py /etc/tower/conf.d/credentials.py
 COPY ansible.environment.sh /etc/tower/conf.d/environment.sh
 COPY ansible.SECRET_KEY /etc/tower/SECRET_KEY
@@ -43,11 +39,5 @@ RUN pip install pika
 RUN pip install paramiko --upgrade
 #Install netaddr so we can use ipaddr filter in ansible
 RUN pip install netaddr
-
-# unset proxy for production
-ENV HTTP_PROXY=
-ENV HTTPS_PROXY=
-# except internal hostnames
-ENV NO_PROXY="127.0.0.1,localhost,zabbix-web,zabbix-server,zabbix-agent,awx_web,awx_task,rabbitmq,postgres,memcached"
 
 WORKDIR /var/lib/awx

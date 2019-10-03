@@ -34,9 +34,14 @@ services:
       ANSIBLE_INVENTORY: /var/lib/awx/inventory
 #      ANSIBLE_VAULT_PASSWORD_FILE: ansible_password.txt
 #      ANSIBLE_INVENTORY_CACHE: yes
-      http_proxy: http://193.56.47.8:8080
-      https_proxy: http://193.56.47.8:8080
-      no_proxy: 127.0.0.1,localhost,webserver,0.0.0.0:9090,0.0.0.0,ansible,zabbix,awx,awx_web,awx_task,rabbitmq,postgres,memcached,elasticsearch,kibana,logstash,filebeat,metricbeat,heartbeat,auditbeat,grafana,prometheus,nodeexporter,caddy,cadvisor,alertmanager,172.31.130.224,172.31.60.18,172.31.92.239,172.31.100.156,172.31.60.18,172.31.92.249,172.31.92.222,172.31.92.44,172.31.92.34,172.31.92.49,172.31.120.13
+      TOWER_HOST: https://localhost:8052
+      TOWER_USERNAME: mism
+      TOWER_PASSWORD: mismpass
+      TOWER_VERIFY_SSL: "false"
+      TOWER_INSECURE: "true"
+      http_proxy: ${HTTP_PROXY}
+      https_proxy: ${HTTPS_PROXY}
+      no_proxy: ${NO_PROXY}
 
   awx_task:
     build: 
@@ -70,15 +75,13 @@ services:
       ANSIBLE_INVENTORY: /var/lib/awx/inventory
 #      ANSIBLE_VAULT_PASSWORD_FILE: ansible_password.txt
 #      ANSIBLE_INVENTORY_CACHE: yes
-      http_proxy: http://193.56.47.8:8080
-      https_proxy: http://193.56.47.8:8080
-      no_proxy: 127.0.0.1,localhost,zabbix,webserver,nodered,0.0.0.0:9090,0.0.0.0,ansible,awx,awx_web,awx_task,rabbitmq,postgres,memcached,elasticsearch,kibana,logstash,filebeat,metricbeat,heartbeat,auditbeat,grafana,prometheus,nodeexporter,caddy,cadvisor,alertmanager,172.31.130.224,172.31.60.18,172.31.92.239,172.31.100.156,172.31.60.18,172.31.92.249,172.31.92.222,172.31.92.44,172.31.92.34,172.31.92.49,172.31.120.13
+      http_proxy: ${HTTP_PROXY}
+      https_proxy: ${HTTPS_PROXY}
+      no_proxy: ${NO_PROXY}
 
 
   rabbitmq:
-    build:
-      context: .
-      dockerfile: Dockerfile-rabbitmq 
+    image: rabbitmq:3-management
     container_name: awx_rabbitmq
     restart: unless-stopped
     hostname: rabbitmq
@@ -88,6 +91,11 @@ services:
     ports:
       - 15672:15672
       - 5672:5672    
+    environment:
+      RABBITMQ_DEFAULT_VHOST: awx
+      RABBITMQ_DEFAULT_USER: mism
+      RABBITMQ_DEFAULT_PASS: mismpass
+      RABBITMQ_ERLANG_COOKIE: cookiemonster    
 
   memcached:
     image: memcached:alpine
@@ -95,9 +103,7 @@ services:
     restart: unless-stopped
 
   awx_postgres:
-    build:
-      context: .
-      dockerfile: Dockerfile-awx-postgres
+    image: postgres:latest
     container_name: awx_postgres
     hostname: awx_postgres
     restart: unless-stopped
@@ -107,11 +113,14 @@ services:
       - 5432
     volumes:
       - ./ansible/pgdata:/var/lib/postgresql/data/pgdata:Z
+    environment:
+      POSTGRES_USER: mism
+      POSTGRES_PASSWORD: mismpass
+      POSTGRES_DB: mism
+      PGDATA: /var/lib/postgresql/data/pgdata
 
   pgadmin:
-    build: 
-      context: .
-      dockerfile: Dockerfile-pgadmin4
+    image: dpage/pgadmin4
     container_name: pgadmin
     depends_on:
       - awx_postgres
@@ -121,4 +130,8 @@ services:
       - 7070:80
     volumes:
       - ./pgadmin:/var/lib/pgadmin/storage:Z
+    environment:
+      PGADMIN_DEFAULT_EMAIL: pgadmin@mism.com
+      PGADMIN_DEFAULT_PASSWORD: mismpass
+
 
