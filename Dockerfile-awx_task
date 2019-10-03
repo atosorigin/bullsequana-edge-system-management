@@ -14,18 +14,8 @@ COPY ansible.SECRET_KEY /etc/tower/SECRET_KEY
 
 # To be done manually from container : RUN yum update
 RUN yum install -y nano dnsutils which nmap software-properties-common
-#git
-#RUN yum install -y python-dev zlib1g-dev libffi-dev libssl-dev libxml2-dev libxslt1-dev 
 
 RUN pip install --upgrade pip 
-
-# Incompatible with .py external docker volume files
-# Do it with docker exec after removing volumes
-
-# Warning TODO with [root@vm247-1 mism]# docker-compose -f docker-compose-awx.yml build NOT directly with docker exec => lost
-# cd /usr/lib/python2.7/site-packages/ansible/
-# RUN pip install git+https://github.com/ansible/ansible.git@devel 
-# not used --proxy=193.56.47.8:8080
 
 # Warning : NOT nmap => https://stackoverflow.com/questions/14913153/module-object-has-no-attribute-portscanner
 RUN pip install python-nmap
