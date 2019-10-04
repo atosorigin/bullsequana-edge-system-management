@@ -16,7 +16,7 @@ inventories:
       
 projects:
   - name: BullSequana Edge Playbooks
-    local_path: BullSequana Edge
+    local_path: openbmc
     scm-type: manual
 
 job_templates:

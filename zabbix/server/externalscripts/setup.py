@@ -1,4 +1,12 @@
-from distutils.core import setup
+#
+# Atos BullSequana Edge Zabbix Template
+# Version 2.0
+# Copyright (C) 2019 Atos or its subsidiaries. All Rights Reserved.
+
+# GNU General Public License v3.0+ (see COPYING or https://www.gnu.org/licenses/gpl-3.0.txt)
+#
+# 
+# from distutils.core import setup
 
 def readme():
     with open('README.md') as f:

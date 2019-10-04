@@ -3,7 +3,13 @@ from Crypto.Cipher import AES
 from Crypto.Random import new as Random
 from hashlib import sha256
 from base64 import b64encode,b64decode
+#
+# Atos BullSequana Edge Zabbix Template
+# Version 2.0
+# Copyright (C) 2019 Atos or its subsidiaries. All Rights Reserved.
 
+# GNU General Public License v3.0+ (see COPYING or https://www.gnu.org/licenses/gpl-3.0.txt)
+#
 class AESCipher:
   def __init__(self,data):
     if os.path.exists('/etc/zabbix/zabbix_agentd.psk'):

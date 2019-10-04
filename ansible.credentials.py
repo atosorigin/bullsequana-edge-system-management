@@ -2,20 +2,20 @@ DATABASES = {
     'default': {
         'ATOMIC_REQUESTS': True,
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': os.environ.get("DATABASE_NAME"),
-        'USER': os.environ.get("DATABASE_USER"),
-        'PASSWORD': os.environ.get("DATABASE_PASSWORD"),
-        'HOST': os.environ.get("DATABASE_HOST"),
-        'PORT': os.environ.get("DATABASE_PORT"),
+        'NAME': "mism",
+        'USER': "mism",
+        'PASSWORD': "mismpass",
+        'HOST': "awx_postgres",
+        'PORT': "5432",
     }
 }
 
 BROKER_URL = 'amqp://{}:{}@{}:{}/{}'.format(
-    os.environ.get("RABBITMQ_DEFAULT_USER"),
-    os.environ.get("RABBITMQ_DEFAULT_PASS"),
-    os.environ.get("RABBITMQ_HOST"),
+    "mism",
+    "mismpass",
+    "rabbitmq",
     "5672",
-    os.environ.get("RABBITMQ_DEFAULT_VHOST"))
+    "awx")
 
 CHANNEL_LAYERS = {
     'default': {'BACKEND': 'asgi_amqp.AMQPChannelLayer',
@@ -32,5 +32,3 @@ CACHES = {
         'BACKEND': 'django.core.cache.backends.locmem.LocMemCache',
     },
 }
-
-
