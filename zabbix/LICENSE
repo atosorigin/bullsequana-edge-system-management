@@ -1,4 +1,4 @@
-GNU LESSER GENERAL PUBLIC LICENSE
+                   GNU GENERAL PUBLIC LICENSE
                        Version 3, 29 June 2007
 
  Copyright (C) 2007 Free Software Foundation, Inc. <http://fsf.org/>
@@ -164,3 +164,11 @@ apply, that proxy's public statement of acceptance of any version is
 permanent authorization for you to choose that version for the
 Library.
 
+------------------------------------------------------------------------------------
+This product bundles various third-party components under other open source licenses.
+This section summarizes those components and their licenses. See licenses/
+for text of these licenses.
+
+GNU GENERAL PUBLIC LICENSE Version 3.0
+------------------------------------
+Zabbix
