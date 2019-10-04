@@ -1,4 +1,10 @@
-# Copyright: (c) 2019, Francine Sauvage <@fsauvage>
+#
+# Atos BullSequana Edge Ansible Modules
+# Version 2.0
+# Copyright (C) 2019 Atos or its subsidiaries. All Rights Reserved.
+
+# GNU General Public License v3.0+ (see COPYING or https://www.gnu.org/licenses/gpl-3.0.txt)
+#
 
 from __future__ import (absolute_import, division, print_function)
 __metaclass__ = type
@@ -28,7 +34,6 @@ from ansible.parsing.yaml.dumper import AnsibleDumper
 from ansible.utils.color import colorize, hostcolor
 from ansible.plugins.callback import CallbackBase, strip_internal_keys, module_response_deepcopy
 from ansible.plugins.callback.default import CallbackModule as Default
-
 
 class CallbackModule(Default):
 

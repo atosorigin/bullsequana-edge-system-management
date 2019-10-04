@@ -72,7 +72,7 @@ if tower.projects:
     for p in tower.projects:
         print(p)
         p['organization'] = org_id
-        p['description'] = "Openbmc playbooks {version} for Mipocket".format(version=os.environ.get('MISM_BULLSEQUANA_EDGE_VERSION'))
+        p['description'] = "Playbooks {version} for BullSequana Edge".format(version=os.environ.get('MISM_BULLSEQUANA_EDGE_VERSION'))
         project_res.create(**p)
 
 if tower.job_templates:

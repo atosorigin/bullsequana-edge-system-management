@@ -1,3 +1,21 @@
+# BullSequana Edge Ansible Modules
+
+BullSequana Edge Ansible Modules allows Data Center and IT administrators to use RedHat Ansible or AWX to automate and orchestrate the operations (power, update) of BullSequana Edge.
+
+## Supported Platforms
+BullSequana Edge 
+
+## Prerequisites
+  * AWX >= 4.0
+  * zabbix >= 4.2
+  * Python >= 2.7.5
+
+Optionaly, 2 ready-to-go AWX-Ansible / zabbix images are available on Dockerhub
+  * Dockerhub AWX and zabbix Atos docker images 
+    - [here](https://cloud.docker.com/repository/docker/francinesauvage/mism_awx_web)
+    - [here](https://cloud.docker.com/repository/docker/francinesauvage/mism_awx_task)
+
+
 Warning for updates
 =================== 
 <span style="color:red">Never change original playbooks => duplicate playbooks
@@ -361,3 +379,11 @@ ansible-doc -t inventory --list
 Version:
 ========
 MISM version 2.0.1
+
+## Support
+  * This branch corresponds to the release actively under development.
+  * If you want to report any issue, then please report it by creating a new issue [here](https://github.com/atos/MISM/issues)
+  * If you have any requirements that is not currently addressed, then please let us know by creating a new issue [here](https://github.com/atos/MISM/issues)
+
+## LICENSE
+This project is licensed under GPL-3.0 License. Please see the [COPYING](./COPYING.md) for more information
