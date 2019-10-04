@@ -1,6 +1,6 @@
 # Bull Sequana Edge Ansible playbooks and zabbix templates
 
-##
+This project includes Ansible playbooks and zabbix templates for Bull Sequana Edge devices
 
 ## Support
   * This branch corresponds to the release actively under development.
