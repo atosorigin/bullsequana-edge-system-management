@@ -8,9 +8,8 @@ ENV MISM_VERSION=$mism_version
 USER root 
 
 COPY ansible.credentials.py /etc/tower/conf.d/credentials.py
-COPY ansible.environment.sh /etc/tower/conf.d/environment.sh
+#COPY ansible.environment.sh /etc/tower/conf.d/environment.sh
 COPY ansible.SECRET_KEY /etc/tower/SECRET_KEY
-
 
 # To be done manually from container : RUN yum update
 RUN yum install -y nano dnsutils which nmap software-properties-common

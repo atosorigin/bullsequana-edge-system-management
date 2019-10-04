@@ -1,13 +1,13 @@
-#support multiple orgs eventually
+# support multiple orgs eventually
 # check api on https://localhost/api/v2
 # like https://localhost/api/v2/job_templates/58/
-org: mism
-org_desc:  Mi pocket playbooks
+org: bull
+org_desc:  BullSequana Edge pocket playbooks
 inventories:
-  - name: Openbmc Inventory
-    description: Mi pocket inventory delivered as an example
+  - name: BullSequana Edge Inventory
+    description: BullSequana Edge inventory delivered as an example
     groups:
-      - name: mipocket
+      - name: BullSequana Edge Group
         source: manual
         hosts:
         - name: <here an ip address>
@@ -15,318 +15,318 @@ inventories:
     variables: '{ "technical_state_path": "/host/mnt", "forceoff": True, "reboot": True, "rsyslog_server_ip":"0.0.0.0", "rsyslog_server_port":"514" }'
       
 projects:
-  - name: Openbmc Playbooks
-    local_path: openbmc
+  - name: BullSequana Edge Playbooks
+    local_path: BullSequana Edge
     scm-type: manual
 
 job_templates:
   - name: Activate firmware updates
     description: Activate all pending firmware updates
-    inventory: Openbmc Inventory
-    project: Openbmc Playbooks
+    inventory: BullSequana Edge Inventory
+    project: BullSequana Edge Playbooks
     playbook: firmware/activate_firmware_update.yml
     job-type: run
     verbosity: 0
   - name: Evaluate firmware update from Technical State
     description: Evaluate firmware update from Atos specific Technical State file
-    inventory: Openbmc Inventory
-    project: Openbmc Playbooks
+    inventory: BullSequana Edge Inventory
+    project: BullSequana Edge Playbooks
     playbook: firmware/evaluate_firmware_update.yml
     job-type: run
     verbosity: 0
   - name: Delete firmware image
     description: Delete firmware image
-    inventory: Openbmc Inventory
-    project: Openbmc Playbooks
+    inventory: BullSequana Edge Inventory
+    project: BullSequana Edge Playbooks
     playbook: firmware/delete_firmware_image.yml
     job-type: run
     verbosity: 0
   - name: Firmware inventory - Active
     description: Get active firmware inventory
-    inventory: Openbmc Inventory
-    project: Openbmc Playbooks
+    inventory: BullSequana Edge Inventory
+    project: BullSequana Edge Playbooks
     playbook: firmware/get_active_firmware_inventory.yml
     job-type: run
     verbosity: 0
   - name: Firmware inventory - Ready
     description: Get ready firmware inventory
-    inventory: Openbmc Inventory
-    project: Openbmc Playbooks
+    inventory: BullSequana Edge Inventory
+    project: BullSequana Edge Playbooks
     playbook: firmware/get_ready_firmware_inventory.yml
     job-type: run
     verbosity: 0
   - name: BIOS Boot Mode
     description: BIOS Boot Mode
-    inventory: Openbmc Inventory
-    project: Openbmc Playbooks
+    inventory: BullSequana Edge Inventory
+    project: BullSequana Edge Playbooks
     playbook: firmware/get_bios_boot_mode.yml
     job-type: run
     verbosity: 0
   - name: Set BIOS Boot Mode Regular
     description: Set BIOS Boot Mode to Regular
-    inventory: Openbmc Inventory
-    project: Openbmc Playbooks
+    inventory: BullSequana Edge Inventory
+    project: BullSequana Edge Playbooks
     playbook: firmware/set_bios_boot_mode_regular.yml
     job-type: run
     verbosity: 0
   - name: Set BIOS Boot Mode Safe
     description: Set BIOS Boot Mode to Safe
-    inventory: Openbmc Inventory
-    project: Openbmc Playbooks
+    inventory: BullSequana Edge Inventory
+    project: BullSequana Edge Playbooks
     playbook: firmware/set_bios_boot_mode_safe.yml
     job-type: run
     verbosity: 0
   - name: Set BIOS Boot Mode Setup
     description: Set BIOS Boot Mode to Setup
-    inventory: Openbmc Inventory
-    project: Openbmc Playbooks
+    inventory: BullSequana Edge Inventory
+    project: BullSequana Edge Playbooks
     playbook: firmware/set_bios_boot_mode_setup.yml
     job-type: run
     verbosity: 0
   - name: BIOS Boot Source
     description: BIOS Boot Source
-    inventory: Openbmc Inventory
-    project: Openbmc Playbooks
+    inventory: BullSequana Edge Inventory
+    project: BullSequana Edge Playbooks
     playbook: firmware/get_bios_boot_source.yml
     job-type: run
     verbosity: 0
   - name: Set BIOS Boot Source Default
     description: Set BIOS Boot Source to Default
-    inventory: Openbmc Inventory
-    project: Openbmc Playbooks
+    inventory: BullSequana Edge Inventory
+    project: BullSequana Edge Playbooks
     playbook: firmware/set_bios_boot_source_default.yml
     job-type: run
     verbosity: 0
   - name: Set BIOS Boot Source Disk
     description: Set BIOS Boot Source to Disk
-    inventory: Openbmc Inventory
-    project: Openbmc Playbooks
+    inventory: BullSequana Edge Inventory
+    project: BullSequana Edge Playbooks
     playbook: firmware/set_bios_boot_source_disk.yml
     job-type: run
     verbosity: 0
   - name: Set BIOS Boot Source External Media
     description: Set BIOS Boot Source to External Media
-    inventory: Openbmc Inventory
-    project: Openbmc Playbooks
+    inventory: BullSequana Edge Inventory
+    project: BullSequana Edge Playbooks
     playbook: firmware/set_bios_boot_source_external_media.yml
     job-type: run
     verbosity: 0
   - name: Set BIOS Boot Source Network
     description: Set BIOS Boot Source to Network
-    inventory: Openbmc Inventory
-    project: Openbmc Playbooks
+    inventory: BullSequana Edge Inventory
+    project: BullSequana Edge Playbooks
     playbook: firmware/set_bios_boot_source_network.yml
     job-type: run
     verbosity: 0
   - name: Update firmware from file
     extra_vars: ["file_to_upload: /host/mnt/Imagefilename"]
     description: Update Firmware from a file (tar or gzip file)
-    inventory: Openbmc Inventory
-    project: Openbmc Playbooks
+    inventory: BullSequana Edge Inventory
+    project: BullSequana Edge Playbooks
     playbook: firmware/update_firmware_from_file.yml
     ask_variables_on_launch: 1
     job-type: run
     verbosity: 0
   - name: Update firmwares from Technical State
     description: Update all Firmwares from technical state (Atos specific TS file)
-    inventory: Openbmc Inventory
-    project: Openbmc Playbooks
+    inventory: BullSequana Edge Inventory
+    project: BullSequana Edge Playbooks
     playbook: firmware/update_firmwares.yml
     job-type: run
     verbosity: 0
   - name: Upload firmware images from Technical State
     description: Upload images only from technical state (Atos specific TS file)
-    inventory: Openbmc Inventory
-    project: Openbmc Playbooks
+    inventory: BullSequana Edge Inventory
+    project: BullSequana Edge Playbooks
     playbook: firmware/upload_firmwares.yml
     job-type: run
     verbosity: 0
   - name: Check critical high and low alarms
     description: Check critical high and low alarms from sensors
-    inventory: Openbmc Inventory
-    project: Openbmc Playbooks
+    inventory: BullSequana Edge Inventory
+    project: BullSequana Edge Playbooks
     playbook: inventory/check_critical_high_low_alarm_sensors.yml
     job-type: run
     verbosity: 0
   - name: Check warning high and low alarms
     description: Check warning high and low alarms from sensors
-    inventory: Openbmc Inventory
-    project: Openbmc Playbooks
+    inventory: BullSequana Edge Inventory
+    project: BullSequana Edge Playbooks
     playbook: inventory/check_warning_high_low_alarm_sensors.yml
     job-type: run
     verbosity: 0
   - name: State BMC
     description: Get BMC State
-    inventory: Openbmc Inventory
-    project: Openbmc Playbooks
+    inventory: BullSequana Edge Inventory
+    project: BullSequana Edge Playbooks
     playbook: inventory/get_bmc_state.yml
     job-type: run
     verbosity: 0
   - name: State Chassis
     description: Get Chassis State
-    inventory: Openbmc Inventory
-    project: Openbmc Playbooks
+    inventory: BullSequana Edge Inventory
+    project: BullSequana Edge Playbooks
     playbook: inventory/get_chassis_state.yml
     job-type: run
     verbosity: 0
   - name: State Host
     description: Get Host State
-    inventory: Openbmc Inventory
-    project: Openbmc Playbooks
+    inventory: BullSequana Edge Inventory
+    project: BullSequana Edge Playbooks
     playbook: inventory/get_host_state.yml
     job-type: run
     verbosity: 0
   - name: FRU
     description: Get FRU
-    inventory: Openbmc Inventory
-    project: Openbmc Playbooks
+    inventory: BullSequana Edge Inventory
+    project: BullSequana Edge Playbooks
     playbook: inventory/get_FRU.yml
     job-type: run
     verbosity: 0
   - name: Network
     description: Get Network
-    inventory: Openbmc Inventory
-    project: Openbmc Playbooks
+    inventory: BullSequana Edge Inventory
+    project: BullSequana Edge Playbooks
     playbook: inventory/get_network.yml
     job-type: run
     verbosity: 0
   - name: Sensors
     description: Get Sensors
-    inventory: Openbmc Inventory
-    project: Openbmc Playbooks
+    inventory: BullSequana Edge Inventory
+    project: BullSequana Edge Playbooks
     playbook: inventory/get_sensors.yml
     job-type: run
     verbosity: 0
   - name: System
     description: Get System
-    inventory: Openbmc Inventory
-    project: Openbmc Playbooks
+    inventory: BullSequana Edge Inventory
+    project: BullSequana Edge Playbooks
     playbook: inventory/get_system.yml
     job-type: run
     verbosity: 0
   - name: Check Rsyslog Server IP and Port
     description: Check Rsyslog Server IP and Port
-    inventory: Openbmc Inventory
-    project: Openbmc Playbooks
+    inventory: BullSequana Edge Inventory
+    project: BullSequana Edge Playbooks
     playbook: logs/check_rsyslog_server_ip_and_port.yml
     job-type: run
     verbosity: 0
   - name: Rsyslog Server IP and Port
     description: Get Rsyslog Server IP and Port
-    inventory: Openbmc Inventory
-    project: Openbmc Playbooks
+    inventory: BullSequana Edge Inventory
+    project: BullSequana Edge Playbooks
     playbook: logs/get_rsyslog_server_ip_and_port.yml
     job-type: run
     verbosity: 0
   - name: Logs
     description: Get Logs
-    inventory: Openbmc Inventory
-    project: Openbmc Playbooks
+    inventory: BullSequana Edge Inventory
+    project: BullSequana Edge Playbooks
     playbook: logs/get_logs.yml
     job-type: run
     verbosity: 0
   - name: Set Rsyslog Server IP
     description: Set Rsyslog Server IP
-    inventory: Openbmc Inventory
-    project: Openbmc Playbooks
+    inventory: BullSequana Edge Inventory
+    project: BullSequana Edge Playbooks
     playbook: logs/set_rsyslog_server_ip.yml
     job-type: run
     verbosity: 0
   - name: Set Rsyslog Server Port
     description: Set Rsyslog Server Port
-    inventory: Openbmc Inventory
-    project: Openbmc Playbooks
+    inventory: BullSequana Edge Inventory
+    project: BullSequana Edge Playbooks
     playbook: logs/set_rsyslog_server_port.yml
     job-type: run
     verbosity: 0
   - name: Immediate Shutdown
     description: Power off the chassis
-    inventory: Openbmc Inventory
-    project: Openbmc Playbooks
+    inventory: BullSequana Edge Inventory
+    project: BullSequana Edge Playbooks
     playbook: power/chassis_power_off.yml
     job-type: run
     verbosity: 0
   - name: Check BMC alive
     description: Check if BMC is alive
-    inventory: Openbmc Inventory
-    project: Openbmc Playbooks
+    inventory: BullSequana Edge Inventory
+    project: BullSequana Edge Playbooks
     playbook: power/check_bmc_alive.yml
     job-type: run
     verbosity: 0
   - name: Check Power Off
     description: Check if Host is powered off
-    inventory: Openbmc Inventory
-    project: Openbmc Playbooks
+    inventory: BullSequana Edge Inventory
+    project: BullSequana Edge Playbooks
     playbook: power/check_power_off.yml
     job-type: run
     verbosity: 0
   - name: Check Power On
     description: Check if Host is powered on
-    inventory: Openbmc Inventory
-    project: Openbmc Playbooks
+    inventory: BullSequana Edge Inventory
+    project: BullSequana Edge Playbooks
     playbook: power/check_power_on.yml
     job-type: run
     verbosity: 0
   - name: LED
     description: Get LED state
-    inventory: Openbmc Inventory
-    project: Openbmc Playbooks
+    inventory: BullSequana Edge Inventory
+    project: BullSequana Edge Playbooks
     playbook: power/get_led.yml
     job-type: run
     verbosity: 0
   - name: Power Cap
     description: Get power cap
-    inventory: Openbmc Inventory
-    project: Openbmc Playbooks
+    inventory: BullSequana Edge Inventory
+    project: BullSequana Edge Playbooks
     playbook: power/get_power_cap.yml
     job-type: run
     verbosity: 0
   - name: Orderly Shutdown
     description: Power off the host
-    inventory: Openbmc Inventory
-    project: Openbmc Playbooks
+    inventory: BullSequana Edge Inventory
+    project: BullSequana Edge Playbooks
     playbook: power/power_off.yml
     job-type: run
     verbosity: 0
   - name: Power On
     description: Power on the host
-    inventory: Openbmc Inventory
-    project: Openbmc Playbooks
+    inventory: BullSequana Edge Inventory
+    project: BullSequana Edge Playbooks
     playbook: power/power_on.yml
     job-type: run
     verbosity: 0
   - name: Reboot
     description: Reboot the BMC
-    inventory: Openbmc Inventory
-    project: Openbmc Playbooks
+    inventory: BullSequana Edge Inventory
+    project: BullSequana Edge Playbooks
     playbook: power/reboot.yml
     job-type: run
     verbosity: 0
   - name: Set LED off
     description: Set LED to off
-    inventory: Openbmc Inventory
-    project: Openbmc Playbooks
+    inventory: BullSequana Edge Inventory
+    project: BullSequana Edge Playbooks
     playbook: power/set_led_off.yml
     job-type: run
     verbosity: 0
   - name: Set LED on
     description: Set LED to on
-    inventory: Openbmc Inventory
-    project: Openbmc Playbooks
+    inventory: BullSequana Edge Inventory
+    project: BullSequana Edge Playbooks
     playbook: power/set_led_on.yml
     job-type: run
     verbosity: 0
   - name: Set Power Cap off
     description: Set Power Cap to off
-    inventory: Openbmc Inventory
-    project: Openbmc Playbooks
+    inventory: BullSequana Edge Inventory
+    project: BullSequana Edge Playbooks
     playbook: power/set_power_cap_off.yml
     job-type: run
     verbosity: 0
   - name: Set Power Cap on
     description: Set Power Cap to on
-    inventory: Openbmc Inventory
-    project: Openbmc Playbooks
+    inventory: BullSequana Edge Inventory
+    project: BullSequana Edge Playbooks
     playbook: power/set_power_cap_on.yml
     job-type: run
     verbosity: 0

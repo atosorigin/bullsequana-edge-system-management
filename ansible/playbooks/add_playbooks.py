@@ -8,8 +8,7 @@ import sys
 import tower_cli
 import time
 from select import select
-from os import path
-from os import environ
+import os 
 
 class Config:
     def __init__(self, **entries):
@@ -73,7 +72,7 @@ if tower.projects:
     for p in tower.projects:
         print(p)
         p['organization'] = org_id
-        p['description'] = "Openbmc playbooks {version} for Mipocket".format(version=os.environ.get('MISM_VERSION'))
+        p['description'] = "Openbmc playbooks {version} for Mipocket".format(version=os.environ.get('MISM_BULLSEQUANA_EDGE_VERSION'))
         project_res.create(**p)
 
 if tower.job_templates:

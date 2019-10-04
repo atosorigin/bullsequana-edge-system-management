@@ -5,7 +5,7 @@ services:
       context:  .
       dockerfile: Dockerfile-zabbix
       args:
-        mism_version: ${MISM_VERSION}
+        mism_version: ${MISM_BULLSEQUANA_EDGE_VERSION}
     ports:
       - 10051:10051
     expose: 
@@ -15,26 +15,7 @@ services:
     restart: always       
     container_name: zabbix-server
     hostname: zabbix-server
-    environment:
-      http_proxy: ${HTTP_PROXY}
-      https_proxy: ${HTTPS_PROXY}
-      no_proxy: ${NO_PROXY}
-      ZBX_SERVER_HOST: zabbix-server
-      ZBX_SERVER_PORT: 10051
-      DB_SERVER_HOST: zabbix-postgres
-      ZBX_HOSTNAME: zabbix-server
-      POSTGRES_USER: mism
-      POSTGRES_PASSWORD: mismpass
-      POSTGRES_DB: zabbix
-      POSTGRES_PORT: 5555
-#      ZBX_DEBUGLEVEL: 4
-      ZBX_ACTIVE_ALLOW: 1
-      ZBX_ACTIVESERVERS: zabbix-server
-      ZBX_ENABLEREMOTECOMMANDS: 1
-#      ZBX_PASSIVE_ALLOW: 1
-#      ZBX_PASSIVESERVERS: zabbix-server
     volumes:
-#      - ./zabbix:/francine:rw
        - ./zabbix/server/alertscripts:/usr/lib/zabbix/alertscripts:rw
        - ./zabbix/server/externalscripts:/usr/lib/zabbix/externalscripts:rw
        - ./zabbix/agent/zabbix_agentd.psk:/etc/zabbix/zabbix_agentd.psk:ro
@@ -49,28 +30,19 @@ services:
 #       - ./zabbix/zabbix_server.conf:/etc/zabbix/zabbix_server.conf
     depends_on:
       - zabbix-postgres
+    env_file:
+      - zabbix.env
 
   zabbix-web:
     build:
       context:  .
       dockerfile: Dockerfile-zabbix-web
       args:
-        mism_version: ${MISM_VERSION}
+        mism_version: ${MISM_BULLSEQUANA_EDGE_VERSION}
     restart: always    
     container_name: zabbix-web
-    environment:
-      ZBX_SERVER_HOST: zabbix-server
-      ZBX_SERVER: zabbix-server
-      ZBX_SERVER_NAME: zabbix-server
-      ZBX_SERVER_PORT: 10051
-      DB_SERVER_HOST: zabbix-postgres
-      POSTGRES_USER: mism
-      POSTGRES_PASSWORD: mismpass
-      POSTGRES_DB: zabbix
-      POSTGRES_PORT: 5555
-      http_proxy: ${HTTP_PROXY}
-      https_proxy: ${HTTPS_PROXY}
-      no_proxy: ${NO_PROXY}
+    env_file:
+      - zabbix.env
     ports:
       - 4443:443
     volumes:
@@ -86,7 +58,7 @@ services:
       context:  .
       dockerfile: Dockerfile-zabbix-agent
       args:
-        mism_version: ${MISM_VERSION}
+        mism_version: ${MISM_BULLSEQUANA_EDGE_VERSION}
     ports:
       - 10050:10050
     expose: 
@@ -98,19 +70,8 @@ services:
     restart: always
     container_name: zabbix-agent
     hostname: zabbix-agent
-    environment:
-      http_proxy: ${HTTP_PROXY}
-      https_proxy: ${HTTPS_PROXY}
-      no_proxy: ${NO_PROXY}
-      ZBX_ENABLEREMOTECOMMANDS: 1
-      ZBX_SERVER_HOST: zabbix-server
-      ZBX_SERVER_PORT: 10051
-      ZBX_HOSTNAME: zabbix-server
-      ZBX_ACTIVE_ALLOW: 1
-      ZBX_ACTIVESERVERS: zabbix-server
-#      ZBX_PASSIVE_ALLOW: 1
-#      ZBX_PASSIVESERVERS: zabbix-server
-
+    env_file:
+      - zabbix.env
     volumes:
       - /var/log/rsyslog:/var/log/zabbix/rsyslog:rw
       - ./zabbix/agent/zabbix_agentd.conf:/etc/zabbix/zabbix_agentd.conf:Z
@@ -130,6 +91,10 @@ services:
     container_name: zabbix-postgres
     hostname: zabbix-postgres
     restart: unless-stopped
+    env_file:
+      - zabbix.env
+    environment:
+      PGDATA: /var/lib/postgresql/data/pgdata
     ports:
       - 5555:5432
     expose: 

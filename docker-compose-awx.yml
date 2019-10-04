@@ -6,7 +6,7 @@ services:
       context: .
       dockerfile: Dockerfile-awx_web
       args:
-        mism_version: ${MISM_VERSION}
+        mism_version: ${MISM_BULLSEQUANA_EDGE_VERSION}
     container_name: awx_web
     depends_on:
       - rabbitmq
@@ -30,25 +30,15 @@ services:
       - ./ansible/plugins/modules/remote_management/openbmc/atos_openbmc_utils.py:/usr/lib/python2.7/site-packages/ansible/module_utils/atos_openbmc_utils.py:ro
       - ./ansible/awx-ssl:/var/lib/awx-ssl:rw
       - /:/host:ro
-    environment:
-      ANSIBLE_INVENTORY: /var/lib/awx/inventory
-#      ANSIBLE_VAULT_PASSWORD_FILE: ansible_password.txt
-#      ANSIBLE_INVENTORY_CACHE: yes
-      TOWER_HOST: https://localhost:8052
-      TOWER_USERNAME: mism
-      TOWER_PASSWORD: mismpass
-      TOWER_VERIFY_SSL: "false"
-      TOWER_INSECURE: "true"
-      http_proxy: ${HTTP_PROXY}
-      https_proxy: ${HTTPS_PROXY}
-      no_proxy: ${NO_PROXY}
+    env_file:
+      - ansible.env
 
   awx_task:
     build: 
       context: .
       dockerfile: Dockerfile-awx_task
       args:
-        mism_version: ${MISM_VERSION}
+        mism_version: ${MISM_BULLSEQUANA_EDGE_VERSION}
     container_name: awx_task
     depends_on:
       - rabbitmq
@@ -71,14 +61,8 @@ services:
       - ./ansible/plugins/modules/remote_management/openbmc/atos_openbmc_utils.py:/usr/lib/python2.7/site-packages/ansible/module_utils/atos_openbmc_utils.py:ro
       - ./ansible/awx-ssl:/var/lib/awx-ssl:rw
       - /:/host:ro
-    environment:
-      ANSIBLE_INVENTORY: /var/lib/awx/inventory
-#      ANSIBLE_VAULT_PASSWORD_FILE: ansible_password.txt
-#      ANSIBLE_INVENTORY_CACHE: yes
-      http_proxy: ${HTTP_PROXY}
-      https_proxy: ${HTTPS_PROXY}
-      no_proxy: ${NO_PROXY}
-
+    env_file:
+      - ansible.env
 
   rabbitmq:
     image: rabbitmq:3-management
@@ -91,11 +75,8 @@ services:
     ports:
       - 15672:15672
       - 5672:5672    
-    environment:
-      RABBITMQ_DEFAULT_VHOST: awx
-      RABBITMQ_DEFAULT_USER: mism
-      RABBITMQ_DEFAULT_PASS: mismpass
-      RABBITMQ_ERLANG_COOKIE: cookiemonster    
+    env_file:
+      - ansible.env
 
   memcached:
     image: memcached:alpine
@@ -113,10 +94,9 @@ services:
       - 5432
     volumes:
       - ./ansible/pgdata:/var/lib/postgresql/data/pgdata:Z
+    env_file:
+      - ansible.env
     environment:
-      POSTGRES_USER: mism
-      POSTGRES_PASSWORD: mismpass
-      POSTGRES_DB: mism
       PGDATA: /var/lib/postgresql/data/pgdata
 
   pgadmin:
@@ -130,8 +110,6 @@ services:
       - 7070:80
     volumes:
       - ./pgadmin:/var/lib/pgadmin/storage:Z
-    environment:
-      PGADMIN_DEFAULT_EMAIL: pgadmin@mism.com
-      PGADMIN_DEFAULT_PASSWORD: mismpass
-
+    env_file:
+      - ansible.env
 

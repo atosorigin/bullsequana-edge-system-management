@@ -12,6 +12,8 @@
                     <img id="login_modal_image" class="LoginModal-logoImage"
                         ng-if="customLogoPresent"
                         ng-src="{{ customLogo }}" >
+                    <img id="login_modal_image" class="LoginModal-logoImage"
+                        ng-src="/static/assets/logo-atos-login.svg" >
             </div>
             <div class="LoginModal-body">
                 <div class="LoginModal-alert" ng-show="!sessionExpired && !sessionLimitExpired && !attemptFailed && !thirdPartyAttemptFailed && !userLoggedOut" translate>
