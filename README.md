@@ -8,7 +8,4 @@
   * If you have any requirements that is not currently addressed, then please let us know by creating a new issue [here](https://github.com/atos/MISM/issues)
 
 ## LICENSE
-This project is licensed under GPL-3.0 License. Please see the [COPYING](./COPYING.md) for more information
-
-
-
+Bull Sequana Edge Ansible playbooks project is licensed under GPL-3.0 License. Please see the [COPYING](./COPYING.md) for more information
