@@ -9,8 +9,8 @@
     </groups>
     <templates>
         <template>
-            <template>Template Hw Atos OpenBMC Rsyslog</template>
-            <name>Template Hw Atos OpenBMC Rsyslog</name>
+            <template>Template Hw Atos BullSequanaEdge Rsyslog</template>
+            <name>Template Hw Atos BullSequanaEdge Rsyslog</name>
             <description/>
             <groups>
                 <group>
@@ -130,7 +130,7 @@
     </templates>
     <triggers>
         <trigger>
-            <expression>{Template Hw Atos OpenBMC Rsyslog:log[/var/log/zabbix/rsyslog].str(user:err)}=1</expression>
+            <expression>{Template Hw Atos BullSequanaEdge Rsyslog:log[/var/log/zabbix/rsyslog].str(user:err)}=1</expression>
             <recovery_mode>2</recovery_mode>
             <recovery_expression/>
             <name>{ITEM.VALUE}</name>

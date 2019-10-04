@@ -1,4 +1,4 @@
-# Atos Openbmc zabbix template
+# Atos BullSequana Edge zabbix template
 
 ## Install instructions
 

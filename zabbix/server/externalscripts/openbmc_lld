@@ -3,9 +3,9 @@
 
 ############################
 #
-# OpenBMC Low-Level Discovery for Zabbix
+# BullSequana Edge Low-Level Discovery for Zabbix
 #
-# This script discovers enumerables from OpenBMC Mipocket like sensors ...
+# This script discovers enumerables from BullSequana Edge devices like sensors ...
 #
 # by francine.sauvage@atos.net
 #
@@ -58,7 +58,7 @@ def create_macro_lld(macro, json_lld, substring_to_remove):
   return macros
     
 def main(args):
-  parser = argparse.ArgumentParser(description="This script discover enumerable data from OpenBMC Mipocket")
+  parser = argparse.ArgumentParser(description="This script discover enumerable data from BullSequana Edge devices")
   parser.add_argument("-u", "--user", dest="user", help="user name for BMC", required=True)
   parser.add_argument("-p", "--password", dest="password", help="password for BMC", required=True)
   parser.add_argument("-b", "--bmc", dest="bmc", help="IP for the BMC", required=True)

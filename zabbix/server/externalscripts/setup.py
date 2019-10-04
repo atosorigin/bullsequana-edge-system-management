@@ -4,9 +4,9 @@ def readme():
     with open('README.md') as f:
         return f.read()
 
-setup(name='atos mipm openbmc for zabbix template',
+setup(name='atos BullSequana Edge for zabbix template',
       version='1.0',
-      description='atos mipm openbmc for zabbix template',
+      description='atos BullSequana Edge for zabbix template',
       long_description=readme(),
       classifiers=[
         'Development Status :: 1 - Release',
@@ -14,7 +14,7 @@ setup(name='atos mipm openbmc for zabbix template',
         'Programming Language :: Python :: 3.6',
         'Topic :: Text Processing :: Linguistic',
       ],
-      keywords='atos mipm openbmc for zabbix template',
+      keywords='atos BullSequana Edge for zabbix template',
       url='http://atos.net',
       author='Francine Sauvage',
       author_email='francine.sauvage@atos.net',

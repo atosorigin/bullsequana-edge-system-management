@@ -9,8 +9,8 @@
     </groups>
     <templates>
         <template>
-            <template>Template Hw Atos OpenBMC LLD</template>
-            <name>Template Hw Atos OpenBMC LLD</name>
+            <template>Template Hw Atos BullSequanaEdge LLD</template>
+            <name>Template Hw Atos BullSequanaEdge LLD</name>
             <description/>
             <groups>
                 <group>
@@ -19,52 +19,52 @@
             </groups>
             <applications>
                 <application>
-                    <name>OpenBMC Collect Information</name>
+                    <name>BullSequanaEdge Collect Information</name>
                 </application>
                 <application>
-                    <name>OpenBMC Control Information</name>
+                    <name>BullSequanaEdge Control Information</name>
                 </application>
                 <application>
-                    <name>OpenBMC Discovery Fan Information</name>
+                    <name>BullSequanaEdge Discovery Fan Information</name>
                 </application>
                 <application>
-                    <name>OpenBMC Discovery Fan Threshold Information</name>
+                    <name>BullSequanaEdge Discovery Fan Threshold Information</name>
                 </application>
                 <application>
-                    <name>OpenBMC Discovery Temperature Information</name>
+                    <name>BullSequanaEdge Discovery Temperature Information</name>
                 </application>
                 <application>
-                    <name>OpenBMC Discovery Temperature Threshold Information</name>
+                    <name>BullSequanaEdge Discovery Temperature Threshold Information</name>
                 </application>
                 <application>
-                    <name>OpenBMC Discovery Voltage Information</name>
+                    <name>BullSequanaEdge Discovery Voltage Information</name>
                 </application>
                 <application>
-                    <name>OpenBMC Discovery Voltage Threshold Information</name>
+                    <name>BullSequanaEdge Discovery Voltage Threshold Information</name>
                 </application>
                 <application>
-                    <name>OpenBMC Firmware Version  Information</name>
+                    <name>BullSequanaEdge Firmware Version  Information</name>
                 </application>
                 <application>
-                    <name>OpenBMC FRU Information</name>
+                    <name>BullSequanaEdge FRU Information</name>
                 </application>
                 <application>
-                    <name>OpenBMC Log Information</name>
+                    <name>BullSequanaEdge Log Information</name>
                 </application>
                 <application>
-                    <name>OpenBMC Network Information</name>
+                    <name>BullSequanaEdge Network Information</name>
                 </application>
                 <application>
-                    <name>OpenBMC Presence and Functional Information</name>
+                    <name>BullSequanaEdge Presence and Functional Information</name>
                 </application>
                 <application>
-                    <name>OpenBMC State Information</name>
+                    <name>BullSequanaEdge State Information</name>
                 </application>
                 <application>
-                    <name>OpenBMC System Information</name>
+                    <name>BullSequanaEdge System Information</name>
                 </application>
                 <application>
-                    <name>OpenBMC Web Scenarios</name>
+                    <name>BullSequanaEdge Web Scenarios</name>
                 </application>
             </applications>
             <items>
@@ -100,7 +100,7 @@
                     <inventory_link>0</inventory_link>
                     <applications>
                         <application>
-                            <name>OpenBMC State Information</name>
+                            <name>BullSequanaEdge State Information</name>
                         </application>
                     </applications>
                     <valuemap/>
@@ -159,7 +159,7 @@
                     <inventory_link>0</inventory_link>
                     <applications>
                         <application>
-                            <name>OpenBMC Collect Information</name>
+                            <name>BullSequanaEdge Collect Information</name>
                         </application>
                     </applications>
                     <valuemap/>
@@ -218,7 +218,7 @@
                     <inventory_link>0</inventory_link>
                     <applications>
                         <application>
-                            <name>OpenBMC Collect Information</name>
+                            <name>BullSequanaEdge Collect Information</name>
                         </application>
                     </applications>
                     <valuemap/>
@@ -277,7 +277,7 @@
                     <inventory_link>0</inventory_link>
                     <applications>
                         <application>
-                            <name>OpenBMC Collect Information</name>
+                            <name>BullSequanaEdge Collect Information</name>
                         </application>
                     </applications>
                     <valuemap/>
@@ -336,7 +336,7 @@
                     <inventory_link>0</inventory_link>
                     <applications>
                         <application>
-                            <name>OpenBMC Collect Information</name>
+                            <name>BullSequanaEdge Collect Information</name>
                         </application>
                     </applications>
                     <valuemap/>
@@ -395,7 +395,7 @@
                     <inventory_link>0</inventory_link>
                     <applications>
                         <application>
-                            <name>OpenBMC Collect Information</name>
+                            <name>BullSequanaEdge Collect Information</name>
                         </application>
                     </applications>
                     <valuemap/>
@@ -454,7 +454,7 @@
                     <inventory_link>0</inventory_link>
                     <applications>
                         <application>
-                            <name>OpenBMC Collect Information</name>
+                            <name>BullSequanaEdge Collect Information</name>
                         </application>
                     </applications>
                     <valuemap/>
@@ -513,7 +513,7 @@
                     <inventory_link>0</inventory_link>
                     <applications>
                         <application>
-                            <name>OpenBMC Firmware Version  Information</name>
+                            <name>BullSequanaEdge Firmware Version  Information</name>
                         </application>
                     </applications>
                     <valuemap/>
@@ -572,7 +572,7 @@
                     <inventory_link>0</inventory_link>
                     <applications>
                         <application>
-                            <name>OpenBMC Firmware Version  Information</name>
+                            <name>BullSequanaEdge Firmware Version  Information</name>
                         </application>
                     </applications>
                     <valuemap/>
@@ -631,7 +631,7 @@
                     <inventory_link>0</inventory_link>
                     <applications>
                         <application>
-                            <name>OpenBMC Collect Information</name>
+                            <name>BullSequanaEdge Collect Information</name>
                         </application>
                     </applications>
                     <valuemap/>
@@ -690,7 +690,7 @@
                     <inventory_link>0</inventory_link>
                     <applications>
                         <application>
-                            <name>OpenBMC Firmware Version  Information</name>
+                            <name>BullSequanaEdge Firmware Version  Information</name>
                         </application>
                     </applications>
                     <valuemap/>
@@ -749,7 +749,7 @@
                     <inventory_link>0</inventory_link>
                     <applications>
                         <application>
-                            <name>OpenBMC Firmware Version  Information</name>
+                            <name>BullSequanaEdge Firmware Version  Information</name>
                         </application>
                     </applications>
                     <valuemap/>
@@ -808,7 +808,7 @@
                     <inventory_link>0</inventory_link>
                     <applications>
                         <application>
-                            <name>OpenBMC Collect Information</name>
+                            <name>BullSequanaEdge Collect Information</name>
                         </application>
                     </applications>
                     <valuemap/>
@@ -867,7 +867,7 @@
                     <inventory_link>0</inventory_link>
                     <applications>
                         <application>
-                            <name>OpenBMC Firmware Version  Information</name>
+                            <name>BullSequanaEdge Firmware Version  Information</name>
                         </application>
                     </applications>
                     <valuemap/>
@@ -926,7 +926,7 @@
                     <inventory_link>0</inventory_link>
                     <applications>
                         <application>
-                            <name>OpenBMC Firmware Version  Information</name>
+                            <name>BullSequanaEdge Firmware Version  Information</name>
                         </application>
                     </applications>
                     <valuemap/>
@@ -985,7 +985,7 @@
                     <inventory_link>41</inventory_link>
                     <applications>
                         <application>
-                            <name>OpenBMC Network Information</name>
+                            <name>BullSequanaEdge Network Information</name>
                         </application>
                     </applications>
                     <valuemap/>
@@ -1044,7 +1044,7 @@
                     <inventory_link>0</inventory_link>
                     <applications>
                         <application>
-                            <name>OpenBMC Network Information</name>
+                            <name>BullSequanaEdge Network Information</name>
                         </application>
                     </applications>
                     <valuemap/>
@@ -1103,7 +1103,7 @@
                     <inventory_link>0</inventory_link>
                     <applications>
                         <application>
-                            <name>OpenBMC Network Information</name>
+                            <name>BullSequanaEdge Network Information</name>
                         </application>
                     </applications>
                     <valuemap/>
@@ -1162,7 +1162,7 @@
                     <inventory_link>0</inventory_link>
                     <applications>
                         <application>
-                            <name>OpenBMC Network Information</name>
+                            <name>BullSequanaEdge Network Information</name>
                         </application>
                     </applications>
                     <valuemap/>
@@ -1221,7 +1221,7 @@
                     <inventory_link>0</inventory_link>
                     <applications>
                         <application>
-                            <name>OpenBMC Network Information</name>
+                            <name>BullSequanaEdge Network Information</name>
                         </application>
                     </applications>
                     <valuemap/>
@@ -1280,7 +1280,7 @@
                     <inventory_link>0</inventory_link>
                     <applications>
                         <application>
-                            <name>OpenBMC Control Information</name>
+                            <name>BullSequanaEdge Control Information</name>
                         </application>
                     </applications>
                     <valuemap/>
@@ -1339,7 +1339,7 @@
                     <inventory_link>0</inventory_link>
                     <applications>
                         <application>
-                            <name>OpenBMC Control Information</name>
+                            <name>BullSequanaEdge Control Information</name>
                         </application>
                     </applications>
                     <valuemap/>
@@ -1398,7 +1398,7 @@
                     <inventory_link>0</inventory_link>
                     <applications>
                         <application>
-                            <name>OpenBMC Control Information</name>
+                            <name>BullSequanaEdge Control Information</name>
                         </application>
                     </applications>
                     <valuemap/>
@@ -1457,7 +1457,7 @@
                     <inventory_link>0</inventory_link>
                     <applications>
                         <application>
-                            <name>OpenBMC Control Information</name>
+                            <name>BullSequanaEdge Control Information</name>
                         </application>
                     </applications>
                     <valuemap/>
@@ -1516,7 +1516,7 @@
                     <inventory_link>0</inventory_link>
                     <applications>
                         <application>
-                            <name>OpenBMC Control Information</name>
+                            <name>BullSequanaEdge Control Information</name>
                         </application>
                     </applications>
                     <valuemap/>
@@ -1575,7 +1575,7 @@
                     <inventory_link>0</inventory_link>
                     <applications>
                         <application>
-                            <name>OpenBMC Control Information</name>
+                            <name>BullSequanaEdge Control Information</name>
                         </application>
                     </applications>
                     <valuemap/>
@@ -1634,7 +1634,7 @@
                     <inventory_link>0</inventory_link>
                     <applications>
                         <application>
-                            <name>OpenBMC Control Information</name>
+                            <name>BullSequanaEdge Control Information</name>
                         </application>
                     </applications>
                     <valuemap/>
@@ -1693,7 +1693,7 @@
                     <inventory_link>0</inventory_link>
                     <applications>
                         <application>
-                            <name>OpenBMC Control Information</name>
+                            <name>BullSequanaEdge Control Information</name>
                         </application>
                     </applications>
                     <valuemap/>
@@ -1752,7 +1752,7 @@
                     <inventory_link>0</inventory_link>
                     <applications>
                         <application>
-                            <name>OpenBMC Control Information</name>
+                            <name>BullSequanaEdge Control Information</name>
                         </application>
                     </applications>
                     <valuemap/>
@@ -1811,7 +1811,7 @@
                     <inventory_link>0</inventory_link>
                     <applications>
                         <application>
-                            <name>OpenBMC Control Information</name>
+                            <name>BullSequanaEdge Control Information</name>
                         </application>
                     </applications>
                     <valuemap/>
@@ -1870,7 +1870,7 @@
                     <inventory_link>0</inventory_link>
                     <applications>
                         <application>
-                            <name>OpenBMC Control Information</name>
+                            <name>BullSequanaEdge Control Information</name>
                         </application>
                     </applications>
                     <valuemap/>
@@ -1929,7 +1929,7 @@
                     <inventory_link>0</inventory_link>
                     <applications>
                         <application>
-                            <name>OpenBMC Control Information</name>
+                            <name>BullSequanaEdge Control Information</name>
                         </application>
                     </applications>
                     <valuemap/>
@@ -1988,7 +1988,7 @@
                     <inventory_link>0</inventory_link>
                     <applications>
                         <application>
-                            <name>OpenBMC Control Information</name>
+                            <name>BullSequanaEdge Control Information</name>
                         </application>
                     </applications>
                     <valuemap/>
@@ -2047,7 +2047,7 @@
                     <inventory_link>0</inventory_link>
                     <applications>
                         <application>
-                            <name>OpenBMC Control Information</name>
+                            <name>BullSequanaEdge Control Information</name>
                         </application>
                     </applications>
                     <valuemap/>
@@ -2106,7 +2106,7 @@
                     <inventory_link>0</inventory_link>
                     <applications>
                         <application>
-                            <name>OpenBMC Control Information</name>
+                            <name>BullSequanaEdge Control Information</name>
                         </application>
                     </applications>
                     <valuemap/>
@@ -2165,7 +2165,7 @@
                     <inventory_link>0</inventory_link>
                     <applications>
                         <application>
-                            <name>OpenBMC Control Information</name>
+                            <name>BullSequanaEdge Control Information</name>
                         </application>
                     </applications>
                     <valuemap/>
@@ -2224,7 +2224,7 @@
                     <inventory_link>0</inventory_link>
                     <applications>
                         <application>
-                            <name>OpenBMC Control Information</name>
+                            <name>BullSequanaEdge Control Information</name>
                         </application>
                     </applications>
                     <valuemap/>
@@ -2283,7 +2283,7 @@
                     <inventory_link>0</inventory_link>
                     <applications>
                         <application>
-                            <name>OpenBMC Control Information</name>
+                            <name>BullSequanaEdge Control Information</name>
                         </application>
                     </applications>
                     <valuemap/>
@@ -2342,7 +2342,7 @@
                     <inventory_link>0</inventory_link>
                     <applications>
                         <application>
-                            <name>OpenBMC Control Information</name>
+                            <name>BullSequanaEdge Control Information</name>
                         </application>
                     </applications>
                     <valuemap/>
@@ -2401,7 +2401,7 @@
                     <inventory_link>0</inventory_link>
                     <applications>
                         <application>
-                            <name>OpenBMC Control Information</name>
+                            <name>BullSequanaEdge Control Information</name>
                         </application>
                     </applications>
                     <valuemap/>
@@ -2460,7 +2460,7 @@
                     <inventory_link>0</inventory_link>
                     <applications>
                         <application>
-                            <name>OpenBMC Control Information</name>
+                            <name>BullSequanaEdge Control Information</name>
                         </application>
                     </applications>
                     <valuemap/>
@@ -2519,7 +2519,7 @@
                     <inventory_link>0</inventory_link>
                     <applications>
                         <application>
-                            <name>OpenBMC Control Information</name>
+                            <name>BullSequanaEdge Control Information</name>
                         </application>
                     </applications>
                     <valuemap/>
@@ -2578,7 +2578,7 @@
                     <inventory_link>0</inventory_link>
                     <applications>
                         <application>
-                            <name>OpenBMC Control Information</name>
+                            <name>BullSequanaEdge Control Information</name>
                         </application>
                     </applications>
                     <valuemap/>
@@ -2637,7 +2637,7 @@
                     <inventory_link>0</inventory_link>
                     <applications>
                         <application>
-                            <name>OpenBMC Control Information</name>
+                            <name>BullSequanaEdge Control Information</name>
                         </application>
                     </applications>
                     <valuemap/>
@@ -2696,7 +2696,7 @@
                     <inventory_link>0</inventory_link>
                     <applications>
                         <application>
-                            <name>OpenBMC State Information</name>
+                            <name>BullSequanaEdge State Information</name>
                         </application>
                     </applications>
                     <valuemap/>
@@ -2755,7 +2755,7 @@
                     <inventory_link>0</inventory_link>
                     <applications>
                         <application>
-                            <name>OpenBMC State Information</name>
+                            <name>BullSequanaEdge State Information</name>
                         </application>
                     </applications>
                     <valuemap/>
@@ -2814,7 +2814,7 @@
                     <inventory_link>0</inventory_link>
                     <applications>
                         <application>
-                            <name>OpenBMC State Information</name>
+                            <name>BullSequanaEdge State Information</name>
                         </application>
                     </applications>
                     <valuemap/>
@@ -2873,7 +2873,7 @@
                     <inventory_link>11</inventory_link>
                     <applications>
                         <application>
-                            <name>OpenBMC FRU Information</name>
+                            <name>BullSequanaEdge FRU Information</name>
                         </application>
                     </applications>
                     <valuemap/>
@@ -2932,7 +2932,7 @@
                     <inventory_link>31</inventory_link>
                     <applications>
                         <application>
-                            <name>OpenBMC FRU Information</name>
+                            <name>BullSequanaEdge FRU Information</name>
                         </application>
                     </applications>
                     <valuemap/>
@@ -2991,7 +2991,7 @@
                     <inventory_link>29</inventory_link>
                     <applications>
                         <application>
-                            <name>OpenBMC FRU Information</name>
+                            <name>BullSequanaEdge FRU Information</name>
                         </application>
                     </applications>
                     <valuemap/>
@@ -3050,7 +3050,7 @@
                     <inventory_link>10</inventory_link>
                     <applications>
                         <application>
-                            <name>OpenBMC FRU Information</name>
+                            <name>BullSequanaEdge FRU Information</name>
                         </application>
                     </applications>
                     <valuemap/>
@@ -3109,7 +3109,7 @@
                     <inventory_link>0</inventory_link>
                     <applications>
                         <application>
-                            <name>OpenBMC System Information</name>
+                            <name>BullSequanaEdge System Information</name>
                         </application>
                     </applications>
                     <valuemap/>
@@ -3168,7 +3168,7 @@
                     <inventory_link>8</inventory_link>
                     <applications>
                         <application>
-                            <name>OpenBMC FRU Information</name>
+                            <name>BullSequanaEdge FRU Information</name>
                         </application>
                     </applications>
                     <valuemap/>
@@ -3227,7 +3227,7 @@
                     <inventory_link>16</inventory_link>
                     <applications>
                         <application>
-                            <name>OpenBMC FRU Information</name>
+                            <name>BullSequanaEdge FRU Information</name>
                         </application>
                     </applications>
                     <valuemap/>
@@ -3286,7 +3286,7 @@
                     <inventory_link>0</inventory_link>
                     <applications>
                         <application>
-                            <name>OpenBMC System Information</name>
+                            <name>BullSequanaEdge System Information</name>
                         </application>
                     </applications>
                     <valuemap/>
@@ -3345,7 +3345,7 @@
                     <inventory_link>0</inventory_link>
                     <applications>
                         <application>
-                            <name>OpenBMC System Information</name>
+                            <name>BullSequanaEdge System Information</name>
                         </application>
                     </applications>
                     <valuemap/>
@@ -3404,7 +3404,7 @@
                     <inventory_link>0</inventory_link>
                     <applications>
                         <application>
-                            <name>OpenBMC System Information</name>
+                            <name>BullSequanaEdge System Information</name>
                         </application>
                     </applications>
                     <valuemap/>
@@ -3463,7 +3463,7 @@
                     <inventory_link>0</inventory_link>
                     <applications>
                         <application>
-                            <name>OpenBMC System Information</name>
+                            <name>BullSequanaEdge System Information</name>
                         </application>
                     </applications>
                     <valuemap/>
@@ -3522,7 +3522,7 @@
                     <inventory_link>0</inventory_link>
                     <applications>
                         <application>
-                            <name>OpenBMC System Information</name>
+                            <name>BullSequanaEdge System Information</name>
                         </application>
                     </applications>
                     <valuemap/>
@@ -3581,7 +3581,7 @@
                     <inventory_link>0</inventory_link>
                     <applications>
                         <application>
-                            <name>OpenBMC System Information</name>
+                            <name>BullSequanaEdge System Information</name>
                         </application>
                     </applications>
                     <valuemap/>
@@ -3640,7 +3640,7 @@
                     <inventory_link>0</inventory_link>
                     <applications>
                         <application>
-                            <name>OpenBMC System Information</name>
+                            <name>BullSequanaEdge System Information</name>
                         </application>
                     </applications>
                     <valuemap/>
@@ -3699,7 +3699,7 @@
                     <inventory_link>0</inventory_link>
                     <applications>
                         <application>
-                            <name>OpenBMC System Information</name>
+                            <name>BullSequanaEdge System Information</name>
                         </application>
                     </applications>
                     <valuemap/>
@@ -3758,7 +3758,7 @@
                     <inventory_link>0</inventory_link>
                     <applications>
                         <application>
-                            <name>OpenBMC System Information</name>
+                            <name>BullSequanaEdge System Information</name>
                         </application>
                     </applications>
                     <valuemap/>
@@ -3817,7 +3817,7 @@
                     <inventory_link>0</inventory_link>
                     <applications>
                         <application>
-                            <name>OpenBMC System Information</name>
+                            <name>BullSequanaEdge System Information</name>
                         </application>
                     </applications>
                     <valuemap/>
@@ -3876,7 +3876,7 @@
                     <inventory_link>0</inventory_link>
                     <applications>
                         <application>
-                            <name>OpenBMC Presence and Functional Information</name>
+                            <name>BullSequanaEdge Presence and Functional Information</name>
                         </application>
                     </applications>
                     <valuemap/>
@@ -3935,7 +3935,7 @@
                     <inventory_link>0</inventory_link>
                     <applications>
                         <application>
-                            <name>OpenBMC Presence and Functional Information</name>
+                            <name>BullSequanaEdge Presence and Functional Information</name>
                         </application>
                     </applications>
                     <valuemap/>
@@ -3994,7 +3994,7 @@
                     <inventory_link>0</inventory_link>
                     <applications>
                         <application>
-                            <name>OpenBMC Presence and Functional Information</name>
+                            <name>BullSequanaEdge Presence and Functional Information</name>
                         </application>
                     </applications>
                     <valuemap/>
@@ -4053,7 +4053,7 @@
                     <inventory_link>0</inventory_link>
                     <applications>
                         <application>
-                            <name>OpenBMC Presence and Functional Information</name>
+                            <name>BullSequanaEdge Presence and Functional Information</name>
                         </application>
                     </applications>
                     <valuemap/>
@@ -4112,7 +4112,7 @@
                     <inventory_link>0</inventory_link>
                     <applications>
                         <application>
-                            <name>OpenBMC Presence and Functional Information</name>
+                            <name>BullSequanaEdge Presence and Functional Information</name>
                         </application>
                     </applications>
                     <valuemap/>
@@ -4171,7 +4171,7 @@
                     <inventory_link>0</inventory_link>
                     <applications>
                         <application>
-                            <name>OpenBMC Presence and Functional Information</name>
+                            <name>BullSequanaEdge Presence and Functional Information</name>
                         </application>
                     </applications>
                     <valuemap/>
@@ -4230,7 +4230,7 @@
                     <inventory_link>0</inventory_link>
                     <applications>
                         <application>
-                            <name>OpenBMC Presence and Functional Information</name>
+                            <name>BullSequanaEdge Presence and Functional Information</name>
                         </application>
                     </applications>
                     <valuemap/>
@@ -4289,7 +4289,7 @@
                     <inventory_link>0</inventory_link>
                     <applications>
                         <application>
-                            <name>OpenBMC Presence and Functional Information</name>
+                            <name>BullSequanaEdge Presence and Functional Information</name>
                         </application>
                     </applications>
                     <valuemap/>
@@ -4348,7 +4348,7 @@
                     <inventory_link>0</inventory_link>
                     <applications>
                         <application>
-                            <name>OpenBMC Presence and Functional Information</name>
+                            <name>BullSequanaEdge Presence and Functional Information</name>
                         </application>
                     </applications>
                     <valuemap/>
@@ -4407,7 +4407,7 @@
                     <inventory_link>0</inventory_link>
                     <applications>
                         <application>
-                            <name>OpenBMC Presence and Functional Information</name>
+                            <name>BullSequanaEdge Presence and Functional Information</name>
                         </application>
                     </applications>
                     <valuemap/>
@@ -4500,7 +4500,7 @@
                             <inventory_link>0</inventory_link>
                             <applications>
                                 <application>
-                                    <name>OpenBMC Discovery Fan Threshold Information</name>
+                                    <name>BullSequanaEdge Discovery Fan Threshold Information</name>
                                 </application>
                             </applications>
                             <valuemap/>
@@ -4560,7 +4560,7 @@
                             <inventory_link>0</inventory_link>
                             <applications>
                                 <application>
-                                    <name>OpenBMC Discovery Fan Threshold Information</name>
+                                    <name>BullSequanaEdge Discovery Fan Threshold Information</name>
                                 </application>
                             </applications>
                             <valuemap/>
@@ -4620,7 +4620,7 @@
                             <inventory_link>0</inventory_link>
                             <applications>
                                 <application>
-                                    <name>OpenBMC Discovery Fan Threshold Information</name>
+                                    <name>BullSequanaEdge Discovery Fan Threshold Information</name>
                                 </application>
                             </applications>
                             <valuemap/>
@@ -4680,7 +4680,7 @@
                             <inventory_link>0</inventory_link>
                             <applications>
                                 <application>
-                                    <name>OpenBMC Discovery Fan Threshold Information</name>
+                                    <name>BullSequanaEdge Discovery Fan Threshold Information</name>
                                 </application>
                             </applications>
                             <valuemap/>
@@ -4740,7 +4740,7 @@
                             <inventory_link>0</inventory_link>
                             <applications>
                                 <application>
-                                    <name>OpenBMC Discovery Fan Information</name>
+                                    <name>BullSequanaEdge Discovery Fan Information</name>
                                 </application>
                             </applications>
                             <valuemap/>
@@ -4800,7 +4800,7 @@
                             <inventory_link>0</inventory_link>
                             <applications>
                                 <application>
-                                    <name>OpenBMC Discovery Fan Threshold Information</name>
+                                    <name>BullSequanaEdge Discovery Fan Threshold Information</name>
                                 </application>
                             </applications>
                             <valuemap/>
@@ -4860,7 +4860,7 @@
                             <inventory_link>0</inventory_link>
                             <applications>
                                 <application>
-                                    <name>OpenBMC Discovery Fan Threshold Information</name>
+                                    <name>BullSequanaEdge Discovery Fan Threshold Information</name>
                                 </application>
                             </applications>
                             <valuemap/>
@@ -4920,7 +4920,7 @@
                             <inventory_link>0</inventory_link>
                             <applications>
                                 <application>
-                                    <name>OpenBMC Discovery Fan Threshold Information</name>
+                                    <name>BullSequanaEdge Discovery Fan Threshold Information</name>
                                 </application>
                             </applications>
                             <valuemap/>
@@ -4980,7 +4980,7 @@
                             <inventory_link>0</inventory_link>
                             <applications>
                                 <application>
-                                    <name>OpenBMC Discovery Fan Threshold Information</name>
+                                    <name>BullSequanaEdge Discovery Fan Threshold Information</name>
                                 </application>
                             </applications>
                             <valuemap/>
@@ -5011,7 +5011,7 @@
                     </item_prototypes>
                     <trigger_prototypes>
                         <trigger_prototype>
-                            <expression>{Template Hw Atos OpenBMC LLD:openbmc_reader[-f={$OPENBMC}-fan_tach.json,-i={#FAN_TACH},-p=Value].last()} &gt; {Template Hw Atos OpenBMC LLD:openbmc_reader[-f={$OPENBMC}-fan_tach.json,-i={#FAN_TACH},-p=WarningHigh].last()}</expression>
+                            <expression>{Template Hw Atos BullSequanaEdge LLD:openbmc_reader[-f={$OPENBMC}-fan_tach.json,-i={#FAN_TACH},-p=Value].last()} &gt; {Template Hw Atos BullSequanaEdge LLD:openbmc_reader[-f={$OPENBMC}-fan_tach.json,-i={#FAN_TACH},-p=WarningHigh].last()}</expression>
                             <recovery_mode>0</recovery_mode>
                             <recovery_expression/>
                             <name>Sensor {#FAN_TACH} speed is pretty quick</name>
@@ -5027,7 +5027,7 @@
                             <tags/>
                         </trigger_prototype>
                         <trigger_prototype>
-                            <expression>{Template Hw Atos OpenBMC LLD:openbmc_reader[-f={$OPENBMC}-fan_tach.json,-i={#FAN_TACH},-p=Value].last()} &lt; {Template Hw Atos OpenBMC LLD:openbmc_reader[-f={$OPENBMC}-fan_tach.json,-i={#FAN_TACH},-p=WarningLow].last()}</expression>
+                            <expression>{Template Hw Atos BullSequanaEdge LLD:openbmc_reader[-f={$OPENBMC}-fan_tach.json,-i={#FAN_TACH},-p=Value].last()} &lt; {Template Hw Atos BullSequanaEdge LLD:openbmc_reader[-f={$OPENBMC}-fan_tach.json,-i={#FAN_TACH},-p=WarningLow].last()}</expression>
                             <recovery_mode>0</recovery_mode>
                             <recovery_expression/>
                             <name>Sensor {#FAN_TACH} speed is pretty slow</name>
@@ -5043,7 +5043,7 @@
                             <tags/>
                         </trigger_prototype>
                         <trigger_prototype>
-                            <expression>{Template Hw Atos OpenBMC LLD:openbmc_reader[-f={$OPENBMC}-fan_tach.json,-i={#FAN_TACH},-p=Value].last()} &gt; {Template Hw Atos OpenBMC LLD:openbmc_reader[-f={$OPENBMC}-fan_tach.json,-i={#FAN_TACH},-p=CriticalHigh].last()}</expression>
+                            <expression>{Template Hw Atos BullSequanaEdge LLD:openbmc_reader[-f={$OPENBMC}-fan_tach.json,-i={#FAN_TACH},-p=Value].last()} &gt; {Template Hw Atos BullSequanaEdge LLD:openbmc_reader[-f={$OPENBMC}-fan_tach.json,-i={#FAN_TACH},-p=CriticalHigh].last()}</expression>
                             <recovery_mode>0</recovery_mode>
                             <recovery_expression/>
                             <name>Sensor {#FAN_TACH} speed is quick</name>
@@ -5059,7 +5059,7 @@
                             <tags/>
                         </trigger_prototype>
                         <trigger_prototype>
-                            <expression>{Template Hw Atos OpenBMC LLD:openbmc_reader[-f={$OPENBMC}-fan_tach.json,-i={#FAN_TACH},-p=Value].last()} &lt; {Template Hw Atos OpenBMC LLD:openbmc_reader[-f={$OPENBMC}-fan_tach.json,-i={#FAN_TACH},-p=CriticalLow].last()}</expression>
+                            <expression>{Template Hw Atos BullSequanaEdge LLD:openbmc_reader[-f={$OPENBMC}-fan_tach.json,-i={#FAN_TACH},-p=Value].last()} &lt; {Template Hw Atos BullSequanaEdge LLD:openbmc_reader[-f={$OPENBMC}-fan_tach.json,-i={#FAN_TACH},-p=CriticalLow].last()}</expression>
                             <recovery_mode>0</recovery_mode>
                             <recovery_expression/>
                             <name>Sensor {#FAN_TACH} speed is slow</name>
@@ -5102,7 +5102,7 @@
                                     <calc_fnc>2</calc_fnc>
                                     <type>0</type>
                                     <item>
-                                        <host>Template Hw Atos OpenBMC LLD</host>
+                                        <host>Template Hw Atos BullSequanaEdge LLD</host>
                                         <key>openbmc_reader[-f={$OPENBMC}-fan_tach.json,-i={#FAN_TACH},-p=Value]</key>
                                     </item>
                                 </graph_item>
@@ -5114,7 +5114,7 @@
                                     <calc_fnc>2</calc_fnc>
                                     <type>0</type>
                                     <item>
-                                        <host>Template Hw Atos OpenBMC LLD</host>
+                                        <host>Template Hw Atos BullSequanaEdge LLD</host>
                                         <key>openbmc_reader[-f={$OPENBMC}-fan_tach.json,-i={#FAN_TACH},-p=CriticalHigh]</key>
                                     </item>
                                 </graph_item>
@@ -5126,7 +5126,7 @@
                                     <calc_fnc>2</calc_fnc>
                                     <type>0</type>
                                     <item>
-                                        <host>Template Hw Atos OpenBMC LLD</host>
+                                        <host>Template Hw Atos BullSequanaEdge LLD</host>
                                         <key>openbmc_reader[-f={$OPENBMC}-fan_tach.json,-i={#FAN_TACH},-p=CriticalLow]</key>
                                     </item>
                                 </graph_item>
@@ -5220,7 +5220,7 @@
                             <inventory_link>0</inventory_link>
                             <applications>
                                 <application>
-                                    <name>OpenBMC Discovery Temperature Threshold Information</name>
+                                    <name>BullSequanaEdge Discovery Temperature Threshold Information</name>
                                 </application>
                             </applications>
                             <valuemap/>
@@ -5280,7 +5280,7 @@
                             <inventory_link>0</inventory_link>
                             <applications>
                                 <application>
-                                    <name>OpenBMC Discovery Temperature Threshold Information</name>
+                                    <name>BullSequanaEdge Discovery Temperature Threshold Information</name>
                                 </application>
                             </applications>
                             <valuemap/>
@@ -5340,7 +5340,7 @@
                             <inventory_link>0</inventory_link>
                             <applications>
                                 <application>
-                                    <name>OpenBMC Discovery Temperature Threshold Information</name>
+                                    <name>BullSequanaEdge Discovery Temperature Threshold Information</name>
                                 </application>
                             </applications>
                             <valuemap/>
@@ -5407,7 +5407,7 @@
                             <inventory_link>0</inventory_link>
                             <applications>
                                 <application>
-                                    <name>OpenBMC Discovery Temperature Threshold Information</name>
+                                    <name>BullSequanaEdge Discovery Temperature Threshold Information</name>
                                 </application>
                             </applications>
                             <valuemap/>
@@ -5474,7 +5474,7 @@
                             <inventory_link>0</inventory_link>
                             <applications>
                                 <application>
-                                    <name>OpenBMC Discovery Temperature Information</name>
+                                    <name>BullSequanaEdge Discovery Temperature Information</name>
                                 </application>
                             </applications>
                             <valuemap/>
@@ -5541,7 +5541,7 @@
                             <inventory_link>0</inventory_link>
                             <applications>
                                 <application>
-                                    <name>OpenBMC Discovery Temperature Threshold Information</name>
+                                    <name>BullSequanaEdge Discovery Temperature Threshold Information</name>
                                 </application>
                             </applications>
                             <valuemap/>
@@ -5601,7 +5601,7 @@
                             <inventory_link>0</inventory_link>
                             <applications>
                                 <application>
-                                    <name>OpenBMC Discovery Temperature Threshold Information</name>
+                                    <name>BullSequanaEdge Discovery Temperature Threshold Information</name>
                                 </application>
                             </applications>
                             <valuemap/>
@@ -5661,7 +5661,7 @@
                             <inventory_link>0</inventory_link>
                             <applications>
                                 <application>
-                                    <name>OpenBMC Discovery Temperature Threshold Information</name>
+                                    <name>BullSequanaEdge Discovery Temperature Threshold Information</name>
                                 </application>
                             </applications>
                             <valuemap/>
@@ -5728,7 +5728,7 @@
                             <inventory_link>0</inventory_link>
                             <applications>
                                 <application>
-                                    <name>OpenBMC Discovery Temperature Threshold Information</name>
+                                    <name>BullSequanaEdge Discovery Temperature Threshold Information</name>
                                 </application>
                             </applications>
                             <valuemap/>
@@ -5766,7 +5766,7 @@
                     </item_prototypes>
                     <trigger_prototypes>
                         <trigger_prototype>
-                            <expression>{Template Hw Atos OpenBMC LLD:openbmc_reader[-f={$OPENBMC}-temperature.json,-i={#TEMPERATURE},-p=Value].last()} &lt; {Template Hw Atos OpenBMC LLD:openbmc_reader[-f={$OPENBMC}-temperature.json,-i={#TEMPERATURE},-p=CriticalLow].last()}</expression>
+                            <expression>{Template Hw Atos BullSequanaEdge LLD:openbmc_reader[-f={$OPENBMC}-temperature.json,-i={#TEMPERATURE},-p=Value].last()} &lt; {Template Hw Atos BullSequanaEdge LLD:openbmc_reader[-f={$OPENBMC}-temperature.json,-i={#TEMPERATURE},-p=CriticalLow].last()}</expression>
                             <recovery_mode>0</recovery_mode>
                             <recovery_expression/>
                             <name>Temperature Sensor {#TEMPERATURE} is freezing</name>
@@ -5782,7 +5782,7 @@
                             <tags/>
                         </trigger_prototype>
                         <trigger_prototype>
-                            <expression>{Template Hw Atos OpenBMC LLD:openbmc_reader[-f={$OPENBMC}-temperature.json,-i={#TEMPERATURE},-p=Value].last()} &gt; {Template Hw Atos OpenBMC LLD:openbmc_reader[-f={$OPENBMC}-temperature.json,-i={#TEMPERATURE},-p=CriticalHigh].last()}</expression>
+                            <expression>{Template Hw Atos BullSequanaEdge LLD:openbmc_reader[-f={$OPENBMC}-temperature.json,-i={#TEMPERATURE},-p=Value].last()} &gt; {Template Hw Atos BullSequanaEdge LLD:openbmc_reader[-f={$OPENBMC}-temperature.json,-i={#TEMPERATURE},-p=CriticalHigh].last()}</expression>
                             <recovery_mode>0</recovery_mode>
                             <recovery_expression/>
                             <name>Temperature Sensor {#TEMPERATURE} is frying</name>
@@ -5798,7 +5798,7 @@
                             <tags/>
                         </trigger_prototype>
                         <trigger_prototype>
-                            <expression>{Template Hw Atos OpenBMC LLD:openbmc_reader[-f={$OPENBMC}-temperature.json,-i={#TEMPERATURE},-p=Value].last()} &lt; {Template Hw Atos OpenBMC LLD:openbmc_reader[-f={$OPENBMC}-temperature.json,-i={#TEMPERATURE},-p=WarningLow].last()}</expression>
+                            <expression>{Template Hw Atos BullSequanaEdge LLD:openbmc_reader[-f={$OPENBMC}-temperature.json,-i={#TEMPERATURE},-p=Value].last()} &lt; {Template Hw Atos BullSequanaEdge LLD:openbmc_reader[-f={$OPENBMC}-temperature.json,-i={#TEMPERATURE},-p=WarningLow].last()}</expression>
                             <recovery_mode>0</recovery_mode>
                             <recovery_expression/>
                             <name>Temperature Sensor {#TEMPERATURE} is pretty cold</name>
@@ -5814,7 +5814,7 @@
                             <tags/>
                         </trigger_prototype>
                         <trigger_prototype>
-                            <expression>{Template Hw Atos OpenBMC LLD:openbmc_reader[-f={$OPENBMC}-temperature.json,-i={#TEMPERATURE},-p=Value].last()} &gt; {Template Hw Atos OpenBMC LLD:openbmc_reader[-f={$OPENBMC}-temperature.json,-i={#TEMPERATURE},-p=WarningHigh].last()}</expression>
+                            <expression>{Template Hw Atos BullSequanaEdge LLD:openbmc_reader[-f={$OPENBMC}-temperature.json,-i={#TEMPERATURE},-p=Value].last()} &gt; {Template Hw Atos BullSequanaEdge LLD:openbmc_reader[-f={$OPENBMC}-temperature.json,-i={#TEMPERATURE},-p=WarningHigh].last()}</expression>
                             <recovery_mode>0</recovery_mode>
                             <recovery_expression/>
                             <name>Temperature Sensor {#TEMPERATURE} is pretty hot</name>
@@ -5857,7 +5857,7 @@
                                     <calc_fnc>2</calc_fnc>
                                     <type>0</type>
                                     <item>
-                                        <host>Template Hw Atos OpenBMC LLD</host>
+                                        <host>Template Hw Atos BullSequanaEdge LLD</host>
                                         <key>openbmc_reader[-f={$OPENBMC}-temperature.json,-i={#TEMPERATURE},-p=Value]</key>
                                     </item>
                                 </graph_item>
@@ -5869,7 +5869,7 @@
                                     <calc_fnc>2</calc_fnc>
                                     <type>0</type>
                                     <item>
-                                        <host>Template Hw Atos OpenBMC LLD</host>
+                                        <host>Template Hw Atos BullSequanaEdge LLD</host>
                                         <key>openbmc_reader[-f={$OPENBMC}-temperature.json,-i={#TEMPERATURE},-p=CriticalHigh]</key>
                                     </item>
                                 </graph_item>
@@ -5881,7 +5881,7 @@
                                     <calc_fnc>2</calc_fnc>
                                     <type>0</type>
                                     <item>
-                                        <host>Template Hw Atos OpenBMC LLD</host>
+                                        <host>Template Hw Atos BullSequanaEdge LLD</host>
                                         <key>openbmc_reader[-f={$OPENBMC}-temperature.json,-i={#TEMPERATURE},-p=CriticalLow]</key>
                                     </item>
                                 </graph_item>
@@ -5975,7 +5975,7 @@
                             <inventory_link>0</inventory_link>
                             <applications>
                                 <application>
-                                    <name>OpenBMC Discovery Voltage Threshold Information</name>
+                                    <name>BullSequanaEdge Discovery Voltage Threshold Information</name>
                                 </application>
                             </applications>
                             <valuemap/>
@@ -6035,7 +6035,7 @@
                             <inventory_link>0</inventory_link>
                             <applications>
                                 <application>
-                                    <name>OpenBMC Discovery Voltage Threshold Information</name>
+                                    <name>BullSequanaEdge Discovery Voltage Threshold Information</name>
                                 </application>
                             </applications>
                             <valuemap/>
@@ -6095,7 +6095,7 @@
                             <inventory_link>0</inventory_link>
                             <applications>
                                 <application>
-                                    <name>OpenBMC Discovery Voltage Threshold Information</name>
+                                    <name>BullSequanaEdge Discovery Voltage Threshold Information</name>
                                 </application>
                             </applications>
                             <valuemap/>
@@ -6155,7 +6155,7 @@
                             <inventory_link>0</inventory_link>
                             <applications>
                                 <application>
-                                    <name>OpenBMC Discovery Voltage Threshold Information</name>
+                                    <name>BullSequanaEdge Discovery Voltage Threshold Information</name>
                                 </application>
                             </applications>
                             <valuemap/>
@@ -6222,7 +6222,7 @@
                             <inventory_link>0</inventory_link>
                             <applications>
                                 <application>
-                                    <name>OpenBMC Discovery Voltage Information</name>
+                                    <name>BullSequanaEdge Discovery Voltage Information</name>
                                 </application>
                             </applications>
                             <valuemap/>
@@ -6289,7 +6289,7 @@
                             <inventory_link>0</inventory_link>
                             <applications>
                                 <application>
-                                    <name>OpenBMC Discovery Voltage Threshold Information</name>
+                                    <name>BullSequanaEdge Discovery Voltage Threshold Information</name>
                                 </application>
                             </applications>
                             <valuemap/>
@@ -6349,7 +6349,7 @@
                             <inventory_link>0</inventory_link>
                             <applications>
                                 <application>
-                                    <name>OpenBMC Discovery Voltage Threshold Information</name>
+                                    <name>BullSequanaEdge Discovery Voltage Threshold Information</name>
                                 </application>
                             </applications>
                             <valuemap/>
@@ -6409,7 +6409,7 @@
                             <inventory_link>0</inventory_link>
                             <applications>
                                 <application>
-                                    <name>OpenBMC Discovery Voltage Threshold Information</name>
+                                    <name>BullSequanaEdge Discovery Voltage Threshold Information</name>
                                 </application>
                             </applications>
                             <valuemap/>
@@ -6476,7 +6476,7 @@
                             <inventory_link>0</inventory_link>
                             <applications>
                                 <application>
-                                    <name>OpenBMC Discovery Voltage Threshold Information</name>
+                                    <name>BullSequanaEdge Discovery Voltage Threshold Information</name>
                                 </application>
                             </applications>
                             <valuemap/>
@@ -6514,7 +6514,7 @@
                     </item_prototypes>
                     <trigger_prototypes>
                         <trigger_prototype>
-                            <expression>{Template Hw Atos OpenBMC LLD:openbmc_reader[-f={$OPENBMC}-voltage.json,-i={#VOLTAGE},-p=Value].last()} &gt; {Template Hw Atos OpenBMC LLD:openbmc_reader[-f={$OPENBMC}-voltage.json,-i={#VOLTAGE},-p=CriticalHigh].last()}</expression>
+                            <expression>{Template Hw Atos BullSequanaEdge LLD:openbmc_reader[-f={$OPENBMC}-voltage.json,-i={#VOLTAGE},-p=Value].last()} &gt; {Template Hw Atos BullSequanaEdge LLD:openbmc_reader[-f={$OPENBMC}-voltage.json,-i={#VOLTAGE},-p=CriticalHigh].last()}</expression>
                             <recovery_mode>0</recovery_mode>
                             <recovery_expression/>
                             <name>Voltage Sensor {#VOLTAGE} is above its critical high value</name>
@@ -6530,7 +6530,7 @@
                             <tags/>
                         </trigger_prototype>
                         <trigger_prototype>
-                            <expression>{Template Hw Atos OpenBMC LLD:openbmc_reader[-f={$OPENBMC}-voltage.json,-i={#VOLTAGE},-p=Value].last()} &gt; {Template Hw Atos OpenBMC LLD:openbmc_reader[-f={$OPENBMC}-voltage.json,-i={#VOLTAGE},-p=WarningHigh].last()}</expression>
+                            <expression>{Template Hw Atos BullSequanaEdge LLD:openbmc_reader[-f={$OPENBMC}-voltage.json,-i={#VOLTAGE},-p=Value].last()} &gt; {Template Hw Atos BullSequanaEdge LLD:openbmc_reader[-f={$OPENBMC}-voltage.json,-i={#VOLTAGE},-p=WarningHigh].last()}</expression>
                             <recovery_mode>0</recovery_mode>
                             <recovery_expression/>
                             <name>Voltage Sensor {#VOLTAGE} is above its warning high value</name>
@@ -6546,7 +6546,7 @@
                             <tags/>
                         </trigger_prototype>
                         <trigger_prototype>
-                            <expression>{Template Hw Atos OpenBMC LLD:openbmc_reader[-f={$OPENBMC}-voltage.json,-i={#VOLTAGE},-p=Value].last()} &lt; {Template Hw Atos OpenBMC LLD:openbmc_reader[-f={$OPENBMC}-voltage.json,-i={#VOLTAGE},-p=CriticalLow].last()}</expression>
+                            <expression>{Template Hw Atos BullSequanaEdge LLD:openbmc_reader[-f={$OPENBMC}-voltage.json,-i={#VOLTAGE},-p=Value].last()} &lt; {Template Hw Atos BullSequanaEdge LLD:openbmc_reader[-f={$OPENBMC}-voltage.json,-i={#VOLTAGE},-p=CriticalLow].last()}</expression>
                             <recovery_mode>0</recovery_mode>
                             <recovery_expression/>
                             <name>Voltage Sensor {#VOLTAGE} is below its critical low value</name>
@@ -6562,7 +6562,7 @@
                             <tags/>
                         </trigger_prototype>
                         <trigger_prototype>
-                            <expression>{Template Hw Atos OpenBMC LLD:openbmc_reader[-f={$OPENBMC}-voltage.json,-i={#VOLTAGE},-p=Value].last()} &lt; {Template Hw Atos OpenBMC LLD:openbmc_reader[-f={$OPENBMC}-voltage.json,-i={#VOLTAGE},-p=WarningLow].last()}</expression>
+                            <expression>{Template Hw Atos BullSequanaEdge LLD:openbmc_reader[-f={$OPENBMC}-voltage.json,-i={#VOLTAGE},-p=Value].last()} &lt; {Template Hw Atos BullSequanaEdge LLD:openbmc_reader[-f={$OPENBMC}-voltage.json,-i={#VOLTAGE},-p=WarningLow].last()}</expression>
                             <recovery_mode>0</recovery_mode>
                             <recovery_expression/>
                             <name>Voltage Sensor {#VOLTAGE} is below its warning low value</name>
@@ -6605,7 +6605,7 @@
                                     <calc_fnc>2</calc_fnc>
                                     <type>0</type>
                                     <item>
-                                        <host>Template Hw Atos OpenBMC LLD</host>
+                                        <host>Template Hw Atos BullSequanaEdge LLD</host>
                                         <key>openbmc_reader[-f={$OPENBMC}-voltage.json,-i={#VOLTAGE},-p=Value]</key>
                                     </item>
                                 </graph_item>
@@ -6617,7 +6617,7 @@
                                     <calc_fnc>2</calc_fnc>
                                     <type>0</type>
                                     <item>
-                                        <host>Template Hw Atos OpenBMC LLD</host>
+                                        <host>Template Hw Atos BullSequanaEdge LLD</host>
                                         <key>openbmc_reader[-f={$OPENBMC}-voltage.json,-i={#VOLTAGE},-p=CriticalHigh]</key>
                                     </item>
                                 </graph_item>
@@ -6629,7 +6629,7 @@
                                     <calc_fnc>2</calc_fnc>
                                     <type>0</type>
                                     <item>
-                                        <host>Template Hw Atos OpenBMC LLD</host>
+                                        <host>Template Hw Atos BullSequanaEdge LLD</host>
                                         <key>openbmc_reader[-f={$OPENBMC}-voltage.json,-i={#VOLTAGE},-p=CriticalLow]</key>
                                     </item>
                                 </graph_item>
@@ -6664,7 +6664,7 @@
                 <httptest>
                     <name>Response time</name>
                     <application>
-                        <name>OpenBMC Web Scenarios</name>
+                        <name>BullSequanaEdge Web Scenarios</name>
                     </application>
                     <delay>10s</delay>
                     <attempts>10</attempts>
@@ -6723,7 +6723,7 @@
                             <sort_triggers>0</sort_triggers>
                             <resource>
                                 <name>Temperature {#TEMPERATURE}</name>
-                                <host>Template Hw Atos OpenBMC LLD</host>
+                                <host>Template Hw Atos BullSequanaEdge LLD</host>
                             </resource>
                             <max_columns>3</max_columns>
                             <application/>
@@ -6745,7 +6745,7 @@
                             <sort_triggers>0</sort_triggers>
                             <resource>
                                 <name>Voltage {#VOLTAGE}</name>
-                                <host>Template Hw Atos OpenBMC LLD</host>
+                                <host>Template Hw Atos BullSequanaEdge LLD</host>
                             </resource>
                             <max_columns>3</max_columns>
                             <application/>
@@ -6767,7 +6767,7 @@
                             <sort_triggers>0</sort_triggers>
                             <resource>
                                 <name>Fan {#FAN_TACH}</name>
-                                <host>Template Hw Atos OpenBMC LLD</host>
+                                <host>Template Hw Atos BullSequanaEdge LLD</host>
                             </resource>
                             <max_columns>3</max_columns>
                             <application/>
@@ -6789,7 +6789,7 @@
                             <sort_triggers>0</sort_triggers>
                             <resource>
                                 <key>openbmc_firmware_reader[-f={$OPENBMC}-software.json,-i=Host]</key>
-                                <host>Template Hw Atos OpenBMC LLD</host>
+                                <host>Template Hw Atos BullSequanaEdge LLD</host>
                             </resource>
                             <max_columns>3</max_columns>
                             <application/>
@@ -6811,7 +6811,7 @@
                             <sort_triggers>0</sort_triggers>
                             <resource>
                                 <key>openbmc_reader[-f={$OPENBMC}-state.json,-i=/xyz/openbmc_project/state/host0,-p=CurrentHostState]</key>
-                                <host>Template Hw Atos OpenBMC LLD</host>
+                                <host>Template Hw Atos BullSequanaEdge LLD</host>
                             </resource>
                             <max_columns>3</max_columns>
                             <application/>
@@ -6833,7 +6833,7 @@
                             <sort_triggers>0</sort_triggers>
                             <resource>
                                 <key>openbmc_reader[-f={$OPENBMC}-state.json,-i=/xyz/openbmc_project/state/chassis0,-p=CurrentPowerState]</key>
-                                <host>Template Hw Atos OpenBMC LLD</host>
+                                <host>Template Hw Atos BullSequanaEdge LLD</host>
                             </resource>
                             <max_columns>3</max_columns>
                             <application/>
@@ -6855,7 +6855,7 @@
                             <sort_triggers>0</sort_triggers>
                             <resource>
                                 <key>openbmc_firmware_reader[-f={$OPENBMC}-software.json,-i=BMC]</key>
-                                <host>Template Hw Atos OpenBMC LLD</host>
+                                <host>Template Hw Atos BullSequanaEdge LLD</host>
                             </resource>
                             <max_columns>3</max_columns>
                             <application/>
@@ -6877,7 +6877,7 @@
                             <sort_triggers>0</sort_triggers>
                             <resource>
                                 <key>openbmc_reader[-f={$OPENBMC}-system.json,-i=/xyz/openbmc_project/inventory/system/chassis/motherboard,-p=SerialNumber]</key>
-                                <host>Template Hw Atos OpenBMC LLD</host>
+                                <host>Template Hw Atos BullSequanaEdge LLD</host>
                             </resource>
                             <max_columns>3</max_columns>
                             <application/>
@@ -6899,7 +6899,7 @@
                             <sort_triggers>0</sort_triggers>
                             <resource>
                                 <key>openbmc_reader[-f={$OPENBMC}-state.json,-i=/xyz/openbmc_project/state/bmc0,-p=CurrentBMCState]</key>
-                                <host>Template Hw Atos OpenBMC LLD</host>
+                                <host>Template Hw Atos BullSequanaEdge LLD</host>
                             </resource>
                             <max_columns>3</max_columns>
                             <application/>
@@ -6912,7 +6912,7 @@
     </templates>
     <triggers>
         <trigger>
-            <expression>{Template Hw Atos OpenBMC LLD:openbmc_firmware_reader[-f={$OPENBMC}-software.json,-i=Host,-p=Activation,-a=Failed].str(N/A)}=0</expression>
+            <expression>{Template Hw Atos BullSequanaEdge LLD:openbmc_firmware_reader[-f={$OPENBMC}-software.json,-i=Host,-p=Activation,-a=Failed].str(N/A)}=0</expression>
             <recovery_mode>0</recovery_mode>
             <recovery_expression/>
             <name>Mipocket: Failed to activate BIOS</name>
@@ -6928,7 +6928,7 @@
             <tags/>
         </trigger>
         <trigger>
-            <expression>{Template Hw Atos OpenBMC LLD:openbmc_firmware_reader[-f={$OPENBMC}-software.json,-i=BMC,-p=Activation,-a=Failed].str(N/A)}=0</expression>
+            <expression>{Template Hw Atos BullSequanaEdge LLD:openbmc_firmware_reader[-f={$OPENBMC}-software.json,-i=BMC,-p=Activation,-a=Failed].str(N/A)}=0</expression>
             <recovery_mode>0</recovery_mode>
             <recovery_expression/>
             <name>Mipocket: Failed to activate BMC</name>
@@ -6944,7 +6944,7 @@
             <tags/>
         </trigger>
         <trigger>
-            <expression>{Template Hw Atos OpenBMC LLD:openbmc_firmware_reader[-f={$OPENBMC}-software.json,-i=CPLD,-p=Activation,-a=Failed].str(N/A)}=0</expression>
+            <expression>{Template Hw Atos BullSequanaEdge LLD:openbmc_firmware_reader[-f={$OPENBMC}-software.json,-i=CPLD,-p=Activation,-a=Failed].str(N/A)}=0</expression>
             <recovery_mode>0</recovery_mode>
             <recovery_expression/>
             <name>Mipocket: Failed to activate CPLD</name>

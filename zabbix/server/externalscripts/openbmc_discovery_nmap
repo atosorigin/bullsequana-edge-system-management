@@ -3,9 +3,9 @@
 
 ############################
 #
-# OpenBMC Reader for Zabbix
+# BullSequana Edge Reader for Zabbix
 #
-# This script dicovers openbmc devices through nmap
+# This script dicovers BullSequana Edge devices through nmap
 #
 # by francine.sauvage@atos.net
 #
@@ -37,7 +37,7 @@ def create_macros_for_host_discovery(json_host):
   return macros
 
 def main(args):
-  parser = argparse.ArgumentParser(description="This script discovers openbmc devices for Atos Mipocket")
+  parser = argparse.ArgumentParser(description="This script discovers nmap BullSequana Edge devices")
   parser.add_argument("-b", "--bmc", dest="bmc", help="bmc to check", required=True)
   parser.add_argument("-u", "--user", dest="user", help="valid user for the bmc uthentication", required=True)
   parser.add_argument("-p", "--password", dest="password", help="valid password for the bmc uthentication", required=True)
