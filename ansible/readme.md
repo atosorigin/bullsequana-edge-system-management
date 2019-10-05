@@ -148,7 +148,7 @@ variables = ansible/vars file
 2. In the appropriated file playbooks/vars/external_vars.yml, uncomment and set the desired variable :
 `my_variable: my_value `
 
-- ![#f03c15](https://placehold.it/15/f03c15/000000?text=+) `Warning : the 2 different ways are exclusive : You should declare a same variable in file OR in parameter, else it will conflict`
+![#f03c15](https://placehold.it/15/f03c15/000000?text=+) `Warning : the 2 different ways are exclusive : You should declare a same variable in file OR in parameter, else it will conflict`
 
 ### Update
 #### To update one image on all BMCs
@@ -423,6 +423,7 @@ docker exec -it awx_web ansible-playbook projects/openbmc/inventory/get_sensors.
 ## <a name="warning_updates"></a>Warning for updates
 
 ![#f03c15](https://placehold.it/15/f03c15/000000?text=+) `Never change original playbooks => duplicate playbooks`
+
 You can use the directory ansible/playbooks to add your own playbooks.
 
 ## <a name="more_help"></a>More help
