@@ -1,8 +1,10 @@
 # Bull Sequana Edge Ansible playbooks and zabbix templates
 
 This project includes Ansible playbooks and zabbix templates for Bull Sequana Edge devices
-[readme for ansible playbooks](./ansible/readme.md)
-[readme for zabbix templates](./zabbix/readme.md)
+
+- [readme for ansible playbooks](./ansible/readme.md)
+
+- [readme for zabbix templates](./zabbix/readme.md)
 
 ## Support
   * This branch corresponds to the release actively under development.
