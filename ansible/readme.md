@@ -421,10 +421,9 @@ docker exec -it awx_task bash
 docker exec -it awx_web ansible-playbook projects/openbmc/inventory/get_sensors.yml
 
 ## <a name="warning_updates"></a>Warning for updates
-```diff
--Never change original playbooks => duplicate playbooks
+![#f03c15](https://placehold.it/15/f03c15/000000?text=+) `Never change original playbooks => duplicate playbooks
 You can use the directory ansible/playbooks to add your own playbooks.
-```
+`
 ## <a name="more_help"></a>More help
 Ansible Help is accessible as Ansible Documentation :
 #### outside a awx_web docker container
