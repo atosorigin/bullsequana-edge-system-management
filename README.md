@@ -2,6 +2,10 @@
 
 This project includes Ansible playbooks and zabbix templates for Bull Sequana Edge devices
 
+- [readme for ansible playbooks](./ansible/readme.md)
+
+- [readme for zabbix templates](./zabbix/readme.md)
+
 ## Support
   * This branch corresponds to the release actively under development.
   * If you want to report any issue, then please report it by creating a new issue [here](https://github.com/atos/MISM/issues)
