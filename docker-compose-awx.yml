@@ -3,7 +3,7 @@ services:
 
   awx_web:
     build: 
-      context: .
+      context: Dockerfiles
       dockerfile: Dockerfile-awx_web
       args:
         mism_version: ${MISM_BULLSEQUANA_EDGE_VERSION}
@@ -31,11 +31,11 @@ services:
       - ./ansible/awx-ssl:/var/lib/awx-ssl:rw
       - /:/host:ro
     env_file:
-      - ansible.env
+      - Dockerfiles/ansible.env
 
   awx_task:
     build: 
-      context: .
+      context: Dockerfiles
       dockerfile: Dockerfile-awx_task
       args:
         mism_version: ${MISM_BULLSEQUANA_EDGE_VERSION}
@@ -62,7 +62,7 @@ services:
       - ./ansible/awx-ssl:/var/lib/awx-ssl:rw
       - /:/host:ro
     env_file:
-      - ansible.env
+      - Dockerfiles/ansible.env
 
   rabbitmq:
     image: rabbitmq:3-management
@@ -76,7 +76,7 @@ services:
       - 15672:15672
       - 5672:5672    
     env_file:
-      - ansible.env
+      - Dockerfiles/ansible.env
 
   memcached:
     image: memcached:alpine
@@ -95,7 +95,7 @@ services:
     volumes:
       - ./ansible/pgdata:/var/lib/postgresql/data/pgdata:Z
     env_file:
-      - ansible.env
+      - Dockerfiles/ansible.env
     environment:
       PGDATA: /var/lib/postgresql/data/pgdata
 
@@ -111,5 +111,5 @@ services:
     volumes:
       - ./pgadmin:/var/lib/pgadmin/storage:Z
     env_file:
-      - ansible.env
+      - Dockerfiles/ansible.env
 

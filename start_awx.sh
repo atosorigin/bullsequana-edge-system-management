@@ -7,5 +7,5 @@ echo "Zabbix is available on https://localhost:4443"
 echo "pgadmin is available on http://localhost:7070"
 echo "for more info, refer to documentation"
 echo "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
-docker-compose -f docker-compose-mism.yml up -d
+docker-compose -f docker-compose-awx.yml up -d
 

@@ -2,7 +2,7 @@ version: '3.6'
 services:
   zabbix-server:
     build:
-      context:  .
+      context: Dockerfiles
       dockerfile: Dockerfile-zabbix
       args:
         mism_version: ${MISM_BULLSEQUANA_EDGE_VERSION}
@@ -35,7 +35,7 @@ services:
 
   zabbix-web:
     build:
-      context:  .
+      context: Dockerfiles
       dockerfile: Dockerfile-zabbix-web
       args:
         mism_version: ${MISM_BULLSEQUANA_EDGE_VERSION}
@@ -55,7 +55,7 @@ services:
   
   zabbix-agent:
     build:
-      context:  .
+      context: Dockerfiles
       dockerfile: Dockerfile-zabbix-agent
       args:
         mism_version: ${MISM_BULLSEQUANA_EDGE_VERSION}
@@ -85,9 +85,7 @@ services:
       - zabbix-server:zabbix-server
 
   zabbix-postgres:
-    build:
-      context: .
-      dockerfile: Dockerfile-zabbix-postgres
+    image: postgres:latest
     container_name: zabbix-postgres
     hostname: zabbix-postgres
     restart: unless-stopped

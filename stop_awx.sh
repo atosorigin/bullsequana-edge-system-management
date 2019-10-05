@@ -1,5 +1,5 @@
 #!/bin/sh
 
-echo "stopping MISM containers ...."
-docker-compose -f docker-compose-mism.yml down
+echo "stopping BullSequana Edge Ansible AWX containers ...."
+docker-compose -f docker-compose-awx.yml down
 

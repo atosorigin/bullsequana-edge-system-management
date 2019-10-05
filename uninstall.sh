@@ -1,8 +1,8 @@
 #!/bin/sh
 
 echo "stopping MISM containers ...."
-docker-compose -f docker-compose-mism-awx.yml down
-docker-compose -f docker-compose-mism-zabbix.yml down
+docker-compose -f docker-compose-awx.yml down
+docker-compose -f docker-compose-zabbix.yml down
 
 echo "removing awx MISM images ...."
 docker image rm mism_awx_task
@@ -39,14 +39,13 @@ echo "removing ansible..."
 rm -rf ansible
 echo "removing zabbix..."
 rm -rf zabbix
-echo "removing data..."
-rm -rf ansible/pgdata
-rm -rf zabbix/pgdata
+echo "removing Dockerfiles..."
+rm -rf Dockerfiles
 echo "removing postgres backups..."
 rm -rf pgadmin
 echo "shells"
 rm -rf *.sh
-rm -f docker-compose-mism-awx.yml
-rm -f docker-compose-mism-zabbix.yml
+rm -f docker-compose-awx.yml
+rm -f docker-compose-zabbix.yml
 cd ..
 rm -rf mism
