@@ -11,24 +11,24 @@ BullSequana Edge
   * Python >= 2.7.5
 
 Optionaly, 2 ready-to-go AWX-Ansible images are available on Dockerhub
-  * Dockerhub AWX and zabbix Atos docker images 
-    - [here](https://cloud.docker.com/repository/docker/francinesauvage/mism_awx_web)
-    - [here](https://cloud.docker.com/repository/docker/francinesauvage/mism_awx_task)
+  * Dockerhub AWX images 
+    - [BullSequana Edge Dockerhub AWX web image](https://cloud.docker.com/repository/docker/francinesauvage/mism_awx_web)
+    - [BullSequana Edge Dockerhub AWX task image](https://cloud.docker.com/repository/docker/francinesauvage/mism_awx_task)
 
 ## Summary
-[Playbooks](#playbooks)
-[What to do first on AWX](#what_awx)
-[What to do first on Ansible](#what_ansible)
-[How to change certificat on AWX server](#howto_cert)
-[How to change passwords](#howto_ts)
-[How to declare my proxy](#howto_proxy)
-[How to change technical states file path](#howto_ts)
-[How to log on a docker container](#howto_docker_logon)
-[Warning for updates](#warning_updates)
-[More help](#more_help)
-[Support](#support)
-[LICENSE](#license)
-[Version](#version)
+- [Playbooks](#playbooks)
+- [What to do first on AWX](#what_awx)
+- [What to do first on Ansible](#what_ansible)
+- [How to change certificat on AWX server](#howto_cert)
+- [How to change passwords](#howto_ts)
+- [How to declare my proxy](#howto_proxy)
+- [How to change technical states file path](#howto_ts)
+- [How to log on a docker container](#howto_docker_logon)
+- [Warning for updates](#warning_updates)
+- [More help](#more_help)
+- [Support](#support)
+- [LICENSE](#license)
+- [Version](#version)
 
 ## <a name="playbooks"></a>Playbooks
 - `Activate firmware updates`: Activate BullSequana Edge updated firmwares
@@ -77,6 +77,7 @@ Optionaly, 2 ready-to-go AWX-Ansible images are available on Dockerhub
 
 ### Add your playbooks
 If you did NOT already add your playbooks, just run :
+
 `<clone_dir>/add_playbooks.sh`
 
 ### Complete your inventory first
@@ -147,7 +148,7 @@ variables = ansible/vars file
 2. In the appropriated file playbooks/vars/external_vars.yml, uncomment and set the desired variable :
 `my_variable: my_value `
 
-<span style="color:red">Warning : the 2 different ways are exclusive : You should declare a same variable in file OR in parameter, else it will conflict</span>
+- ![#f03c15](https://placehold.it/15/f03c15/000000?text=+) `Warning : the 2 different ways are exclusive : You should declare a same variable in file OR in parameter, else it will conflict`
 
 ### Update
 #### To update one image on all BMCs
