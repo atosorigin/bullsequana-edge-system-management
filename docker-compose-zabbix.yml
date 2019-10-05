@@ -31,7 +31,7 @@ services:
     depends_on:
       - zabbix-postgres
     env_file:
-      - zabbix.env
+      - Dockerfiles/zabbix.env
 
   zabbix-web:
     build:
@@ -42,7 +42,7 @@ services:
     restart: always    
     container_name: zabbix-web
     env_file:
-      - zabbix.env
+      - Dockerfiles/zabbix.env
     ports:
       - 4443:443
     volumes:
@@ -71,7 +71,7 @@ services:
     container_name: zabbix-agent
     hostname: zabbix-agent
     env_file:
-      - zabbix.env
+      - Dockerfiles/zabbix.env
     volumes:
       - /var/log/rsyslog:/var/log/zabbix/rsyslog:rw
       - ./zabbix/agent/zabbix_agentd.conf:/etc/zabbix/zabbix_agentd.conf:Z
@@ -90,7 +90,7 @@ services:
     hostname: zabbix-postgres
     restart: unless-stopped
     env_file:
-      - zabbix.env
+      - Dockerfiles/zabbix.env
     environment:
       PGDATA: /var/lib/postgresql/data/pgdata
     ports:
