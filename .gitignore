@@ -12,7 +12,7 @@
 /zabbix/pgdata
 
 # json generated zabbix files not commited
-/zabbix/server/externalscripts/openbmc/*
+#/zabbix/server/externalscripts/openbmc/*.json
 # no pid files
 *.pid
 
