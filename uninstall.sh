@@ -41,8 +41,7 @@ rm -rf Dockerfiles
 echo "removing postgres backups..."
 rm -rf pgadmin
 echo "shells"
-rm -rf *.sh
-rm -f docker-compose-awx.yml
-rm -f docker-compose-zabbix.yml
-cd ..
-rm -rf mism
+rm -f *.sh
+echo "yml files"
+rm -f *.yml
+
