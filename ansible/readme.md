@@ -90,12 +90,16 @@ Optionally, your can detect hosts with nmap inventory script: See nmap in Comman
 `baseuri: {{inventory_hostname}} `
 
 ### Change your inventory variables 
-if you never want to automatically reboot the BMC, you need to change reboot variable in your inventory / variable part 
+if you never want to automatically reboot the BMC, you need to change reboot variable in your inventory / variable part:
+
 `reboot = False`
+
 ![#f03c15](https://placehold.it/15/f03c15/000000?text=+)Warning : Default is True meaning the BMC will reboot automatically after an updade
 
-if you never want to automatically force the remote server power off, you need to change forceoff variable in your inventory / variable part 
+if you never want to automatically force the remote server power off, you need to change forceoff variable in your inventory / variable part:
+
 `forceoff = False`
+
 ![#f03c15](https://placehold.it/15/f03c15/000000?text=+)Warning : Default value is True meaning the BMC will power off automatically the host (server) during BIOS update 
 
 *playbooks needing a reboot or forceoff will fail*
