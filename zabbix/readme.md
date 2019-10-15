@@ -1,11 +1,6 @@
 What to do first on Zabbix
 ==========================
 
-!!! very important !!!
-From zabbix web site: go to Configuration / Host and rename:
-=> Host Name = "Zabbix server" to Host Name = "zabbix-server" in the first line (mandatory)
-=> Visible name = "Zabbix server"
-
 ### rename Zabbix Server
 1. Go to Configuration / Hosts
 2. Select you Zabbix server host
@@ -14,18 +9,20 @@ Visible name : Zabbix Server
 4. Enter name with a minus '-'
 Host Name    : zabbix-server
 
-=> This is because it is highly recommanded to have a hostname without space
-==> stop and start docker containers
+![#f03c15](https://placehold.it/15/f03c15/000000?text=+) !!! very important !!!
+you should first rename your Zabbix Server
+=> This is because it is highly recommanded to have a hostname without space (by default on Zabbix !!)
+![#c5f015](https://placehold.it/15/c5f015/000000?text=+) `=> stop and start docker containers`
 
 Be careful: The "Visible name" is used by Zabbix Dashboards, so let "Zabbix server" persist as a Visible name.
 
 ![alt text](https://github.com/frsauvage/MISM/blob/master/zabbix/doc/Zabbix_Server_Configuration.png)
 
 5. Change the agent to zabbix-agent:
-Remove IP = 127.0.0.1 
-Add DNS = zabbix-agent on the NEXT CASE
-Click on DNS instead of IP
-Port should be 10050
+- Remove IP = 127.0.0.1 
+- Add DNS = zabbix-agent on the NEXT CASE
+- Click on DNS instead of IP
+- Port should be 10050
 
 ### install Atos templates
 You should copy the templates from <install_dir>\zabbix\server\externalscripts\ to a local path
@@ -41,10 +38,10 @@ You should copy the templates from <install_dir>\zabbix\server\externalscripts\ 
 2. Click on the right button "Create Host"
 3. Add a Name 
 4. Change the agent to zabbix-agent:
-Remove IP = 127.0.0.1  IP case should be empty
-Add DNS = zabbix-agent on the DNS case
-Click on DNS button instead of IP
-Port should be 10050
+- Remove IP = 127.0.0.1  IP case should be empty
+- Add DNS = zabbix-agent on the DNS case
+- Click on DNS button instead of IP
+- Port should be 10050
 
 ### link Atos template to your host
 1. Go to Configuration/Hosts
@@ -55,9 +52,9 @@ Port should be 10050
 6. Click on Update button
 7. Click on "Macros" tab
 You must add 3 macros on each mipocket host:
-    * {$PASSWORD} with the password for Mipocket (could be encrypted with PSK => See Security below)
-    * {$USER} with the username to be used
-    * {$OPENBMC} the reachable address of Mipocket
+- {$PASSWORD} with the password for Mipocket (could be encrypted with PSK => See Security below)
+- {$USER} with the username to be used
+- {$OPENBMC} the reachable address of Mipocket
 
 
 ## rsyslog template installation
