@@ -1,9 +1,4 @@
-Warning for updates
-=================== 
-Never change original templates => duplicate or create your own template
-
-What to do first on Zabbix
-==========================
+#What to do first on Zabbix
 
 !!! very important !!!
 From zabbix web site: go to Configuration / Host and rename:
@@ -12,7 +7,7 @@ From zabbix web site: go to Configuration / Host and rename:
 
 ### rename Zabbix Server
 1. Go to Configuration / Hosts
-2. Click on Zabbix server
+2. Select you Zabbix server host
 3. Cut/Paste the "Zabbix server" name to "Visible name":
 Visible name : Zabbix Server
 4. Enter name with a minus '-'
@@ -29,21 +24,38 @@ Add DNS = zabbix-agent on the NEXT CASE
 Click on DNS instead of IP
 Port should be 10050
 
-How to install Atos templates
-=============================
-### On Docker-Zabbix side
+### install Atos templates
+You should copy the templates from <install_dir>\zabbix\server\externalscripts\ to a local path
+1. Go to Configuration / Templates
+2. Click on the right button Import
+![alt text](https://github.com/frsauvage/MISM/master/zabbix/doc/Import_templates.png)
+3. Locate your Atos templates
+4. Click on the Import button below
+![alt text](https://github.com/frsauvage/MISM/master/zabbix/doc/Select_template.png)
 
-  - Import the templates from <install_dir>\zabbix\server\externalscripts\
-  - Link each mipocket to the lld template
-  - Change agent for each mipocket : zabbix-agent / DNS / 10050
-  - You must add 3 macros on each mipocket host:
+### add your hosts
+1. Go to Configuration / Hosts
+2. Click on the right button "Create Host"
+3. Add a Name 
+4. Change the agent to zabbix-agent:
+Remove IP = 127.0.0.1  IP case should be empty
+Add DNS = zabbix-agent on the DNS case
+Click on DNS button instead of IP
+Port should be 10050
+
+### link Atos template to your host
+1. Go to Configuration/Hosts
+2. Select your host
+3. Click on "Template" tab
+4. Filter Atos template and retrieve Atos LLD template
+5. Click on Add Link => The template should apear in "Linked Templates" part above
+6. Click on Update button
+7. Click on "Macros" tab
+You must add 3 macros on each mipocket host:
     * {$PASSWORD} with the password for Mipocket (could be encrypted with PSK => See Security below)
     * {$USER} with the username to be used
     * {$OPENBMC} the reachable address of Mipocket
 
-### On MiPocket side
-  - Make sure your MiPocket is reachable from the zabbix server/proxy, test with: `telnet <IP OPENBMC>`
-  - Make sure your MiPocket is reachable through a browser: `https://<IP OPENBMC>`
 
 ## rsyslog template installation
 Ensure you renamed zabbix-server for rsyslog template (previously explained)
@@ -52,7 +64,7 @@ The hostname for zabbix server should be zabbix-server.
 !! The rsyslog should be activated BEFORE loading rsyslog template
 If ever you start docker containers after loading the rsyslog template : 
 => remove the rsyslog directory created in /var/log/rsyslog because the docker container did not successfully map to /var/log/rsyslog and created a directory (instead of a file) by default:
-`rm -rf /var/log/rsyslog
+`rm -rf /var/log/rsyslog`
 
 #### activate udp/tcp rsyslog port
 in /etc/rsyslog.conf file, uncomment or copy the following lines:
@@ -103,7 +115,7 @@ where my_naming_convention is a substring contained in all BMC hostnames
 
 ### rsyslog configuration
 Change user permission on rsyslog
-` chmod uo+rw /var/log/rsyslog
+` chmod uo+rw /var/log/rsyslog`
 
 ### rsyslog system reload/restart after changes
 
@@ -117,7 +129,7 @@ with telnet to check port opening:
 ` telnet <my_rsyslog_server_ip> <my_rsyslog_port>
 
 with logger command:
-` logger -n <my_rsyslog_server_ip> 'here is a test log message from <my_rsyslog_server_ip>'
+` logger -n <my_rsyslog_server_ip> 'here is a test log message from <my_rsyslog_server_ip>' `
 
 More information on : https://www.tecmint.com/install-rsyslog-centralized-logging-in-centos-ubuntu/
 
@@ -126,7 +138,7 @@ if telnet is not working but the ping is working : iptables rules could be the i
 You can flush the iptables rules 
 !! be careful to be able to recreate itables rules !!
 
-` iptables -F
+` iptables -F `
 
 # Network Proxy
 export HTTP_PROXY="http://<proxy_ip>:<proxy_port>"
@@ -164,16 +176,21 @@ echo PSK: <your psk>
 
 ## generate an encrypted passwords
 1. generate an encrypted password for each different password 
-` <install_dir>/generate_encrypted_password_for_zabbix.sh --passord=<your_clear_password>"
+` <install_dir>/generate_encrypted_password_for_zabbix.sh --passord=<your_clear_password> `
 
 2. copy/paste encrypted result it in zabbix / Configuration / Hosts / you host / Macros / {$PASSWORD} Value
 
 # Tests
+#### on mi-pocket side
+  - Make sure your MiPocket is reachable from the zabbix server/proxy, test with: `telnet <IP OPENBMC>`
+  - Make sure your MiPocket is reachable through a browser: `https://<IP OPENBMC>`
 #### zabbix_sender
 See https://www.zabbix.com/documentation/4.4/manpages/zabbix_sender
 #### zabbix_get
 See https://www.zabbix.com/documentation/4.4/manpages/zabbix_get
 
-Version:
-========
+#Warning for updates
+Never change original templates => duplicate or create your own template
+
+#Version
 MISM version 2.0.1
