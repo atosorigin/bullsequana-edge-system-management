@@ -8,18 +8,13 @@ What to do first on Zabbix
 Visible name : Zabbix Server
 4. Enter name with a minus '-'
 Host Name    : zabbix-server
-5. 
-<div class="text-gray-dark on .bg-green-light">
-=> stop and start docker containers
-</div>
+5. ![#c5f015](https://placehold.it/15/c5f015/000000?text=+) => stop and start docker containers
 
-- <div class="text-white on .bg-red"> !!! very important !!!</div>
+- ![#f03c15](https://placehold.it/15/f03c15/000000?text=+) !!! very important !!!
 you should first rename your Zabbix Server
 => This is because it is highly recommanded to have a hostname without space (by default on Zabbix !!)
 
-<div class="text-gray-dark on .bg-yellow-light">
 Be careful: The "Visible name" is used by Zabbix Dashboards, so let "Zabbix server" persist as a Visible name.
-</div>
 
 ![alt text](https://github.com/frsauvage/MISM/blob/master/zabbix/doc/Zabbix_Server_Configuration.png)
 
