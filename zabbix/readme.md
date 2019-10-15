@@ -28,10 +28,10 @@ Port should be 10050
 You should copy the templates from <install_dir>\zabbix\server\externalscripts\ to a local path
 1. Go to Configuration / Templates
 2. Click on the right button Import
-![alt text](https://github.com/frsauvage/MISM/master/zabbix/doc/Import_templates.png)
+![alt text](https://github.com/frsauvage/MISM/blob/master/zabbix/doc/Import_templates.png)
 3. Locate your Atos templates
 4. Click on the Import button below
-![alt text](https://github.com/frsauvage/MISM/master/zabbix/doc/Select_template.png)
+![alt text](https://github.com/frsauvage/MISM/blob/master/zabbix/doc/Select_template.png)
 
 ### add your hosts
 1. Go to Configuration / Hosts
