@@ -89,6 +89,18 @@ Optionally, your can detect hosts with nmap inventory script: See nmap in Comman
 *Don't forget to copy/paste baseuri in every host unmodified*
 `baseuri: {{inventory_hostname}} `
 
+### Change your inventory variables 
+if you never want to automatically reboot the BMC, you need to change reboot variable in your inventory / variable part 
+`reboot = False`
+![#f03c15](https://placehold.it/15/f03c15/000000?text=+)Warning : Default is True meaning the BMC will reboot automatically after an updade
+
+if you never want to automatically force the remote server power off, you need to change forceoff variable in your inventory / variable part 
+`forceoff = False`
+![#f03c15](https://placehold.it/15/f03c15/000000?text=+)Warning : Default value is True meaning the BMC will power off automatically the host (server) during BIOS update 
+
+*playbooks needing a reboot or forceoff will fail*
+*reboot and shutdown playbooks do NOT care these variables*
+
 ### Create your vault
 1. Go to AWX Credentials
 ```
@@ -110,13 +122,6 @@ remember your password
 password: {{my_password_to_encrypt}}
 ```
 5. In all templates, you should now indicate the Credential you want before running it
-
-## Change your inventory variables 
-if you never want to automatically reboot the BMC, you need to change reboot = False variable in your inventory / variable part (Default is True)
-if you never want to automatically force the remote server power off, you need to change force_off = False variable in your inventory / variable part (Default is True)
-*Be careful
-*playbooks needing a reboot or forceoff will fail*
-*reboot and shutdown playbooks do NOT care these variables*
 
 ## <a name="what_ansible"></a>What to do first on Ansible
 
