@@ -1,4 +1,5 @@
-#What to do first on Zabbix
+What to do first on Zabbix
+==========================
 
 !!! very important !!!
 From zabbix web site: go to Configuration / Host and rename:
@@ -18,6 +19,8 @@ Host Name    : zabbix-server
 
 Be careful: The "Visible name" is used by Zabbix Dashboards, so let "Zabbix server" persist as a Visible name.
 
+![alt text](https://github.com/frsauvage/MISM/blob/master/zabbix/doc/Zabbix_Server_Configuration.png)
+
 5. Change the agent to zabbix-agent:
 Remove IP = 127.0.0.1 
 Add DNS = zabbix-agent on the NEXT CASE
@@ -27,11 +30,11 @@ Port should be 10050
 ### install Atos templates
 You should copy the templates from <install_dir>\zabbix\server\externalscripts\ to a local path
 1. Go to Configuration / Templates
-2. Click on the right button Import
+2. Click on Import button at the right
 ![alt text](https://github.com/frsauvage/MISM/blob/master/zabbix/doc/Import_templates.png)
 3. Locate your Atos templates
-4. Click on the Import button below
 ![alt text](https://github.com/frsauvage/MISM/blob/master/zabbix/doc/Select_template.png)
+4. Click on Import button below
 
 ### add your hosts
 1. Go to Configuration / Hosts
