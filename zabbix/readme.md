@@ -152,6 +152,8 @@ if ever you have proxy issues, try to add as many <whatever_mipocket_ip_address>
 
 export NO_PROXY="127.0.0.1,localhost,zabbix-server,zabbix-agent,zabbix-web,ansible,awx,awx_web,awx_task,<whatever_ip_address>"
 
+![#c5f015](https://placehold.it/15/c5f015/000000?text=+) => stop and start docker containers
+
 # Security
 ## activate PSK security on zabbix
 1. generate a key in /etc/zabbix/zabbix_agentd.psk and follow the instructions
@@ -162,6 +164,7 @@ export NO_PROXY="127.0.0.1,localhost,zabbix-server,zabbix-agent,zabbix-web,ansib
 2. edit zabbix/agent/zabbix_agentd.conf
 
 3. locate the section and uncomment the 4 following items:
+
 ```
 ####### TLS-RELATED PARAMETERS #######
 TLSConnect=psk
@@ -177,6 +180,8 @@ Connections from host : <select PSK>
 PSK Identity: PSK_Mipocket_Agent"
 echo PSK: <your psk>
 ```
+
+5. ![#c5f015](https://placehold.it/15/c5f015/000000?text=+) => stop and start docker containers
 
 *more info on https://www.zabbix.com/documentation/4.0/fr/manual/encryption/using_pre_shared_keys*
 
