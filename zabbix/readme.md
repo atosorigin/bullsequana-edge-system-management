@@ -103,7 +103,10 @@ if this line exists in rsyslog.conf
 $IncludeConfig /etc/rsyslog.d/*.conf
 ```
 you can now create a .conf (like /etc/rsyslog.d/rsyslog_template.conf) file in /etc/rsyslog.d/ and place your template format :
-$template rsyslog_format,"%timegenerated% %hostname% %FROMHOST-IP% %syslogfacility-text%:%syslogpriority-text% %syslogtag%%msg:::drop-last-lf%\n"
+
+`$template rsyslog_format,"%timegenerated% %hostname% %FROMHOST-IP% %syslogfacility-text%:%syslogpriority-text% %syslogtag%%msg:::drop-last-lf%\n" `
+
+and add the following lines in your /etc/rsyslog.conf 
 
 ```
 $template RemoteLogs,"/var/log/rsyslog"
@@ -142,9 +145,12 @@ You can flush the iptables rules
 
 # Network Proxy
 export HTTP_PROXY="http://<proxy_ip>:<proxy_port>"
+
 export HTTPS_PROXY="http://<proxy_ip>:<proxy_port>"
+
 if ever you have proxy issues, try to add as many <whatever_mipocket_ip_address> as mipocket instance in no_proxy environment variable :
-export NO_PROXY="127.0.0.1,localhost,zabbix,webserver,0.0.0.0:9090,0.0.0.0,ansible,awx,awx_web,awx_task,<whatever_ip_address>"
+
+export NO_PROXY="127.0.0.1,localhost,zabbix-server,zabbix-agent,zabbix-web,ansible,awx,awx_web,awx_task,<whatever_ip_address>"
 
 # Security
 ## activate PSK security on zabbix
