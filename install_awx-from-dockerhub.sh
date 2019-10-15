@@ -1,7 +1,7 @@
 #!/bin/sh
 
 export HTTP_PROXY=$HTTP_PROXY
-export HTTPS_PROXY=$HTTP_PROXY
+export HTTPS_PROXY=$HTTPS_PROXY
 
 echo "cloning BullSequana Edge Ansible AWX containers ...."
 git clone "https://www.github.com/frsauvage/MISM.git"

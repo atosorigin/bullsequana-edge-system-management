@@ -18,7 +18,17 @@ if [ $# -eq 0 ]
     usage;
 fi
 
-docker exec -it awx_web $ANSIBLECMD $@
+echo "Original output"
+docker exec -it awx_web $ANSIBLECMD $@ | tee /tmp/fileEncrypt$$
+
+# remove the two first lines and the last 
+nbLine=`wc -l /tmp/fileEncrypt$$ | awk '{print$1}'`
+s=3
+e=$((nbLine - 1))
+#sed -n "${s},${e}p" /tmp/fileEncrypt$$ 
+# and replace  !vault /__ansible_vault: 
+echo "Final output"
+sed -n "${s},${e}p" /tmp/fileEncrypt$$ | sed 's/!vault /__ansible_vault: /'
 
 echo "1. copy/paste generated lines to AWX / inventory / host / VARIABLES :"
 echo "  username: ..."
@@ -33,3 +43,4 @@ echo "3. adapt your password variable with your name"
 echo "  password: \"{{my_root_password}}\" "
 echo
 
+rm -f /tmp/fileEncrypt$$
