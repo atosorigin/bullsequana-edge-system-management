@@ -4,9 +4,9 @@ How to install BullSequana Edge System Management
 
 All default environment variables are declared in Dockerfiles/zabbix.env file.
 
-By default, the PROXY environement variables are copied on docker containers : HTTP_PROXY, HTTPS_PROXY, NO_PROXY
+By default, the folowwing XXX_PROXY environment variables are copied in zabbix context : HTTP_PROXY, HTTPS_PROXY, NO_PROXY
 
-To change it, adapt and export your PROXY environement variables:
+To change it, open a terminal and change your XXX_PROXY environement variables:
 
 export HTTP_PROXY="http://<proxy_ip>:<proxy_port>"
 
@@ -16,14 +16,16 @@ export HTTPS_PROXY="http://<proxy_ip>:<proxy_port>"
 
 export NO_PROXY="127.0.0.1,localhost,zabbix,webserver,0.0.0.0:9090,0.0.0.0,ansible,awx,awx_web,awx_task,*<bullsequana_edge_ip_address>*"
 
-### Launch installer
-You can now run the install script:
+You can now run the installer.
 
-```./install_zabbix.sh```
+### Launch installer
+Run the install script:
+
+`./install_zabbix.sh`
 
 or if you want to use the Docker Atos images, you can now run thefollowing Dockerhub install script:
 
-```./install_zabbix_from_dockerhub.sh```
+`./install_zabbix_from_dockerhub.sh`
 
 
 What to do first on Zabbix
