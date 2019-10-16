@@ -6,19 +6,25 @@ All default environment variables are declared in Dockerfiles/zabbix.env file.
 
 By default, the PROXY environement variables are copied on docker containers : HTTP_PROXY, HTTPS_PROXY, NO_PROXY
 
-To change it, adapt and export your PROXY environement variables  
+To change it, adapt and export your PROXY environement variables:
+
 export HTTP_PROXY="http://<proxy_ip>:<proxy_port>"
+
 export HTTPS_PROXY="http://<proxy_ip>:<proxy_port>"
 
 ![#f03c15](https://placehold.it/15/f03c15/000000?text=+) if you have a proxy between the server and the BMC or if ever you have proxy issues, try to add as many *<bullsequana_edge_ip_address>* as device instances you have in NO_PROXY environment variable :
+
 export NO_PROXY="127.0.0.1,localhost,zabbix,webserver,0.0.0.0:9090,0.0.0.0,ansible,awx,awx_web,awx_task,*<bullsequana_edge_ip_address>*"
 
 ### Launch installer
 You can now run the install script:
-`./install_zabbix.sh`
-or
-if you want to use the Docker Atos images, you can now run thefollowing Dockerhub install script:
-`./install_zabbix_from_dockerhub.sh`
+
+```./install_zabbix.sh```
+
+or if you want to use the Docker Atos images, you can now run thefollowing Dockerhub install script:
+
+```./install_zabbix_from_dockerhub.sh```
+
 
 What to do first on Zabbix
 ==========================
@@ -169,7 +175,9 @@ You can flush the iptables rules
 When you start the installer, the declared XXX_PROXY environment variables are copied inside containers :
  
 export HTTP_PROXY="http://<proxy_ip>:<proxy_port>"
+
 export HTTPS_PROXY="http://<proxy_ip>:<proxy_port>"
+
 export NO_PROXY="127.0.0.1,localhost,zabbix-server,zabbix-agent,zabbix-web,ansible,awx,awx_web,awx_task,<bullsequana_edge_ip_address>"
 
 ![#c5f015](https://placehold.it/15/c5f015/000000?text=+) if you change the XXX_PROXY env variable, you should restart the containers :
