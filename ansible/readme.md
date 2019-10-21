@@ -7,16 +7,18 @@ BullSequana Edge
 
 ## Prerequisites
   * AWX >= 4.0
-  * zabbix >= 4.2
+  * Ansible >= 4.2
   * Python >= 2.7.5
 
 Optionaly, 2 ready-to-go AWX-Ansible images are available on Dockerhub
   * Dockerhub AWX images 
     - [BullSequana Edge Dockerhub AWX web image](https://cloud.docker.com/repository/docker/francinesauvage/mism_awx_web)
     - [BullSequana Edge Dockerhub AWX task image](https://cloud.docker.com/repository/docker/francinesauvage/mism_awx_task)
+  * Docker CE
+  * Docker compose
 
 ## Summary
-- [Playbooks](#playbooks)
+- [BullSequana Edge Playbooks](#playbooks)
 - [What to do first on AWX](#what_awx)
 - [What to do first on Ansible](#what_ansible)
 - [How to change certificat on AWX server](#howto_cert)
@@ -30,7 +32,7 @@ Optionaly, 2 ready-to-go AWX-Ansible images are available on Dockerhub
 - [LICENSE](#license)
 - [Version](#version)
 
-## <a name="playbooks"></a>Playbooks
+## <a name="playbooks"></a>BullSequana Edge Playbooks
 - `Activate firmware updates`: Activate BullSequana Edge updated firmwares
 - `Evaluate firmware update from Technical State`:Evaluate firmware update from Atos specific Technical State file (comparaison)
 - `Delete firmware image`: Delete a firmware image by id

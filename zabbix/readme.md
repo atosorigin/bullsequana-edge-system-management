@@ -1,10 +1,43 @@
-How to install BullSequana Edge System Management
-=================================================
+# BullSequana Edge Zabbix Templates
+
+BullSequana Edge Zabbix Templates allows Data Center and IT administrators to use zabbix to monitor BullSequana Edge devices.
+
+## Supported Platforms
+BullSequana Edge
+
+## Prerequisites
+From zabbix directly :
+  * Zabbix >= 4.2
+  * Python >= 2.7.5
+
+Optionally, 3 ready-to-go zabbix images are available on Dockerhub
+  * Dockerhub Zabbix images 
+    - [BullSequana Edge Dockerhub Zabbix server image](https://cloud.docker.com/repository/docker/francinesauvage/mism_zabbix_server)
+    - [BullSequana Edge Dockerhub Zabbix web image](https://cloud.docker.com/repository/docker/francinesauvage/mism_zabbix_web)
+    - [BullSequana Edge Dockerhub Zabbix agent image](https://cloud.docker.com/repository/docker/francinesauvage/mism_zabbix_agent)
+  * Docker CE
+  * Docker compose
+
+## Summary
+- [BullSequana Edge Zabbix Templates](#templates)
+- [What to do first](#what_first)
+- [How to install BullSequana Edge template](#edge_template)
+- [How to install rsyslog template](#rsyslog_template)
+- [Network Proxy](#proxy)
+- [Security](#security)
+- [Tests](#tests)
+- [Warning for udates](#updates)
+- [Support](#support)
+- [LICENSE](#license)
+- [Version](#version)
+
+## <a name="what_first"></a>What to do first
+
 ### Change environment variables for Proxy
 
 All default environment variables are declared in Dockerfiles/zabbix.env file.
 
-By default, the folowwing XXX_PROXY environment variables are copied in zabbix context : HTTP_PROXY, HTTPS_PROXY, NO_PROXY
+By default, the following XXX_PROXY environment variables are copied in zabbix context : HTTP_PROXY, HTTPS_PROXY, NO_PROXY
 
 To change it, open a terminal and change your XXX_PROXY environement variables:
 
@@ -23,13 +56,15 @@ Run the install script:
 
 `./install_zabbix.sh`
 
-or if you want to use the Docker Atos images, you can now run thefollowing Dockerhub install script:
+or if you want to use the Docker Atos images, you can now run the following Dockerhub install script:
 
 `./install_zabbix_from_dockerhub.sh`
 
+### enable automatic inventory by default
+1. Go to Administration / General
+2. Select you Zabbix server host
 
-What to do first on Zabbix
-==========================
+![alt text](https://github.com/frsauvage/MISM/blob/master/zabbix/doc/Zabbix_Server_Configuration.png)
 
 ### rename Zabbix Server
 1. Go to Configuration / Hosts
@@ -86,50 +121,90 @@ You must add 3 macros on each mipocket host:
 - {$USER} with the username to be used
 - {$OPENBMC} the reachable address of Mipocket
 
+## <a name="edge_template"></a>How to install BullSequana Edge template
+### template content
+- applications: All items are categorized inside applications with the following rules :
+![alt text](https://github.com/frsauvage/MISM/blob/master/zabbix/doc/Applications.png)
 
-## rsyslog template installation
-Ensure you renamed zabbix-server for rsyslog template (previously explained)
-The hostname for zabbix server should be zabbix-server.
+- items belong to Applications
+
+- discovered items belong to Applications named "Discovery..."
+
+Fans, Temperature and Voltage are discovered - values are float => it could be added in 'Graph'
+
+![alt text](https://github.com/frsauvage/MISM/blob/master/zabbix/doc/item_prototypes.png)
+
+- triggers
+
+Firmware update failures are triggered
+
+- 4 discovered triggers
+1. Critical high & low triggers corresponding to Critical Alarms Threshold fo BullSequana Edge device are Enabled by default
+2. Warning high & low triggers to Warning Alarms Threshold fo BullSequana Edge device are Disabled by default
+![alt text](https://github.com/frsauvage/MISM/blob/master/zabbix/doc/4_triggers.png)
+
+- automatic inventory mapping
+
+Model, Asset, Serial number, Software Version, OOB IP Address and Manufacturer are automatically fulfilled
+
+![alt text](https://github.com/frsauvage/MISM/blob/master/zabbix/doc/automatic_inventory.png)
+
+- discovered graphs (prototypes) : Fans, Temperatures and Voltages graphs
+
+- 3 dynamic screens: Fans, Temperatures and Voltages screens that you could reach in host details
+
+![alt text](https://github.com/frsauvage/MISM/blob/master/zabbix/doc/host_inventory.png)
+
+![alt text](https://github.com/frsauvage/MISM/blob/master/zabbix/doc/host_screens.png)
+
+## <a name="rsyslog_template"></a>rsyslog template installation
+### template content
+- application rsyslog is available for textual widget and history analysis
+- 1 item
+A unique item is detecting rsyslog file change
+- trigger
+A unique trigger is triggering on BullSequana Edge device error events
 
 !! The rsyslog should be activated BEFORE loading rsyslog template
 If ever you start docker containers after loading the rsyslog template : 
 => remove the rsyslog directory created in /var/log/rsyslog because the docker container did not successfully map to /var/log/rsyslog and created a directory (instead of a file) by default:
 `rm -rf /var/log/rsyslog`
 
-#### activate udp/tcp rsyslog port
+### activate udp/tcp rsyslog port
 in /etc/rsyslog.conf file, uncomment or copy the following lines:
 ```
-# Provides UDP syslog reception
+### Provides UDP syslog reception
 $ModLoad imudp
 $UDPServerRun 514
 
-# Provides TCP syslog reception
+### Provides TCP syslog reception
 $ModLoad imtcp
 $InputTCPServerRun 514
 ```
 
-#### activate a rsyslog directory in docker-compose mism file
+### activate a rsyslog directory in docker-compose mism file
 in docker-compose-mism.yml file, zabbix-server service section, uncomment :
     volumes:
        # - /var/log/rsyslog:/var/log/zabbix/rsyslog:rw
 where /var/log/rsyslog is a physical (or shared) file on host of the zabbix docker container containing the rsyslog server file
 
-#### install logrotate
+### install logrotate
 ` yum update && yum install logrotate`
 rsyslog should be the only file name of the current rsyslog file for the zabbix template to work
 log rotation is mandatory for the rsyslog template immediatly
 you must adapt the template if you have another rotation rule
 
-#### install logrotate
+### install logrotate
 
-#### syslog template
+### syslog template
 create your rsyslog template directly in /etc/rsyslog.conf 
 
 or
  
 if this line exists in rsyslog.conf
 ```
-# Include all config files in /etc/rsyslog.d/
+
+### Include all config files in /etc/rsyslog.d/
 $IncludeConfig /etc/rsyslog.d/*.conf
 ```
 you can now create a .conf (like /etc/rsyslog.d/rsyslog_template.conf) file in /etc/rsyslog.d/ and place your template format :
@@ -173,7 +248,7 @@ You can flush the iptables rules
 
 ` iptables -F `
 
-# Network Proxy
+## <a name="proxy"></a>Network Proxy
 When you start the installer, the declared XXX_PROXY environment variables are copied inside containers :
  
 export HTTP_PROXY="http://<proxy_ip>:<proxy_port>"
@@ -189,7 +264,7 @@ export NO_PROXY="127.0.0.1,localhost,zabbix-server,zabbix-agent,zabbix-web,ansib
 ./start.sh
 ```
 
-# Security
+## <a name="security"></a>Security
 ## activate PSK security on zabbix
 1. generate a key in /etc/zabbix/zabbix_agentd.psk and follow the instructions
 ```
@@ -226,7 +301,7 @@ echo PSK: <your psk>
 
 2. copy/paste encrypted result it in zabbix / Configuration / Hosts / you host / Macros / {$PASSWORD} Value
 
-# Tests
+## <a name="tests"></a>Tests
 #### on mi-pocket side
   - Make sure your MiPocket is reachable from the zabbix server/proxy, test with: `telnet <IP OPENBMC>`
   - Make sure your MiPocket is reachable through a browser: `https://<IP OPENBMC>`
@@ -235,8 +310,16 @@ See https://www.zabbix.com/documentation/4.4/manpages/zabbix_sender
 #### zabbix_get
 See https://www.zabbix.com/documentation/4.4/manpages/zabbix_get
 
-#Warning for updates
+## <a name="updates"></a>Warning for updates
 Never change original templates => duplicate or create your own template
 
-#Version
-MISM version 2.0.1
+## <a name="support"></a>Support
+  * This branch corresponds to the release actively under development.
+  * If you want to report any issue, then please report it by creating a new issue [here](https://github.com/atos/MISM/issues)
+  * If you have any requirements that is not currently addressed, then please let us know by creating a new issue [here](https://github.com/atos/MISM/issues)
+
+## <a name="license"></a>LICENSE
+This project is licensed under GPL-3.0 License. Please see the [COPYING](./COPYING.md) for more information
+
+## <a name="version"></a>Version
+BullSequana Edge System MAnagement Tool version 2.0.1
