@@ -16,22 +16,28 @@ services:
     container_name: zabbix-server
     hostname: zabbix-server
     volumes:
-       - ./zabbix/server/alertscripts:/usr/lib/zabbix/alertscripts:rw
-       - ./zabbix/server/externalscripts:/usr/lib/zabbix/externalscripts:rw
-       - ./zabbix/agent/zabbix_agentd.psk:/etc/zabbix/zabbix_agentd.psk:ro
-       - /var/log/rsyslog:/var/log/zabbix/rsyslog:rw
-#      - ./zabbix/dockerdata/server/modules:/var/lib/zabbix/modules
-#      - ./zabbix/dockerdata/server/enc:/var/lib/zabbix/enc
-#      - ./zabbix/dockerdata/server/ssh_keys:/var/lib/zabbix/ssh_keys
-#      - ./zabbix/dockerdata/server/ssl/certs:/var/lib/zabbix/ssl/certs
-#      - ./zabbix/dockerdata/server/ssl/keys:/var/lib/zabbix/ssl/keys
-#      - ./zabbix/dockerdata/server/ssl/ssl_ca:/var/lib/zabbix/ssl/ssl_ca
-#      - /usr/share/zoneinfo/Asia/Shanghai:/etc/localtime
-#       - ./zabbix/zabbix_server.conf:/etc/zabbix/zabbix_server.conf
+      - /etc/localtime:/etc/localtime:ro
+      - ./zabbix/server/alertscripts:/usr/lib/zabbix/alertscripts:rw
+      - ./zabbix/server/externalscripts:/usr/lib/zabbix/externalscripts:rw
+      - ./zabbix/agent/zabbix_agentd.psk:/etc/zabbix/zabbix_agentd.psk:ro
+      - /var/log/rsyslog:/var/log/zabbix/rsyslog:rw
+#     - ./zabbix/dockerdata/server/modules:/var/lib/zabbix/modules
+#     - ./zabbix/dockerdata/server/enc:/var/lib/zabbix/enc
+#     - ./zabbix/dockerdata/server/ssh_keys:/var/lib/zabbix/ssh_keys
+#     - ./zabbix/dockerdata/server/ssl/certs:/var/lib/zabbix/ssl/certs
+#     - ./zabbix/dockerdata/server/ssl/keys:/var/lib/zabbix/ssl/keys
+#     - ./zabbix/dockerdata/server/ssl/ssl_ca:/var/lib/zabbix/ssl/ssl_ca
+#     - /usr/share/zoneinfo/Asia/Shanghai:/etc/localtime
+#     - ./zabbix/zabbix_server.conf:/etc/zabbix/zabbix_server.conf
     depends_on:
       - zabbix-postgres
     env_file:
       - Dockerfiles/zabbix.env
+    environment:
+      HTTP_PROXY: ${HTTP_PROXY}
+      HTTPS_PROXY: ${HTTPS_PROXY}
+      NO_PROXY: ${NO_PROXY}
+      PHP_TZ: ${timezone}
 
   zabbix-web:
     build:
@@ -43,9 +49,15 @@ services:
     container_name: zabbix-web
     env_file:
       - Dockerfiles/zabbix.env
+    environment:
+      HTTP_PROXY: ${HTTP_PROXY}
+      HTTPS_PROXY: ${HTTPS_PROXY}
+      NO_PROXY: ${NO_PROXY}
+      PHP_TZ: ${timezone}
     ports:
       - 4443:443
     volumes:
+      - /etc/localtime:/etc/localtime:ro
       - ./zabbix/ssl:/etc/ssl/nginx:ro
     user: root
     depends_on:
@@ -72,7 +84,13 @@ services:
     hostname: zabbix-agent
     env_file:
       - Dockerfiles/zabbix.env
+    environment:
+      HTTP_PROXY: ${HTTP_PROXY}
+      HTTPS_PROXY: ${HTTPS_PROXY}
+      NO_PROXY: ${NO_PROXY}
+      PHP_TZ: ${timezone}
     volumes:
+      - /etc/localtime:/etc/localtime:ro
       - /var/log/rsyslog:/var/log/zabbix/rsyslog:rw
       - ./zabbix/agent/zabbix_agentd.conf:/etc/zabbix/zabbix_agentd.conf:Z
       - ./zabbix/agent/zabbix_agentd.psk:/etc/zabbix/zabbix_agentd.psk:Z
@@ -93,9 +111,14 @@ services:
       - Dockerfiles/zabbix.env
     environment:
       PGDATA: /var/lib/postgresql/data/pgdata
+      HTTP_PROXY: ${HTTP_PROXY}
+      HTTPS_PROXY: ${HTTPS_PROXY}
+      NO_PROXY: ${NO_PROXY}
+      PHP_TZ: ${timezone}
     ports:
       - 5555:5432
     expose: 
       - 5555
     volumes:
+      - /etc/localtime:/etc/localtime:ro
       - ./zabbix/pgdata:/var/lib/postgresql/data/pgdata:Z

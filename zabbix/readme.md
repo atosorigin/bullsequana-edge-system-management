@@ -23,10 +23,11 @@ Optionally, 3 ready-to-go zabbix images are available on Dockerhub
 - [What to do first](#what_first)
 - [How to install BullSequana Edge template](#edge_template)
 - [How to install rsyslog template](#rsyslog_template)
-- [Network Proxy](#proxy)
-- [Security](#security)
-- [Tests](#tests)
-- [Warning for udates](#updates)
+- [How to change Network Proxy](#proxy)
+- [How to change Local Date / Time Zone](#datetimezone)
+- [How to add Security](#security)
+- [How to test](#test)
+- [Warning for updates](#updates)
 - [Support](#support)
 - [LICENSE](#license)
 - [Version](#version)
@@ -248,14 +249,24 @@ You can flush the iptables rules
 
 ` iptables -F `
 
-## <a name="proxy"></a>Network Proxy
-When you start the installer, the declared XXX_PROXY environment variables are copied inside containers :
+
+## <a name="proxy"></a>How to change Network Proxy
+By default, when you start the installer, the declared XXX_PROXY environment variables are copied inside containers :
  
 export HTTP_PROXY="http://<proxy_ip>:<proxy_port>"
 
 export HTTPS_PROXY="http://<proxy_ip>:<proxy_port>"
 
 export NO_PROXY="127.0.0.1,localhost,zabbix-server,zabbix-agent,zabbix-web,ansible,awx,awx_web,awx_task,<bullsequana_edge_ip_address>"
+
+To change your proxy configuration, edit docker-compose-zabbix.yml file:
+```
+    environment:
+      HTTP_PROXY: ${HTTP_PROXY}
+      HTTPS_PROXY: ${HTTPS_PROXY}
+      NO_PROXY: ${NO_PROXY}
+      ...
+```
 
 ![#c5f015](https://placehold.it/15/c5f015/000000?text=+) if you change the XXX_PROXY env variable, you should restart the containers :
 
@@ -264,7 +275,27 @@ export NO_PROXY="127.0.0.1,localhost,zabbix-server,zabbix-agent,zabbix-web,ansib
 ./start.sh
 ```
 
-## <a name="security"></a>Security
+## <a name="datetimezone"></a>How to change local Date / Time Zone
+### Localtime
+By default, containers and host have the same /etc/localtime.
+
+To change your local time, edit docker-compose-zabbix.yml file
+```
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+```
+
+### Timezone
+By default, when you start the installer, the host timezone (in /etc/timezone or /usr/share/zoneinfo ) are copied inside containers as PHP_TZ:
+
+To change your time zone, edit docker-compose-zabbix.yml file
+```
+    environment:
+      ...
+      PHP_TZ: ${timezone}
+```
+
+## <a name="security"></a>How to add Security
 ## activate PSK security on zabbix
 1. generate a key in /etc/zabbix/zabbix_agentd.psk and follow the instructions
 ```
@@ -301,13 +332,13 @@ echo PSK: <your psk>
 
 2. copy/paste encrypted result it in zabbix / Configuration / Hosts / you host / Macros / {$PASSWORD} Value
 
-## <a name="tests"></a>Tests
-#### on mi-pocket side
+## <a name="test"></a>How to Test
+### on mi-pocket side
   - Make sure your MiPocket is reachable from the zabbix server/proxy, test with: `telnet <IP OPENBMC>`
   - Make sure your MiPocket is reachable through a browser: `https://<IP OPENBMC>`
-#### zabbix_sender
+### zabbix_sender
 See https://www.zabbix.com/documentation/4.4/manpages/zabbix_sender
-#### zabbix_get
+### zabbix_get
 See https://www.zabbix.com/documentation/4.4/manpages/zabbix_get
 
 ## <a name="updates"></a>Warning for updates
