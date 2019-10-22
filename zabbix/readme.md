@@ -35,13 +35,13 @@ Optionally, 3 ready-to-go zabbix images are available on Dockerhub
 
 ## <a name="what_first"></a>What to do first
 
-### Check proxy configuration
+### check proxy configuration
 
 By default, the following XXX_PROXY environment variables are copied in zabbix context : HTTP_PROXY, HTTPS_PROXY, NO_PROXY
 
 For more details, read the [How to change my Proxy](#howto_proxy) part
 
-### Launch installer
+### launch installer
 Run the install script:
 
 `./install_zabbix.sh`
@@ -50,13 +50,13 @@ or if you want to use the Docker Atos images, you can now run the following Dock
 
 `./install_zabbix_from_dockerhub.sh`
 
-### Enable automatic inventory by default
+### enable automatic inventory by default
 1. Go to Administration / General / Others
 2. Check 'Autoamtic' for inventory
 
 ![alt text](https://github.com/frsauvage/MISM/blob/master/zabbix/doc/Admin_Automatic_Inventory.png)
 
-### Rename Zabbix Server
+### rename Zabbix Server
 1. Go to Configuration / Hosts
 2. Select you Zabbix server host
 3. Cut/Paste the "Zabbix server" name to "Visible name":
@@ -79,7 +79,7 @@ Be careful: The "Visible name" is used by Zabbix Dashboards, so let "Zabbix serv
 - Click on DNS instead of IP
 - Port should be 10050
 
-### Install Atos templates
+### install Atos templates
 You should copy the templates from <install_dir>\zabbix\server\externalscripts\ to a local path
 1. Go to Configuration / Templates
 2. Click on Import button at the right
@@ -88,7 +88,7 @@ You should copy the templates from <install_dir>\zabbix\server\externalscripts\ 
 ![alt text](https://github.com/frsauvage/MISM/blob/master/zabbix/doc/Select_template.png)
 4. Click on Import button below
 
-### Add your hosts
+### add your hosts
 1. Go to Configuration / Hosts
 2. Click on the right button "Create Host"
 3. Add a Name 
@@ -98,7 +98,7 @@ You should copy the templates from <install_dir>\zabbix\server\externalscripts\ 
 - Click on DNS button instead of IP
 - Port should be 10050
 
-### Link Atos template to your host
+### link Atos template to your host
 1. Go to Configuration/Hosts
 2. Select your host
 3. Click on "Template" tab
@@ -112,7 +112,7 @@ You must add 3 macros on each mipocket host:
 - {$OPENBMC} the reachable address of Mipocket
 
 ## <a name="edge_template"></a>How to install BullSequana Edge template
-### Template content
+### template content
 - applications: All items are categorized inside applications with the following rules :
 ![alt text](https://github.com/frsauvage/MISM/blob/master/zabbix/doc/Applications.png)
 
@@ -157,7 +157,7 @@ Screens appear in contextual menu when Host column is available:
 ![alt text](https://github.com/frsauvage/MISM/blob/master/zabbix/doc/contextual_host_menu.png)
 
 ## <a name="dashboard"></a>How to create my first Edge dashboard
-### Create a dashboard
+### create a dashboard
 1. Go to Monitoring / Dashboard
 2. Click on the right button "Create Dashboard"
 
@@ -166,7 +166,7 @@ Screens appear in contextual menu when Host column is available:
 3. Add a Name 
 4. Add a Widget
 
-### Add a graph
+### add a graph
 1. Select "Graph"
 ![alt text](https://github.com/frsauvage/MISM/blob/master/zabbix/doc/add_graph_widget_dashboard.png)
 
@@ -177,7 +177,7 @@ Volt: *
 
 ![alt text](https://github.com/frsauvage/MISM/blob/master/zabbix/doc/dashboard_graphs_sensors.png)
 
-### Add a data overview 
+### add a data overview 
 ![alt text](https://github.com/frsauvage/MISM/blob/master/zabbix/doc/add_data_overview_widget_dashboard.png)
 
 1. Select "Data Overview"
@@ -186,7 +186,7 @@ Volt: *
 
 ![alt text](https://github.com/frsauvage/MISM/blob/master/zabbix/doc/states.png)
 
-### Add a plain text
+### add a plain text
 ![alt text](https://github.com/frsauvage/MISM/blob/master/zabbix/doc/plain_text.png)
 
 1. Select "Plain text"
@@ -209,36 +209,41 @@ A unique item is detecting rsyslog file change
 - trigger
 A unique trigger is triggering on BullSequana Edge device error events
 
-!! The rsyslog should be activated BEFORE loading rsyslog template
+![#f03c15](https://placehold.it/15/f03c15/000000?text=+) The rsyslog should be activated BEFORE loading rsyslog template
+
 If ever you start docker containers after loading the rsyslog template : 
+
 => remove the rsyslog directory created in /var/log/rsyslog because the docker container did not successfully map to /var/log/rsyslog and created a directory (instead of a file) by default:
+
 `rm -rf /var/log/rsyslog`
 
 ### activate udp/tcp rsyslog port
 in /etc/rsyslog.conf file, uncomment or copy the following lines:
 ```
-### Provides UDP syslog reception
+### provides UDP syslog reception
 $ModLoad imudp
 $UDPServerRun 514
 
-### Provides TCP syslog reception
+### provides TCP syslog reception
 $ModLoad imtcp
 $InputTCPServerRun 514
 ```
 
 ### activate a rsyslog directory in docker-compose mism file
 in docker-compose-zabbix.yml file, zabbix-server service section, uncomment :
+```
     volumes:
        # - /var/log/rsyslog:/var/log/zabbix/rsyslog:rw
+```
 where /var/log/rsyslog is a physical (or shared) file on host of the zabbix docker container containing the rsyslog server file
 
 ### install logrotate
 ` yum update && yum install logrotate`
 rsyslog should be the only file name of the current rsyslog file for the zabbix template to work
-log rotation is mandatory for the rsyslog template immediatly
-you must adapt the template if you have another rotation rule
 
-### install logrotate
+log rotation is mandatory for the rsyslog template immediatly
+
+you must adapt the template if you have another rotation rule
 
 ### syslog template
 create your rsyslog template directly in /etc/rsyslog.conf 
@@ -247,7 +252,6 @@ or
  
 if this line exists in rsyslog.conf
 ```
-
 ### Include all config files in /etc/rsyslog.d/
 $IncludeConfig /etc/rsyslog.d/*.conf
 ```
@@ -270,28 +274,28 @@ Change user permission on rsyslog
 ` chmod uo+rw /var/log/rsyslog`
 
 ### rsyslog system reload/restart after changes
-
+```
 systemctl daemon-reload
 systemctl stop rsyslog
 systemctl start rsyslog
+```
 
 ### rsyslog from the bmc 
-` ssh user@<my_bmc>
+` ssh user@<my_bmc>`
 with telnet to check port opening:
-` telnet <my_rsyslog_server_ip> <my_rsyslog_port>
+` telnet <my_rsyslog_server_ip> <my_rsyslog_port>`
 
 with logger command:
-` logger -n <my_rsyslog_server_ip> 'here is a test log message from <my_rsyslog_server_ip>' `
+` logger -n <my_rsyslog_server_ip> 'here is a test log message from <my_rsyslog_server_ip>'`
 
 More information on : https://www.tecmint.com/install-rsyslog-centralized-logging-in-centos-ubuntu/
 
 ### flush iptables
 if telnet is not working but the ping is working : iptables rules could be the issue
+
 You can flush the iptables rules 
-!! be careful to be able to recreate itables rules !!
-
+![#f03c15](https://placehold.it/15/f03c15/000000?text=+) be careful to be able to recreate itables rules after this command
 ` iptables -F `
-
 
 ## <a name="howto_proxy"></a>How to change my Proxy
 By default, when you start the installer, the proxy environment variables are copied in containers thanks to the following section in docker-compose-zabbix.yml file:
@@ -305,7 +309,7 @@ By default, when you start the installer, the proxy environment variables are co
 ```
 ![#f03c15](https://placehold.it/15/f03c15/000000?text=+) If your bullsequana edge IP address is not declared in proxy
 
-![#f03c15](https://placehold.it/15/f03c15/000000?text=+) You may have to add your bullsequana edge IP address in your NO_PROXY configuration to bypass the proxy 
+![#f03c15](https://placehold.it/15/f03c15/000000?text=+) You may need to add your bullsequana edge IP address in your NO_PROXY configuration to bypass the proxy 
 
 ```
 export HTTP_PROXY="http://<proxy_ip>:<proxy_port>"
@@ -330,7 +334,7 @@ If you don't want to use XX_PROXY environment variables, you can directly adapt 
 ```
 
 ## <a name="datetimezone"></a>How to change local Date / Time Zone
-### Localtime
+### localtime
 By default, containers and host have the same /etc/localtime.
 
 To change your local time, edit docker-compose-zabbix.yml file
@@ -339,7 +343,7 @@ To change your local time, edit docker-compose-zabbix.yml file
       - /etc/localtime:/etc/localtime:ro
 ```
 
-### Timezone
+### timezone
 By default, when you start the installer, the host timezone (in /etc/timezone or /usr/share/zoneinfo ) are copied inside containers as PHP_TZ:
 
 To change your time zone, edit docker-compose-zabbix.yml file
