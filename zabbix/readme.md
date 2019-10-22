@@ -310,9 +310,7 @@ By default, when you start the installer, the proxy environment variables are co
 ![#f03c15](https://placehold.it/15/f03c15/000000?text=+) If your bullsequana edge IP address is not declared in proxy: You may need to add your bullsequana edge IP address in your NO_PROXY configuration to bypass the proxy 
 
 ```
-export HTTP_PROXY="http://<proxy_ip>:<proxy_port>"
-export HTTPS_PROXY="http://<proxy_ip>:<proxy_port>"
-export NO_PROXY="<your bullsequana edge IP address>,127.0.0.1,localhost,zabbix-server,zabbix-agent,zabbix-web,ansible,awx,awx_web,awx_task"
+export NO_PROXY="<your bullsequana edge IP address>,$NO_PROXY"
 ```
 
 If you don't want to use XX_PROXY environment variables, you can directly adapt the proxy configuration as desired in *docker-compose-zabbix.yml* file:
