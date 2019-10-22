@@ -312,7 +312,7 @@ By default, when you start the installer, the proxy environment variables are co
 ```
 export HTTP_PROXY="http://<proxy_ip>:<proxy_port>"
 export HTTPS_PROXY="http://<proxy_ip>:<proxy_port>"
-export NO_PROXY="127.0.0.1,localhost,zabbix-server,zabbix-agent,zabbix-web,ansible,awx,awx_web,awx_task"
+export NO_PROXY="<your bullsequana edge IP address>,127.0.0.1,localhost,zabbix-server,zabbix-agent,zabbix-web,ansible,awx,awx_web,awx_task"
 ```
 
 If you don't want to use XX_PROXY environment variables, you can directly adapt the proxy configuration as desired in *docker-compose-zabbix.yml* file:
