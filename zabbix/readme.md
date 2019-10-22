@@ -35,7 +35,7 @@ Optionally, 3 ready-to-go zabbix images are available on Dockerhub
 
 ## <a name="what_first"></a>What to do first
 
-### Care the Proxy
+### Check proxy configuration
 
 By default, the following XXX_PROXY environment variables are copied in zabbix context : HTTP_PROXY, HTTPS_PROXY, NO_PROXY
 
