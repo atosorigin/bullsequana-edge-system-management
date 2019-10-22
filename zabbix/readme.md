@@ -191,6 +191,8 @@ Volt: *
 
 1. Select "Plain text"
 2. Select whatever items you want
+![#f03c15](https://placehold.it/15/f03c15/000000?text=+) items are prefixed with application names like "Control:" "Network:" "State:" ...
+
 ![alt text](https://github.com/frsauvage/MISM/blob/master/zabbix/doc/select_items.png)
 
 3. Adapt the refresh interval
@@ -318,7 +320,7 @@ If you don't want to use XX_PROXY environment variables, you can directly adapt 
       ...
 ```
 
-![#f03c15](https://placehold.it/15/f03c15/000000?text=+)  if you change a XXX_PROXY env variable, you should restart the containers :
+![#f03c15](https://placehold.it/15/f03c15/000000?text=+) if you change a XXX_PROXY env variable, you should restart the containers :
 
 ```
 ./stop.sh 
