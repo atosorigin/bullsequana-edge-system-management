@@ -238,12 +238,12 @@ in docker-compose-zabbix.yml file, zabbix-server service section, uncomment :
 where /var/log/rsyslog is a physical (or shared) file on host of the zabbix docker container containing the rsyslog server file
 
 ### install logrotate
+log rotation is mandatory for the rsyslog template
+
+install with your usual package manager like yum
 ` yum update && yum install logrotate`
-rsyslog should be the only file name of the current rsyslog file for the zabbix template to work
 
-log rotation is mandatory for the rsyslog template immediatly
-
-you must adapt the template if you have another rotation rule
+rsyslog file should be the only file name of the current rsyslog file for the zabbix template to work => you must adapt the template if you have another rotation rule
 
 ### syslog template
 create your rsyslog template directly in /etc/rsyslog.conf 
