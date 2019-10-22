@@ -77,12 +77,12 @@ Optionaly, 2 ready-to-go AWX-Ansible images are available on Dockerhub
 
 ## <a name="what_AWX"></a>What to do first on AWX
 
-### Add your playbooks
+### add your playbooks
 If you did NOT already add your playbooks, just run :
 
 `<clone_dir>/add_playbooks.sh`
 
-### Complete your inventory first
+### Ccmplete your inventory first
 Go to inventory and add all your hosts manually
 Optionally, your can detect hosts with nmap inventory script: See nmap in Command line section
 
@@ -91,7 +91,7 @@ Optionally, your can detect hosts with nmap inventory script: See nmap in Comman
 *Don't forget to copy/paste baseuri in every host unmodified*
 `baseuri: {{inventory_hostname}} `
 
-### Change your inventory variables 
+### change your inventory variables 
 if you never want to automatically reboot the BMC, you need to change reboot variable in your inventory / variable part:
 
 `reboot = False`
@@ -107,7 +107,7 @@ if you never want to automatically force the remote server power off, you need t
 *playbooks needing a reboot or forceoff will fail*
 *reboot and shutdown playbooks do NOT care these variables*
 
-### Create your vault
+### create your vault
 1. Go to AWX Credentials
 ```
 Create a new Vault (+ button at the right)
@@ -138,19 +138,19 @@ variables = ansible/vars file
 
 *For every CLI commands, you should be logged on a docker AWX container like awx_web or awx_task or add 'docker exec -it <container name>' before all commands*
 
-### General Options
-#### To limit to a group of servers :
+### general options
+#### how to limit to a group of servers :
 ```
 --limit=<my_group> 
 ```
 *my_group should be declared in hosts file*
 
-#### To specify a BMC password in the CLI  :
+#### how to specify a BMC password in the CLI  :
 ```
 -e "username=<mon user> password=<mon mot de passe>"
 ```
 
-#### To change general variables:
+#### how to change general variables:
 2 possibilities :
 1. As a command parameter, indicate variable/value with --extra-vars as CLI argument :
 
@@ -161,8 +161,8 @@ variables = ansible/vars file
 
 ![#f03c15](https://placehold.it/15/f03c15/000000?text=+) Warning : the 2 different ways are exclusive : You should declare a same variable in file OR in parameter, else it will conflict
 
-### Update
-#### To update one image on all BMCs
+### update
+#### how to update one image on all BMCs
 
 ```yml
 ansible-playbook --extra-vars "file_to_upload=<path_and_filename>" update_firmware_from_file.yml 
@@ -171,7 +171,7 @@ ansible-playbook --extra-vars "file_to_upload=<path_and_filename>" update_firmwa
 exemple: 
 [root@awx firmware]# ansible-playbook --limit=openbmc --extra-vars "file_to_upload=/mnt/BIOS_SKD080.13.03.003.tar.gz username=root password=mot_de_passe" -vv update_firmware_from_file.yml
 
-#### to evaluate a TS file (Technical State)
+#### how to evaluate a TS file (Technical State)
 
 ```yml
 ansible-playbook evaluate_firmware_update.yml
@@ -180,19 +180,19 @@ ansible-playbook evaluate_firmware_update.yml
 ex: [root@awx firmware]# ansible-playbook --limit=openbmc -vv evaluate_firmware_update.yml
 
 
-#### To load images
+#### how to load images
 
 ```yml
 ansible-playbook -vv upload_firmwares.yml
 ```
 
-#### To update all servers from a TS
+#### how to update all servers from a TS
 
 ```yml
 ansible-playbook --limit=openbmc update_firmwares.yml -vv
 ```
 
-#### To retrieve firmwares inventory
+#### how to retrieve firmwares inventory
 
 ```yml
 ansible-playbook get_firmware_inventory.yml
@@ -200,45 +200,45 @@ ansible-playbook get_firmware_inventory.yml
 
 ex: [root@awx firmware]# ansible-playbook --limit=openbmc -vv get_firmware_inventory.yml
 
-#### To remove an image
+#### how to remove an image
 
 ```yml
 ansible-playbook delete_firmware_image.yml -vv --extra-vars "image=81af6684"
 ```
 ex: [root@awx firmware]# ansible-playbook --limit=openbmc delete_firmware_image.yml -vv --extra-vars "image=81af6684 username=root password=mot_de_passe"
 
-#### To force stop
+#### how to force stop
 ```
 forceoff: True
 ```
-#### To reboot the bmc
+#### how to reboot the bmc
 ```
 reboot: False
 ```
 
-#### To change ts path on docker
+#### how to change ts path on docker
 ```
 technical_state_path: '/host/mnt'
 ```
 
-### Power
+### power
 
-#### To stop host
+#### how to stop host
 
 ```
 ansible-playbook power_off.yml
 ```
 ex: [root@awx power]# ansible-playbook --limit=openbmc -e "username=my_user password=my_pass" power_off.yml 
 
-#### To start host
+#### how to start host
 
 ```yml
 ansible-playbook power_on.yml
 ```
 ex: [root@awx power] ansible-playbook --limit=openbmc -e "username=root password=mot_de_passe" power_on.yml
 
-### Logs
-#### To configure rsyslog
+### logs
+#### how to configure rsyslog
 
 ```yml
 ansible-playbook set_rsyslog_server_ip.yml
@@ -252,13 +252,13 @@ ex: [root@awx logs]# ansible-playbook set_rsyslog_server_port.yml
 - rsyslog_server_ip: 0.0.0.0
 - rsyslog_server_port: 514
 
-### Power capabilities
+### power capabilities
 
-#### To limit "power cap"
+#### how to limit "power cap"
 power_cap: 3000
 
-### To use the nmap plugin inventory for redfish
-#### to detect nmap hosts
+### how to use the nmap plugin inventory for redfish
+#### how to detect nmap hosts
 
 `./get_redfish_nmap_hosts.sh`
 
@@ -266,7 +266,7 @@ power_cap: 3000
 
 *you should adapt each BMC user/password*
 
-#### top use it in CLI commands
+#### how to use it in CLI commands
 
 On each Ansible CLI, add :
 
@@ -277,7 +277,7 @@ ansible-playbook get_system.yml -i /etc/ansible/redfish_plugin_ansible_inventory
 ansible-playbook evaluate_firmware_update.yml -i /etc/ansible/redfish_plugin_ansible_inventory.yml
 ```
 
-### to use a CLI Vault
+### how to use a CLI Vault
 1. Create your encrypted password
 
 ```
@@ -339,31 +339,65 @@ nginx.crt
 
 ## <a name="howto_passwords"></a>How to change passwords
 
-### awx rabbitmq postgres
-user=mism
-password=mismpass
-
-#### awx : 
-1. change= user and password from gui
-2. change tower environment variable for next add_playbook.sh to execute correctly
-
-#### rabbitmq : follow the above procedure
-1. Change user/password from rabbimq web interface (gui)
-2. Log on to docker awx_web container and change the password
-```
-docker exec -it awx_task bash
-cd /etc/tower/conf.d/
-nano credentials.py
-==> change the BROKER_URL user and password (first and second amqp parameters)
-nano environment.sh
-==> change the RABBITMQ_DEFAULT_USER and RABBITMQ_DEFAULT_PASS as needed
-==> change the folowwing env variables :
-export TOWER_USERNAME=<your new user>
-export TOWER_PASSWORD=<your new password>
+#### postgres
+1. change user and password in ansible.env files
+DATABASE_USER=
+DATABASE_NAME=
+DATABASE_HOST=
+DATABASE_PORT=
+DATABASE_PASSWORD=
+2. change in *credentials.py* 
 
 ```
-the 'export' step is only necessary on awx_web container as tower_cli is NOT installed on awx_task
-3. Iterate the same for awx_web container
+DATABASES = {
+    'default': {
+        'ATOMIC_REQUESTS': True,
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': "mism",
+        'USER': "<here your new postgres user>",
+        'PASSWORD': "<here your new postgres password>",
+        'HOST': "awx_postgres",
+        'PORT': "5432",
+    }
+}
+```
+
+#### rabbitmq
+You should first change the user and password from gui
+1. Select Admin
+2. Choose "Update this user"
+
+![alt text](https://github.com/frsauvage/MISM/blob/master/zabbix/doc/update_rabbitmq_user.png)
+
+3. change in *credentials.py*
+
+```
+BROKER_URL = 'amqp://{}:{}@{}:{}/{}'.format(
+    "<here your new rabbitmq user>",
+    "<here your new rabbitmq password>",
+    "rabbitmq",
+    "5672",
+    "awx")
+```
+4. change rabbitmq environment variable in Dockerfiles/ansible.env
+
+RABBITMQ_HOST=rabbitmq
+RABBITMQ_DEFAULT_VHOST=awx
+RABBITMQ_DEFAULT_USER=<here your new rabbitmq user>
+RABBITMQ_DEFAULT_PASS=<here your new rabbitmq password>
+
+#### how to change awx password : 
+1. change user and password from gui
+2. change awx and tower environment variable in Dockerfiles/ansible.env
+
+AWX_ADMIN_USER=<here your new awx user>
+AWX_ADMIN_PASSWORD=<here your new awx password>
+TOWER_USERNAME=<here your new tower user>
+TOWER_PASSWORD=<here your new tower password>
+
+3. change the next environment variable if the certificate is not self-signed
+TOWER_VERIFY_SSL=false 
+TOWER_INSECURE=true
 
 ## <a name="howto_proxy"></a>How to change my Proxy
 By default, when you start the installer, the proxy environment variables are copied in containers thanks to the following section in docker-compose-zabbix.yml file:
