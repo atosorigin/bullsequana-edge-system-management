@@ -51,10 +51,10 @@ or if you want to use the Docker Atos images, you can now run the following Dock
 `./install_zabbix_from_dockerhub.sh`
 
 ### enable automatic inventory by default
-1. Go to Administration / General
-2. Select you Zabbix server host
+1. Go to Administration / General / Others
+2. Check 'Autoamtic' for inventory
 
-![alt text](https://github.com/frsauvage/MISM/blob/master/zabbix/doc/Zabbix_Server_Configuration.png)
+![alt text](https://github.com/frsauvage/MISM/blob/master/zabbix/doc/Admin_Automatic_Inventory.png)
 
 ### rename Zabbix Server
 1. Go to Configuration / Hosts
