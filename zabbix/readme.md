@@ -175,7 +175,7 @@ Fan: *
 Temp: *
 Volt: *
 
-![alt text](https://github.com/frsauvage/MISM/blob/master/zabbix/doc/dashboard _graphs_sensors.png)
+![alt text](https://github.com/frsauvage/MISM/blob/master/zabbix/doc/dashboard_graphs_sensors.png)
 
 ### Add a data overview 
 ![alt text](https://github.com/frsauvage/MISM/blob/master/zabbix/doc/add_data_overview_widget_dashboard.png)
