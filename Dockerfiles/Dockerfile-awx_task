@@ -1,9 +1,10 @@
 #set base image 
 FROM ansible/awx_task:latest
 
-ARG mism_version
+USER root
 
-ENV MISM_VERSION=$mism_version
+ARG MISM_BULLSEQUANA_EDGE_VERSION
+ENV MISM_BULLSEQUANA_EDGE_VERSION=$MISM_BULLSEQUANA_EDGE_VERSION
 
 USER root 
 

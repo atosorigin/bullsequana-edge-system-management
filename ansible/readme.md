@@ -23,7 +23,7 @@ Optionaly, 2 ready-to-go AWX-Ansible images are available on Dockerhub
 - [What to do first on Ansible](#what_ansible)
 - [How to change certificat on AWX server](#howto_cert)
 - [How to change passwords](#howto_ts)
-- [How to declare my proxy](#howto_proxy)
+- [How to change my proxy](#howto_proxy)
 - [How to change technical states file path](#howto_ts)
 - [How to log on a docker container](#howto_docker_logon)
 - [Warning for updates](#warning_updates)
@@ -159,7 +159,7 @@ variables = ansible/vars file
 2. In the appropriated file playbooks/vars/external_vars.yml, uncomment and set the desired variable :
 `my_variable: my_value `
 
-![#f03c15](https://placehold.it/15/f03c15/000000?text=+) `Warning : the 2 different ways are exclusive : You should declare a same variable in file OR in parameter, else it will conflict`
+![#f03c15](https://placehold.it/15/f03c15/000000?text=+) Warning : the 2 different ways are exclusive : You should declare a same variable in file OR in parameter, else it will conflict
 
 ### Update
 #### To update one image on all BMCs
@@ -177,8 +177,8 @@ exemple:
 ansible-playbook evaluate_firmware_update.yml
 ```
 
-exemple
-[root@awx firmware]# ansible-playbook --limit=openbmc -vv evaluate_firmware_update.yml
+ex: [root@awx firmware]# ansible-playbook --limit=openbmc -vv evaluate_firmware_update.yml
+
 
 #### To load images
 
@@ -198,17 +198,14 @@ ansible-playbook --limit=openbmc update_firmwares.yml -vv
 ansible-playbook get_firmware_inventory.yml
 ```
 
-example: 
-[root@awx firmware]# ansible-playbook --limit=openbmc -vv get_firmware_inventory.yml
+ex: [root@awx firmware]# ansible-playbook --limit=openbmc -vv get_firmware_inventory.yml
 
 #### To remove an image
 
 ```yml
 ansible-playbook delete_firmware_image.yml -vv --extra-vars "image=81af6684"
 ```
-
-exemple:
-[root@awx firmware]# ansible-playbook --limit=openbmc delete_firmware_image.yml -vv --extra-vars "image=81af6684 username=root password=mot_de_passe"
+ex: [root@awx firmware]# ansible-playbook --limit=openbmc delete_firmware_image.yml -vv --extra-vars "image=81af6684 username=root password=mot_de_passe"
 
 #### To force stop
 ```
@@ -230,16 +227,15 @@ technical_state_path: '/host/mnt'
 
 ```
 ansible-playbook power_off.yml
-example:
-[root@awx power]# ansible-playbook --limit=openbmc -e "username=my_user password=my_pass" power_off.yml 
 ```
+ex: [root@awx power]# ansible-playbook --limit=openbmc -e "username=my_user password=my_pass" power_off.yml 
+
 #### To start host
 
 ```yml
 ansible-playbook power_on.yml
-example:
-[root@awx power] ansible-playbook --limit=openbmc -e "username=root password=mot_de_passe" power_on.yml
 ```
+ex: [root@awx power] ansible-playbook --limit=openbmc -e "username=root password=mot_de_passe" power_on.yml
 
 ### Logs
 #### To configure rsyslog
@@ -247,13 +243,14 @@ example:
 ```yml
 ansible-playbook set_rsyslog_server_ip.yml
 ansible-playbook set_rsyslog_server_port.yml
-exemple:
-[root@awx logs]# ansible-playbook set_rsyslog_server_port.yml
+
 ```
-*WARNING : default rsyslog IP address is a fake*
-rsyslog_server_ip: 0.0.0.0
-*rsyslog port*
-rsyslog_server_port: 514
+
+ex: [root@awx logs]# ansible-playbook set_rsyslog_server_port.yml
+
+![#f03c15](https://placehold.it/15/f03c15/000000?text=+) Warning : default rsyslog IP address is a fake
+- rsyslog_server_ip: 0.0.0.0
+- rsyslog_server_port: 514
 
 ### Power capabilities
 
@@ -262,20 +259,23 @@ power_cap: 3000
 
 ### To use the nmap plugin inventory for redfish
 #### to detect nmap hosts
+
 `./get_redfish_nmap_hosts.sh`
 
 *you can copy/paste detected hosts in your AWX inventory or your ansible 'hosts' file*
+
 *you should adapt each BMC user/password*
 
 #### top use it in CLI commands
 
 On each Ansible CLI, add :
+
 `-i /usr/share/ansible/plugins/inventory/redfish_plugin_ansible_inventory.yml`
 
-example:
+```
 ansible-playbook get_system.yml -i /etc/ansible/redfish_plugin_ansible_inventory.yml
 ansible-playbook evaluate_firmware_update.yml -i /etc/ansible/redfish_plugin_ansible_inventory.yml
-
+```
 
 ### to use a CLI Vault
 1. Create your encrypted password
@@ -300,7 +300,7 @@ root_password: !vault |
     - /var/lib/awx/projects/vars/passwords.yml
 ```
 4. run your playbook
-ansible-playbook --vault-id root_password@prompt projects/openbmc/inventory/get_sensors.yml
+`ansible-playbook --vault-id root_password@prompt projects/openbmc/inventory/get_sensors.yml`
 
 *@prompt means that you should enter the Vault password during the process (hidden)*
 
@@ -366,7 +366,7 @@ the 'export' step is only necessary on awx_web container as tower_cli is NOT ins
 3. Iterate the same for awx_web container
 
 ## <a name="howto_proxy"></a>How to change my Proxy
-By default, when you start the installer, the proxy environment variables are copied in containers thanks to the following section in docker-compose-zabbix.yml file:
+By default, when you start the installer, the proxy environment variables are copied in containers thanks to the following section in docker-compose-awx.yml file:
 
 ```
     environment:
@@ -384,7 +384,7 @@ export HTTPS_PROXY="http://<proxy_ip>:<proxy_port>"
 export NO_PROXY="127.0.0.1,localhost,zabbix-server,zabbix-agent,zabbix-web,ansible,awx,awx_web,awx_task"
 ```
 
-If you don't want to use XX_PROXY environment variables, you can adapt the proxy configuration as desired in *docker-compose-zabbix.yml* file:
+If you don't want to use XX_PROXY environment variables, you can adapt the proxy configuration as desired in *docker-compose-awx.yml* file:
 ```
     environment:
       HTTP_PROXY: http://<your proxy>:<your port>
@@ -418,7 +418,7 @@ You can adapt the 'volumes' mapping:
 `/tmp:/tmp => do NOT map /tmp directory => it change AWX behavior`
 `/:/ => NO sens`
 
-![#c5f015](https://placehold.it/15/c5f015/000000?text=+) !! Be careful to change both awx_web and awx_task docker containers !!
+![#f03c15](https://placehold.it/15/f03c15/000000?text=+) Be careful to change both awx_web and awx_task docker containers
 
 ## <a name="howto_docker_logon"></a>How to log on a docker container
 

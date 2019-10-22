@@ -23,6 +23,7 @@ Optionally, 3 ready-to-go zabbix images are available on Dockerhub
 - [What to do first](#what_first)
 - [How to install BullSequana Edge template](#edge_template)
 - [How to install rsyslog template](#rsyslog_template)
+- [How to create my first Edge dashboard](#dashboard)
 - [How to change my Proxy](#howto_proxy)
 - [How to change Local Date / Time Zone](#datetimezone)
 - [How to add Security](#security)
@@ -158,6 +159,40 @@ Model, Asset, Serial number, Software Version, OOB IP Address and Manufacturer a
 
 ![alt text](https://github.com/frsauvage/MISM/blob/master/zabbix/doc/host_screens.png)
 
+## <a name="dashboard"></a>How to create my first Edge dashboard
+### Graphs
+You can use native screens to have sensor graphs, or you can create your own one.
+
+1. Go to Monitoring / Dashboard
+2. Click on the right button "Create Dashboard"
+
+![alt text](https://github.com/frsauvage/MISM/blob/master/zabbix/doc/create_dashboard.png)
+
+3. Add a Name 
+4. Add a Widget
+
+![alt text](https://github.com/frsauvage/MISM/blob/master/zabbix/doc/add_graph_widget_dashboard.png)
+
+5. Select whatever items you want or write a regular item expression like:
+Fan: *
+Temp: *
+Volt: *
+
+![alt text](https://github.com/frsauvage/MISM/blob/master/zabbix/doc/dashboard _graphs_sensors.png)
+
+### Screens
+BullSequana Edge Template includes a screen with sensor graphs for Fans, Temperatures and Voltages:
+
+1. Go to Monitoring / Inventory
+2. Select your BullSequana Edge device:
+![alt text](https://github.com/frsauvage/MISM/blob/master/zabbix/doc/monitoring_host.png)
+
+Screens appears in contextual menu when Host column is available:
+![alt text](https://github.com/frsauvage/MISM/blob/master/zabbix/doc/contextual_host_menu.png)
+
+### Textual items
+
+
 ## <a name="rsyslog_template"></a>rsyslog template installation
 ### template content
 - application rsyslog is available for textual widget and history analysis
@@ -184,7 +219,7 @@ $InputTCPServerRun 514
 ```
 
 ### activate a rsyslog directory in docker-compose mism file
-in docker-compose-mism.yml file, zabbix-server service section, uncomment :
+in docker-compose-zabbix.yml file, zabbix-server service section, uncomment :
     volumes:
        # - /var/log/rsyslog:/var/log/zabbix/rsyslog:rw
 where /var/log/rsyslog is a physical (or shared) file on host of the zabbix docker container containing the rsyslog server file
@@ -352,7 +387,8 @@ See https://www.zabbix.com/documentation/4.4/manpages/zabbix_sender
 See https://www.zabbix.com/documentation/4.4/manpages/zabbix_get
 
 ## <a name="updates"></a>Warning for updates
-Never change original templates => duplicate or create your own template
+
+![#f03c15](https://placehold.it/15/f03c15/000000?text=+) Never change original templates => duplicate or create your own template
 
 ## <a name="support"></a>Support
   * This branch corresponds to the release actively under development.

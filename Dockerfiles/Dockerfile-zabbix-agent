@@ -3,9 +3,8 @@ FROM zabbix/zabbix-agent:centos-latest
 
 USER root 
 
-ARG mism_version
-
-ENV MISM_VERSION=$mism_version
+ARG MISM_BULLSEQUANA_EDGE_VERSION
+ENV MISM_BULLSEQUANA_EDGE_VERSION=$MISM_BULLSEQUANA_EDGE_VERSION
 
 ENV PYTHONWARNINGS="ignore:Unverified HTTPS request"
 

@@ -3,6 +3,9 @@ FROM zabbix/zabbix-server-pgsql:centos-latest
 
 USER root 
 
+ARG MISM_BULLSEQUANA_EDGE_VERSION
+ENV MISM_BULLSEQUANA_EDGE_VERSION=$MISM_BULLSEQUANA_EDGE_VERSION
+
 ENV PYTHONWARNINGS="ignore:Unverified HTTPS request"
 
 # security
