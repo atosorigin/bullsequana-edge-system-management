@@ -43,7 +43,7 @@ def write_collect(file_name, json_to_write):
   with open(file_name, 'w') as file_to_write:
     json.dump(json_to_write, file_to_write)
 
-def create_macro_lld(macro, json_lld, substring_to_remove):
+def create_macro_lld(macro, json_lld, substring_to_remove, b_timeout):
   macros = {}
   discovery_list = []
   macro_key = r"{#" + macro + r"}"
@@ -51,7 +51,8 @@ def create_macro_lld(macro, json_lld, substring_to_remove):
   #macro_name = r"{#NAME}""
   #loop = 0
 #  for key, item in json_lld.iteritems(): 
-  
+  if not json_lld:
+    return macros
   for key in json_lld:
     #name = key.split('/')[-1]    
     #unit = item.get("Unit", None).replace('xyz.openbmc_project.Sensor.Value.Unit.','')
@@ -64,7 +65,7 @@ def create_macro_lld(macro, json_lld, substring_to_remove):
   return macros
     
 def main(args):
-  parser = argparse.ArgumentParser(description="This script discover enumerable data from BullSequana Edge devices")
+  parser = argparse.ArgumentParser(description="This script discovers enumerable data from BullSequana Edge devices")
   parser.add_argument("-u", "--user", dest="user", help="user name for BMC", required=True)
   parser.add_argument("-p", "--password", dest="password", help="password for BMC", required=True)
   parser.add_argument("-b", "--bmc", dest="bmc", help="IP for the BMC", required=True)
@@ -77,14 +78,28 @@ def main(args):
   decrypted_password = AESCipher(args.password.strip()).decrypt()
   if decrypted_password:
     password = decrypted_password
-
+  data = {}
+  data["data"] = None
   uri = "https://{host}{item_url}".format(host=args.bmc.strip(), item_url=args.item.strip())
-  response = requests.get(uri, auth=HTTPBasicAuth(args.user.strip(), password), verify=False)
-  data = response.json()
+  timeout = int(os.environ.get('ZBX_TIMEOUT', 4)) - 1
+  try:
+    response = requests.get(uri, auth=HTTPBasicAuth(args.user.strip(), password), verify=False, timeout=timeout)
+    data = response.json()
+    b_Timeout = False
+  except requests.exceptions.Timeout:
+    # Maybe set up for a retry, or continue in a retry loop
+    b_Timeout = True
+  except requests.exceptions.TooManyRedirects:
+    # Tell the user their URL was bad and try a different one
+    b_Timeout = True
+  except requests.exceptions.RequestException as e:
+    # catastrophic error. bail.
+    b_Timeout = True
+
   item = args.item.strip()
   filename, macro = get_filename(item, args.bmc.strip())
   write_collect(filename, data["data"])
-  macro_list = create_macro_lld(macro, data["data"], item.split('enumerate')[0])
+  macro_list = create_macro_lld(macro, data["data"], item.split('enumerate')[0], b_Timeout)
   macro_json = json.dumps(macro_list)
   print('{macro_json}'.format(macro_json=macro_json))
 

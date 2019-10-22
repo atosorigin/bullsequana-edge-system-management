@@ -368,19 +368,19 @@ the 'export' step is only necessary on awx_web container as tower_cli is NOT ins
 ## <a name="howto_proxy"></a>How to declare my proxy
 
 if you have a proxy, add the following environment variables in docker-compose-mism.yml file :
-awx_task:
 ```
+awx_task:
   environment:
     http_proxy: http://<your proxy>:<your port>
     https_proxy: https://<your proxy>:<your port>
-    no_proxy: 127.0.0.1,localhost,zabbix-web,zabbix-server,zabbix-agent,awx_web,awx_task,rabbitmq,postgres,memcached,<your IP address>
+    no_proxy: <your bullsequana IP address>,127.0.0.1,localhost,zabbix-web,zabbix-server,zabbix-agent,awx_web,awx_task,rabbitmq,postgres,memcached
 
 awx_web:
 ...
   environment:
     http_proxy: http://<your proxy>:<your port>
     https_proxy: https://<your proxy>:<your port>
-    no_proxy: 127.0.0.1,localhost,zabbix-web,zabbix-server,zabbix-agent,awx_web,awx_task,rabbitmq,postgres,memcached,<your IP address>
+    no_proxy: <your bullsequana IP address>,127.0.0.1,localhost,zabbix-web,zabbix-server,zabbix-agent,awx_web,awx_task,rabbitmq,postgres,memcached
 
 ```
 

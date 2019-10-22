@@ -33,7 +33,7 @@ def get_json_from_file(file_name):
 def main(args):
   parser = argparse.ArgumentParser(description="This script reads previously collected information from BullSequana Edge devices")
   parser.add_argument("-f", "--file", dest="file", help="file name for the item", required=True)
-  parser.add_argument("-i", "--item", dest="item", help="item identifier like /xyz/openbmc_project/sensors/enumerate or /xyz/openbmc_project/inventory/system")
+  parser.add_argument("-i", "--item", dest="item", help="item identifier like /xyz/openbmc_project/inventory/system")
   parser.add_argument("-p", "--property", dest="property", help="json property of the item", required=False)
   args = parser.parse_args()
   file_item = args.file.strip()  
@@ -42,13 +42,13 @@ def main(args):
   if not args.item:
     item = get_json_from_file(file_item)
     if not item:
-      #print None
+      print "Timeout"
       return
   else:
     items = get_json_from_file(file_item)
     if not items:
-      #print None
-      return    
+      print "Timeout"
+      return
     item = args.item.strip()
     if file_item.endswith('temperature.json'):
       item = '/xyz/openbmc_project/sensors/temperature/' + item

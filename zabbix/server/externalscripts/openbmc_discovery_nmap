@@ -48,9 +48,9 @@ def main(args):
   parser.add_argument("-u", "--user", dest="user", help="valid user for the bmc uthentication", required=True)
   parser.add_argument("-p", "--password", dest="password", help="valid password for the bmc uthentication", required=True)
   args = parser.parse_args() 
-
   uri = "https://{host}{metadata}".format(host=args.bmc.strip(), metadata="/xyz/openbmc_project/enumerate")
-  response = requests.get(uri, auth=HTTPBasicAuth(args.user.strip(), args.password.strip()), verify=False)
+  timeout = int(os.environ.get('ZBX_TIMEOUT',4)) - 1
+  response = requests.get(uri, auth=HTTPBasicAuth(args.user.strip(), args.password.strip()), verify=False, timeout=timeout)
   data = response.json()
   macros = create_macros_for_host_discovery(data)
   print macros

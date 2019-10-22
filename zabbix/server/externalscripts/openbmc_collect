@@ -40,7 +40,9 @@ def get_filename(item_to_file, host):
 
 def write_collect(file_name, json_to_write):
   with open(file_name, 'w') as file_to_write:
-    json.dump(json_to_write, file_to_write)
+    if json_to_write:
+      json.dump(json_to_write, file_to_write)
+    file_to_write.close()
 
 def main(args):
   parser = argparse.ArgumentParser(description="This script will be able to collect information from BullSequana Edge devices")
@@ -50,8 +52,21 @@ def main(args):
   parser.add_argument("-i", "--item", dest="item", help="item identifier like /xyz/openbmc_project/sensors/enumerate or /xyz/openbmc_project/inventory/system", required=True)
   args = parser.parse_args()
   uri = "https://{host}{item_url}".format(host=args.bmc.strip(), item_url=args.item)
-  response = requests.get(uri, auth=HTTPBasicAuth(args.user.strip(), args.password.strip()), verify=False)
-  data = response.json()
+  timeout = int(os.environ.get('ZBX_TIMEOUT',4)) - 1
+  data = {}
+  try:
+    response = requests.get(uri, auth=HTTPBasicAuth(args.user.strip(), args.password.strip()), verify=False, timeout=timeout)
+    data = response.json()
+  except requests.exceptions.Timeout:
+    # Maybe set up for a retry, or continue in a retry loop
+    data["data"] = None
+  except requests.exceptions.TooManyRedirects:
+    # Tell the user their URL was bad and try a different one
+    data["data"] = None
+  except requests.exceptions.RequestException as e:
+    # catastrophic error. bail.
+    data["data"] = None
+
   filename = get_filename(args.item.strip(), args.bmc.strip())
   write_collect(filename, data["data"])
   print(filename)
