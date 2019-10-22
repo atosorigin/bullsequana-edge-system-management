@@ -295,8 +295,8 @@ By default, when you start the installer, the proxy environment variables are co
       NO_PROXY: ${NO_PROXY}
       ...
 ```
-
-Consequently, if you export XX_PROXY variables, you can change the XX_PROXY configuration easily:
+![#f03c15](https://placehold.it/15/f03c15/000000?text=+) If your bullsequana edge IP address is not declared in proxy
+![#f03c15](https://placehold.it/15/f03c15/000000?text=+) You may have to add your bullsequana edge IP address in your NO_PROXY configuration to bypass the proxy 
 
 ```
 export HTTP_PROXY="http://<proxy_ip>:<proxy_port>"
@@ -304,7 +304,7 @@ export HTTPS_PROXY="http://<proxy_ip>:<proxy_port>"
 export NO_PROXY="127.0.0.1,localhost,zabbix-server,zabbix-agent,zabbix-web,ansible,awx,awx_web,awx_task"
 ```
 
-If you don't want to use XX_PROXY environment variables, you can adapt the proxy configuration as desired in *docker-compose-zabbix.yml* file:
+If you don't want to use XX_PROXY environment variables, you can directly adapt the proxy configuration as desired in *docker-compose-zabbix.yml* file:
 ```
     environment:
       HTTP_PROXY: http://<your proxy>:<your port>
@@ -313,7 +313,7 @@ If you don't want to use XX_PROXY environment variables, you can adapt the proxy
       ...
 ```
 
-![#c5f015](https://placehold.it/15/c5f015/000000?text=+) if you change the XXX_PROXY env variable, you should restart the containers :
+![#f03c15](https://placehold.it/15/f03c15/000000?text=+)  if you change a XXX_PROXY env variable, you should restart the containers :
 
 ```
 ./stop.sh 
