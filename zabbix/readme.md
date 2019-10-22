@@ -307,9 +307,7 @@ By default, when you start the installer, the proxy environment variables are co
       NO_PROXY: ${NO_PROXY}
       ...
 ```
-![#f03c15](https://placehold.it/15/f03c15/000000?text=+) If your bullsequana edge IP address is not declared in proxy
-
-![#f03c15](https://placehold.it/15/f03c15/000000?text=+) You may need to add your bullsequana edge IP address in your NO_PROXY configuration to bypass the proxy 
+![#f03c15](https://placehold.it/15/f03c15/000000?text=+) If your bullsequana edge IP address is not declared in proxy: You may need to add your bullsequana edge IP address in your NO_PROXY configuration to bypass the proxy 
 
 ```
 export HTTP_PROXY="http://<proxy_ip>:<proxy_port>"
