@@ -365,43 +365,60 @@ export TOWER_PASSWORD=<your new password>
 the 'export' step is only necessary on awx_web container as tower_cli is NOT installed on awx_task
 3. Iterate the same for awx_web container
 
-## <a name="howto_proxy"></a>How to declare my proxy
+## <a name="howto_proxy"></a>How to change my Proxy
+By default, when you start the installer, the proxy environment variables are copied in containers thanks to the following section in docker-compose-zabbix.yml file:
 
-if you have a proxy, add the following environment variables in docker-compose-mism.yml file :
 ```
-awx_task:
-  environment:
-    http_proxy: http://<your proxy>:<your port>
-    https_proxy: https://<your proxy>:<your port>
-    no_proxy: <your bullsequana IP address>,127.0.0.1,localhost,zabbix-web,zabbix-server,zabbix-agent,awx_web,awx_task,rabbitmq,postgres,memcached
+    environment:
+      HTTP_PROXY: ${HTTP_PROXY}
+      HTTPS_PROXY: ${HTTPS_PROXY}
+      NO_PROXY: ${NO_PROXY}
+      ...
+```
 
-awx_web:
-...
-  environment:
-    http_proxy: http://<your proxy>:<your port>
-    https_proxy: https://<your proxy>:<your port>
-    no_proxy: <your bullsequana IP address>,127.0.0.1,localhost,zabbix-web,zabbix-server,zabbix-agent,awx_web,awx_task,rabbitmq,postgres,memcached
+Consequently, if you export XX_PROXY variables, you can change the XX_PROXY configuration easily:
 
+```
+export HTTP_PROXY="http://<proxy_ip>:<proxy_port>"
+export HTTPS_PROXY="http://<proxy_ip>:<proxy_port>"
+export NO_PROXY="127.0.0.1,localhost,zabbix-server,zabbix-agent,zabbix-web,ansible,awx,awx_web,awx_task"
+```
+
+If you don't want to use XX_PROXY environment variables, you can adapt the proxy configuration as desired in *docker-compose-zabbix.yml* file:
+```
+    environment:
+      HTTP_PROXY: http://<your proxy>:<your port>
+      HTTPS_PROXY: https://<your proxy>:<your port>
+      NO_PROXY: <your bullsequana edge IP address>,127.0.0.1,localhost,zabbix-web,zabbix-server,zabbix-agent,awx_web,awx_task,rabbitmq,postgres,memcached
+      ...
+```
+
+![#c5f015](https://placehold.it/15/c5f015/000000?text=+) if you change the XXX_PROXY env variable, you should restart the containers :
+
+```
+./stop.sh 
+./start.sh
 ```
 
 ## <a name="howto_ts"></a>How to change technical states file path
 
-By default, the root host / is mapped as a read online access inside the docker container :
-    - /:/host:ro
+By default, the root host directory '/' is mapped as a read online access in the docker containers :
+`    - /:/host:ro`
 
 You can adapt the 'volumes' mapping:
 
-1. Edit docker-compose-mism.yml
-2. Go to section 'volumes' in both awx_web et awx_task service :
+1. Edit docker-compose-awx.yml
+2. Go to 'volumes' section of awx_web and awx_task services :
 ```
   volumes:
     - /:/host:ro
 ```
 3. Change mapped volumes with whatever you want except :
-/tmp:/tmp => change AWX behavior
-/:/ => dangerous because container will be able to change host files
 
-!! Be careful to change both awx_web and awx_task docker containers !!
+`/tmp:/tmp => do NOT map /tmp directory => it change AWX behavior`
+`/:/ => NO sens`
+
+![#c5f015](https://placehold.it/15/c5f015/000000?text=+) !! Be careful to change both awx_web and awx_task docker containers !!
 
 ## <a name="howto_docker_logon"></a>How to log on a docker container
 
