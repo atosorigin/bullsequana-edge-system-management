@@ -50,13 +50,13 @@ or if you want to use the Docker Atos images, you can now run the following Dock
 
 `./install_zabbix_from_dockerhub.sh`
 
-### enable automatic inventory by default
+### Enable automatic inventory by default
 1. Go to Administration / General / Others
 2. Check 'Autoamtic' for inventory
 
 ![alt text](https://github.com/frsauvage/MISM/blob/master/zabbix/doc/Admin_Automatic_Inventory.png)
 
-### rename Zabbix Server
+### Rename Zabbix Server
 1. Go to Configuration / Hosts
 2. Select you Zabbix server host
 3. Cut/Paste the "Zabbix server" name to "Visible name":
@@ -79,7 +79,7 @@ Be careful: The "Visible name" is used by Zabbix Dashboards, so let "Zabbix serv
 - Click on DNS instead of IP
 - Port should be 10050
 
-### install Atos templates
+### Install Atos templates
 You should copy the templates from <install_dir>\zabbix\server\externalscripts\ to a local path
 1. Go to Configuration / Templates
 2. Click on Import button at the right
@@ -88,7 +88,7 @@ You should copy the templates from <install_dir>\zabbix\server\externalscripts\ 
 ![alt text](https://github.com/frsauvage/MISM/blob/master/zabbix/doc/Select_template.png)
 4. Click on Import button below
 
-### add your hosts
+### Add your hosts
 1. Go to Configuration / Hosts
 2. Click on the right button "Create Host"
 3. Add a Name 
@@ -98,7 +98,7 @@ You should copy the templates from <install_dir>\zabbix\server\externalscripts\ 
 - Click on DNS button instead of IP
 - Port should be 10050
 
-### link Atos template to your host
+### Link Atos template to your host
 1. Go to Configuration/Hosts
 2. Select your host
 3. Click on "Template" tab
@@ -112,7 +112,7 @@ You must add 3 macros on each mipocket host:
 - {$OPENBMC} the reachable address of Mipocket
 
 ## <a name="edge_template"></a>How to install BullSequana Edge template
-### template content
+### Template content
 - applications: All items are categorized inside applications with the following rules :
 ![alt text](https://github.com/frsauvage/MISM/blob/master/zabbix/doc/Applications.png)
 
@@ -139,18 +139,25 @@ Model, Asset, Serial number, Software Version, OOB IP Address and Manufacturer a
 
 ![alt text](https://github.com/frsauvage/MISM/blob/master/zabbix/doc/automatic_inventory.png)
 
-- discovered graphs (prototypes) : Fans, Temperatures and Voltages graphs
+- discovered graphs (prototypes) for each fans, temperatures and voltages discoverd item with Critical High and Low values
 
-- 3 dynamic screens: Fans, Temperatures and Voltages screens that you could reach in host details
-
-![alt text](https://github.com/frsauvage/MISM/blob/master/zabbix/doc/host_inventory.png)
+- 1 screen with the 3 graphs : All Fans, Temperatures and Voltages
 
 ![alt text](https://github.com/frsauvage/MISM/blob/master/zabbix/doc/host_screens.png)
 
-## <a name="dashboard"></a>How to create my first Edge dashboard
-### Graphs
-You can use native screens to have sensor graphs, or you can create your own one.
+screens are available in host inventory details:
 
+1. Go to Monitoring / Inventory / Hosts
+2. Select your BullSequana Edge device
+
+![alt text](https://github.com/frsauvage/MISM/blob/master/zabbix/doc/monitoring_host.png)
+
+Screens appear in contextual menu when Host column is available:
+
+![alt text](https://github.com/frsauvage/MISM/blob/master/zabbix/doc/contextual_host_menu.png)
+
+## <a name="dashboard"></a>How to create my first Edge dashboard
+### Create a dashboard
 1. Go to Monitoring / Dashboard
 2. Click on the right button "Create Dashboard"
 
@@ -159,27 +166,37 @@ You can use native screens to have sensor graphs, or you can create your own one
 3. Add a Name 
 4. Add a Widget
 
+### Add a graph
+1. Select "Graph"
 ![alt text](https://github.com/frsauvage/MISM/blob/master/zabbix/doc/add_graph_widget_dashboard.png)
 
-5. Select whatever items you want or write a regular item expression like:
+2. whatever items you want or write an item regular expression like:
 Fan: *
 Temp: *
 Volt: *
 
 ![alt text](https://github.com/frsauvage/MISM/blob/master/zabbix/doc/dashboard _graphs_sensors.png)
 
-### Screens
-BullSequana Edge Template includes a screen with sensor graphs for Fans, Temperatures and Voltages:
+### Add a data overview 
+![alt text](https://github.com/frsauvage/MISM/blob/master/zabbix/doc/add_data_overview_widget_dashboard.png)
 
-1. Go to Monitoring / Inventory
-2. Select your BullSequana Edge device:
-![alt text](https://github.com/frsauvage/MISM/blob/master/zabbix/doc/monitoring_host.png)
+1. Select "Data Overview"
+2. Select whatever Application you want
+3. Adapt the refresh interval
 
-Screens appears in contextual menu when Host column is available:
-![alt text](https://github.com/frsauvage/MISM/blob/master/zabbix/doc/contextual_host_menu.png)
+![alt text](https://github.com/frsauvage/MISM/blob/master/zabbix/doc/states.png)
 
-### Textual items
+### Add a plain text
+![alt text](https://github.com/frsauvage/MISM/blob/master/zabbix/doc/plain_text.png)
 
+1. Select "Plain text"
+2. Select whatever items you want
+![alt text](https://github.com/frsauvage/MISM/blob/master/zabbix/doc/select_items.png)
+
+3. Adapt the refresh interval
+3. Adapt the "show lines" number
+
+![alt text](https://github.com/frsauvage/MISM/blob/master/zabbix/doc/network.png)
 
 ## <a name="rsyslog_template"></a>rsyslog template installation
 ### template content
