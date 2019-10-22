@@ -381,23 +381,23 @@ BROKER_URL = 'amqp://{}:{}@{}:{}/{}'.format(
 ```
 4. change rabbitmq environment variable in Dockerfiles/ansible.env
 
-RABBITMQ_HOST=rabbitmq
-RABBITMQ_DEFAULT_VHOST=awx
-RABBITMQ_DEFAULT_USER=<here your new rabbitmq user>
-RABBITMQ_DEFAULT_PASS=<here your new rabbitmq password>
+RABBITMQ_HOST=rabbitmq  
+RABBITMQ_DEFAULT_VHOST=awx  
+RABBITMQ_DEFAULT_USER=<here your new rabbitmq user>  
+RABBITMQ_DEFAULT_PASS=<here your new rabbitmq password>  
 
 #### how to change awx password : 
 1. change user and password from gui
 2. change awx and tower environment variable in Dockerfiles/ansible.env
 
-AWX_ADMIN_USER=<here your new awx user>
-AWX_ADMIN_PASSWORD=<here your new awx password>
-TOWER_USERNAME=<here your new tower user>
-TOWER_PASSWORD=<here your new tower password>
+AWX_ADMIN_USER=<here your new awx user>  
+AWX_ADMIN_PASSWORD=<here your new awx password>  
+TOWER_USERNAME=<here your new tower user>  
+TOWER_PASSWORD=<here your new tower password>  
 
 3. change the next environment variable if the certificate is not self-signed
-TOWER_VERIFY_SSL=false 
-TOWER_INSECURE=true
+TOWER_VERIFY_SSL=false  
+TOWER_INSECURE=true  
 
 ## <a name="howto_proxy"></a>How to change my Proxy
 By default, when you start the installer, the proxy environment variables are copied in containers thanks to the following section in docker-compose-zabbix.yml file:
