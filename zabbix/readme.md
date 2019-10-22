@@ -35,23 +35,11 @@ Optionally, 3 ready-to-go zabbix images are available on Dockerhub
 
 ## <a name="what_first"></a>What to do first
 
-### Change environment variables for Proxy
-
-All default environment variables are declared in Dockerfiles/zabbix.env file.
+### Care the Proxy
 
 By default, the following XXX_PROXY environment variables are copied in zabbix context : HTTP_PROXY, HTTPS_PROXY, NO_PROXY
 
-To change it, open a terminal and change your XXX_PROXY environement variables:
-
-export HTTP_PROXY="http://<proxy_ip>:<proxy_port>"
-
-export HTTPS_PROXY="http://<proxy_ip>:<proxy_port>"
-
-![#f03c15](https://placehold.it/15/f03c15/000000?text=+) if you have a proxy between the server and the BMC or if ever you have proxy issues, try to add as many *<bullsequana_edge_ip_address>* as device instances you have in NO_PROXY environment variable :
-
-export NO_PROXY="127.0.0.1,localhost,zabbix,webserver,0.0.0.0:9090,0.0.0.0,ansible,awx,awx_web,awx_task,*<bullsequana_edge_ip_address>*"
-
-You can now run the installer.
+For more details, read the [How to change my Proxy](#howto_proxy) part
 
 ### Launch installer
 Run the install script:
