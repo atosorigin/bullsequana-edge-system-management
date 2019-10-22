@@ -192,7 +192,7 @@ Volt: *
 1. Select "Plain text"
 2. Select whatever items you want
 
-![#c5f015](https://placehold.it/15/f03c15/000000?text=+) items are prefixed with application names like "Control:" "Network:" "State:" ...
+![#c5f015](https://placehold.it/15/c5f015/000000?text=+) items are prefixed with application names like "Control:" "Network:" "State:" ...
 
 ![alt text](https://github.com/frsauvage/MISM/blob/master/zabbix/doc/select_items.png)
 
@@ -304,6 +304,7 @@ By default, when you start the installer, the proxy environment variables are co
       ...
 ```
 ![#f03c15](https://placehold.it/15/f03c15/000000?text=+) If your bullsequana edge IP address is not declared in proxy
+
 ![#f03c15](https://placehold.it/15/f03c15/000000?text=+) You may have to add your bullsequana edge IP address in your NO_PROXY configuration to bypass the proxy 
 
 ```
