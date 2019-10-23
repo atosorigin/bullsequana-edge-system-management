@@ -82,7 +82,7 @@ If you did NOT already add your playbooks, just run :
 
 `<clone_dir>/add_playbooks.sh`
 
-### Ccmplete your inventory first
+### Complete your inventory first
 Go to inventory and add all your hosts manually
 Optionally, your can detect hosts with nmap inventory script: See nmap in Command line section
 

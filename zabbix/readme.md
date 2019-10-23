@@ -170,12 +170,18 @@ Screens appear in contextual menu when Host column is available:
 1. Select "Graph"
 ![alt text](https://github.com/frsauvage/MISM/blob/master/zabbix/doc/add_graph_widget_dashboard.png)
 
-2. whatever items you want or write an item regular expression like:
-Fan: *
-Temp: *
-Volt: *
+2. Select whatever items you want or write an item regular expression like  
+Fan: *  
+Temp: *  
+Volt: *  
 
 ![alt text](https://github.com/frsauvage/MISM/blob/master/zabbix/doc/dashboard_graphs_sensors.png)
+
+3. Optionally add another Dataset with different colors by clicking *Add a new Data Set* button below
+
+![alt text](https://github.com/frsauvage/MISM/blob/master/zabbix/doc/3_fan_colors_create.png)
+
+![alt text](https://github.com/frsauvage/MISM/blob/master/zabbix/doc/3_fan_colors_design.png)
 
 ### add a data overview 
 ![alt text](https://github.com/frsauvage/MISM/blob/master/zabbix/doc/add_data_overview_widget_dashboard.png)
@@ -218,7 +224,7 @@ If ever you start docker containers after loading the rsyslog template :
 `rm -rf /var/log/rsyslog`
 
 ### activate udp/tcp rsyslog port
-in /etc/rsyslog.conf file, uncomment or copy the following lines:
+In /etc/rsyslog.conf file, uncomment or copy the following lines:
 ```
 ### provides UDP syslog reception
 $ModLoad imudp
@@ -230,7 +236,7 @@ $InputTCPServerRun 514
 ```
 
 ### activate a rsyslog directory in docker-compose mism file
-in docker-compose-zabbix.yml file, zabbix-server service section, uncomment :
+In docker-compose-zabbix.yml file, zabbix-server service section, uncomment :
 ```
     volumes:
        # - /var/log/rsyslog:/var/log/zabbix/rsyslog:rw
@@ -246,10 +252,8 @@ install with your usual package manager like yum
 rsyslog file should be the only file name of the current rsyslog file for the zabbix template to work => you must adapt the template if you have another rotation rule
 
 ### syslog template
-create your rsyslog template directly in /etc/rsyslog.conf 
-
-or
- 
+Create your rsyslog template directly in /etc/rsyslog.conf  
+or  
 if this line exists in rsyslog.conf
 ```
 ### Include all config files in /etc/rsyslog.d/
@@ -291,10 +295,9 @@ with logger command:
 More information on : https://www.tecmint.com/install-rsyslog-centralized-logging-in-centos-ubuntu/
 
 ### flush iptables
-if telnet is not working but the ping is working : iptables rules could be the issue
-
+If telnet is not working but the ping is working : iptables rules could be the issue  
 You can flush the iptables rules 
-![#f03c15](https://placehold.it/15/f03c15/000000?text=+) be careful to be able to recreate itables rules after this command
+![#f03c15](https://placehold.it/15/f03c15/000000?text=+) Be careful to be able to recreate itables rules after this command
 ` iptables -F `
 
 ## <a name="howto_proxy"></a>How to change my Proxy
@@ -340,9 +343,8 @@ To change your local time, edit docker-compose-zabbix.yml file
 ```
 
 ### timezone
-By default, when you start the installer, the host timezone (in /etc/timezone or /usr/share/zoneinfo ) are copied inside containers as PHP_TZ:
-
-To change your time zone, edit docker-compose-zabbix.yml file
+By default, when you start the installer, the host timezone (in /etc/timezone or /usr/share/zoneinfo) are copied inside containers as PHP_TZ.  
+To override your time zone, edit docker-compose-zabbix.yml file
 ```
     environment:
       ...
