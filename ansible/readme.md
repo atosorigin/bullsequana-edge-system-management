@@ -82,19 +82,27 @@ If you did NOT already add your playbooks, just run :
 
 `<install_dir>/add_playbooks.sh`
 
-### complete your inventory first
-Go to inventory and add all your hosts manually
-Optionally, your can detect hosts with nmap inventory script: See nmap in Command line section
 
-`cd <install_dir>/ansible/awx_ssl`
+![alt text](https://github.com/atosorigin/bullsequana-edge-system-management/blob/master/ansible/doc/awx_playbooks.png)
+
+### complete your inventory first
+1. Go to Inventory 
+2. add all your hosts manually
+3. Optionally, depending on host number, create multiple inventories or groups
+
+![alt text](https://github.com/atosorigin/bullsequana-edge-system-management/blob/master/ansible/doc/awx_inventory.png)
 
 *Don't forget to copy/paste baseuri in every host unmodified*
 `baseuri: {{inventory_hostname}} `
+
+Optionally, your can detect hosts with nmap inventory script: See nmap in Command line section
 
 ### change your inventory variables 
 if you never want to automatically reboot the BMC, you need to change reboot variable in your inventory / variable part:
 
 `reboot = False`
+
+![alt text](https://github.com/atosorigin/bullsequana-edge-system-management/blob/master/ansible/doc/awx_reboot_variable.png)
 
 ![#f03c15](https://placehold.it/15/f03c15/000000?text=+)Warning : Default is True meaning the BMC will reboot automatically after an updade
 
@@ -131,12 +139,12 @@ password: {{my_password_to_encrypt}}
 
 ## <a name="what_ansible"></a>What to do first on Ansible
 
-Here is the basic configuration for ansible:
-config file = ansible/inventory/ansible.cfg file
-inventory = ansible/inventory/hosts file
-variables = ansible/vars file
+Here is the basic configuration for ansible:  
+config file = <install_dir>/ansible/inventory/ansible.cfg file  
+inventory = <install_dir>/ansible/inventory/hosts file  
+variables = <install_dir>/ansible/vars file  
 
-*For every CLI commands, you should be logged on a docker AWX container like awx_web or awx_task or add 'docker exec -it <container name>' before all commands*
+*For every CLI commands, you should be logged on a docker AWX container like awx_web or awx_task or add 'docker exec -it <container name>' before all commands*  
 
 ### general options
 #### how to limit to a group of servers :
@@ -156,7 +164,7 @@ variables = ansible/vars file
 
 `ansible-playbook myfile.yml --extra-vars "ma_variable=my_value"`
 
-2. In the appropriated file playbooks/vars/external_vars.yml, uncomment and set the desired variable :
+2. In the appropriated file <install_dir>/playbooks/vars/external_vars.yml, uncomment and set the desired variable :
 `my_variable: my_value `
 
 ![#f03c15](https://placehold.it/15/f03c15/000000?text=+) Warning : the 2 different ways are exclusive : You should declare a same variable in file OR in parameter, else it will conflict
@@ -168,8 +176,8 @@ variables = ansible/vars file
 ansible-playbook --extra-vars "file_to_upload=<path_and_filename>" update_firmware_from_file.yml 
 ```
 
-exemple: 
-[root@awx firmware]# ansible-playbook --limit=openbmc --extra-vars "file_to_upload=/mnt/BIOS_SKD080.13.03.003.tar.gz username=root password=mot_de_passe" -vv update_firmware_from_file.yml
+exemple:  
+[root@awx firmware]# ansible-playbook --limit=openbmc --extra-vars "file_to_upload=/mnt/BIOS_SKD080.13.03.003.tar.gz username=root password=mot_de_passe" -vv   update_firmware_from_file.yml  
 
 #### how to evaluate a TS file (Technical State)
 
@@ -178,7 +186,6 @@ ansible-playbook evaluate_firmware_update.yml
 ```
 
 ex: [root@awx firmware]# ansible-playbook --limit=openbmc -vv evaluate_firmware_update.yml
-
 
 #### how to load images
 
