@@ -28,6 +28,7 @@ Optionally, 3 ready-to-go zabbix images are available on Dockerhub
 - [How to change Local Date / Time Zone](#datetimezone)
 - [How to add Security](#security)
 - [How to test](#test)
+- [How to log on a docker container](#howto_docker_logon)
 - [Warning for updates](#updates)
 - [Support](#support)
 - [LICENSE](#license)
@@ -400,6 +401,29 @@ echo PSK: <your psk>
 See https://www.zabbix.com/documentation/4.4/manpages/zabbix_sender
 ### zabbix_get
 See https://www.zabbix.com/documentation/4.4/manpages/zabbix_get
+
+## <a name="howto_docker_logon"></a>How to log on a docker container
+
+To log on a container with an interactive terminal:
+
+```
+docker exec -it <container name> <executable command or shell>
+where:
+-i = interactive
+-t = terminal
+<container name> is awx_web or awx_task : both can be use to use ansible CLI
+<executable command or shell> 
+  shell : could be bash or sh
+  command : any ansible command
+```
+container names are :  
+zabbix-server  
+zabbix-agent  
+zabbix-web  
+zabbix-postgres  
+
+examples :
+`docker exec -it zabbix-server bash`
 
 ## <a name="updates"></a>Warning for updates
 

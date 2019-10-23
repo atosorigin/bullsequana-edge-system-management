@@ -77,11 +77,29 @@ Optionaly, 2 ready-to-go AWX-Ansible images are available on Dockerhub
 
 ## <a name="what_AWX"></a>What to do first on AWX
 
+### check proxy configuration
+
+By default, the following XXX_PROXY environment variables are copied in awx context : HTTP_PROXY, HTTPS_PROXY, NO_PROXY
+
+For more details, read the [How to change my Proxy](#howto_proxy) part
+
+### launch installer
+Run the install script:
+
+`<install_dir>/install_awx.sh`
+
+or if you want to use the Docker Atos images, you can now run the following Dockerhub install script:
+
+`<install_dir>/install_awx_from_dockerhub.sh`
+
+### access your dashboard
+
+![alt text](https://github.com/atosorigin/bullsequana-edge-system-management/blob/master/ansible/doc/awx.png)
+
 ### add your playbooks
-If you did NOT already add your playbooks, just run :
+If you did not already add your playbooks, just run :
 
 `<install_dir>/add_playbooks.sh`
-
 
 ![alt text](https://github.com/atosorigin/bullsequana-edge-system-management/blob/master/ansible/doc/awx_playbooks.png)
 
@@ -374,7 +392,7 @@ You should first change the user and password from gui
 1. Select Admin
 2. Choose "Update this user"
 
-![alt text](https://github.com/atosorigin/bullsequana-edge-system-management/blob/master/zabbix/doc/update_rabbitmq_user.png)
+![alt text](https://github.com/atosorigin/bullsequana-edge-system-management/blob/master/ansible/doc/update_rabbitmq_user.png)
 
 3. change in *credentials.py*
 
@@ -407,7 +425,7 @@ TOWER_VERIFY_SSL=false
 TOWER_INSECURE=true  
 
 ## <a name="howto_proxy"></a>How to change my Proxy
-By default, when you start the installer, the proxy environment variables are copied in containers thanks to the following section in docker-compose-zabbix.yml file:
+By default, when you start the installer, the proxy environment variables are copied in containers thanks to the following section in docker-compose-awx.yml file:
 
 ```
     environment:
@@ -422,7 +440,7 @@ By default, when you start the installer, the proxy environment variables are co
 export NO_PROXY="<your bullsequana edge IP address>,$NO_PROXY"
 ```
 
-If you don't want to use XX_PROXY environment variables, you can directly adapt the proxy configuration as desired in *docker-compose-zabbix.yml* file with explicit IP addresses and host names:
+If you don't want to use XX_PROXY environment variables, you can directly adapt the proxy configuration as desired in *docker-compose-awx.yml* file with explicit IP addresses and host names:
 ```
     environment:
       HTTP_PROXY: http://<your proxy>:<your port>
@@ -477,11 +495,7 @@ awx_web
 awx_task  
 awx_postgres  
 memcached  
-rabbitmq  
-zabbix-server  
-zabbix-agent  
-zabbix-web  
-zabbix-postgres  
+rabbitmq   
 
 examples :
 `docker exec -it awx_task bash`
