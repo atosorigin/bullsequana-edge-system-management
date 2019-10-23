@@ -465,7 +465,7 @@ where:
   shell : could be bash or sh
   command : any ansible command
 ```
-container names are :
+container names are :  
 awx_web  
 awx_task  
 awx_postgres  
