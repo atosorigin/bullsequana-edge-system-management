@@ -183,7 +183,7 @@ Volt: *
 
 ![alt text](https://github.com/atosorigin/bullsequana-edge-system-management/blob/master/zabbix/doc/3_fan_colors_design.png)
 
-3. Optionally if you need to start from 0, adjust the Y axe :
+4. Optionally if you need to start from 0, adjust the min Y axe :
 
 ![alt text](https://github.com/atosorigin/bullsequana-edge-system-management/blob/master/zabbix/doc/axes_0.png)
 
