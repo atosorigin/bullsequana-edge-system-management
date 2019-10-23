@@ -24,8 +24,8 @@ import argparse
 
 from twilio.rest import Client
 
-def send_twilio(from_, to_):
-  twilioClient = Client("AC88d8732c4083e977c07ba812dde068a9", "6f288437df4054b32822f039d790b5df")
+def send_twilio(from_, to_, twilio_key, api_key):
+  twilioClient = Client(twilio_key, api_key)
   sms = twilioClient.messages.create(body = "whatever", from_=from_, to=to_)
   return sms
 
