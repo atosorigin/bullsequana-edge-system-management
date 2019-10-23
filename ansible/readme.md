@@ -82,7 +82,7 @@ If you did NOT already add your playbooks, just run :
 
 `<install_dir>/add_playbooks.sh`
 
-### Complete your inventory first
+### complete your inventory first
 Go to inventory and add all your hosts manually
 Optionally, your can detect hosts with nmap inventory script: See nmap in Command line section
 
@@ -466,18 +466,19 @@ where:
   command : any ansible command
 ```
 container names are :
-awx_web
-awx_task
-postgres
-memcached
-rabbitmq
-zabbix
-zabbix-agent
-zabbix-web
+awx_web  
+awx_task  
+awx_postgres  
+memcached  
+rabbitmq  
+zabbix-server  
+zabbix-agent  
+zabbix-web  
+zabbix-postgres  
 
 examples :
-docker exec -it awx_task bash
-docker exec -it awx_web ansible-playbook projects/openbmc/inventory/get_sensors.yml
+`docker exec -it awx_task bash`
+`docker exec -it awx_web ansible-playbook projects/openbmc/inventory/get_sensors.yml`
 
 ## <a name="warning_updates"></a>Warning for updates
 
