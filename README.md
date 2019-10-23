@@ -1,4 +1,4 @@
-![alt text](https://atos.net/wp-content/uploads/2019/05/BullSequana-Edge-1.png) ![alt text](https://atos.net/wp-content/uploads/2019/05/BullSequanaEdge_Atos.png)
+![alt text](https://atos.net/wp-content/uploads/2019/05/BullSequana-Edge-1.png) 
 
 # Bull Sequana Edge Ansible playbooks/modules and Zabbix templates
 
@@ -15,3 +15,5 @@ This project includes Ansible playbooks and zabbix templates for Bull Sequana Ed
 
 ## LICENSE
 Bull Sequana Edge Ansible playbooks/modules/plugins and zabbix templates project is licensed under GPL-3.0 License. Please see the [COPYING](./COPYING.md) for more information
+
+![alt text](https://atos.net/wp-content/uploads/2019/05/BullSequanaEdge_Atos.png)
