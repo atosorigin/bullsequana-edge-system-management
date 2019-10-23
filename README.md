@@ -1,4 +1,4 @@
-# Bull Sequana Edge Ansible playbooks and zabbix templates
+# Bull Sequana Edge Ansible playbooks/modules and Zabbix templates
 
 This project includes Ansible playbooks and zabbix templates for Bull Sequana Edge devices
 
