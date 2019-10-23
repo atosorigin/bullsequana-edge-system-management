@@ -367,7 +367,7 @@ You should first change the user and password from gui
 1. Select Admin
 2. Choose "Update this user"
 
-![alt text](https://github.com/frsauvage/MISM/blob/master/zabbix/doc/update_rabbitmq_user.png)
+![alt text](https://github.com/atosorigin/bullsequana-edge-system-management/blob/master/zabbix/doc/update_rabbitmq_user.png)
 
 3. change in *credentials.py*
 

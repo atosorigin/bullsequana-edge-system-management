@@ -52,9 +52,9 @@ or if you want to use the Docker Atos images, you can now run the following Dock
 
 ### enable automatic inventory by default
 1. Go to Administration / General / Others
-2. Check 'Autoamtic' for inventory
+2. Check 'Automatic' for inventory
 
-![alt text](https://github.com/frsauvage/MISM/blob/master/zabbix/doc/Admin_Automatic_Inventory.png)
+![alt text](https://github.com/atosorigin/bullsequana-edge-system-management/blob/master/zabbix/doc/Admin_Automatic_Inventory.png)
 
 ### rename Zabbix Server
 1. Go to Configuration / Hosts
@@ -71,7 +71,7 @@ you should first rename your Zabbix Server
 
 Be careful: The "Visible name" is used by Zabbix Dashboards, so let "Zabbix server" persist as a Visible name.
 
-![alt text](https://github.com/frsauvage/MISM/blob/master/zabbix/doc/Zabbix_Server_Configuration.png)
+![alt text](https://github.com/atosorigin/bullsequana-edge-system-management/blob/master/zabbix/doc/Zabbix_Server_Configuration.png)
 
 5. Change the agent to zabbix-agent:
 - Remove IP = 127.0.0.1 
@@ -83,9 +83,9 @@ Be careful: The "Visible name" is used by Zabbix Dashboards, so let "Zabbix serv
 You should copy the templates from <install_dir>\zabbix\server\externalscripts\ to a local path
 1. Go to Configuration / Templates
 2. Click on Import button at the right
-![alt text](https://github.com/frsauvage/MISM/blob/master/zabbix/doc/Import_templates.png)
+![alt text](https://github.com/atosorigin/bullsequana-edge-system-management/blob/master/zabbix/doc/Import_templates.png)
 3. Locate your Atos templates
-![alt text](https://github.com/frsauvage/MISM/blob/master/zabbix/doc/Select_template.png)
+![alt text](https://github.com/atosorigin/bullsequana-edge-system-management/blob/master/zabbix/doc/Select_template.png)
 4. Click on Import button below
 
 ### add your hosts
@@ -114,7 +114,7 @@ You must add 3 macros on each mipocket host:
 ## <a name="edge_template"></a>How to install BullSequana Edge template
 ### template content
 - applications: All items are categorized inside applications with the following rules :
-![alt text](https://github.com/frsauvage/MISM/blob/master/zabbix/doc/Applications.png)
+![alt text](https://github.com/atosorigin/bullsequana-edge-system-management/blob/master/zabbix/doc/Applications.png)
 
 - items belong to Applications
 
@@ -122,7 +122,7 @@ You must add 3 macros on each mipocket host:
 
 Fans, Temperature and Voltage are discovered - values are float => it could be added in 'Graph'
 
-![alt text](https://github.com/frsauvage/MISM/blob/master/zabbix/doc/item_prototypes.png)
+![alt text](https://github.com/atosorigin/bullsequana-edge-system-management/blob/master/zabbix/doc/item_prototypes.png)
 
 - triggers
 
@@ -131,81 +131,81 @@ Firmware update failures are triggered
 - 4 discovered triggers
 1. Critical high & low triggers corresponding to Critical Alarms Threshold fo BullSequana Edge device are Enabled by default
 2. Warning high & low triggers to Warning Alarms Threshold fo BullSequana Edge device are Disabled by default
-![alt text](https://github.com/frsauvage/MISM/blob/master/zabbix/doc/4_triggers.png)
+![alt text](https://github.com/atosorigin/bullsequana-edge-system-management/blob/master/zabbix/doc/4_triggers.png)
 
 - automatic inventory mapping
 
 Model, Asset, Serial number, Software Version, OOB IP Address and Manufacturer are automatically fulfilled
 
-![alt text](https://github.com/frsauvage/MISM/blob/master/zabbix/doc/automatic_inventory.png)
+![alt text](https://github.com/atosorigin/bullsequana-edge-system-management/blob/master/zabbix/doc/automatic_inventory.png)
 
 - discovered graphs (prototypes) for each fans, temperatures and voltages discoverd item with Critical High and Low values
 
 - 1 screen with the 3 graphs : All Fans, Temperatures and Voltages
 
-![alt text](https://github.com/frsauvage/MISM/blob/master/zabbix/doc/host_screens.png)
+![alt text](https://github.com/atosorigin/bullsequana-edge-system-management/blob/master/zabbix/doc/host_screens.png)
 
 screens are available in host inventory details:
 
 1. Go to Monitoring / Inventory / Hosts
 2. Select your BullSequana Edge device
 
-![alt text](https://github.com/frsauvage/MISM/blob/master/zabbix/doc/monitoring_host.png)
+![alt text](https://github.com/atosorigin/bullsequana-edge-system-management/blob/master/zabbix/doc/monitoring_host.png)
 
 Screens appear in contextual menu when Host column is available:
 
-![alt text](https://github.com/frsauvage/MISM/blob/master/zabbix/doc/contextual_host_menu.png)
+![alt text](https://github.com/atosorigin/bullsequana-edge-system-management/blob/master/zabbix/doc/contextual_host_menu.png)
 
 ## <a name="dashboard"></a>How to create my first Edge dashboard
 ### create a dashboard
 1. Go to Monitoring / Dashboard
 2. Click on the right button "Create Dashboard"
 
-![alt text](https://github.com/frsauvage/MISM/blob/master/zabbix/doc/create_dashboard.png)
+![alt text](https://github.com/atosorigin/bullsequana-edge-system-management/blob/master/zabbix/doc/create_dashboard.png)
 
 3. Add a Name 
 4. Add a Widget
 
 ### add a graph
 1. Select "Graph"
-![alt text](https://github.com/frsauvage/MISM/blob/master/zabbix/doc/add_graph_widget_dashboard.png)
+![alt text](https://github.com/atosorigin/bullsequana-edge-system-management/blob/master/zabbix/doc/add_graph_widget_dashboard.png)
 
 2. Select whatever items you want or write an item regular expression like  
 Fan: *  
 Temp: *  
 Volt: *  
 
-![alt text](https://github.com/frsauvage/MISM/blob/master/zabbix/doc/dashboard_graphs_sensors.png)
+![alt text](https://github.com/atosorigin/bullsequana-edge-system-management/blob/master/zabbix/doc/dashboard_graphs_sensors.png)
 
 3. Optionally add another Dataset with different colors by clicking *Add a new Data Set* button below
 
-![alt text](https://github.com/frsauvage/MISM/blob/master/zabbix/doc/3_fan_colors_create.png)
+![alt text](https://github.com/atosorigin/bullsequana-edge-system-management/blob/master/zabbix/doc/3_fan_colors_create.png)
 
-![alt text](https://github.com/frsauvage/MISM/blob/master/zabbix/doc/3_fan_colors_design.png)
+![alt text](https://github.com/atosorigin/bullsequana-edge-system-management/blob/master/zabbix/doc/3_fan_colors_design.png)
 
 ### add a data overview 
-![alt text](https://github.com/frsauvage/MISM/blob/master/zabbix/doc/add_data_overview_widget_dashboard.png)
+![alt text](https://github.com/atosorigin/bullsequana-edge-system-management/blob/master/zabbix/doc/add_data_overview_widget_dashboard.png)
 
 1. Select "Data Overview"
 2. Select whatever Application you want
 3. Adapt the refresh interval
 
-![alt text](https://github.com/frsauvage/MISM/blob/master/zabbix/doc/states.png)
+![alt text](https://github.com/atosorigin/bullsequana-edge-system-management/blob/master/zabbix/doc/states.png)
 
 ### add a plain text
-![alt text](https://github.com/frsauvage/MISM/blob/master/zabbix/doc/plain_text.png)
+![alt text](https://github.com/atosorigin/bullsequana-edge-system-management/blob/master/zabbix/doc/plain_text.png)
 
 1. Select "Plain text"
 2. Select whatever items you want
 
 ![#c5f015](https://placehold.it/15/c5f015/000000?text=+) items are prefixed with application names like "Control:" "Network:" "State:" ...
 
-![alt text](https://github.com/frsauvage/MISM/blob/master/zabbix/doc/select_items.png)
+![alt text](https://github.com/atosorigin/bullsequana-edge-system-management/blob/master/zabbix/doc/select_items.png)
 
 3. Adapt the refresh interval
 3. Adapt the "show lines" number
 
-![alt text](https://github.com/frsauvage/MISM/blob/master/zabbix/doc/network.png)
+![alt text](https://github.com/atosorigin/bullsequana-edge-system-management/blob/master/zabbix/doc/network.png)
 
 ## <a name="rsyslog_template"></a>rsyslog template installation
 ### template content
