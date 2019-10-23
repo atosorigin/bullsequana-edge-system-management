@@ -179,9 +179,13 @@ Volt: *
 
 3. Optionally add another Dataset with different colors by clicking *Add a new Data Set* button below
 
-![alt text](https://github.com/atosorigin/bullsequana-edge-system-management/blob/master/zabbix/doc/3_fan_colors_create.png)
+![alt text](https://github.com/atosorigin/bullsequana-edge-system-management/blob/master/zabbix/doc/3_fan_colors_set.png)
 
 ![alt text](https://github.com/atosorigin/bullsequana-edge-system-management/blob/master/zabbix/doc/3_fan_colors_design.png)
+
+3. Optionally if you need to strat from 0, adjust the Y axe :
+
+![alt text](https://github.com/atosorigin/bullsequana-edge-system-management/blob/master/zabbix/doc/axes_0.png)
 
 ### add a data overview 
 ![alt text](https://github.com/atosorigin/bullsequana-edge-system-management/blob/master/zabbix/doc/add_data_overview_widget_dashboard.png)
