@@ -80,13 +80,13 @@ Optionaly, 2 ready-to-go AWX-Ansible images are available on Dockerhub
 ### add your playbooks
 If you did NOT already add your playbooks, just run :
 
-`<clone_dir>/add_playbooks.sh`
+`<install_dir>/add_playbooks.sh`
 
 ### Complete your inventory first
 Go to inventory and add all your hosts manually
 Optionally, your can detect hosts with nmap inventory script: See nmap in Command line section
 
-`cd <instal_dir>/ansible/awx_ssl`
+`cd <install_dir>/ansible/awx_ssl`
 
 *Don't forget to copy/paste baseuri in every host unmodified*
 `baseuri: {{inventory_hostname}} `

@@ -44,11 +44,11 @@ For more details, read the [How to change my Proxy](#howto_proxy) part
 ### launch installer
 Run the install script:
 
-`./install_zabbix.sh`
+`<install_dir>/install_zabbix.sh`
 
 or if you want to use the Docker Atos images, you can now run the following Dockerhub install script:
 
-`./install_zabbix_from_dockerhub.sh`
+`<install_dir>/install_zabbix_from_dockerhub.sh`
 
 ### enable automatic inventory by default
 1. Go to Administration / General / Others
