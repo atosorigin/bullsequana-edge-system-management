@@ -137,7 +137,7 @@ The *add_playbooks.sh* script already creates a vault for you and associates eve
 
 The default *Bull Sequana Edge Vault* has intentionaly NO password, so you should define your own password:  
 
-![#f03c15](https://placehold.it/15/f03c15/000000?text=+)Warning : You should remember your vault password  
+![#f03c15](https://placehold.it/15/f03c15/000000?text=+) Warning : You should remember your vault password  
 
 1. go to AWX Credentials
 2. select *Bull Sequana Edge Vault*
@@ -147,7 +147,7 @@ The default *Bull Sequana Edge Vault* has intentionaly NO password, so you shoul
 4. save your change
 ![alt text](https://github.com/atosorigin/bullsequana-edge-system-management/blob/master/ansible/doc/vault_id.png)
   
-![#c5f015](https://placehold.it/15/c5f015/000000?text=+)Info: The vault-id can be used in ansible command line  
+![#c5f015](https://placehold.it/15/c5f015/000000?text=+) Info: The vault-id can be used in ansible command line  
 ![alt text](https://github.com/atosorigin/bullsequana-edge-system-management/blob/master/ansible/doc/vault_ansible_id.png)
 
 #### generate an encrypted password
