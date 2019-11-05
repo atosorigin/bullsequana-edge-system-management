@@ -3,9 +3,10 @@
   connection: local
   name: Manage Chassis Power - Turn off
   gather_facts: False
+  vars_files:
+    - /var/lib/awx/projects/vars/passwords.yml
 
   tasks:
-
   - include_tasks: ../utils/utils_create_token.yml
 
   - include_tasks: ../utils/utils_chassis_power_off.yml

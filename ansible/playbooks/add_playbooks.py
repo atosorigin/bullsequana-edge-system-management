@@ -44,6 +44,21 @@ print tower.org, tower.org_desc
 org = org_res.create(name=tower.org, description=tower.org_desc)
 org_id = org['id']
 
+cred_res = tower_cli.get_resource('credential')
+cred_type = tower_cli.get_resource('credential_type')
+
+if tower.credentials:
+    # create one credential
+    print("\nCreating Bull Sequana Edge Vault\n")
+    for i in tower.credentials:
+        print(i)
+        vault = cred_type.get(name=i['credential_type'])
+        print(vault)
+        i['credential_type'] = vault['id']
+        i['organization'] = org_id
+        cred = cred_res.create(**i)
+cred_id = cred['id']
+
 if tower.inventories:
     # create inventories
     print "\nCreating Inventories\n"
@@ -95,11 +110,15 @@ if tower.job_templates:
         project = project_res.get(name=j['project'])
         j['project'] = project['id']
         j['organization'] = org_id
+        j['credential'] = cred_id
         job_template_res.create(**j)
 
 
 print("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
-print("now define your variables in your AWX inventory : ")
+print("define your vault password in your AWX credential")
+print(" =>> Bull Sequana Edge Vault has NO password defined")
+print("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
+print("define your variables in your AWX inventory : ")
 print("- reboot (default is True)")
 print("- forceoff (default is True)")
 print("- rsyslog_server_ip (default is 0.0.0.0)")

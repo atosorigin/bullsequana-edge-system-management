@@ -3,6 +3,8 @@
   connection: local
   name: Check System Power - Turn off
   gather_facts: False
+  vars_files:
+    - /var/lib/awx/projects/vars/passwords.yml
 
   tasks:
 

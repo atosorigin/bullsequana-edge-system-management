@@ -3,6 +3,8 @@
   name: Delete Firmware Image
   connection: local
   gather_facts: False
+  vars_files:
+    - /var/lib/awx/projects/vars/passwords.yml
   
   tasks:
 

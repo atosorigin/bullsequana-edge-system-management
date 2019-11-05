@@ -46,4 +46,4 @@
 host="{{inventory_hostname}}"
 [openbmc]
 #<here an IP address> baseuri="{{host}}" username=<here bmc username> password=<here bmc password>
-172.31.92.34  baseuri="{{host}}" username=root password=sdd@atos
+172.31.92.34  baseuri="{{host}}" username=root

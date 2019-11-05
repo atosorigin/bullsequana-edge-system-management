@@ -3,6 +3,8 @@
   name: Chassis State Inventory
   connection: local
   gather_facts: False
+  vars_files:
+    - /var/lib/awx/projects/vars/passwords.yml
   
   tasks:
   - include_tasks: ../utils/utils_create_token.yml

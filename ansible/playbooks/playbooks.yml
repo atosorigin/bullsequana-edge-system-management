@@ -11,9 +11,16 @@ inventories:
         source: manual
         hosts:
         - name: <here an ip address>
-          variables: '{ "baseuri": "{{inventory_hostname}}", "username": "<here bmc user name>", "password": "<here bmc password>" }'
-    variables: '{ "technical_state_path": "/host/mnt", "forceoff": True, "reboot": True, "rsyslog_server_ip":"0.0.0.0", "rsyslog_server_port":"514" }'
+          variables: '{ "baseuri": "{{inventory_hostname}}", "username": "<here bmc user name>", "password": "{{here_your_encryted_password_name_from_bull_sequana_edge_vault}}" }'
+    variables: '{ "technical_state_path": "/host/mnt", "forceoff": True, "reboot": True, "rsyslog_server_ip": "0.0.0.0", "rsyslog_server_port": "514"}'
       
+credentials:
+  - name: Bull Sequana Edge Vault
+    description: Bull Sequana Edge Vault associated to ansible/playbooks/vars/passwords.yml file
+    credential_type: Vault
+    inputs: 
+      vault_id: "bullsequana_edge_password"
+
 projects:
   - name: BullSequana Edge Playbooks
     local_path: openbmc
@@ -21,6 +28,7 @@ projects:
 
 job_templates:
   - name: Activate firmware updates
+    credential: Bull Sequana Edge Vault
     description: Activate all pending firmware updates
     inventory: BullSequana Edge Inventory
     project: BullSequana Edge Playbooks

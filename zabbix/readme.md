@@ -389,7 +389,7 @@ echo PSK: <your psk>
 
 ## generate an encrypted passwords
 1. generate an encrypted password for each different password 
-` <install_dir>/generate_encrypted_password_for_zabbix.sh --passord=<your_clear_password> `
+` <install_dir>/generate_encrypted_password_for_zabbix.sh --password=<your_clear_password> `
 
 2. copy/paste encrypted result it in zabbix / Configuration / Hosts / you host / Macros / {$PASSWORD} Value
 

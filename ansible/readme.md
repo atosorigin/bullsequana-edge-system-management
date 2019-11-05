@@ -21,11 +21,11 @@ Optionaly, 2 ready-to-go AWX-Ansible images are available on Dockerhub
 - [BullSequana Edge Playbooks](#playbooks)
 - [What to do first on AWX](#what_awx)
 - [What to do first on Ansible](#what_ansible)
-- [How to change certificat on AWX server](#howto_cert)
-- [How to change passwords](#howto_ts)
+- [How to log on a docker container](#howto_docker_logon)
 - [How to change my proxy](#howto_proxy)
 - [How to change technical states file path](#howto_ts)
-- [How to log on a docker container](#howto_docker_logon)
+- [How to change certificat on AWX server](#howto_cert)
+- [How to change awx passwords](#howto_passwords)
 - [Warning for updates](#warning_updates)
 - [More help](#more_help)
 - [Support](#support)
@@ -84,68 +84,66 @@ By default, the following XXX_PROXY environment variables are copied in awx cont
 For more details, read the [How to change my Proxy](#howto_proxy) part
 
 ### launch installer
-Run the install script:
-
+Run the install script:  
 `<install_dir>/install_awx.sh`
 
-or if you want to use the Docker Atos images, you can now run the following Dockerhub install script:
-
+or if you want to use the Docker Atos images, you can now run the following Dockerhub install script:  
 `<install_dir>/install_awx_from_dockerhub.sh`
 
 ### access your dashboard
-
+`run a browser with https://<your_server>`  
 ![alt text](https://github.com/atosorigin/bullsequana-edge-system-management/blob/master/ansible/doc/awx.png)
 
 ### add your playbooks
-If you did not already add your playbooks, just run :
-
+If you did not already add your playbooks, just run:  
 `<install_dir>/add_playbooks.sh`
 
 ![alt text](https://github.com/atosorigin/bullsequana-edge-system-management/blob/master/ansible/doc/awx_playbooks.png)
 
 ### complete your inventory first
-1. Go to Inventory 
-2. add all your hosts manually
-3. Optionally, depending on host number, create multiple inventories or groups
+1. go to Inventory 
+2. add all your hosts one by one manually
+3. optionally, depending on host number, create multiple inventories or groups
 
 ![alt text](https://github.com/atosorigin/bullsequana-edge-system-management/blob/master/ansible/doc/awx_inventory.png)
 
-*Don't forget to copy/paste baseuri in every host unmodified*
-`baseuri: {{inventory_hostname}} `
+*Don't forget to copy/paste baseuri in every host unmodified*  
+`baseuri: {{inventory_hostname}}`
 
 Optionally, your can detect hosts with nmap inventory script: See nmap in Command line section
 
 ### change your inventory variables 
-if you never want to automatically reboot the BMC, you need to change reboot variable in your inventory / variable part:
-
+if you never want to automatically reboot the BMC, you need to change reboot variable in your inventory / variable part:  
 `reboot = False`
 
 ![alt text](https://github.com/atosorigin/bullsequana-edge-system-management/blob/master/ansible/doc/awx_reboot_variable.png)
 
-![#f03c15](https://placehold.it/15/f03c15/000000?text=+)Warning : Default is True meaning the BMC will reboot automatically after an updade
+![#f03c15](https://placehold.it/15/f03c15/000000?text=+)Warning : Default is True meaning the BMC will reboot automatically after an update
 
 if you never want to automatically force the remote server power off, you need to change forceoff variable in your inventory / variable part:
 
 `forceoff = False`
 
-![#f03c15](https://placehold.it/15/f03c15/000000?text=+)Warning : Default value is True meaning the BMC will power off automatically the host (server) during BIOS update 
+![#f03c15](https://placehold.it/15/f03c15/000000?text=+)Warning : Default is True meaning the BMC will power off automatically the host (server) during BIOS update 
 
 *playbooks needing a reboot or forceoff will fail*
 *reboot and shutdown playbooks do NOT care these variables*
 
 ### create your vault
-1. Go to AWX Credentials
-```
-Create a new Vault (+ button at the right)
-type = Vault
-no optional identifier
-remember your password
+The *add_playbooks.sh* script already creatse a vault and associates every templates to this vault
+
+1. go to AWX Credentials
+2. select *Bull Sequana Edge Vault*
+3. change the vault password
+
+![alt text](https://github.com/atosorigin/bullsequana-edge-system-management/blob/master/ansible/doc/change_vault_password.png)
+
 ```
 2. Generate a password
 ```
 ./generate_encrypted_password_for_AWX.sh -name my_variable_name my_password_to_encrypt
 ```
-*you should indicate your AWX Vault password during this generation*
+*you should indicate your AWX Vault password during this generation*  
 
 3. Follow the instruction steps of the script
 
@@ -163,6 +161,28 @@ inventory = <install_dir>/ansible/inventory/hosts file
 variables = <install_dir>/ansible/vars file  
 
 *For every CLI commands, you should be logged on a docker AWX container like awx_web or awx_task or add 'docker exec -it <container name>' before all commands*  
+
+### how to add a server in ansible inventory
+1. edit ansible/inventory/hosts file
+2. add your ip addresses or hostnames followed by baseuri and username variables
+3. create your vault with a vault-id for every password
+
+### how to export ansible inventory hosts file to awx inventory
+1. log on to docker awx_web
+`docker exec -it awx_web bash`
+2. get your targeted inventory id
+`tower-cli inventory list`
+
+example: inventory id for 'Ansible Inventory' name is 3  
+bash-4.2# tower-cli inventory list  
+== ================= ============   
+id       name        organization   
+== ================= ============   
+ 3 Ansible Inventory            1  
+== ================= ============   
+
+3. export with awx_manage
+`awx-manage inventory_import --source=inventory/ --inventory-id=3`
 
 ### general options
 #### how to limit to a group of servers :
