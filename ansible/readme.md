@@ -118,19 +118,19 @@ if you never want to automatically reboot the BMC, you need to change reboot var
 
 ![alt text](https://github.com/atosorigin/bullsequana-edge-system-management/blob/master/ansible/doc/awx_reboot_variable.png)
 
-![#f03c15](https://placehold.it/15/f03c15/000000?text=+)Warning : Default is True meaning the BMC will reboot automatically after an update
+![#f03c15](https://placehold.it/15/f03c15/000000?text=+) Warning : Default is True meaning the BMC will reboot automatically after an update
 
 if you never want to automatically force the remote server power off, you need to change forceoff variable in your inventory / variable part:
 
 `forceoff = False`
 
-![#f03c15](https://placehold.it/15/f03c15/000000?text=+)Warning : Default is True meaning the BMC will power off automatically the host (server) during BIOS update 
+![#f03c15](https://placehold.it/15/f03c15/000000?text=+) Warning : Default is True meaning the BMC will power off automatically the host (server) during BIOS update 
 
 *playbooks needing a reboot or forceoff will fail*
 *reboot and shutdown playbooks do NOT care these variables*
 
 ### use your vault
-### change your vault password
+#### - change your vault password
 The *add_playbooks.sh* script already creates a vault for you and associates every templates to this vault.  
 
 ![alt text](https://github.com/atosorigin/bullsequana-edge-system-management/blob/master/ansible/doc/create_vault_playbooks.png)
@@ -150,7 +150,7 @@ The default *Bull Sequana Edge Vault* has intentionaly NO password, so you shoul
 ![#c5f015](https://placehold.it/15/c5f015/000000?text=+) Info: The vault-id can be used in ansible command line  
 ![alt text](https://github.com/atosorigin/bullsequana-edge-system-management/blob/master/ansible/doc/vault_ansible_id.png)
 
-#### generate an encrypted password
+#### - generate an encrypted password
 1. open a terminal on the host
 2. execute the following shell script
 ```
@@ -161,7 +161,7 @@ The default *Bull Sequana Edge Vault* has intentionaly NO password, so you shoul
 
 *you should indicate your previously customized vault password during this generation*  
 
-#### use it in your host
+#### - use it in your host
 1. go to AWX Inventory
 2. select the host where you need to customize the password
 3. add "password" variable for each host
@@ -171,7 +171,7 @@ password: {{your_password_name}}
 ```
 ![alt text](https://github.com/atosorigin/bullsequana-edge-system-management/blob/master/ansible/doc/change_encrypted_password.png)
 
-#### remove an encrypted password
+#### - remove an encrypted password
 1. edit the file <install_dir>/ansible/playbooks/vars/passwords.yml
 2. remove the password entry as desired
 
@@ -493,7 +493,7 @@ If you don't want to use XX_PROXY environment variables, you can directly adapt 
       ...
 ```
 
-![#f03c15](https://placehold.it/15/f03c15/000000?text=+) if you change a XXX_PROXY env variable, you should restart the containers :
+![#f03c15](https://placehold.it/15/f03c15/000000?text=+) If you change a XXX_PROXY env variable, you should restart the containers :
 
 ```
 ./stop.sh 
@@ -546,10 +546,10 @@ examples :
 `docker exec -it awx_web ansible-playbook projects/openbmc/inventory/get_sensors.yml`
 
 ## <a name="warning_updates"></a>Warning for updates
-
-![#f03c15](https://placehold.it/15/f03c15/000000?text=+) `Never change original playbooks => duplicate playbooks`
-
-You can use the directory ansible/playbooks to add your own playbooks.
+  
+![#f03c15](https://placehold.it/15/f03c15/000000?text=+) Never change original playbooks => duplicate playbooks  
+  
+You can use the directory ansible/playbooks to add your own playbooks.  
 
 ## <a name="more_help"></a>More help
 Ansible Help is accessible as Ansible Documentation :
