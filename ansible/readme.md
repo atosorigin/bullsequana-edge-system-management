@@ -129,29 +129,50 @@ if you never want to automatically force the remote server power off, you need t
 *playbooks needing a reboot or forceoff will fail*
 *reboot and shutdown playbooks do NOT care these variables*
 
-### create your vault
-The *add_playbooks.sh* script already creatse a vault and associates every templates to this vault
+### use your vault
+### change your vault password
+The *add_playbooks.sh* script already creates a vault for you and associates every templates to this vault.  
+![alt text](https://github.com/atosorigin/bullsequana-edge-system-management/blob/master/ansible/doc/create_vault_playbooks.png)
+
+The default Vault  has intentionaly NO password, so you should define it:  
 
 1. go to AWX Credentials
 2. select *Bull Sequana Edge Vault*
 3. change the vault password
 
 ![alt text](https://github.com/atosorigin/bullsequana-edge-system-management/blob/master/ansible/doc/change_vault_password.png)
+![alt text](https://github.com/atosorigin/bullsequana-edge-system-management/blob/master/ansible/doc/vault_id.png)
+![#f03c15](https://placehold.it/15/f03c15/000000?text=+)Warning : You should remember your vault password  
+
+![#f03c15](https://placehold.it/15/f03c15/000000?text=+) Info: The vault-id can be used in ansible command line
+![alt text](https://github.com/atosorigin/bullsequana-edge-system-management/blob/master/ansible/doc/vault_ansible_id.png)
+
+#### generate an encrypted password
+1. open a terminal on the host
+2. execute the following shell script
+```
+./generate_encrypted_password_for_AWX_Ansible.sh --name your_password_name your_real_password_to_encrypt
+```
+
+![alt text](https://github.com/atosorigin/bullsequana-edge-system-management/blob/master/ansible/doc/generate_password_result.png)
+
+*you should indicate your previously customized vault password during this generation*  
+
+#### use it in your host
+1. go to AWX Inventory
+2. select the host where you need to customize the password
+3. add "password" variable for each host
 
 ```
-2. Generate a password
+password: {{your_password_name}}
 ```
-./generate_encrypted_password_for_AWX.sh -name my_variable_name my_password_to_encrypt
-```
-*you should indicate your AWX Vault password during this generation*  
+![alt text](https://github.com/atosorigin/bullsequana-edge-system-management/blob/master/ansible/doc/change_encrypted_password.png)
 
-3. Follow the instruction steps of the script
+#### remove an encrypted password
+1. edit the file <install_dir>/ansible/playbooks/vars/passwords.yml
+2. remove the password entry as desired
 
-4. Adapt your password variable
-```
-password: {{my_password_to_encrypt}}
-```
-5. In all templates, you should now indicate the Credential you want before running it
+![alt text](https://github.com/atosorigin/bullsequana-edge-system-management/blob/master/ansible/doc/remove_password.png)
 
 ## <a name="what_ansible"></a>What to do first on Ansible
 
