@@ -19,8 +19,7 @@
       headers:
         X-Auth-Token: "{{ x_token }}"
       body_format: json
-      body: 
-        data: "{{ power_cap }}"
+      body: '{ "data": {{ power_cap }} }'
     register: result_power_cap
 
   - name: enable Power Cap

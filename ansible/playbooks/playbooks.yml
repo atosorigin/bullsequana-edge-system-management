@@ -338,3 +338,5 @@ job_templates:
     playbook: power/set_power_cap_on.yml
     job-type: run
     verbosity: 0
+    extra_vars: ["power_cap: 500"]
+    ask_variables_on_launch: 1

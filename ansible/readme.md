@@ -168,6 +168,26 @@ if you never want to automatically force the remote server power off, you need t
 *playbooks needing a reboot or forceoff will fail*
 *reboot and shutdown playbooks do NOT care these variables*
 
+#### - power_cap
+Following playbook ask power_cap on launch:
+- Set Power Cap on
+
+Change the extra_vars section as needed:  
+` "power_cap: 500" `
+Adjust the prompt on launch option as needed:  
+`prompt on launch`
+
+![alt text](https://github.com/atosorigin/bullsequana-edge-system-management/blob/master/ansible/doc/set_power_cap_on.png)
+
+#### - file_to_upload
+Following playbook ask power_cap on launch:
+- Update firmware from file
+
+Change the extra_vars section as needed:  
+` "file_to_upload: /mnt/image.ext" `
+Adjust the prompt on launch option as needed:  
+`prompt on launch`
+
 #### - rsyslog_server_ip / port
 Following playbooks need these variables:
 - Check Rsyslog Server IP and Port
@@ -256,12 +276,16 @@ variables = <install_dir>/ansible/playbooks/vars/external_vars.yml file
 example: inventory id for 'Ansible Inventory' name is 2  
 bash-4.2# tower-cli inventory list  
 
-![alt text](https://github.com/atosorigin/bullsequana-edge-system-management/blob/master/ansible/doc/tower_inventory_list.png)
+![alt text](https://github.com/atosorigin/bullsequana-edge-system-management/blob/master/ansible/doc/tower_inventory_list.png)  
 
 3. export with awx_manage  
 `awx-manage inventory_import --source=inventory/ --inventory-id=3`  
 
-![alt text](https://github.com/atosorigin/bullsequana-edge-system-management/blob/master/ansible/doc/awx_manage.png)
+![alt text](https://github.com/atosorigin/bullsequana-edge-system-management/blob/master/ansible/doc/awx_manage.png)  
+
+Your hosts should appear as *imported*  
+Variables and groups should be imported  
+![alt text](https://github.com/atosorigin/bullsequana-edge-system-management/blob/master/ansible/doc/awx_imported.png)
 
 ### general options
 #### how to limit to a group of servers :
