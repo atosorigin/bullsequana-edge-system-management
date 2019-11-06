@@ -1,7 +1,7 @@
 # support multiple orgs eventually
 # check api on https://localhost/api/v2
 # like https://localhost/api/v2/job_templates/58/
-org: bull
+org: Bull
 org_desc:  BullSequana Edge pocket playbooks
 inventories:
   - name: BullSequana Edge Inventory

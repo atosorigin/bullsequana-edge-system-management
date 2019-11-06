@@ -22,7 +22,7 @@ Optionaly, 2 ready-to-go AWX-Ansible images are available on Dockerhub
 - [What to do first on AWX](#what_awx)
 - [What to do first on Ansible](#what_ansible)
 - [How to log on a docker container](#howto_docker_logon)
-- 
+- [How to manage encrypted passwords](#howto_manage_password)
 - [How to change my proxy](#howto_proxy)
 - [How to change technical states file path](#howto_ts)
 - [How to change certificat on AWX server](#howto_cert)
@@ -106,11 +106,20 @@ If you did not already add your playbooks, just run:
 
 ![alt text](https://github.com/atosorigin/bullsequana-edge-system-management/blob/master/ansible/doc/awx_playbooks.png)
 
+You should have now:
+- 1 Organization : Bull
+- 1 Inventory : BullSequana Edge Inventory
+- 1 Group : BullSequana Edge Group
+- 1 Host as an example
+- 1 Project : BullSequana Edge Playbooks
+- 1 Credential : Bull Sequana Edge Vault
+- Bull playbooks
+
 ### complete your inventory first
 1. go to Inventory 
 2. select or create an inventory
-3. add all your hosts one by one manually
-3. optionally, depending on host number, create multiple groups
+3. add your hosts
+4. optionally, depending on host number, create multiple groups
 
 ![alt text](https://github.com/atosorigin/bullsequana-edge-system-management/blob/master/ansible/doc/awx_inventory.png)
 
@@ -122,24 +131,14 @@ Optionally, your can detect hosts with nmap inventory script: [See nmap in Comma
 
 ### change your inventory variables 
 #### - technical_state_path variable
-The technical state path should point on a technical state directory - technical iso file delivered by Atos.
-The technical state path should is relative to docker environment.
+The technical state path should point to a technical state directory - technical iso file delivered by Atos.
 The default value is mapped to the /mnt root of the host, in other words, /host/mnt in the docker containers:  
 `technical_state_path = /host/mnt`  
+You can change this value in the inventory variables:
 
-A */host* docker volume is defined in the docker-compose-awx.yml file. You can adapt it as needed.  
-![#f03c15](https://placehold.it/15/f03c15/000000?text=+) Warning : Be careful to change both awx_web and awx_task services in docker-compose file  
-   
-If you need to check the directory, just log on to the docker awx_web/awx_task containers and check the file system:  
-```
-host$> docker exec -it awx_web bash
-bash# ls /host/mnt
-bash# exit
-host$> docker exec -it awx_task bash
-bash# ls /host/mnt
-```
+![alt text](https://github.com/atosorigin/bullsequana-edge-system-management/blob/master/ansible/doc/awx_inventory_variables.png)
   
-![alt text](https://github.com/atosorigin/bullsequana-edge-system-management/blob/master/ansible/doc/check_docker_volume_technical_state.png)
+For more information See [How to change technical states file path](#howto_ts)
 
 #### - reboot
 Following playbooks need to reboot in case of BMC update firmware:
@@ -153,6 +152,12 @@ if you never want to automatically reboot the BMC, you need to change reboot var
 ![alt text](https://github.com/atosorigin/bullsequana-edge-system-management/blob/master/ansible/doc/awx_reboot_variable.png)
 
 ![#f03c15](https://placehold.it/15/f03c15/000000?text=+) Warning : Default is True meaning the BMC will reboot automatically after an update
+
+#### - forceoff
+Following playbooks need to reboot in case of BMC update firmware:
+- Update firmwares from Technical State
+- Update firmware from file
+- Activate firmware updates
 
 if you never want to automatically force the remote server power off, you need to change forceoff variable in your inventory / variable part:
 
@@ -190,6 +195,9 @@ The default *Bull Sequana Edge Vault* has intentionaly NO password, so you shoul
 ![#c5f015](https://placehold.it/15/c5f015/000000?text=+) Info: The vault-id can be used in ansible command line  
 ![alt text](https://github.com/atosorigin/bullsequana-edge-system-management/blob/master/ansible/doc/vault_ansible_id.png)
 
+#### - generate your password
+See [How to manage encrypted passwords](#howto_manage_password)
+
 #### - use it in your inventory
 1. go to AWX Inventory
 2. select the host where you need to customize the password
@@ -199,12 +207,6 @@ The default *Bull Sequana Edge Vault* has intentionaly NO password, so you shoul
 password: "{{root_password_for_edge}}"
 ```
 ![alt text](https://github.com/atosorigin/bullsequana-edge-system-management/blob/master/ansible/doc/change_encrypted_password.png)
-
-#### - remove an encrypted password
-1. edit the file <install_dir>/ansible/playbooks/vars/passwords.yml
-2. remove the password entry as desired
-
-![alt text](https://github.com/atosorigin/bullsequana-edge-system-management/blob/master/ansible/doc/remove_password.png)
 
 ## <a name="what_ansible"></a>What to do first on Ansible
 
@@ -322,20 +324,6 @@ ansible-playbook delete_firmware_image.yml -vv --extra-vars "image=81af6684"
 ```
 ex: [root@awx firmware]# ansible-playbook --limit=openbmc delete_firmware_image.yml -vv --extra-vars "image=81af6684 username=root password=mot_de_passe"
 
-#### how to force stop
-```
-forceoff: True
-```
-#### how to reboot the bmc
-```
-reboot: False
-```
-
-#### how to change ts path on docker
-```
-technical_state_path: '/host/mnt'
-```
-
 ### power
 
 #### how to stop host
@@ -393,28 +381,8 @@ ansible-playbook evaluate_firmware_update.yml -i /etc/ansible/redfish_plugin_ans
 ```
 
 ### how to use a CLI Vault
-1. Create your encrypted password
-
-```
-ansible-vault encrypt_string --name=my_root_password sdd@atos
-
-root_password: !vault |
-          $ANSIBLE_VAULT;1.1;AES256
-          61653761383061633134313137633731613461333164343831376666376466646239386337303130
-          6136623166396136663736306337333230646533356337390a633734396235623838396266383230
-          63643431316534303232316161323664386539323231323063356431346435366631333532663039
-          6166623036356263330a303237613366623861366437666631346134663262313431643036663163
-          3730
-```
-2. Copy/Paste it in ansible/playbooks/vars/passwords.yml file
-
-3. Add the following lines to your own playbooks (do NOT change the originals) near the "vars:" section :
-
-```
-  vars_files:
-    - /var/lib/awx/projects/vars/passwords.yml
-```
-4. run your playbook
+1. generate your encrypted password
+2. run your playbook
 `ansible-playbook --vault-id root_password@prompt projects/openbmc/inventory/get_sensors.yml`
 
 *@prompt means that you should enter the Vault password during the process (hidden)*
@@ -547,24 +515,39 @@ If you don't want to use XX_PROXY environment variables, you can directly adapt 
 ```
 
 ## <a name="howto_ts"></a>How to change technical states file path
-
-By default, the root host directory '/' is mapped as a read online access in the docker containers :
+### default value
+By default, the root host directory '/' is mapped as a read only access in the docker containers:
 `    - /:/host:ro`
 
-You can adapt the 'volumes' mapping:
+So you can map the technical state path wherever you want.  
+### change your technical states file path
+For any reason, if you really need to adapt the 'volumes' mapping, follow the instructions:
 
-1. Edit docker-compose-awx.yml
-2. Go to 'volumes' section of awx_web and awx_task services :
+1. edit docker-compose-awx.yml
+2. locate to 'volumes' section of awx_web and awx_task services :
 ```
   volumes:
     - /:/host:ro
 ```
-3. Change mapped volumes with whatever you want except :
+3. change mapped volumes with whatever you want except :
 
 `/tmp:/tmp => do NOT map /tmp directory => it change AWX behavior`
 `/:/ => NO sens`
 
 ![#f03c15](https://placehold.it/15/f03c15/000000?text=+) Be careful to change both awx_web and awx_task docker containers
+
+### check your technical states file path
+
+If you need to check the directory, just log on to the docker awx_web/awx_task containers and check the file system:  
+```
+host$> docker exec -it awx_web bash
+bash# ls /host/mnt
+bash# exit
+host$> docker exec -it awx_task bash
+bash# ls /host/mnt
+```
+  
+![alt text](https://github.com/atosorigin/bullsequana-edge-system-management/blob/master/ansible/doc/check_docker_volume_technical_state.png)
 
 ## <a name="howto_docker_logon"></a>How to log on a docker container
 
@@ -590,6 +573,23 @@ rabbitmq
 examples :
 `docker exec -it awx_task bash`
 `docker exec -it awx_web ansible-playbook projects/openbmc/inventory/get_sensors.yml`
+
+## <a name="howto_manage_password"></a>How to manage an encrypted password
+### add an encrypted password
+1. open a terminal on the host
+2. execute the following script with the name of your password and the real password you want to encrypt  
+  
+`./generate_encrypted_password_for_AWX_Ansible.sh --name your_password_name your_real_password_to_encrypt`  
+
+![alt text](https://github.com/atosorigin/bullsequana-edge-system-management/blob/master/ansible/doc/generate_password_result.png)  
+
+*you should indicate your customized vault password during this generation*
+
+### - remove an encrypted password
+1. edit the file <install_dir>/ansible/playbooks/vars/passwords.yml
+2. remove the password entry as desired
+
+![alt text](https://github.com/atosorigin/bullsequana-edge-system-management/blob/master/ansible/doc/remove_password.png)
 
 ## <a name="warning_updates"></a>Warning for updates
   
