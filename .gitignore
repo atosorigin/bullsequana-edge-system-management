@@ -21,6 +21,7 @@
 
 # external-vars not commited
 /ansible/playbooks/vars/external_vars.yml
+/ansible/playbooks/vars/passwords.yml
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
