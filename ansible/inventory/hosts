@@ -1,6 +1,3 @@
-[all:vars]
-host="{{inventory_hostname}}"
-
 # This is the default ansible 'hosts' file.
 #
 # It should live in /etc/ansible/hosts
@@ -45,4 +42,8 @@ host="{{inventory_hostname}}"
 
 ## db-[99:101]-node.example.com
 
+[all:vars]
+host="{{inventory_hostname}}"
+#[openbmc]
+#<here an IP address> baseuri="{{host}}" username=<here bmc username> password=<here bmc password>
 
