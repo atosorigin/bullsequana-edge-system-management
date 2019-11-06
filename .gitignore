@@ -16,12 +16,12 @@
 # no pid files
 *.pid
 
-# ansible hosts not commited
-/ansible/playbooks/inventory/hosts
-
 # external-vars not commited
 /ansible/playbooks/vars/external_vars.yml
 /ansible/playbooks/vars/passwords.yml
+
+# hosts not commited => should be empty
+/ansible/inventory/hosts
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
