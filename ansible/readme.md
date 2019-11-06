@@ -22,6 +22,7 @@ Optionaly, 2 ready-to-go AWX-Ansible images are available on Dockerhub
 - [What to do first on AWX](#what_awx)
 - [What to do first on Ansible](#what_ansible)
 - [How to log on a docker container](#howto_docker_logon)
+- 
 - [How to change my proxy](#howto_proxy)
 - [How to change technical states file path](#howto_ts)
 - [How to change certificat on AWX server](#howto_cert)
@@ -79,7 +80,10 @@ Optionaly, 2 ready-to-go AWX-Ansible images are available on Dockerhub
 
 ### check proxy configuration
 
-By default, the following XXX_PROXY environment variables are copied in awx context : HTTP_PROXY, HTTPS_PROXY, NO_PROXY
+By default, the following proxy environment variables are copied in AWX context : 
+- HTTP_PROXY
+- HTTPS_PROXY
+- NO_PROXY
 
 For more details, read the [How to change my Proxy](#howto_proxy) part
 
@@ -92,25 +96,29 @@ or if you want to use the Docker Atos images, you can now run the following Dock
 
 ### access your dashboard
 `run a browser with https://<your_server>`  
+
 ![alt text](https://github.com/atosorigin/bullsequana-edge-system-management/blob/master/ansible/doc/awx.png)
 
 ### add your playbooks
 If you did not already add your playbooks, just run:  
+
 `<install_dir>/add_playbooks.sh`
 
 ![alt text](https://github.com/atosorigin/bullsequana-edge-system-management/blob/master/ansible/doc/awx_playbooks.png)
 
 ### complete your inventory first
 1. go to Inventory 
-2. add all your hosts one by one manually
-3. optionally, depending on host number, create multiple inventories or groups
+2. select or create an inventory
+3. add all your hosts one by one manually
+3. optionally, depending on host number, create multiple groups
 
 ![alt text](https://github.com/atosorigin/bullsequana-edge-system-management/blob/master/ansible/doc/awx_inventory.png)
 
-*Don't forget to copy/paste baseuri in every host unmodified*  
+*Don't forget to copy/paste baseuri in every host as is*  
 `baseuri: {{inventory_hostname}}`
 
-Optionally, your can detect hosts with nmap inventory script: See nmap in Command line section
+Optionally, your can import hosts from ansible: [See how to export ansible inventory hosts file to awx inventory section](#howto_export_inventory)  
+Optionally, your can detect hosts with nmap inventory script: [See nmap in Command line section](#howto_nmap)  
 
 ### change your inventory variables 
 #### - technical_state_path variable
@@ -182,17 +190,6 @@ The default *Bull Sequana Edge Vault* has intentionaly NO password, so you shoul
 ![#c5f015](https://placehold.it/15/c5f015/000000?text=+) Info: The vault-id can be used in ansible command line  
 ![alt text](https://github.com/atosorigin/bullsequana-edge-system-management/blob/master/ansible/doc/vault_ansible_id.png)
 
-#### - generate an encrypted password
-1. open a terminal on the host
-2. execute the following shell script
-```
-./generate_encrypted_password_for_AWX_Ansible.sh --name your_password_name your_real_password_to_encrypt
-```
-
-![alt text](https://github.com/atosorigin/bullsequana-edge-system-management/blob/master/ansible/doc/generate_password_result.png)
-
-*you should indicate your previously customized vault password during this generation*  
-
 #### - use it in your inventory
 1. go to AWX Inventory
 2. select the host where you need to customize the password
@@ -214,16 +211,33 @@ password: "{{root_password_for_edge}}"
 Here is the basic configuration for ansible:  
 config file = <install_dir>/ansible/inventory/ansible.cfg file  
 inventory = <install_dir>/ansible/inventory/hosts file  
-variables = <install_dir>/ansible/vars file  
+variables = <install_dir>/ansible/playbooks/vars/external_vars.yml file  
 
 *For every CLI commands, you should be logged on a docker AWX container like awx_web or awx_task or add 'docker exec -it <container name>' before all commands*  
 
 ### how to add a server in ansible inventory
 1. edit ansible/inventory/hosts file
 2. add your ip addresses or hostnames followed by baseuri and username variables
-3. create your vault with a vault-id for every password
+3. generate an encrypted password for your password variable
+4. add your password variable for your host
 
-### how to export ansible inventory hosts file to awx inventory
+![alt text](https://github.com/atosorigin/bullsequana-edge-system-management/blob/master/ansible/doc/host_password.png)
+
+### how to change your external variables
+1. edit <install_dir>/ansible/playbooks/vars/external_vars.yml file
+2. comment/uncomment/modify your variables
+
+### how to run your playbooks
+1. log on to awx_web docker container
+2. go to your playbook directory
+3. execute ansible-playbook command with appropriate parameters and desired playbook
+  
+![#f03c15](https://placehold.it/15/f03c15/000000?text=+) Warning : --vault-id bullsequana_edge_password@<source> is mandatory  
+*<source can be @prompt to be prompted or any encrypted source file>*
+  
+![alt text](https://github.com/atosorigin/bullsequana-edge-system-management/blob/master/ansible/doc/ansible_playbook_vault_id.png)
+
+### <a name="howto_export_inventory"></a>how to export ansible inventory hosts file to awx inventory
 1. log on to docker awx_web
 `docker exec -it awx_web bash`
 2. get your targeted inventory id
@@ -358,7 +372,7 @@ ex: [root@awx logs]# ansible-playbook set_rsyslog_server_port.yml
 #### how to limit "power cap"
 power_cap: 3000
 
-### how to use the nmap plugin inventory for redfish
+### <a name="howto_nmap"></a>how to use the nmap plugin inventory for redfish 
 #### how to detect nmap hosts
 
 `./get_redfish_nmap_hosts.sh`
