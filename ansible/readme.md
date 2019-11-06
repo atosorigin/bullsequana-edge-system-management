@@ -169,8 +169,9 @@ if you never want to automatically force the remote server power off, you need t
 *reboot and shutdown playbooks do NOT care these variables*
 
 #### - power_cap
-Following playbook ask power_cap on launch:  
-- Set Power Cap on
+*power_cap* is used in "Set Power Cap on" playbook
+
+So, the *power_cap* variable is defined localy inside extra_vars section of the playbook
 
 Change the extra_vars section as needed:  
 `power_cap: 500`  
@@ -181,8 +182,9 @@ Adjust the prompt on launch option as needed:
 ![alt text](https://github.com/atosorigin/bullsequana-edge-system-management/blob/master/ansible/doc/set_power_cap_on.png)
 
 #### - file_to_upload
-Following playbook ask power_cap on launch:
-- Update firmware from file
+*file_to_upload* is used in "Update firmware from file" playbook
+
+So, the *file_to_upload* variable is defined localy inside extra_vars section of the playbook
 
 Change the extra_vars section as needed:  
 ` file_to_upload: /host/mnt/Resources/your_image.ext" `  
