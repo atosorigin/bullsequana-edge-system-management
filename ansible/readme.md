@@ -174,13 +174,13 @@ Following playbooks need these variables:
 - Set Rsyslog Server IP
 - Set Rsyslog Server Port
   
-### use your vault
+### use your credential
 #### - change your vault password
 The *add_playbooks.sh* script already creates a vault for you and associates every templates to this vault.  
 
 ![alt text](https://github.com/atosorigin/bullsequana-edge-system-management/blob/master/ansible/doc/create_vault_playbooks.png)
 
-The default *Bull Sequana Edge Vault* has intentionaly NO password, so you should define your own password:  
+The default *Bull Sequana Edge Vault* has intentionaly NO password, so you should define your own password  
 
 ![#f03c15](https://placehold.it/15/f03c15/000000?text=+) Warning : You should remember your vault password  
 
@@ -207,6 +207,14 @@ See [How to manage encrypted passwords](#howto_manage_password)
 password: "{{root_password_for_edge}}"
 ```
 ![alt text](https://github.com/atosorigin/bullsequana-edge-system-management/blob/master/ansible/doc/change_encrypted_password.png)
+
+#### check job template credential
+You can check the credential of your job template:
+1. go to Templates
+2. select a job template
+3. Check the Credential section:
+
+![alt text](https://github.com/atosorigin/bullsequana-edge-system-management/blob/master/ansible/doc/awx_vault_credential_template.png)
 
 ## <a name="what_ansible"></a>What to do first on Ansible
 
@@ -245,16 +253,15 @@ variables = <install_dir>/ansible/playbooks/vars/external_vars.yml file
 2. get your targeted inventory id
 `tower-cli inventory list`
 
-example: inventory id for 'Ansible Inventory' name is 3  
+example: inventory id for 'Ansible Inventory' name is 2  
 bash-4.2# tower-cli inventory list  
-== ================= ============   
-id       name        organization   
-== ================= ============   
- 3 Ansible Inventory            1  
-== ================= ============   
 
-3. export with awx_manage
-`awx-manage inventory_import --source=inventory/ --inventory-id=3`
+![alt text](https://github.com/atosorigin/bullsequana-edge-system-management/blob/master/ansible/doc/tower_inventory_list.png)
+
+3. export with awx_manage  
+`awx-manage inventory_import --source=inventory/ --inventory-id=3`  
+
+![alt text](https://github.com/atosorigin/bullsequana-edge-system-management/blob/master/ansible/doc/awx_manage.png)
 
 ### general options
 #### how to limit to a group of servers :
@@ -263,7 +270,7 @@ id       name        organization
 ```
 *my_group should be declared in hosts file*
 
-#### how to specify a BMC password in the CLI  :
+#### how to specify a BMC password in the CLI on the fly:
 ```
 -e "username=<mon user> password=<mon mot de passe>"
 ```
@@ -387,6 +394,8 @@ ansible-playbook evaluate_firmware_update.yml -i /etc/ansible/redfish_plugin_ans
 
 *@prompt means that you should enter the Vault password during the process (hidden)*
 
+![alt text](https://github.com/atosorigin/bullsequana-edge-system-management/blob/master/ansible/doc/ansible_sensors.png)
+
 ## <a name="howto_cert"></a>How to change certificat on AWX server
 
 *See https://www.youtube.com/watch?v=Ulrr9knCc_w >>> How to add certificate for AWX login <<<*
@@ -482,7 +491,7 @@ TOWER_PASSWORD=<here your new tower password>
 TOWER_VERIFY_SSL=false  
 TOWER_INSECURE=true  
 
-## <a name="howto_proxy"></a>How to change my Proxy
+## <a name="howto_proxy"></a>How to change my proxy
 By default, when you start the installer, the proxy environment variables are copied in containers thanks to the following section in docker-compose-awx.yml file:
 
 ```
@@ -516,25 +525,35 @@ If you don't want to use XX_PROXY environment variables, you can directly adapt 
 
 ## <a name="howto_ts"></a>How to change technical states file path
 ### default value
-By default, the root host directory '/' is mapped as a read only access in the docker containers:
-`    - /:/host:ro`
+By default, the root host directory '/' is mapped as a read only access in the docker containers:  
+`- /:/host:ro`
 
-So you can map the technical state path wherever you want.  
+So, in your inventory, you can define the `technical_state_path:` variable to whatever you want  
+`technical_state_path: /host/mnt`  
+`technical_state_path: /host/var`  
+`technical_state_path: /host/usr/me`  
+
 ### change your technical states file path
 For any reason, if you really need to adapt the 'volumes' mapping, follow the instructions:
 
 1. edit docker-compose-awx.yml
-2. locate to 'volumes' section of awx_web and awx_task services :
+2. locate to 'volumes' section of awx_web and awx_task services:
 ```
   volumes:
-    - /:/host:ro
+    - /mnt:/mnt:ro
 ```
-3. change mapped volumes with whatever you want except :
+3. change mapped volumes with whatever you want except:
 
-`/tmp:/tmp => do NOT map /tmp directory => it change AWX behavior`
-`/:/ => NO sens`
+```
+/tmp:/tmp => do NOT map /tmp directory => it change AWX behavior
+/:/ => NO sens
+```
+![#f03c15](https://placehold.it/15/f03c15/000000?text=+) Be careful to change both awx_web and awx_task docker containers  
+![#f03c15](https://placehold.it/15/f03c15/000000?text=+) and to adapt the technical_state_path variable of your inventory  
 
-![#f03c15](https://placehold.it/15/f03c15/000000?text=+) Be careful to change both awx_web and awx_task docker containers
+`technical_state_path: /mnt`  
+
+*in the previous example: if you change the /mnt of your host, it does NOT change the /mnt of your docker container, so be careful if you change the docker volumes mapping*
 
 ### check your technical states file path
 
@@ -585,7 +604,7 @@ examples :
 
 *you should indicate your customized vault password during this generation*
 
-### - remove an encrypted password
+### remove an encrypted password
 1. edit the file <install_dir>/ansible/playbooks/vars/passwords.yml
 2. remove the password entry as desired
 
