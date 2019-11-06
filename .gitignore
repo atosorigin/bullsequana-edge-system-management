@@ -4,12 +4,12 @@
 
 #ignore mism tar creation
 /mism
-/ansible/plugins/inventory/ansible-inventory-cache
+ansible/plugins/inventory/ansible-inventory-cache
 
 #ignore pgdata
 /pgdata
-/ansible/pgdata
-/zabbix/pgdata
+ansible/pgdata
+zabbix/pgdata
 
 # json generated zabbix files not commited
 #/zabbix/server/externalscripts/openbmc/*.json
@@ -17,8 +17,8 @@
 *.pid
 
 # external-vars not commited
-/ansible/playbooks/vars/external_vars.yml
-/ansible/playbooks/vars/passwords.yml
+ansible/playbooks/vars/external_vars.yml
+ansible/playbooks/vars/passwords.yml
 
 # hosts not commited => should be empty
 /ansible/inventory/hosts
