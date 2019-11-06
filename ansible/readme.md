@@ -113,6 +113,32 @@ If you did not already add your playbooks, just run:
 Optionally, your can detect hosts with nmap inventory script: See nmap in Command line section
 
 ### change your inventory variables 
+#### - technical_state_path variable
+The technical state path should point on a technical state directory - technical iso file delivered by Atos.
+The technical state path should is relative to docker environment.
+The default value is mapped to the /mnt root of the host, in other words, /host/mnt in the docker containers:  
+`technical_state_path = /host/mnt`  
+
+A */host* docker volume is defined in the docker-compose-awx.yml file. You can adapt it as needed.  
+![#f03c15](https://placehold.it/15/f03c15/000000?text=+) Warning : Be careful to change both awx_web and awx_task services in docker-compose file  
+   
+If you need to check the directory, just log on to the docker awx_web/awx_task containers and check the file system:  
+```
+host$> docker exec -it awx_web bash
+bash# ls /host/mnt
+bash# exit
+host$> docker exec -it awx_task bash
+bash# ls /host/mnt
+```
+  
+![alt text](https://github.com/atosorigin/bullsequana-edge-system-management/blob/master/ansible/doc/check_docker_volume_technical_state.png)
+
+#### - reboot
+Following playbooks need to reboot in case of BMC update firmware:
+- Update firmwares from Technical State
+- Update firmware from file
+- Activate firmware updates
+
 if you never want to automatically reboot the BMC, you need to change reboot variable in your inventory / variable part:  
 `reboot = False`
 
@@ -129,6 +155,12 @@ if you never want to automatically force the remote server power off, you need t
 *playbooks needing a reboot or forceoff will fail*
 *reboot and shutdown playbooks do NOT care these variables*
 
+#### - rsyslog_server_ip / port
+Following playbooks need these variables:
+- Check Rsyslog Server IP and Port
+- Set Rsyslog Server IP
+- Set Rsyslog Server Port
+  
 ### use your vault
 #### - change your vault password
 The *add_playbooks.sh* script already creates a vault for you and associates every templates to this vault.  
@@ -161,13 +193,13 @@ The default *Bull Sequana Edge Vault* has intentionaly NO password, so you shoul
 
 *you should indicate your previously customized vault password during this generation*  
 
-#### - use it in your host
+#### - use it in your inventory
 1. go to AWX Inventory
 2. select the host where you need to customize the password
-3. add "password" variable for each host
+3. add "password:" variable for each host
 
 ```
-password: {{your_password_name}}
+password: "{{root_password_for_edge}}"
 ```
 ![alt text](https://github.com/atosorigin/bullsequana-edge-system-management/blob/master/ansible/doc/change_encrypted_password.png)
 
