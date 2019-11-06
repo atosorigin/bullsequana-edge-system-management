@@ -169,11 +169,12 @@ if you never want to automatically force the remote server power off, you need t
 *reboot and shutdown playbooks do NOT care these variables*
 
 #### - power_cap
-Following playbook ask power_cap on launch:
+Following playbook ask power_cap on launch:  
 - Set Power Cap on
 
 Change the extra_vars section as needed:  
-` "power_cap: 500" `
+`power_cap: 500`  
+
 Adjust the prompt on launch option as needed:  
 `prompt on launch`
 
@@ -184,9 +185,9 @@ Following playbook ask power_cap on launch:
 - Update firmware from file
 
 Change the extra_vars section as needed:  
-` "file_to_upload: /mnt/image.ext" `
+` file_to_upload: /host/mnt/Resources/your_image.ext" `  
 Adjust the prompt on launch option as needed:  
-`prompt on launch`
+`prompt on launch`  
 
 #### - rsyslog_server_ip / port
 Following playbooks need these variables:
