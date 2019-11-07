@@ -17,3 +17,14 @@ This project includes Ansible playbooks and zabbix templates for Bull Sequana Ed
 Bull Sequana Edge Ansible playbooks/modules/plugins and zabbix templates project is licensed under GPL-3.0 License. Please see the [COPYING](./COPYING.md) for more information
 
 ![alt text](https://atos.net/wp-content/uploads/2019/05/BullSequanaEdge_Atos.png)
+---
+To start : clone this site
+```
+git clone "https://github.com/atosorigin/bullsequana-edge-system-management.git"
+cd bullsequana-edge-system-management
+```
+and run the appropriate installer  
+`./install_awx_from_dockerhub.sh`  
+`./install_awx.sh`  
+`./install_zabbix_from_dockerhub.sh`  
+`./install_zabbix.sh`  
