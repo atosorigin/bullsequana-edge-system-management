@@ -14,4 +14,9 @@
   - name: check reboot BMC transition
     fail:
       msg: "BMC is rebooting..."
-    when: check_reboot != "xyz.openbmc_project.State.BMC.Transition.Reboot"
+    when: check_reboot == "xyz.openbmc_project.State.BMC.Transition.Reboot"
+
+  - name: check reboot BMC transition
+    fail:
+      msg: "BMC is in BMC Transition state..."
+    when: check_reboot != "xyz.openbmc_project.State.BMC.Transition.None"
