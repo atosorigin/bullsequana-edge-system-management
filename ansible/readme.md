@@ -141,6 +141,8 @@ You can change this value in the inventory variables:
 For more information See [How to change technical states file path](#howto_ts)
 
 #### - reboot
+Default value is **True**  
+
 Following playbooks need to reboot in case of BMC update firmware:
 - Update firmwares from Technical State
 - Update firmware from file
@@ -149,16 +151,16 @@ Following playbooks need to reboot in case of BMC update firmware:
 if you never want to automatically reboot the BMC, you need to change *reboot* variable in your inventory / variable part:  
 `reboot = False`
 
-*playbooks needing a reboot will fail*  
-*Reboot* playbook do NOT care this variable  
-
 ![alt text](https://github.com/atosorigin/bullsequana-edge-system-management/blob/master/ansible/doc/awx_reboot_variable.png)
 
 ![#f03c15](https://placehold.it/15/f03c15/000000?text=+) Warnings if **reboot** = False
 - Default is True meaning the BMC will reboot automatically after an update  
 - Playbooks needing a **reboot** will not proceed to reboot: BMC update will be effective next reboot   
+- *Reboot* playbook does NOT care this variable  
 
 #### - forceoff
+Default value is **True**  
+
 Following playbooks need to reboot in case of BMC update firmware:
 - Update firmwares from Technical State
 - Update firmware from file
@@ -171,8 +173,7 @@ if you never want to automatically force the remote server power off, you need t
 ![#f03c15](https://placehold.it/15/f03c15/000000?text=+) Warnings if **forceoff** = False
 - Default is **True** meaning the BMC will power off automatically the host (server) during BIOS update   
 - Playbooks needing a **forceoff** will not activate BIOS update: BIOS update will be effective next power off / on cycle  
-
-*Immediate Shutdown* and *Orderly Shutdown* playbooks do NOT care this variable  
+- *Immediate Shutdown* and *Orderly Shutdown* playbooks do NOT care this variable  
 
 #### - power_cap
 **power_cap** is used in *Set Power Cap on* playbook
