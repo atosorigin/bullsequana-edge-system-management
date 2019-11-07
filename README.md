@@ -24,7 +24,7 @@ Bull Sequana Edge Ansible playbooks/modules/plugins and zabbix templates project
 git clone "https://github.com/atosorigin/bullsequana-edge-system-management.git"
 cd bullsequana-edge-system-management
 ```
-## and run the dessired installer  
+## and run the desired installer  
 `./install_awx_from_dockerhub.sh`  
 `./install_awx.sh`  
 `./install_zabbix_from_dockerhub.sh`  
