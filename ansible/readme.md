@@ -204,7 +204,7 @@ Adjust the prompt on launch option as needed:
 #### - countdowns
 In your inventory *Variables* section, just change the appropriate countdown variable:
 
-![alt text](https://github.com/atosorigin/bullsequana-edge-system-management/blob/master/ansible/doc/variables_inventory_section.png)
+![alt text](https://github.com/atosorigin/bullsequana-edge-system-management/blob/master/ansible/doc/awx_variables_inventory_section.png)
 
 #### - rsyslog_server_ip / port
 Following playbooks need these variables:
