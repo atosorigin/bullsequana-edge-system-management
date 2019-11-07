@@ -21,7 +21,7 @@ ansible/plugins/inventory/ansible-inventory-cache
 /ansible/playbooks/vars/passwords.yml
 
 # hosts not commited => should be empty
-/ansible/inventory/hosts
+#/ansible/inventory/hosts
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
