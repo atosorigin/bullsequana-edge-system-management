@@ -3,6 +3,9 @@
 export NO_PROXY=$NO_PROXY
 export HTTP_PROXY=$HTTP_PROXY
 export HTTPS_PROXY=$HTTPS_PROXY
+
+chmod uo+w zabbix/server/externalscripts/openbmc
+
 set -euo pipefail
 
 if filename=$(readlink /etc/localtime); then

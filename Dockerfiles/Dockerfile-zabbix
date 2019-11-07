@@ -24,4 +24,3 @@ RUN pip install --upgrade pip
 RUN pip install requests
 RUN pip install pycryptodome
 
-#RUN chmod ugo+rwx /usr/lib/zabbix/externalscripts/openbmc
