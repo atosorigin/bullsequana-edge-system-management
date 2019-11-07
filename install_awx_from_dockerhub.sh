@@ -4,11 +4,6 @@ export NO_PROXY=$NO_PROXY
 export HTTP_PROXY=$HTTP_PROXY
 export HTTPS_PROXY=$HTTPS_PROXY
 
-echo "cloning BullSequana Edge Ansible AWX containers ...."
-git clone "https://github.com/atosorigin/bullsequana-edge-system-management.git"
-
-cd bullsequana-edge-system-management
-
 echo "starting BullSequana Edge Ansible AWX containers ...."
 docker-compose -f docker-compose-awx-from-dockerhub.yml up -d
 
