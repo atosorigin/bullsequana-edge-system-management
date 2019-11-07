@@ -4,6 +4,7 @@
   name: Manage Chassis Power - Turn off
   gather_facts: False
   vars_files:
+    - /var/lib/awx/projects/vars/external_vars.yml
     - /var/lib/awx/projects/vars/passwords.yml
 
   tasks:
@@ -11,9 +12,9 @@
 
   - include_tasks: ../utils/utils_chassis_power_off.yml
 
-  # Pause for 15 seconds to check power off
-  - pause:
-      seconds: 15
+  - name: Count down "{{poweroff_countdown}}" seconds before checking power off
+    pause:
+      seconds: "{{poweroff_countdown}}"
 
   - include_tasks: ../utils/utils_check_power_off.yml    
  

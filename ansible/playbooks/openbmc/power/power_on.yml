@@ -4,6 +4,7 @@
   name: Manage System Power on - 
   gather_facts: False
   vars_files:
+    - /var/lib/awx/projects/vars/external_vars.yml
     - /var/lib/awx/projects/vars/passwords.yml
   
   tasks:
@@ -12,8 +13,8 @@
 
   - include_tasks: ../utils/utils_power_on.yml    
 
-  # Pause for 15 seconds to check power on
-  - pause:
-      seconds: 15
+  - name: Count down "{{poweron_countdown}}" seconds before checking power on
+    pause:
+      seconds: "{{poweron_countdown}}"
 
   - include_tasks: ../utils/utils_check_power_on.yml    

@@ -146,12 +146,17 @@ Following playbooks need to reboot in case of BMC update firmware:
 - Update firmware from file
 - Activate firmware updates
 
-if you never want to automatically reboot the BMC, you need to change reboot variable in your inventory / variable part:  
+if you never want to automatically reboot the BMC, you need to change *reboot* variable in your inventory / variable part:  
 `reboot = False`
+
+*playbooks needing a reboot will fail*  
+*Reboot* playbook do NOT care this variable  
 
 ![alt text](https://github.com/atosorigin/bullsequana-edge-system-management/blob/master/ansible/doc/awx_reboot_variable.png)
 
-![#f03c15](https://placehold.it/15/f03c15/000000?text=+) Warning : Default is True meaning the BMC will reboot automatically after an update
+![#f03c15](https://placehold.it/15/f03c15/000000?text=+) 
+- Warning : Default is True meaning the BMC will reboot automatically after an update  
+- Warning : playbooks needing a **reboot** will not activate BMC update  
 
 #### - forceoff
 Following playbooks need to reboot in case of BMC update firmware:
@@ -159,19 +164,20 @@ Following playbooks need to reboot in case of BMC update firmware:
 - Update firmware from file
 - Activate firmware updates
 
-if you never want to automatically force the remote server power off, you need to change forceoff variable in your inventory / variable part:
+if you never want to automatically force the remote server power off, you need to change **forceoff** variable in your inventory / variable part:
 
 `forceoff = False`
 
-![#f03c15](https://placehold.it/15/f03c15/000000?text=+) Warning : Default is True meaning the BMC will power off automatically the host (server) during BIOS update 
+![#f03c15](https://placehold.it/15/f03c15/000000?text=+) 
+- Warning : Default is **True** meaning the BMC will power off automatically the host (server) during BIOS update   
+- Warning : playbooks needing a **forceoff** will not activate BIOS update  
 
-*playbooks needing a reboot or forceoff will fail*
-*reboot and shutdown playbooks do NOT care these variables*
+*Immediate Shutdown* and *Orderly Shutdown* playbooks do NOT care this variable  
 
 #### - power_cap
-*power_cap* is used in "Set Power Cap on" playbook
+**power_cap** is used in *Set Power Cap on* playbook
 
-So, the *power_cap* variable is defined localy inside extra_vars section of the playbook
+So, the **power_cap** variable is defined localy inside extra_vars section of the playbook
 
 Change the extra_vars section as needed:  
 `power_cap: 500`  
@@ -181,15 +187,24 @@ Adjust the prompt on launch option as needed:
 
 ![alt text](https://github.com/atosorigin/bullsequana-edge-system-management/blob/master/ansible/doc/set_power_cap_on.png)
 
-#### - file_to_upload
-*file_to_upload* is used in "Update firmware from file" playbook
+By default, the "prompt on launch" option is selected and this is a way to change the value on the fly, a pop-up window will appear at each launch:
 
-So, the *file_to_upload* variable is defined localy inside extra_vars section of the playbook
+![alt text](https://github.com/atosorigin/bullsequana-edge-system-management/blob/master/ansible/doc/prompt_launch.png)
+
+#### - file_to_upload
+**file_to_upload** is used in *Update firmware from file* playbook
+
+So, the **file_to_upload** variable is defined localy inside extra_vars section of the playbook
 
 Change the extra_vars section as needed:  
 ` file_to_upload: /host/mnt/Resources/your_image.ext" `  
 Adjust the prompt on launch option as needed:  
 `prompt on launch`  
+
+#### - countdowns
+In your inventory *Variables* section, just change the appropriate countdown variable:
+
+![alt text](https://github.com/atosorigin/bullsequana-edge-system-management/blob/master/ansible/doc/variables_inventory_section.png)
 
 #### - rsyslog_server_ip / port
 Following playbooks need these variables:
@@ -198,6 +213,7 @@ Following playbooks need these variables:
 - Set Rsyslog Server Port
   
 ### use your credential
+
 #### - change your vault password
 The *add_playbooks.sh* script already creates a vault for you and associates every templates to this vault.  
 
@@ -218,8 +234,9 @@ The default *Bull Sequana Edge Vault* has intentionaly NO password, so you shoul
 ![#c5f015](https://placehold.it/15/c5f015/000000?text=+) Info: The vault-id can be used in ansible command line  
 ![alt text](https://github.com/atosorigin/bullsequana-edge-system-management/blob/master/ansible/doc/vault_ansible_id.png)
 
-#### - generate your password
-See [How to manage encrypted passwords](#howto_manage_password)
+#### - generate your passwords
+You can now generate your passwords : See [How to manage encrypted passwords](#howto_manage_password)
+You should generate as many *password variables* as different real passwords you have.
 
 #### - use it in your inventory
 1. go to AWX Inventory
@@ -235,9 +252,17 @@ password: "{{root_password_for_edge}}"
 You can check the credential of your job template:
 1. go to Templates
 2. select a job template
-3. Check the Credential section:
+3. check the Credential section
 
 ![alt text](https://github.com/atosorigin/bullsequana-edge-system-management/blob/master/ansible/doc/awx_vault_credential_template.png)
+
+#### check with clear password
+For test purpose, you can always use a clear password in a host:
+1. go to Inventory
+2. select a host
+3. change the password in clear
+
+![alt text](https://github.com/atosorigin/bullsequana-edge-system-management/blob/master/ansible/doc/awx_clear_password.png)
 
 ## <a name="what_ansible"></a>What to do first on Ansible
 
@@ -248,13 +273,16 @@ variables = <install_dir>/ansible/playbooks/vars/external_vars.yml file
 
 *For every CLI commands, you should be logged on a docker AWX container like awx_web or awx_task or add 'docker exec -it <container name>' before all commands*  
 
-### how to add a server in ansible inventory
+### how to add a host in ansible inventory
 1. edit ansible/inventory/hosts file
 2. add your ip addresses or hostnames followed by baseuri and username variables
 3. generate an encrypted password for your password variable
 4. add your password variable for your host
 
 ![alt text](https://github.com/atosorigin/bullsequana-edge-system-management/blob/master/ansible/doc/host_password.png)
+
+For test purpose, you can always use a clear password in your *hosts* file  
+![alt text](https://github.com/atosorigin/bullsequana-edge-system-management/blob/master/ansible/doc/ansible_clear_password.png)
 
 ### how to change your external variables
 1. edit <install_dir>/ansible/playbooks/vars/external_vars.yml file
@@ -295,15 +323,14 @@ Variables and groups should be imported
 ```
 --limit=<my_group> 
 ```
-*my_group should be declared in hosts file*
+*<my_group> should be declared in hosts file*
 
 #### how to specify a BMC password in the CLI on the fly:
 ```
 -e "username=<mon user> password=<mon mot de passe>"
 ```
-
 #### how to change general variables:
-2 possibilities :
+Two main possibilities:
 1. As a command parameter, indicate variable/value with --extra-vars as CLI argument :
 
 `ansible-playbook myfile.yml --extra-vars "ma_variable=my_value"`
@@ -316,7 +343,7 @@ Variables and groups should be imported
 ### update
 #### how to update one image on all BMCs
 
-```yml
+```
 ansible-playbook --extra-vars "file_to_upload=<path_and_filename>" update_firmware_from_file.yml 
 ```
 
@@ -325,7 +352,7 @@ exemple:
 
 #### how to evaluate a TS file (Technical State)
 
-```yml
+```
 ansible-playbook evaluate_firmware_update.yml
 ```
 
@@ -391,8 +418,22 @@ ex: [root@awx logs]# ansible-playbook set_rsyslog_server_port.yml
 
 ### power capabilities
 
-#### how to limit "power cap"
-power_cap: 3000
+#### how to limit power capability
+in your extra_vars file, just uncomment the appropriate value:
+power_cap: 500
+
+### countdowns
+
+#### how to change countdowns 
+in your extra_vars file, just change the appropriate value:
+
+```
+# Count down before checking a successfull reboot in MINUTES
+reboot_countdown: 3
+# Count down before checking a successfull for power on/off in SECONDS
+poweron_countdown: 15
+poweroff_countdown: 15
+```
 
 ### <a name="howto_nmap"></a>how to use the nmap plugin inventory for redfish 
 #### how to detect nmap hosts

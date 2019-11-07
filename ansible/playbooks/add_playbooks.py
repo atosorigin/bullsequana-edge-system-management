@@ -95,9 +95,9 @@ if tower.projects:
         project_res.create(**p)
 
 if tower.job_templates:
-    print "Waiting 60 seconds for projects to index."
+    print "Waiting 30 seconds for projects to index."
     print "Press any key to skip if you know what you're doing."
-    timeout = 60
+    timeout = 30
     rlist, wlist, xlist = select([sys.stdin], [], [], timeout)
     # create job templates
     print "\nCreating Job Templates\n"
@@ -112,16 +112,8 @@ if tower.job_templates:
         job_template_res.create(**j)
 
 print("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
-print("Care your vault password in your AWX credential")
-print(" =>> Bull Sequana Edge Vault password is empty")
-print("Vault is useless until you define a password")
-print("------------------------------------------------------------------------------")
-print("Change your variables in your AWX inventory : ")
-print("- reboot (default is True)")
-print("- forceoff (default is True)")
-print("- rsyslog_server_ip (default is 0.0.0.0)")
-print("- rsyslog_server_port (default is 514)")
-print("- technical_state_path (default is /host/mnt meaning /mnt on your docker host)")
+print("What to do first ?")
+print("See https://github.com/atosorigin/bullsequana-edge-system-management/tree/master/ansible")
 print("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
 
 

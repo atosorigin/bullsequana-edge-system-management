@@ -11,18 +11,6 @@
 
   - include_tasks: ../utils/utils_create_token.yml
 
-  - name: set Power Cap
-    uri:
-      url: https://{{ baseuri }}/xyz/openbmc_project/control/host0/power_cap/attr/PowerCap
-      method: PUT
-      validate_certs: no
-      headers:
-        X-Auth-Token: "{{ x_token }}"
-      body_format: json
-      body: 
-        data: "{{ power_cap }}"
-    register: result_power_cap
-
   - name: disable Power Cap
     uri:
       url: https://{{ baseuri }}/xyz/openbmc_project/control/host0/power_cap/attr/PowerCapEnable

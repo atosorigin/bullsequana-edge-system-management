@@ -69,9 +69,9 @@
 
   - include_tasks: ../utils/utils_active_firmware_update.yml
 
-  - name: pause for 3 minutes for BIOS activation
+  - name: pause for {{ poweroff_countdown }} seconds for BIOS activation
     pause:
-      minutes: 3
+      seconds: "{{ poweroff_countdown }}"
     when: forceoff == True and item.value.Activation is defined and item.value.Purpose is defined and item.value.Activation == "xyz.openbmc_project.Software.Activation.Activations.Ready" and item.value.Purpose == "xyz.openbmc_project.Software.Version.VersionPurpose.Host"
     with_dict: "{{ firmware_inventory }}"
 
