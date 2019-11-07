@@ -20,9 +20,6 @@ fi
 
 echo $timezone
 
-echo "cloning BullSequana Edge Zabbix containers ...."
-git clone "https://github.com/atosorigin/bullsequana-edge-system-management.git"
-
 echo "starting BullSequana Edge Zabbix containers ...."
 docker-compose -f docker-compose-zabbix-from-dockerhub.yml up -d
 
