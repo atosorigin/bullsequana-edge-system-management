@@ -154,9 +154,9 @@ if you never want to automatically reboot the BMC, you need to change *reboot* v
 
 ![alt text](https://github.com/atosorigin/bullsequana-edge-system-management/blob/master/ansible/doc/awx_reboot_variable.png)
 
-![#f03c15](https://placehold.it/15/f03c15/000000?text=+) 
-- Warning : Default is True meaning the BMC will reboot automatically after an update  
-- Warning : playbooks needing a **reboot** will not activate BMC update  
+![#f03c15](https://placehold.it/15/f03c15/000000?text=+) Warnings
+- Default is True meaning the BMC will reboot automatically after an update  
+- Paybooks needing a **reboot** will not activate BMC update  
 
 #### - forceoff
 Following playbooks need to reboot in case of BMC update firmware:
@@ -168,9 +168,9 @@ if you never want to automatically force the remote server power off, you need t
 
 `forceoff = False`
 
-![#f03c15](https://placehold.it/15/f03c15/000000?text=+) 
-- Warning : Default is **True** meaning the BMC will power off automatically the host (server) during BIOS update   
-- Warning : playbooks needing a **forceoff** will not activate BIOS update  
+![#f03c15](https://placehold.it/15/f03c15/000000?text=+) Warnings
+- Default is **True** meaning the BMC will power off automatically the host (server) during BIOS update   
+- Playbooks needing a **forceoff** will not activate BIOS update  
 
 *Immediate Shutdown* and *Orderly Shutdown* playbooks do NOT care this variable  
 
