@@ -1,5 +1,6 @@
 #!/bin/sh
 
+export NO_PROXY=$NO_PROXY
 export HTTP_PROXY=$HTTP_PROXY
 export HTTPS_PROXY=$HTTPS_PROXY
 set -euo pipefail
@@ -19,18 +20,15 @@ fi
 
 echo $timezone
 
-echo "cloning BullSequana Edge Ansible AWX containers ...."
-git clone "https://www.github.com/frsauvage/MISM.git"
-echo "starting BullSequana Edge Ansible AWX containers ...."
-docker-compose -f docker-compose-awx-from-dockerhub.yml up -d
+echo "cloning BullSequana Edge Zabbix containers ...."
+git clone "https://github.com/atosorigin/bullsequana-edge-system-management.git"
+
+echo "starting BullSequana Edge Zabbix containers ...."
+docker-compose -f docker-compose-zabbix-from-dockerhub.yml up -d
 
 echo "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
-echo "now wait 10 minutes for the migration to complete...."
-echo "check the login page at https://localhost"
-echo "and run ./add_playbooks.sh"
-echo "AWX is available on https://localhost"
-echo "pgadmin is available on http://localhost:7070"
-echo "for more info, refer to documentation"
+echo "check the login page at https://localhost:4443"
+echo "for more info, refer to github https://github.com/atosorigin/bullsequana-edge-system-management/tree/master/zabbix"
 echo "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
 
 
