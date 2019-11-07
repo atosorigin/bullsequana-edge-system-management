@@ -3,7 +3,7 @@ host="{{inventory_hostname}}"
 # [openbmc]
 # <here an IP address> baseuri="{{host}}" username=<here bmc username> password=<here bmc password>
 # example 
-# 10.10.1.1  baseuri="{{inventory_hostname}}" username=root password="{{root_password}}"
+# 10.10.92.34  baseuri="{{inventory_hostname}}" username=root password="{{root_password}}"
 
 # This is the default ansible 'hosts' file.
 #

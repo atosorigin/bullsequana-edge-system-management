@@ -183,7 +183,7 @@ So, the **power_cap** variable is defined localy inside extra_vars section of th
 Change the extra_vars section as needed:  
 `power_cap: 500`  
 
-Adjust the prompt on launch option as needed:  
+Adjust the prompt on launch option as needed, you can unselect it:  
 `prompt on launch`
 
 ![alt text](https://github.com/atosorigin/bullsequana-edge-system-management/blob/master/ansible/doc/set_power_cap_on.png)

@@ -23,6 +23,12 @@ docker exec -it awx_web $ANSIBLECMD $@ | tee /tmp/fileEncrypt$$
 nbLine=`wc -l /tmp/fileEncrypt$$ | awk '{print$1}'`
 s=3
 e=$((nbLine - 1))
+
+if [ $nbLine -le 9 ]
+  then
+    exit -1
+fi
+
 sed -n "${s},${e}p" /tmp/fileEncrypt$$ >> ansible/playbooks/vars/passwords.yml
 rm -f /tmp/fileEncrypt$$
 
