@@ -17,10 +17,10 @@ ansible/plugins/inventory/ansible-inventory-cache
 *.pid
 
 # external-vars not commited
-/ansible/playbooks/vars/*
+ansible/playbooks/vars/
 
 # hosts not commited => should be empty
-/ansible/inventory/*
+ansible/inventory/
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
