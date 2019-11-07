@@ -13,9 +13,9 @@
 
   - include_tasks: ../utils/utils_reboot.yml   
 
-  - name: Count down "{{reboot_countdown}}" seconds before checking reboot
+  - name: Count down {{reboot_countdown}} minutes before checking reboot
     pause:
-      seconds: "{{reboot_countdown}}"
+      minutes: "{{reboot_countdown}}"
 
   - include_tasks: ../utils/utils_check_reboot.yml   
 
