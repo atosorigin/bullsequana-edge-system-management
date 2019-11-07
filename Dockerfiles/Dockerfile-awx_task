@@ -13,7 +13,7 @@ COPY ansible.env /etc/tower/conf.d/environment.sh
 COPY ansible.SECRET_KEY /etc/tower/SECRET_KEY
 
 # To be done manually from container : RUN yum update
-RUN yum install -y nano dnsutils which nmap software-properties-common
+RUN yum install -y nano which nmap
 
 RUN pip install --upgrade pip 
 

@@ -18,7 +18,7 @@ COPY logo-atos-login.svg /var/lib/awx/venv/awx/lib64/python3.6/site-packages/awx
 COPY loginModal.partial.html /var/lib/awx/venv/awx/lib64/python3.6/site-packages/awx/ui/static/partials/login/loginModal/
 
 #RUN yum update
-RUN yum install -y nano dnsutils which nmap software-properties-common -y
+RUN yum install -y nano which nmap
 RUN pip install --upgrade pip
 
 # Warning : NOT nmap => https://stackoverflow.com/questions/14913153/module-object-has-no-attribute-portscanner
