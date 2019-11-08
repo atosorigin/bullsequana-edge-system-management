@@ -20,6 +20,12 @@ ansible/plugins/inventory/ansible-inventory-cache
 /ansible/playbooks/vars/passwords.yml
 /ansible/playbooks/vars/external-vars
 
+# some readme
+*readme.md
+# some tests
+test-*
+test_*
+
 # hosts not commited => should be empty
 ansible/inventory/hosts
 
