@@ -61,7 +61,7 @@ def run_module():
         argument_spec = dict(
           category   = dict(required=True, type='str', default=None),
           command    = dict(required=True, type='str', default=None),
-	        technical_state_path = dict(required=False, type='str', default='/mnt'),
+	        technical_state_path = dict(required=False, type='str', default='/host/mnt'),
           firmwares = dict(required=True, type='dict')
         ),
         supports_check_mode=False

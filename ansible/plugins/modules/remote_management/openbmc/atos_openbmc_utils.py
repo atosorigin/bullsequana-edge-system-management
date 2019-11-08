@@ -1,4 +1,3 @@
-#!/usr/bin/env python
 # -*- coding: utf-8 -*-
 #
 # Atos BullSequana Edge Ansible Modules
@@ -14,7 +13,7 @@ import json
 import re
 import xml.etree.ElementTree as ET
 import tarfile
-from zipfile import ZipFile
+#from zipfile import ZipFile
 from distutils.version import LooseVersion
 from datetime import datetime
 
@@ -56,7 +55,7 @@ class AtosOpenbmcUtils(object):
                 # version = firmware_technical_state.find('VERSION').text
                 if manifest_purpose == inventory_purpose:
                     found_purpose = True
-                    if manifest_version <> inventory_version:
+                    if manifest_version != inventory_version:
                         # firmware needs to be added : same purpose found and diff version 
                         firmware_available['Firmwares'].append({ 'name': manifest_purpose, 'version': manifest_version, 'path': repo+'/'+path, 'file': available_file })
             if not found_purpose:
@@ -90,11 +89,11 @@ class AtosOpenbmcUtils(object):
 def get_manifest(path):
     manifest_keys = {} 
     if path.endswith('.tar') or path.endswith('.tar.gz'):
-        with tarfile.open(name=path) as tarf:
+        with tarfile.open(name=path, mode='r') as tarf:
             fmanifest = tarf.extractfile("MANIFEST")
             manifest = fmanifest.readlines()
             for item in manifest:
-                key, val = item.split("=", 1)
+                key, val = item.decode("utf-8").split("=", 1)
                 manifest_keys[key] = val.replace('\n','')
 
 #    if path.endswith('gz'):

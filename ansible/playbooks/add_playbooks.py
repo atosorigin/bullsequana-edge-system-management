@@ -1,4 +1,4 @@
-#!/usr/bin/env python2.7
+#!/usr/bin/env python3
 # # -*- coding: utf-8 -*-
 #
 # Atos BullSequana Edge Ansible Modules
@@ -37,8 +37,8 @@ job_template_res = tower_cli.get_resource('job_template')
 cred_res = tower_cli.get_resource('credential')
 cred_type = tower_cli.get_resource('credential_type')
 
-print "\nCreating Organization\n"
-print tower.org, tower.org_desc
+print("\nCreating Organization Bull\n")
+print(tower.org, tower.org_desc)
 #check if Atos already exists
 #if org_res.get_resource() :
 #    return
@@ -50,57 +50,56 @@ if tower.credentials:
     # create one credential
     print("\nCreating Bull Sequana Edge Vault\n")
     for i in tower.credentials:
-        print(i)
+        #print(i)
         vault = cred_type.get(name=i['credential_type'])
-        print(vault)
         i['credential_type'] = vault['id']
         i['organization'] = org_id
         cred = cred_res.create(**i)
 
 if tower.inventories:
     # create inventories
-    print "\nCreating Inventories\n"
+    print("\nCreating Inventories\n")
     for i in tower.inventories:
-        print i
+        #print(i)
         i['organization'] = org_id
         inv = inv_res.create(**i)
         # create dynamic groups, static ones can be imported better with awx-manage
-        if i.has_key('groups'):
+        if 'groups' in i:
             for g in i['groups']:
-                print(g)
+                #print(g)
                 g['inventory'] = inv['id']
                 # set the credential if this group has one
                 group = group_res.create(**g)
                 # sync the group if it has a credential
-                if group.has_key('group'):
+                if 'group' in group:
                     id = group['group']
-                elif group.has_key('id'):
+                elif 'id' in group :
                     id = group['id']
-                if g.has_key('credential'):
+                if 'credential' in g:
                     group_res.sync(id)
-                if g.has_key('hosts'):
+                if 'hosts' in g:
                     for h in g['hosts']:
                         h['inventory'] = inv['id']
-                        print(h)
+                        #print(h)
                         host = host_res.create(**h)
                         host_res.associate(host=host['id'], group=group['id'])
 
 if tower.projects:
     # create projects 
-    print "\nCreating Projects\n"
+    print("\nCreating Project: Playbooks {version} for BullSequana Edge\n")
     for p in tower.projects:
-        print(p)
+        #print(p)
         p['organization'] = org_id
         p['description'] = "Playbooks {version} for BullSequana Edge".format(version=os.environ.get('MISM_BULLSEQUANA_EDGE_VERSION'))
         project_res.create(**p)
 
 if tower.job_templates:
-    print "Waiting 30 seconds for projects to index."
-    print "Press any key to skip if you know what you're doing."
+    print("Waiting 30 seconds for projects to index.")
+    print("Press any key to skip if you know what you're doing.")
     timeout = 30
     rlist, wlist, xlist = select([sys.stdin], [], [], timeout)
     # create job templates
-    print "\nCreating Job Templates\n"
+    print("\nCreating Job Templates...\n")
     for j in tower.job_templates:
         print(j)
         inv = inv_res.get(name=j['inventory'])
