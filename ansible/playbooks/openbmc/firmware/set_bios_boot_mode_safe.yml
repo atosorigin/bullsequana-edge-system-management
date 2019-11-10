@@ -4,8 +4,8 @@
   name: Set Boot Mode Safe
   gather_facts: False
   vars_files:
-    - /var/lib/awx/projects/vars/external_vars.yml
-    - /var/lib/awx/projects/vars/passwords.yml
+    - /etc/ansible/vars/external_vars.yml
+    - /etc/ansible/vars/passwords.yml
 
   tasks:
   - include_tasks: ../utils/utils_create_token.yml

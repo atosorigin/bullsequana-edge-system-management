@@ -302,7 +302,7 @@ Bull Sequana Edge Ansible Extensions has 3 installers: Just choose your favorite
 `install_awx.sh` build and run from local Dockerfile that you can adapt => use stop_awx.sh and start_awx.sh after  
 `install_awx_from_dockerhub.sh` download and run atosorigin dockerhub images => use stop_awx_from_dockerhub.sh and start_awx_from_dockerhub.sh after  
 
-![#ff817a](https://placehold.it/15/ff817a/000000?text=+) Best Practice: remove useless stop and start scripts
+![#9ECBFF](https://placehold.it/15/9ECBFF/000000?text=+) Best Practice: remove useless stop and start scripts
 
 ### how to change ansible configuration
 Here is the basic configuration for ansible:  

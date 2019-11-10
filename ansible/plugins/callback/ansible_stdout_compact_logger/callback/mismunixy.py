@@ -25,6 +25,7 @@ DOCUMENTATION = '''
 
 import yaml
 import json
+from datetime import datetime
 from os.path import basename
 from datetime import datetime
 from ansible import constants as C
@@ -76,17 +77,17 @@ class CallbackModule(Default):
         #return
         ts = self.tark_started.strftime("%H:%M:%S")
         task_host = result._host.get_name()
-        task_result = "[{task_time}] {host} | {duration:>8}ms".format(task_time=ts, host=task_host, duration=self._get_duration())
+        task_result = "[{task_time}] {host} | {duration:>8.3f}ms".format(task_time=ts, host=task_host, duration=self._get_duration())
         # Sensors
         sensors = result._result.get("sensors", None)         
         if sensors:          
             self.deep_serialize_sensors(task_result, sensors, False)
             return
-        # Sensors
-        #sensors = result._result.get("check_sensors", None)         
-        #if sensors:          
-        #    self.deep_serialize_sensors(task_result, sensors, True)
-        #    return
+        # Logs
+        logs = result._result.get("logs", None)         
+        if logs:          
+            self.deep_serialize_logs(task_result, logs, True)
+            return
         
         # Upload
         if result._result.get('url') and result._result.get('msg') and "/upload/image" in result._result.get('url') :
@@ -124,7 +125,7 @@ class CallbackModule(Default):
             self._display.display(task_result, display_color, stderr=err)
             return
         
-        task_result = "[{task_time}] {host} | {duration:>8}ms".format(task_time=ts, host=task_host, duration=self._get_duration())
+        task_result = "[{task_time}] {host} | {duration::>8.3f}ms".format(task_time=ts, host=task_host, duration=self._get_duration())
         if self.delegated_vars:
             task_delegate_host = self.delegated_vars['ansible_host']
             task_result = "%s -> %s %s" % (task_host, task_delegate_host, msg)
@@ -348,10 +349,15 @@ class CallbackModule(Default):
 # Render
 #
     # get_sensors.yml
+    '''
+    - name: Render sensors
+      debug: sensors
+    '''
     def deep_serialize_sensors(self, name, sensors, check=False):
-        output = "{header_key:<40}:{header_value:>10}{header_crit_low:>10}{header_crit_high:>10}".format(header_key=name+" | sensors", header_value="current",header_crit_low="crit low",header_crit_high="crit high")
+        self._display.display("{header_name}".format(header_name=name+" | sensors:"))
+        output = "{header_key:<40}:{header_value:>10}{header_crit_low:>10}{header_crit_high:>10}".format(header_key="sensor", header_value="current",header_crit_low="crit low",header_crit_high="crit high")
         self._display.display(output, color='bright blue')
-        sorted_sensors = sorted(sensors.iteritems(), key=getKey)
+        sorted_sensors = sorted(sensors.items(), key=getKey)
         for (key, sensor) in sorted_sensors:
             value = sensor.get("Value", None)
             crit_low = sensor.get("CriticalLow", None)
@@ -367,6 +373,67 @@ class CallbackModule(Default):
                 self._display.display(output, color='red')
                 if not check:
                     self._display.display(output, color='green')
+
+    # get_logs.yml
+    '''
+        - name: Render logs
+          debug: logs
+
+    logs:
+        /xyz/openbmc_project/logging/config/remote:
+            Address: 129.182.247.57
+            Port: 514
+        /xyz/openbmc_project/logging/entry/1:
+            AdditionalData: []
+            Id: 1
+            Message: BMC booted from main flash
+            Purpose: Software.Version.VersionPurpose.BMC
+            Resolved: false
+            Severity: Logging.Entry.Level.Informational
+            Timestamp: 1573142176232
+            Version: 18.00.0214
+            associations: []
+        /xyz/openbmc_project/logging/internal/manager: {}
+        /xyz/openbmc_project/logging/rest_api_logs:
+            Enabled: false
+
+    '''        
+    def deep_serialize_logs(self, name, logs, check=False):
+        self._display.display("{header_name}".format(header_name=name+" | logs"))
+        output = "{id_log:<5}{purpose:<10}{resolved:<10}{severity:<15}{date_log:<30}{version:<15}{message:<}".format(id_log="id", message="message",purpose="purpose",resolved="resolved",severity="severity",date_log="date/time",version="version")
+        if "/xyz/openbmc_project/logging/config/remote" in logs:
+            address = logs["/xyz/openbmc_project/logging/config/remote"].get("Address",None)
+            port = logs["/xyz/openbmc_project/logging/config/remote"].get("Port",None)
+            output_config = "rsyslog server: {address:<15}:{port:>4}".format(address=address,port=port)
+            self._display.display(output_config)
+        self._display.display(output, color='bright blue')        
+        for (key, log) in logs.items():
+            if key.startswith('/xyz/openbmc_project/logging/entry/'):
+                id_log = log.get("Id", None)
+                message = log.get("Message", None)
+                purpose = log.get("Purpose", None)
+                if purpose :
+                    purpose = purpose.replace('xyz.openbmc_project.Software.Version.VersionPurpose.','')
+                resolved = log.get("Resolved", None)
+                if resolved:
+                    resolved = "True"
+                else:
+                    resolved = "False"
+                severity = log.get("Severity", None)
+                if severity :
+                    severity = severity.replace('xyz.openbmc_project.Logging.Entry.Level.','')
+                timestamp = log.get("Timestamp", None)
+                if timestamp :
+                    timestamp = datetime.utcfromtimestamp(float(timestamp)/1000).strftime('%Y-%m-%d %H:%M:%S,%f')
+                version = log.get("Version", None)
+                output = "{id_log:<5}{purpose:<10}{resolved:<10}{severity:<15}{timestamp:<30}{version:<15}{message:<}".format(id_log=id_log, message=message,purpose=purpose,resolved=resolved,severity=severity,timestamp=timestamp,version=version)
+                if severity == "Notice":
+                    self._display.display(output, color='yellow')
+                    return
+                if severity == "Error":
+                    self._display.display(output, color='red')
+                    return
+                self._display.display(output, color='green')
 
     def _get_duration(self):
         end = datetime.now()

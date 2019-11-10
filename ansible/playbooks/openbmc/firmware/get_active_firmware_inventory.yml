@@ -4,9 +4,11 @@
   connection: local
   gather_facts: False
   vars_files:
-    - /var/lib/awx/projects/vars/passwords.yml
+    - /etc/ansible/vars/external_vars.yml
+    - /etc/ansible/vars/passwords.yaml"
 
   tasks:
+
   - include_tasks: ../utils/utils_create_token.yml
 
   - include_tasks: ../utils/utils_firmware_inventory.yml

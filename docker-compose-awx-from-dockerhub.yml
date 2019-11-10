@@ -17,6 +17,7 @@ services:
       - ./ansible/playbooks:/var/lib/awx/projects:rw
       - ./ansible/inventory:/var/lib/awx/inventory:rw
       - ./ansible/inventory:/etc/ansible:rw
+      - ./ansible/vars:/etc/ansible/vars:rw
 #      - ./ansible/plugins/inventory/redfish_plugin_ansible_inventory.yml:/usr/lib/python2.7/site-packages/ansible/plugins/inventory/redfish_plugin_ansible_inventory.yml
       - ./ansible/plugins/inventory/redfish_plugin_ansible_inventory.yml:/usr/share/ansible/plugins/inventory/redfish_plugin_ansible_inventory.yml
       - ./ansible/plugins/inventory/redfish_plugin_ansible_inventory.py:/usr/lib/python2.7/site-packages/ansible/plugins/inventory/redfish_plugin_ansible_inventory.py
@@ -49,6 +50,7 @@ services:
       - ./ansible/playbooks:/var/lib/awx/projects:rw
       - ./ansible/inventory:/var/lib/awx/inventory:rw
       - ./ansible/inventory:/etc/ansible:rw
+      - ./ansible/vars:/etc/ansible/vars:rw
       - ./ansible/plugins/inventory/redfish_plugin_ansible_inventory.yml:/usr/share/ansible/plugins/inventory/redfish_plugin_ansible_inventory.yml
       - ./ansible/plugins/inventory/redfish_plugin_ansible_inventory.py:/usr/lib/python2.7/site-packages/ansible/plugins/inventory/redfish_plugin_ansible_inventory.py
 #      - ./ansible/plugins/inventory/:/usr/share/ansible/plugins/inventory

@@ -37,7 +37,7 @@ job_template_res = tower_cli.get_resource('job_template')
 cred_res = tower_cli.get_resource('credential')
 cred_type = tower_cli.get_resource('credential_type')
 
-print("\nCreating Organization Bull\n")
+print("Creating Organization Bull\n")
 print(tower.org, tower.org_desc)
 #check if Atos already exists
 #if org_res.get_resource() :
@@ -48,7 +48,7 @@ org_id = org['id']
 
 if tower.credentials:
     # create one credential
-    print("\nCreating Bull Sequana Edge Vault\n")
+    print("Creating Bull Sequana Edge Vault\n")
     for i in tower.credentials:
         #print(i)
         vault = cred_type.get(name=i['credential_type'])
@@ -58,7 +58,7 @@ if tower.credentials:
 
 if tower.inventories:
     # create inventories
-    print("\nCreating Inventories\n")
+    print("Creating Inventories\n")
     for i in tower.inventories:
         #print(i)
         i['organization'] = org_id
@@ -86,7 +86,7 @@ if tower.inventories:
 
 if tower.projects:
     # create projects 
-    print("\nCreating Project: Playbooks {version} for BullSequana Edge\n")
+    print("Creating Project: Playbooks {version} for BullSequana Edge\n".format(version=os.environ.get('MISM_BULLSEQUANA_EDGE_VERSION')))
     for p in tower.projects:
         #print(p)
         p['organization'] = org_id
@@ -99,7 +99,7 @@ if tower.job_templates:
     timeout = 30
     rlist, wlist, xlist = select([sys.stdin], [], [], timeout)
     # create job templates
-    print("\nCreating Job Templates...\n")
+    print("Creating Job Templates...\n")
     for j in tower.job_templates:
         print(j)
         inv = inv_res.get(name=j['inventory'])
@@ -115,6 +115,8 @@ print("What to do first ?")
 print("See https://github.com/atosorigin/bullsequana-edge-system-management/tree/master/ansible")
 print("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
 
-
-
+inv_res.delete(name="Demo Inventory")
+project_res.delete(name="Demo Project")
+cred_res.delete(name="Demo Credential")
+job_template_res.delete(name="Demo Job Template") 
 

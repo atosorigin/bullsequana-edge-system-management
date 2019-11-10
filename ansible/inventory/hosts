@@ -1,5 +1,7 @@
 [all:vars]
 host="{{inventory_hostname}}"
+ansible_python_interpreter=/usr/bin/python3
+
 [openbmc]
 # <here an IP address> baseuri="{{host}}" username=<here bmc username> password=<here bmc password>
 # example 

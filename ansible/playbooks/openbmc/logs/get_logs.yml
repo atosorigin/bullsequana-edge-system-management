@@ -4,7 +4,7 @@
   connection: local
   gather_facts: False
   vars_files:
-    - /var/lib/awx/projects/vars/passwords.yml
+    - /etc/ansible/vars/passwords.yml
   
   tasks:
   - include_tasks: ../utils/utils_create_token.yml
@@ -21,7 +21,8 @@
   - set_fact:
       logs: "{{ result_logs.json.data }}"
 
-  - name: debug Logs
+  - name: Render logs
     debug:
       var: logs
     when: logs is defined
+

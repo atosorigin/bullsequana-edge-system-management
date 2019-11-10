@@ -1,0 +1,16 @@
+#!/bin/sh
+
+cp -r ansible/vars/ /etc/ansible/
+# uncomment if you want host example
+#cp -r ansible/inventory/hosts /etc/ansible/
+# uncomment if you want bull sequana edge configuration.
+#cp -r ansible/inventory/ansible.cfg /etc/ansible/
+
+cp ansible/plugins/inventory/redfish_plugin_ansible_inventory.yml /usr/share/ansible/plugins/inventory/redfish_plugin_ansible_inventory.yml
+cp ansible/plugins/inventory/redfish_plugin_ansible_inventory.py  /usr/share/ansible/plugins/inventory//redfish_plugin_ansible_inventory.py
+cp -r ansible/plugins/callback/ansible_stdout_compact_logger      /usr/share/ansible/plugins/callback/ansible_stdout_compact_logger
+mkdir /usr/share/ansible/plugins/modules/remote_management
+mkdir /usr/share/ansible/plugins/modules/remote_management/openbmc
+cp ansible/plugins/modules/remote_management/openbmc/atos_openbmc.py       /usr/share/ansible/plugins/modules/remote_management/openbmc/atos_openbmc.py
+cp ansible/plugins/modules/remote_management/openbmc/atos_openbmc_utils.py /usr/share/ansible/plugins/modules/remote_management/openbmc/atos_openbmc_utils.py
+

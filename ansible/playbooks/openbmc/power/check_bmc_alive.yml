@@ -4,7 +4,7 @@
   name: Check BMC Alive
   gather_facts: False
   vars_files:
-    - /var/lib/awx/projects/vars/passwords.yml
+    - /etc/ansible/vars/passwords.yml
 
   tasks:
   - name: Check if BMC is alive
