@@ -6,9 +6,10 @@ BullSequana Edge Ansible Playbooks and Modules allows Data Center and IT adminis
 BullSequana Edge 
 
 ## Prerequisites
-  * AWX >= 4.0
-  * Ansible >= 4.2
-  * Python >= 2.7.5
+Ansible playbooks can be used as is with following prerequisites:
+  * AWX 4.0+
+  * Ansible 2.8.5+
+  * Python 3.6.8+
 
 Optionaly, 2 ready-to-go AWX-Ansible images are available on Dockerhub
   * Dockerhub AWX images 
@@ -267,6 +268,43 @@ For test purpose, you can always use a clear password in a host:
 
 ## <a name="what_ansible"></a>What to do first on Ansible
 
+### what is the content
+Bull Sequana Edge Ansible extension contains:
+1. Playbooks
+2. One Inventory Plugin for nmap detection
+3. One Callback Plugin for better CLI stdout UX 
+
+This extension can be installed:
+1. locally if you have or you want to have a local Ansible, or inside docker containers => See [install ansible locally](#install_locally)
+2. inside a container to have AWX and a docker ansible through container => See [install ansible docker](#install_docker)
+
+### how to install ansible
+#### <a name="install_locally"></a>install ansible locally
+If you need only playbooks, you can just install ansible:
+1. Install ansible 
+`yum install python3`   
+`pip3 install ansible`  
+
+2. edit and customize *install_locally.sh* script
+The script basically copies ansible and plugins in default ansible directories
+![#f03c15](https://placehold.it/15/f03c15/000000?text=+) If you change default ansible directories, you should adapt the script target directories as needed
+3. Run the script `./install_locally.sh`  
+
+Check your ansible python version:  
+`ansible --version`  
+
+As explained in the documentation, you can force python3 interpreter: 
+![alt text](https://github.com/atosorigin/bullsequana-edge-system-management/blob/master/ansible/doc/ansible_python3_interpreter.png)
+
+#### <a name="install_docker"></a>Install ansible on docker
+Bull Sequana Edge Ansible Extensions has 3 installers: Just choose your favorite installation for your environment
+`install.sh` run all (Ansible and Zabbix Bull Sequana Edge Extensions) => use stop.sh and start.sh after  
+`install_awx.sh` build and run from local Dockerfile that you can adapt => use stop_awx.sh and start_awx.sh after  
+`install_awx_from_dockerhub.sh` download and run atosorigin dockerhub images => use stop_awx_from_dockerhub.sh and start_awx_from_dockerhub.sh after  
+
+![#ff817a](https://placehold.it/15/ff817a/000000?text=+) Best Practice: remove useless stop and start scripts
+
+### how to change ansible configuration
 Here is the basic configuration for ansible:  
 config file = <install_dir>/ansible/inventory/ansible.cfg file  
 inventory = <install_dir>/ansible/inventory/hosts file  
