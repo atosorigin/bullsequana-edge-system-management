@@ -86,14 +86,15 @@ By default, the following proxy environment variables are copied in AWX context 
 - HTTPS_PROXY
 - NO_PROXY
 
-For more details, read the [How to change my Proxy](#howto_proxy) part
+For more details, read the [How to change my Proxy](#howto_proxy)
 
 ### launch installer
-Run the install script:  
-`<install_dir>/install_awx.sh`
+Bull Sequana Edge Ansible Extensions has 3 AWX installers: Just choose your favorite installation for your environment
+`install_dir>/install.sh` run all (Ansible and Zabbix Bull Sequana Edge Extensions) => use stop.sh and start.sh after  
+`install_dir>/install_awx.sh` build and run from local Dockerfile that you can adapt => use stop_awx.sh and start_awx.sh after  
+`install_dir>/install_awx_from_dockerhub.sh` download and run atosorigin dockerhub images => use stop_awx_from_dockerhub.sh and start_awx_from_dockerhub.sh after  
 
-or if you want to use the Docker Atos images, you can now run the following Dockerhub install script:  
-`<install_dir>/install_awx_from_dockerhub.sh`
+![#9ECBFF](https://placehold.it/15/9ECBFF/000000?text=+) Best Practice: remove useless stop and start scripts
 
 ### access your dashboard
 `run a browser with https://<your_server>`  
@@ -288,21 +289,21 @@ If you need only playbooks, you can just install ansible:
 2. edit and customize *install_locally.sh* script
 The script basically copies ansible and plugins in default ansible directories
 ![#f03c15](https://placehold.it/15/f03c15/000000?text=+) If you change default ansible directories, you should adapt the script target directories as needed
-3. Run the script `./install_locally.sh`  
+3. Run the script `install_dir>/install_locally.sh`  
 
 Check your ansible python version:  
 `ansible --version`  
 
-As explained in the documentation, you can force python3 interpreter: 
+As explained in the documentation, you should force python3 interpreter: 
 ![alt text](https://github.com/atosorigin/bullsequana-edge-system-management/blob/master/ansible/doc/ansible_python3_interpreter.png)
 
 #### <a name="install_docker"></a>Install ansible on docker
 Bull Sequana Edge Ansible Extensions has 3 installers: Just choose your favorite installation for your environment
-`install.sh` run all (Ansible and Zabbix Bull Sequana Edge Extensions) => use stop.sh and start.sh after  
-`install_awx.sh` build and run from local Dockerfile that you can adapt => use stop_awx.sh and start_awx.sh after  
-`install_awx_from_dockerhub.sh` download and run atosorigin dockerhub images => use stop_awx_from_dockerhub.sh and start_awx_from_dockerhub.sh after  
+`install_dir>/install.sh` run all (Ansible and Zabbix Bull Sequana Edge Extensions) => use stop.sh and start.sh after  
+`install_dir>/install_awx.sh` build and run from local Dockerfile that you can adapt => use stop_awx.sh and start_awx.sh after  
+`install_dir>/install_awx_from_dockerhub.sh` download and run atosorigin dockerhub images => use stop_awx_from_dockerhub.sh and start_awx_from_dockerhub.sh after  
 
-![#9ECBFF](https://placehold.it/15/9ECBFF/000000?text=+) Best Practice: remove useless stop and start scripts
+![#9ECBFF](https://placehold.it/15/9ECBFF/000000?text=+) Best Practice: remove useless install, stop and start scripts
 
 ### how to change ansible configuration
 Here is the basic configuration for ansible:  
@@ -332,7 +333,7 @@ For test purpose, you can always use a clear password in your *hosts* file
 2. go to your playbook directory
 3. execute ansible-playbook command with appropriate parameters and desired playbook
   
-![#f03c15](https://placehold.it/15/f03c15/000000?text=+) Warning : --vault-id bullsequana_edge_password@<source> is mandatory  
+![#f03c15](https://placehold.it/15/f03c15/000000?text=+) Warning : --vault-id bullsequana_edge_password@<source> is mandatory if you use vault credentials  
 *<source can be @prompt to be prompted or any encrypted source file>*
   
 ![alt text](https://github.com/atosorigin/bullsequana-edge-system-management/blob/master/ansible/doc/ansible_playbook_vault_id.png)
