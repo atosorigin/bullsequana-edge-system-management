@@ -98,14 +98,19 @@ if you copy this repository, just type:
 git clone <paste here>
 ```
 
+if you zip this repository, just type:   
+```
+unzip <your_repo_zip>
+```
+
 Bull Sequana Edge Ansible Extensions has three AWX installers  
 Just choose your favorite installation for your environment  
-`install_dir>/install.sh` it will install Ansible and Zabbix Bull Sequana Edge Extensions at once => use **stop.sh** and **start.sh** after  
-`install_dir>/install_awx.sh` it will build and run docker containers from your local Dockerfile that you can adapt as needed => use **stop_awx.sh** and **start_awx.sh** after  
-`install_dir>/install_awx_from_dockerhub.sh` install dockerhub atosorigin dockerhub images, you cannot adapt the local Dockerfiles but you will inherit image updates => use **stop_awx_from_dockerhub.sh*** and **start_awx_from_dockerhub.sh** after  
+`<install_dir>/install.sh` it will install Ansible and Zabbix Bull Sequana Edge Extensions at once => use **stop.sh** and **start.sh** after  
+`<install_dir>/install_awx.sh` it will build and run docker containers from your local Dockerfile that you can adapt as needed => use **stop_awx.sh** and **start_awx.sh** after  
+`<install_dir>/install_awx_from_dockerhub.sh` install dockerhub atosorigin dockerhub images, you cannot adapt the local Dockerfiles but you will inherit image updates => use **stop_awx_from_dockerhub.sh*** and **start_awx_from_dockerhub.sh** after  
 For more information about dockehubr installation Visit https://hub.docker.com/repository/docker/atosorigin/bull-sequana-edge-awx-web
  
-![#9ECBFF](https://placehold.it/15/9ECBFF/000000?text=+) Best Practice: remove useless stop and start scripts
+![#9ECBFF](https://placehold.it/15/9ECBFF/000000?text=+) Best Practice: remove useless install, stop and start scripts
 
 ![#f03c15](https://placehold.it/15/f03c15/000000?text=+) Warning: Do not use direct images in production, prefer second method and choose a stable version instead of *latest*
 
@@ -383,7 +388,7 @@ Variables and groups should appear as **imported** too
 -e "username=<mon user> password=<mon mot de passe>"
 ```
 #### how to change general variables:
-You can refer to Ansible documentation [here](![#f03c15](https://placehold.it/15/f03c15/000000?text=+)  
+You can refer to Ansible documentation: Visit https://docs.ansible.com/ansible/2.5/user_guide/playbooks_variables.html
 
 To summarize, two main possibilities:
 1. As a command parameter, indicate variable/value with --extra-vars as CLI argument :
