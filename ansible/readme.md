@@ -89,13 +89,25 @@ By default, the following proxy environment variables are copied in AWX docker c
 For more details, read the [How to change my Proxy](#howto_proxy)
 
 ### launch installer
-Bull Sequana Edge Ansible Extensions has three AWX installers:  
-Just choose your favorite installation for your environment  
-`install_dir>/install.sh` run Ansible and Zabbix Bull Sequana Edge Extensions => use **stop.sh** and **start.sh** after  
-`install_dir>/install_awx.sh` build and run from local Dockerfile that you can adapt => use **stop_awx.sh** and **start_awx.sh** after  
-`install_dir>/install_awx_from_dockerhub.sh` download and run [here]()atosorigin dockerhub images => use **stop_awx_from_dockerhub.sh*** and **start_awx_from_dockerhub.sh** after  
+First clone this repository  
 
+![alt text](https://github.com/atosorigin/bullsequana-edge-system-management/blob/master/ansible/doc/git_clone.png)
+
+if you copy this repository, just type:   
+```
+git clone <paste here>
+```
+
+Bull Sequana Edge Ansible Extensions has three AWX installers  
+Just choose your favorite installation for your environment  
+`install_dir>/install.sh` it will install Ansible and Zabbix Bull Sequana Edge Extensions at once => use **stop.sh** and **start.sh** after  
+`install_dir>/install_awx.sh` it will build and run docker containers from your local Dockerfile that you can adapt as needed => use **stop_awx.sh** and **start_awx.sh** after  
+`install_dir>/install_awx_from_dockerhub.sh` install dockerhub atosorigin dockerhub images, you cannot adapt the local Dockerfiles but you will inherit image updates => use **stop_awx_from_dockerhub.sh*** and **start_awx_from_dockerhub.sh** after  
+For more information about dockehubr installation Visit https://hub.docker.com/repository/docker/atosorigin/bull-sequana-edge-awx-web
+ 
 ![#9ECBFF](https://placehold.it/15/9ECBFF/000000?text=+) Best Practice: remove useless stop and start scripts
+
+![#f03c15](https://placehold.it/15/f03c15/000000?text=+) Warning: Do not use direct images in production, prefer second method and choose a stable version instead of *latest*
 
 ### access your dashboard
 run a browser with: ` https://<your_server>`  
