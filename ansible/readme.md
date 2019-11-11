@@ -1,7 +1,3 @@
-![alt text](<a href="https://media.licdn.com/dms/image/C4D0BAQG-rV5LhhD8sA/company-logo_400_400/0?e=1581552000&v=beta&t=Ti5CW2w3hvPrcjSS_-TAMOtw9pNXYwC2RlYYQWn-TxU">
-<img src="href=https://placehold.it/100"></a>)
-
-
 # BullSequana Edge Ansible Playbooks and Modules
 
 BullSequana Edge Ansible Playbooks and Modules allows Data Center and IT administrators to use RedHat Ansible or AWX to automate and orchestrate the operations (power, update) of BullSequana Edge.
