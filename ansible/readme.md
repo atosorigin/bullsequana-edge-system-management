@@ -93,7 +93,7 @@ Bull Sequana Edge Ansible Extensions has three AWX installers:
 Just choose your favorite installation for your environment  
 `install_dir>/install.sh` run Ansible and Zabbix Bull Sequana Edge Extensions => use **stop.sh** and **start.sh** after  
 `install_dir>/install_awx.sh` build and run from local Dockerfile that you can adapt => use **stop_awx.sh** and **start_awx.sh** after  
-`install_dir>/install_awx_from_dockerhub.sh` download and run atosorigin dockerhub images => use **stop_awx_from_dockerhub.sh*** and **start_awx_from_dockerhub.sh** after  
+`install_dir>/install_awx_from_dockerhub.sh` download and run [here]()atosorigin dockerhub images => use **stop_awx_from_dockerhub.sh*** and **start_awx_from_dockerhub.sh** after  
 
 ![#9ECBFF](https://placehold.it/15/9ECBFF/000000?text=+) Best Practice: remove useless stop and start scripts
 
@@ -281,27 +281,27 @@ This extension can be installed:
 
 ### how to install ansible
 #### <a name="install_locally"></a>install ansible locally
-If you need only playbooks, you can just install ansible:
-1. Install ansible 
+If you already have an Ansible installation, you can just install ansible playbooks and plugins:  
+1. install ansible 
 `yum install python3`   
 `pip3 install ansible`  
 
 2. edit and customize *install_locally.sh* script
-The script basically copies ansible and plugins in default ansible directories
+The script basically copies ansible and plugins in default ansible directories  
 ![#f03c15](https://placehold.it/15/f03c15/000000?text=+) If you change default ansible directories, you should adapt the script target directories as needed
-3. Run the script `install_dir>/install_locally.sh`  
+3. run the script `<install_dir>/install_locally.sh`  
 
 Check your ansible python version:  
 `ansible --version`  
 
-As explained in the documentation, you should force python3 interpreter: 
+As explained in the documentation, you should force python3 interpreter:
 ![alt text](https://github.com/atosorigin/bullsequana-edge-system-management/blob/master/ansible/doc/ansible_python3_interpreter.png)
 
 #### <a name="install_docker"></a>Install ansible on docker
-Bull Sequana Edge Ansible Extensions has 3 installers: Just choose your favorite installation for your environment
-`install_dir>/install.sh` run all (Ansible and Zabbix Bull Sequana Edge Extensions) => use stop.sh and start.sh after  
-`install_dir>/install_awx.sh` build and run from local Dockerfile that you can adapt => use stop_awx.sh and start_awx.sh after  
-`install_dir>/install_awx_from_dockerhub.sh` download and run atosorigin dockerhub images => use stop_awx_from_dockerhub.sh and start_awx_from_dockerhub.sh after  
+Bull Sequana Edge Ansible Extensions has three installers: Just choose your favorite installation for your environment
+1. `<install_dir>/install.sh` run all (Ansible and Zabbix Bull Sequana Edge Extensions) => use stop.sh and start.sh after  
+2. `<install_dir>/install_awx.sh` build and run from local Dockerfile that you can adapt => use stop_awx.sh and start_awx.sh after  
+3. `<install_dir>/install_awx_from_dockerhub.sh` download and run atosorigin dockerhub images => use stop_awx_from_dockerhub.sh and start_awx_from_dockerhub.sh after  
 
 ![#9ECBFF](https://placehold.it/15/9ECBFF/000000?text=+) Best Practice: remove useless install, stop and start scripts
 
@@ -309,7 +309,8 @@ Bull Sequana Edge Ansible Extensions has 3 installers: Just choose your favorite
 Here is the basic configuration for ansible:  
 config file = <install_dir>/ansible/inventory/ansible.cfg file  
 inventory = <install_dir>/ansible/inventory/hosts file  
-variables = <install_dir>/ansible/playbooks/vars/external_vars.yml file  
+variables = <install_dir>/ansible/vars/external_vars.yml file  
+encrypted passwords = <install_dir>/ansible/vars/passwords.yml file  
 
 *For every CLI commands, you should be logged on a docker AWX container like awx_web or awx_task or add 'docker exec -it <container name>' before all commands*  
 
@@ -325,7 +326,7 @@ For test purpose, you can always use a clear password in your *hosts* file
 ![alt text](https://github.com/atosorigin/bullsequana-edge-system-management/blob/master/ansible/doc/ansible_clear_password.png)
 
 ### how to change your external variables
-1. edit <install_dir>/ansible/playbooks/vars/external_vars.yml file
+1. edit <install_dir>/ansible/vars/external_vars.yml file
 2. comment/uncomment/modify your variables
 
 ### how to run your playbooks
@@ -354,8 +355,8 @@ bash-4.2# tower-cli inventory list
 
 ![alt text](https://github.com/atosorigin/bullsequana-edge-system-management/blob/master/ansible/doc/awx_manage.png)  
 
-Your hosts should appear as *imported*  
-Variables and groups should be imported  
+Your hosts should appear as **imported**  
+Variables and groups should appear as **imported** too  
 ![alt text](https://github.com/atosorigin/bullsequana-edge-system-management/blob/master/ansible/doc/awx_imported.png)
 
 ### general options
@@ -370,16 +371,19 @@ Variables and groups should be imported
 -e "username=<mon user> password=<mon mot de passe>"
 ```
 #### how to change general variables:
-Two main possibilities:
+You can refer to Ansible documentation [here](![#f03c15](https://placehold.it/15/f03c15/000000?text=+)  
+
+To summarize, two main possibilities:
 1. As a command parameter, indicate variable/value with --extra-vars as CLI argument :
 
 `ansible-playbook myfile.yml --extra-vars "ma_variable=my_value"`
 
-2. In the appropriated file <install_dir>/playbooks/vars/external_vars.yml, uncomment and set the desired variable :
+2. In the appropriated file <install_dir>/vars/external_vars.yml, uncomment and set the desired variable :
 `my_variable: my_value `
 
-![#f03c15](https://placehold.it/15/f03c15/000000?text=+) Warning : the 2 different ways are exclusive : You should declare a same variable in file OR in parameter, else it will conflict
-
+![#f03c15](https://placehold.it/15/f03c15/000000?text=+) Warning : Care the precedence order
+![alt text](https://github.com/atosorigin/bullsequana-edge-system-management/blob/master/ansible/doc/precedence_order.png)
+The best site that explain variable order and confilict [here](https://subscription.packtpub.com/book/networking_and_servers/9781787125681/1/ch01lvl1sec13/variable-precedence)
 ### update
 #### how to update one image on all BMCs
 
@@ -656,8 +660,7 @@ For any reason, if you really need to adapt the 'volumes' mapping, follow the in
 /tmp:/tmp => do NOT map /tmp directory => it change AWX behavior
 /:/ => NO sens
 ```
-![#f03c15](https://placehold.it/15/f03c15/000000?text=+) Be careful to change both awx_web and awx_task docker containers  
-![#f03c15](https://placehold.it/15/f03c15/000000?text=+) and to adapt the technical_state_path variable of your inventory  
+![#f03c15](https://placehold.it/15/f03c15/000000?text=+) Be careful to change both awx_web and awx_task docker containers and to adapt the technical_state_path variable of your inventory  
 
 `technical_state_path: /mnt`  
 
