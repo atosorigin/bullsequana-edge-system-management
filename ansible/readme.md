@@ -1,3 +1,6 @@
+<a href="https://media.licdn.com/dms/image/C4D0BAQG-rV5LhhD8sA/company-logo_400_400/0?e=1581552000&v=beta&t=Ti5CW2w3hvPrcjSS_-TAMOtw9pNXYwC2RlYYQWn-TxU"><img src="href="https://via.placeholder.com/100"></a>
+
+
 # BullSequana Edge Ansible Playbooks and Modules
 
 BullSequana Edge Ansible Playbooks and Modules allows Data Center and IT administrators to use RedHat Ansible or AWX to automate and orchestrate the operations (power, update) of BullSequana Edge.
@@ -27,7 +30,7 @@ Optionaly, 2 ready-to-go AWX-Ansible images are available on Dockerhub
 - [How to change my proxy](#howto_proxy)
 - [How to change technical states file path](#howto_ts)
 - [How to change certificat on AWX server](#howto_cert)
-- [How to change awx passwords](#howto_passwords)
+- [How to change AWX passwords](#howto_passwords)
 - [Warning for updates](#warning_updates)
 - [More help](#more_help)
 - [Support](#support)
@@ -81,7 +84,7 @@ Optionaly, 2 ready-to-go AWX-Ansible images are available on Dockerhub
 
 ### check proxy configuration
 
-By default, the following proxy environment variables are copied in AWX context : 
+By default, the following proxy environment variables are copied in AWX docker context : 
 - HTTP_PROXY
 - HTTPS_PROXY
 - NO_PROXY
@@ -89,15 +92,16 @@ By default, the following proxy environment variables are copied in AWX context 
 For more details, read the [How to change my Proxy](#howto_proxy)
 
 ### launch installer
-Bull Sequana Edge Ansible Extensions has 3 AWX installers: Just choose your favorite installation for your environment
-`install_dir>/install.sh` run all (Ansible and Zabbix Bull Sequana Edge Extensions) => use stop.sh and start.sh after  
-`install_dir>/install_awx.sh` build and run from local Dockerfile that you can adapt => use stop_awx.sh and start_awx.sh after  
-`install_dir>/install_awx_from_dockerhub.sh` download and run atosorigin dockerhub images => use stop_awx_from_dockerhub.sh and start_awx_from_dockerhub.sh after  
+Bull Sequana Edge Ansible Extensions has three AWX installers:  
+Just choose your favorite installation for your environment  
+`install_dir>/install.sh` run Ansible and Zabbix Bull Sequana Edge Extensions => use **stop.sh** and **start.sh** after  
+`install_dir>/install_awx.sh` build and run from local Dockerfile that you can adapt => use **stop_awx.sh** and **start_awx.sh** after  
+`install_dir>/install_awx_from_dockerhub.sh` download and run atosorigin dockerhub images => use **stop_awx_from_dockerhub.sh*** and **start_awx_from_dockerhub.sh** after  
 
 ![#9ECBFF](https://placehold.it/15/9ECBFF/000000?text=+) Best Practice: remove useless stop and start scripts
 
 ### access your dashboard
-`run a browser with https://<your_server>`  
+run a browser with: ` https://<your_server>`  
 
 ![alt text](https://github.com/atosorigin/bullsequana-edge-system-management/blob/master/ansible/doc/awx.png)
 
@@ -125,8 +129,7 @@ You should have now:
 
 ![alt text](https://github.com/atosorigin/bullsequana-edge-system-management/blob/master/ansible/doc/awx_inventory.png)
 
-*Don't forget to copy/paste baseuri in every host as is*  
-`baseuri: {{inventory_hostname}}`
+*Don't forget to copy/paste baseuri in every host as is `baseuri: {{inventory_hostname}}`  
 
 Optionally, your can import hosts from ansible: [See how to export ansible inventory hosts file to awx inventory section](#howto_export_inventory)  
 Optionally, your can detect hosts with nmap inventory script: [See nmap in Command line section](#howto_nmap)  
@@ -537,7 +540,7 @@ openssl x509 -req -sha256 -days 365 -in nginx.csr -signkey nginx.key -out nginx.
 **This command generates the certificat :**
 nginx.crt
 
-## <a name="howto_passwords"></a>How to change passwords
+## <a name="howto_passwords"></a>How to change AWX passwords
 
 #### postgres
 1. change user and password in ansible.env files
