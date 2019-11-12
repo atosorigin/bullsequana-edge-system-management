@@ -2,11 +2,8 @@
 host="{{inventory_hostname}}"
 ansible_python_interpreter=/usr/bin/python3
 
-[openbmc]
+#[openbmc]
 # <here an IP address> baseuri="{{host}}" username=<here bmc username> password=<here bmc password>
-# example 
-172.31.92.34  baseuri="{{inventory_hostname}}" username=root password=sdd@atos
-172.31.92.44  baseuri="{{inventory_hostname}}" username=root password=sdd@atos
 
 # This is the default ansible 'hosts' file.
 #
