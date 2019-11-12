@@ -1,5 +1,5 @@
 #set base image 
-FROM ansible/awx_web:latest
+FROM ansible/awx_web:$ARG AWX_BULLSEQUANA_EDGE_VERSION
 
 USER root 
 

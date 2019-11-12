@@ -6,7 +6,8 @@ services:
       context: Dockerfiles
       dockerfile: Dockerfile-awx_web
       args:
-        mism_version: ${MISM_BULLSEQUANA_EDGE_VERSION}
+        MISM_BULLSEQUANA_EDGE_VERSION: ${MISM_BULLSEQUANA_EDGE_VERSION}
+        AWX_BULLSEQUANA_EDGE_VERSION: ${AWX_BULLSEQUANA_EDGE_VERSION}
     container_name: awx_web
     depends_on:
       - rabbitmq
@@ -43,7 +44,8 @@ services:
       context: Dockerfiles
       dockerfile: Dockerfile-awx_task
       args:
-        mism_version: ${MISM_BULLSEQUANA_EDGE_VERSION}
+        MISM_BULLSEQUANA_EDGE_VERSION: ${MISM_BULLSEQUANA_EDGE_VERSION}
+        AWX_BULLSEQUANA_EDGE_VERSION: ${AWX_BULLSEQUANA_EDGE_VERSION}
     container_name: awx_task
     depends_on:
       - rabbitmq
@@ -75,7 +77,7 @@ services:
       NO_PROXY: ${NO_PROXY}
 
   rabbitmq:
-    image: rabbitmq:3-management
+    image: rabbitmq:${RABBITMQ_AWX_BULLSEQUANA_EDGE_VERSION}
     container_name: awx_rabbitmq
     restart: unless-stopped
     hostname: rabbitmq
@@ -94,7 +96,7 @@ services:
     restart: unless-stopped
 
   awx_postgres:
-    image: postgres:latest
+    image: postgres:${POSTGRES_AWX_BULLSEQUANA_EDGE_VERSION}
     container_name: awx_postgres
     hostname: awx_postgres
     restart: unless-stopped
@@ -110,7 +112,7 @@ services:
       PGDATA: /var/lib/postgresql/data/pgdata
 
   pgadmin:
-    image: dpage/pgadmin4
+    image: dpage/pgadmin4:${PGADMIN_AWX_BULLSEQUANA_EDGE_VERSION}
     container_name: pgadmin
     depends_on:
       - awx_postgres
