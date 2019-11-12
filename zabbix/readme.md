@@ -12,9 +12,9 @@ From zabbix directly :
 
 Optionally, 3 ready-to-go zabbix images are available on Dockerhub
   * Dockerhub Zabbix images 
-    - [BullSequana Edge Dockerhub Zabbix server image](https://cloud.docker.com/repository/docker/francinesauvage/mism_zabbix_server)
-    - [BullSequana Edge Dockerhub Zabbix web image](https://cloud.docker.com/repository/docker/francinesauvage/mism_zabbix_web)
-    - [BullSequana Edge Dockerhub Zabbix agent image](https://cloud.docker.com/repository/docker/francinesauvage/mism_zabbix_agent)
+    - [BullSequana Edge Dockerhub Zabbix server image](https://hub.docker.com/repository/docker/atosorigin/bull-sequana-edge-zabbix-server)
+    - [BullSequana Edge Dockerhub Zabbix web image](https://hub.docker.com/repository/docker/atosorigin/bull-sequana-edge-zabbix-web)
+    - [BullSequana Edge Dockerhub Zabbix agent image](https://hub.docker.com/repository/docker/atosorigin/bull-sequana-edge-zabbix-agent)
   * Docker CE
   * Docker compose
 

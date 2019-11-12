@@ -13,8 +13,8 @@ Ansible playbooks can be used as is with following prerequisites:
 
 Optionaly, 2 ready-to-go AWX-Ansible images are available on Dockerhub
   * Dockerhub AWX images 
-    - [BullSequana Edge Dockerhub AWX web image](https://cloud.docker.com/repository/docker/francinesauvage/mism_awx_web)
-    - [BullSequana Edge Dockerhub AWX task image](https://cloud.docker.com/repository/docker/francinesauvage/mism_awx_task)
+    - [BullSequana Edge Dockerhub AWX web image](https://hub.docker.com/repository/docker/atosorigin/bull-sequana-edge-awx-web)
+    - [BullSequana Edge Dockerhub AWX task image](https://hub.docker.com/repository/docker/atosorigin/bull-sequana-edge-awx-task)
   * Docker CE
   * Docker compose
 
