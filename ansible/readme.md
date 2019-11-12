@@ -611,7 +611,7 @@ RABBITMQ_DEFAULT_VHOST=awx
 RABBITMQ_DEFAULT_USER=<here your new rabbitmq user>  
 RABBITMQ_DEFAULT_PASS=<here your new rabbitmq password>  
 
-#### how to change awx password : 
+#### awx itself 
 1. change user and password from gui
 2. change awx and tower environment variable in Dockerfiles/ansible.env
 
