@@ -22,7 +22,7 @@ Optionaly, 2 ready-to-go AWX-Ansible images are available on Dockerhub
 - [BullSequana Edge Playbooks](#playbooks)
 - [What to do first on AWX](#what_awx)
 - [What to do first on Ansible](#what_ansible)
-- [How to log on a docker container](#howto_docker_logon)
+- [How to log on a docker container](#howto_docker_logon)<
 - [How to manage encrypted passwords](#howto_manage_password)
 - [How to change my proxy](#howto_proxy)
 - [How to change technical states file path](#howto_ts)
@@ -108,7 +108,7 @@ Just choose your favorite installation for your environment
 `<install_dir>/install.sh` it will install Ansible and Zabbix Bull Sequana Edge Extensions at once => use **stop.sh** and **start.sh** after  
 `<install_dir>/install_awx.sh` it will build and run docker containers from your local Dockerfile that you can adapt as needed => use **stop_awx.sh** and **start_awx.sh** after  
 `<install_dir>/install_awx_from_dockerhub.sh` install dockerhub atosorigin dockerhub images, you cannot adapt the local Dockerfiles but you will inherit image updates => use **stop_awx_from_dockerhub.sh*** and **start_awx_from_dockerhub.sh** after  
-For more information about dockehubr installation Visit https://hub.docker.com/repository/docker/atosorigin/bull-sequana-edge-awx-web
+For more information about dockerhub installation Visit https://hub.docker.com/repository/docker/atosorigin/bull-sequana-edge-awx-web
  
 ![#9ECBFF](https://placehold.it/15/9ECBFF/000000?text=+) Best Practice: remove useless install, stop and start scripts
 
@@ -157,7 +157,7 @@ You can change this value in the inventory variables:
 
 ![alt text](https://github.com/atosorigin/bullsequana-edge-system-management/blob/master/ansible/doc/awx_inventory_variables.png)
   
-For more information See [How to change technical states file path](#howto_ts)
+For more information [See How to change technical states file path](#howto_ts)
 
 #### - reboot
 Default value is **True**  
@@ -720,6 +720,8 @@ awx_task
 awx_postgres  
 memcached  
 rabbitmq   
+
+![#c5f015](https://placehold.it/15/c5f015/000000?text=+) Info: tower-cli is installed on awx_web. You can use any tower-cli command. For more info Visit https://docs.ansible.com/ansible-tower/latest/html/towerapi/index.html
 
 examples 
 ```
