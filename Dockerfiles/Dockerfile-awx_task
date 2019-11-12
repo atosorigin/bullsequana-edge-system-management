@@ -1,4 +1,5 @@
 ARG AWX_BULLSEQUANA_EDGE_VERSION
+
 #set base image 
 FROM ansible/awx_task:$AWX_BULLSEQUANA_EDGE_VERSION
 
