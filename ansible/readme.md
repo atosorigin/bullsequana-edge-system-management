@@ -531,7 +531,7 @@ ansible-playbook evaluate_firmware_update.yml -i /etc/ansible/redfish_plugin_ans
 
 ## <a name="howto_cert"></a>How to change certificat on AWX server
 
-*See https://www.youtube.com/watch?v=Ulrr9knCc_w >>> How to add certificate for AWX login <<<*
+*Visit https://www.youtube.com/watch?v=Ulrr9knCc_w >>> How to add certificate for AWX login <<<*
 
 1. Stop the server:
 `./stop.sh`
@@ -758,11 +758,11 @@ Ansible Help is accessible as Ansible Documentation :
 
 ## <a name="support"></a>Support
   * This branch corresponds to the release actively under development.
-  * If you want to report any issue, then please report it by creating a new issue [here](https://github.com/atosorigin/bullsequana-edge-system-management/issues)
-  * If you have any requirements that is not currently addressed, then please let us know by creating a new issue [here](https://github.com/atosorigin/bullsequana-edge-system-management/issues)
+  * If you want to report any issue, then please report it by creating a new issue Vist https://github.com/atosorigin/bullsequana-edge-system-management/issues
+  * If you have any requirements that is not currently addressed, then please let us know by creating a new issue Visit https://github.com/atosorigin/bullsequana-edge-system-management/issues
 
 ## <a name="license"></a>LICENSE
 This project is licensed under GPL-3.0 License. Please see the [COPYING](../COPYING.md) for more information
 
 ## <a name="version"></a>Version
-BullSequana Edge System MAnagement Tool version 2.0.1
+BullSequana Edge System Management Tool version 2.0.1
