@@ -255,7 +255,7 @@ The default *Bull Sequana Edge Vault* has intentionaly NO password, so you shoul
 ![alt text](https://github.com/atosorigin/bullsequana-edge-system-management/blob/master/ansible/doc/vault_ansible_id.png)
 
 #### - generate your passwords
-You can now generate your passwords : See [How to manage encrypted passwords](#howto_manage_password)
+You can now generate your passwords: See [How to manage encrypted passwords](#howto_manage_password)
 You should generate as many *password variables* as different real passwords you have.
 
 #### - use it in your inventory
@@ -329,7 +329,7 @@ inventory = <install_dir>/ansible/inventory/hosts file
 variables = <install_dir>/ansible/vars/external_vars.yml file  
 encrypted passwords = <install_dir>/ansible/vars/passwords.yml file  
 
-*For every CLI commands, you should be logged on a docker AWX container like awx_web or awx_task or add 'docker exec -it <container name>' before all commands*  
+![#9ECBFF](https://placehold.it/15/9ECBFF/000000?text=+) With docker installation, for all CLI commands like *ansible* or *ansible-playbook*, you should be logged on a docker awx_web container: [See How to log on a docker container](#howto_docker_logon)
 
 ### how to add a host in ansible inventory
 1. edit ansible/inventory/hosts file
@@ -347,7 +347,7 @@ For test purpose, you can always use a clear password in your *hosts* file
 2. comment/uncomment/modify your variables
 
 ### how to run your playbooks
-1. log on to awx_web docker container
+1. optionaly log on to awx_web docker container
 2. go to your playbook directory
 3. execute ansible-playbook command with appropriate parameters and desired playbook
   
@@ -357,7 +357,7 @@ For test purpose, you can always use a clear password in your *hosts* file
 ![alt text](https://github.com/atosorigin/bullsequana-edge-system-management/blob/master/ansible/doc/ansible_playbook_vault_id.png)
 
 ### <a name="howto_export_inventory"></a>how to export ansible inventory hosts file to awx inventory
-1. log on to docker awx_web
+1. optionaly log on to docker awx_web
 `docker exec -it awx_web bash`
 2. get your targeted inventory id
 `tower-cli inventory list`
@@ -377,6 +377,9 @@ Variables and groups should appear as **imported** too
 ![alt text](https://github.com/atosorigin/bullsequana-edge-system-management/blob/master/ansible/doc/awx_imported.png)
 
 ### general options
+
+General options can always be used with any ansible command as an optional and cumulative parameter
+
 #### how to limit to a group of servers :
 ```
 --limit=<my_group> 
@@ -518,7 +521,7 @@ ansible-playbook evaluate_firmware_update.yml -i /etc/ansible/redfish_plugin_ans
 ```
 
 ### how to use a CLI Vault
-1. generate your encrypted password
+1. generate your encrypted password: See [How to manage encrypted passwords](#howto_manage_password)
 2. run your playbook
 `ansible-playbook --vault-id root_password@prompt projects/openbmc/inventory/get_sensors.yml`
 
@@ -718,10 +721,11 @@ awx_postgres
 memcached  
 rabbitmq   
 
-examples :
-`docker exec -it awx_task bash`
-`docker exec -it awx_web ansible-playbook projects/openbmc/inventory/get_sensors.yml`
-
+examples 
+```
+docker exec -it awx_task bash`
+docker exec -it awx_web ansible-playbook projects/openbmc/inventory/get_sensors.yml`
+```
 ## <a name="howto_manage_password"></a>How to manage an encrypted password
 ### add an encrypted password
 1. open a terminal on the host
