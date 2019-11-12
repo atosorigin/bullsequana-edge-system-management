@@ -398,10 +398,10 @@ To summarize, two main possibilities:
 
 `ansible-playbook myfile.yml --extra-vars "ma_variable=my_value"`
 
-2. In the appropriated file <install_dir>/vars/external_vars.yml, uncomment and set the desired variable :
-`my_variable: my_value `
+2. In the appropriate extra_vars file <install_dir>/ansible/vars/external_vars.yml, uncomment and set the desired variable :
+`my_variable: my_value`
 
-![#f03c15](https://placehold.it/15/f03c15/000000?text=+) Warning : Care the precedence order  
+![#f03c15](https://placehold.it/15/f03c15/000000?text=+) Warning : You can set extra variables differently but care the precedence order  
 ![alt text](https://github.com/atosorigin/bullsequana-edge-system-management/blob/master/ansible/doc/precedence_order.png)
 Best site that explain variable orders and conflicts: Visit https://subscription.packtpub.com/book/networking_and_servers/9781787125681/1/ch01lvl1sec13/variable-precedence
 
