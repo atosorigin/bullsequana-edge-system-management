@@ -297,7 +297,7 @@ with telnet to check port opening:
 with logger command:
 ` logger -n <my_rsyslog_server_ip> 'here is a test log message from <my_rsyslog_server_ip>'`
 
-More information on : https://www.tecmint.com/install-rsyslog-centralized-logging-in-centos-ubuntu/
+More information: Vist https://www.tecmint.com/install-rsyslog-centralized-logging-in-centos-ubuntu/
 
 ### flush iptables
 If telnet is not working but the ping is working : iptables rules could be the issue  
@@ -383,7 +383,7 @@ PSK Identity: PSK_Mipocket_Agent"
 echo PSK: <your psk>
 ```
 
-5. ![#c5f015](https://placehold.it/15/c5f015/000000?text=+) => stop and start docker containers
+![#c5f015](https://placehold.it/15/c5f015/000000?text=+) you should restart docker containers
 
 *more info on https://www.zabbix.com/documentation/4.0/fr/manual/encryption/using_pre_shared_keys*
 
