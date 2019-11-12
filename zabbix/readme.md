@@ -301,7 +301,7 @@ More information on : https://www.tecmint.com/install-rsyslog-centralized-loggin
 
 ### flush iptables
 If telnet is not working but the ping is working : iptables rules could be the issue  
-You can flush the iptables rules 
+You can flush the iptables rules   
 ![#f03c15](https://placehold.it/15/f03c15/000000?text=+) Be careful to be able to recreate itables rules after this command
 ` iptables -F `
 
@@ -333,7 +333,7 @@ If you don't want to use XX_PROXY environment variables, you can directly adapt 
 ![#f03c15](https://placehold.it/15/f03c15/000000?text=+) if you change a XXX_PROXY env variable, you should restart the containers :
 
 ```
-./stop.sh 
+./stop.sh
 ./start.sh
 ```
 
