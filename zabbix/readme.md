@@ -43,13 +43,32 @@ By default, the following XXX_PROXY environment variables are copied in zabbix c
 For more details, read the [How to change my Proxy](#howto_proxy) part
 
 ### launch installer
-Run the install script:
+### launch installer
+First download zip or clone the github repository  
 
-`<install_dir>/install_zabbix.sh`
+![alt text](https://github.com/atosorigin/bullsequana-edge-system-management/blob/master/ansible/doc/git_clone.png)
 
-or if you want to use the Docker Atos images, you can now run the following Dockerhub install script:
+if you copy this repository, just type:   
+```
+git clone https://github.com/atosorigin/bullsequana-edge-system-management.git
+```
 
-`<install_dir>/install_zabbix_from_dockerhub.sh`
+if you zip the repository, just type:   
+```
+unzip <your_downloaded_zip>
+```
+
+Bull Sequana Edge Zabbix Extensions has 3 Zabbix installers and an option to try it  
+Just choose your favorite installation for your environment  
+`local: import zabbix/server/external_scripts/ templates`: you can import Atos templates in your Zabbix environment if you have an existing Zabbix installation  
+`full: <install_dir>/install.sh` it will build and install Ansible and Zabbix Bull Sequana Edge Extensions docker containers at once from your local Dockerfiles => use **stop.sh** and **start.sh** after  
+`partial: <install_dir>/install_zabbix.sh` it will build and install only Zabbix docker containers from your local Dockerfiles that you can adapt as needed => use **stop_zabbix.sh** and **start_zabbix.sh** after  
+`try it: <install_dir>/install_zabbix_from_dockerhub.sh` mainly dedicated to try bullsequana edge system management tool, it install dockerhub atosorigin images, you cannot adapt the local Dockerfiles => use **stop_zabbix_from_dockerhub.sh*** and **start_zabbix_from_dockerhub.sh** after  
+For more information about dockerhub installation Visit https://hub.docker.com/repository/docker/atosorigin/bull-sequana-edge-zabbix-server
+ 
+![#9ECBFF](https://placehold.it/15/9ECBFF/000000?text=+) Best Practice: remove useless install, stop and start scripts
+
+![#f03c15](https://placehold.it/15/f03c15/000000?text=+) Warning: atosorigin dockerhub images have no warranty, do not use in production
 
 ### enable automatic inventory by default
 1. Go to Administration / General / Others

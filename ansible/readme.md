@@ -89,30 +89,31 @@ By default, the following proxy environment variables are copied in AWX docker c
 For more details, read the [How to change my Proxy](#howto_proxy)
 
 ### launch installer
-First clone this repository  
+First download zip or clone the github repository  
 
 ![alt text](https://github.com/atosorigin/bullsequana-edge-system-management/blob/master/ansible/doc/git_clone.png)
 
 if you copy this repository, just type:   
 ```
-git clone <paste here>
+git clone https://github.com/atosorigin/bullsequana-edge-system-management.git
 ```
 
-if you zip this repository, just type:   
+if you zip the repository, just type:   
 ```
-unzip <your_repo_zip>
+unzip <your_downloaded_zip>
 ```
 
-Bull Sequana Edge Ansible Extensions has three AWX installers  
+Bull Sequana Edge Ansible Extensions has two AWX installers and an option to try it  
 Just choose your favorite installation for your environment  
-`<install_dir>/install.sh` it will install Ansible and Zabbix Bull Sequana Edge Extensions at once => use **stop.sh** and **start.sh** after  
-`<install_dir>/install_awx.sh` it will build and run docker containers from your local Dockerfile that you can adapt as needed => use **stop_awx.sh** and **start_awx.sh** after  
-`<install_dir>/install_awx_from_dockerhub.sh` install dockerhub atosorigin dockerhub images, you cannot adapt the local Dockerfiles but you will inherit image updates => use **stop_awx_from_dockerhub.sh*** and **start_awx_from_dockerhub.sh** after  
+`local: <install_dir>/install_playbooks_and_plugins.sh` it will copy Ansible playbooks and modules in default Ansible environment, mainly dedicated to an existing Ansible/AWX environment  
+`full: <install_dir>/install.sh` it will build and install Ansible and Zabbix Bull Sequana Edge Extensions docker containers at once from your local Dockerfiles => use **stop.sh** and **start.sh** after  
+`partial: <install_dir>/install_awx.sh` it will build and install only Ansible/AWX docker containers from your local Dockerfiles that you can adapt as needed => use **stop_awx.sh** and **start_awx.sh** after  
+`try it: <install_dir>/install_awx_from_dockerhub.sh` mainly dedicated to try bullsequana edge system management tool, it install dockerhub atosorigin images, you cannot adapt the local Dockerfiles => use **stop_awx_from_dockerhub.sh*** and **start_awx_from_dockerhub.sh** after  
 For more information about dockerhub installation Visit https://hub.docker.com/repository/docker/atosorigin/bull-sequana-edge-awx-web
  
 ![#9ECBFF](https://placehold.it/15/9ECBFF/000000?text=+) Best Practice: remove useless install, stop and start scripts
 
-![#f03c15](https://placehold.it/15/f03c15/000000?text=+) Warning: Do not use direct images in production, prefer second method and choose a stable version instead of *latest*
+![#f03c15](https://placehold.it/15/f03c15/000000?text=+) Warning: atosorigin dockerhub images have no warranty, do not use in production
 
 ### access your dashboard
 run a browser with: ` https://<your_server>`  
