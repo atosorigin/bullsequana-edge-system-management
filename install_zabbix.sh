@@ -19,13 +19,9 @@ fi
 
 echo $timezone
 
-export MISM_BULLSEQUANA_EDGE_VERSION=2.0.1
-
-export ZABBIX_BULLSEQUANA_EDGE_VERSION=centos-4.4.1
-export POSTGRES_ZABBIX_BULLSEQUANA_EDGE_VERSION=12.0-alpine
-
-echo "building BullSequana Edge Zabbix containers ...."
-#docker-compose -f docker-compose-zabbix.yml build
+export NO_PROXY=$NO_PROXY
+export HTTP_PROXY=$HTTP_PROXY
+export HTTPS_PROXY=$HTTPS_PROXY
 
 echo "starting BullSequana Edge Zabbix containers ...."
 docker-compose -f docker-compose-zabbix.yml up -d

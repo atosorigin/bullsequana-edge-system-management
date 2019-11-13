@@ -22,8 +22,6 @@ else  # compare files by contents
 fi
 
 echo $timezone
-export MISM_BULLSEQUANA_EDGE_VERSION=2.0.1
-export POSTGRES_ZABBIX_BULLSEQUANA_EDGE_VERSION=12.0-alpine
 
 echo "starting BullSequana Edge Zabbix containers ...."
 docker-compose -f docker-compose-zabbix-from-dockerhub.yml up -d
