@@ -1,9 +1,7 @@
-ARG ZABBIX_BULLSEQUANA_EDGE_VERSION
 #set base image 
-FROM zabbix/zabbix-web-nginx-pgsql:$ZABBIX_BULLSEQUANA_EDGE_VERSION
+FROM zabbix/zabbix-web-nginx-pgsql:latest
 
-ARG MISM_BULLSEQUANA_EDGE_VERSION
-ENV MISM_BULLSEQUANA_EDGE_VERSION=$MISM_BULLSEQUANA_EDGE_VERSION
+ENV MISM_BULLSEQUANA_EDGE_VERSION=latest
 
 COPY items.inc.php /usr/share/zabbix/include/
 COPY logo-header.svg /usr/share/zabbix/assets/img/

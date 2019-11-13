@@ -1,9 +1,10 @@
 version: '3.6'
 services:
   zabbix-server:
+    image: bullsequana-edge-system-management_zabbix-server:${MISM_BULLSEQUANA_EDGE_VERSION}
     build:
       context: Dockerfiles
-      dockerfile: Dockerfile-zabbix
+      dockerfile: Dockerfile-zabbix.${MISM_BULLSEQUANA_EDGE_VERSION}
       args:
         MISM_BULLSEQUANA_EDGE_VERSION: ${MISM_BULLSEQUANA_EDGE_VERSION}
         ZABBIX_BULLSEQUANA_EDGE_VERSION: ${ZABBIX_BULLSEQUANA_EDGE_VERSION}
@@ -41,9 +42,10 @@ services:
       PHP_TZ: ${timezone}
 
   zabbix-web:
+    image: bullsequana-edge-system-management_zabbix-web:${MISM_BULLSEQUANA_EDGE_VERSION}
     build:
       context: Dockerfiles
-      dockerfile: Dockerfile-zabbix-web
+      dockerfile: Dockerfile-zabbix-web.${MISM_BULLSEQUANA_EDGE_VERSION}
       args:
         MISM_BULLSEQUANA_EDGE_VERSION: ${MISM_BULLSEQUANA_EDGE_VERSION}
         ZABBIX_BULLSEQUANA_EDGE_VERSION: ${ZABBIX_BULLSEQUANA_EDGE_VERSION}
@@ -68,9 +70,10 @@ services:
       - zabbix-server:zabbix-server
   
   zabbix-agent:
+    image: bullsequana-edge-system-management_zabbix-agent:${MISM_BULLSEQUANA_EDGE_VERSION}
     build:
       context: Dockerfiles
-      dockerfile: Dockerfile-zabbix-agent
+      dockerfile: Dockerfile-zabbix-agent.${MISM_BULLSEQUANA_EDGE_VERSION}
       args:
         MISM_BULLSEQUANA_EDGE_VERSION: ${MISM_BULLSEQUANA_EDGE_VERSION}
         ZABBIX_BULLSEQUANA_EDGE_VERSION: ${ZABBIX_BULLSEQUANA_EDGE_VERSION}

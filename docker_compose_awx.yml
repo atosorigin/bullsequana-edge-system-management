@@ -2,9 +2,10 @@ version: '3.6'
 services:
 
   awx_web:
+    image: bullsequana-edge-system-management_awx_web:${MISM_BULLSEQUANA_EDGE_VERSION}
     build: 
       context: Dockerfiles
-      dockerfile: Dockerfile-awx_web
+      dockerfile: Dockerfile-awx_web.${MISM_BULLSEQUANA_EDGE_VERSION}
       args:
         MISM_BULLSEQUANA_EDGE_VERSION: ${MISM_BULLSEQUANA_EDGE_VERSION}
         AWX_BULLSEQUANA_EDGE_VERSION: ${AWX_BULLSEQUANA_EDGE_VERSION}
@@ -40,9 +41,10 @@ services:
       NO_PROXY: ${NO_PROXY}
 
   awx_task:
+    image: bullsequana-edge-system-management_awx_task:${MISM_BULLSEQUANA_EDGE_VERSION}
     build: 
       context: Dockerfiles
-      dockerfile: Dockerfile-awx_task
+      dockerfile: Dockerfile-awx_task.${MISM_BULLSEQUANA_EDGE_VERSION}
       args:
         MISM_BULLSEQUANA_EDGE_VERSION: ${MISM_BULLSEQUANA_EDGE_VERSION}
         AWX_BULLSEQUANA_EDGE_VERSION: ${AWX_BULLSEQUANA_EDGE_VERSION}
@@ -121,7 +123,7 @@ services:
     ports:
       - 7070:80
     volumes:
-      - ./pgadmin:/var/lib/pgadmin/storage:Z
+      - ./ansible/pgadmin:/var/lib/pgadmin/storage:Z
     env_file:
       - Dockerfiles/ansible.env
 

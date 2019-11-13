@@ -1,18 +1,15 @@
-ARG ZABBIX_BULLSEQUANA_EDGE_VERSION
 #set base image 
-FROM zabbix/zabbix-server-pgsql:$ZABBIX_BULLSEQUANA_EDGE_VERSION
+FROM zabbix/zabbix-agent:centos-4.4.1
 
 USER root 
 
 ARG MISM_BULLSEQUANA_EDGE_VERSION
-ENV MISM_BULLSEQUANA_EDGE_VERSION=$MISM_BULLSEQUANA_EDGE_VERSION
+ENV MISM_BULLSEQUANA_EDGE_VERSION=2.0.1
 
 ENV PYTHONWARNINGS="ignore:Unverified HTTPS request"
 
 # security
 # COPY zabbix_server.conf /etc/zabbix
-
-WORKDIR /usr/lib/zabbix/externalscripts
 
 RUN yum -y install epel-release && yum clean all
 RUN yum -y install gcc

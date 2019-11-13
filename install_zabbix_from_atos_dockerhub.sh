@@ -1,5 +1,9 @@
 #!/bin/sh
 
+export NO_PROXY=$NO_PROXY
+export HTTP_PROXY=$HTTP_PROXY
+export HTTPS_PROXY=$HTTPS_PROXY
+
 chmod uo+w zabbix/server/externalscripts/openbmc
 
 set -euo pipefail
@@ -19,15 +23,12 @@ fi
 
 echo $timezone
 
-export NO_PROXY=$NO_PROXY
-export HTTP_PROXY=$HTTP_PROXY
-export HTTPS_PROXY=$HTTPS_PROXY
-
 echo "starting BullSequana Edge Zabbix containers ...."
-docker-compose -f docker-compose-zabbix.yml up -d
+docker-compose -f docker_compose_zabbix_from_atos_dockerhub.yml up -d
+
 echo "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
-echo "Zabbix is available on https://localhost:4443"
-echo "for more info, refer to documentation"
+echo "check the login page at https://localhost:4443"
+echo "for more info, refer to github https://github.com/atosorigin/bullsequana-edge-system-management/tree/master/zabbix"
 echo "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
 
 
