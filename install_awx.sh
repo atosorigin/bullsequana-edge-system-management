@@ -12,7 +12,7 @@ export PGADMIN_AWX_BULLSEQUANA_EDGE_VERSION=4.14
 export MEMCACHED_AWX_BULLSEQUANA_EDGE_VERSION=1.5.20-alpine
 
 echo "starting BullSequana Edge Ansible AWX containers ...."
-docker-compose -f docker_compose_awx_from_awx_dockerhub.yml up -d
+docker-compose -f docker_compose_awx.yml up -d
 
 echo "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
 echo "now wait 10 minutes for the migration to complete...."

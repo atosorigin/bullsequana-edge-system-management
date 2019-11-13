@@ -23,8 +23,12 @@ export NO_PROXY=$NO_PROXY
 export HTTP_PROXY=$HTTP_PROXY
 export HTTPS_PROXY=$HTTPS_PROXY
 
+export MISM_BULLSEQUANA_EDGE_VERSION=2.0.1
+export ZABBIX_BULLSEQUANA_EDGE_VERSION=centos-4.4.1
+export POSTGRES_ZABBIX_BULLSEQUANA_EDGE_VERSION=12.0-alpine
+
 echo "starting BullSequana Edge Zabbix containers ...."
-docker-compose -f docker_compose_zabbix_from_zabbix_dockerhub.yml up -d
+docker-compose -f docker_compose_zabbix.yml up -d
 echo "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
 echo "Zabbix is available on https://localhost:4443"
 echo "for more info, refer to documentation"
