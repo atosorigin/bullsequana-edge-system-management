@@ -103,12 +103,12 @@ if you zip the repository, just type:
 unzip <your_downloaded_zip>
 ```
 
-Bull Sequana Edge Ansible Extensions has two AWX installers and an option to try it  
+Bull Sequana Edge Ansible Extensions has 3 AWX installers and an option to try it  
 Just choose your favorite installation for your environment  
-`local: <install_dir>/install_playbooks_and_plugins.sh` it will copy Ansible playbooks and modules in default Ansible environment, mainly dedicated to an existing Ansible/AWX environment  
+`local: <install_dir>/install_playbooks_and_plugins.sh` it will copy Ansible playbooks and plugins in default Ansible environment, mainly dedicated to an existing Ansible/AWX environment  
 `full: <install_dir>/install.sh` it will build and install Ansible and Zabbix Bull Sequana Edge Extensions docker containers at once from your local Dockerfiles => use **stop.sh** and **start.sh** after  
 `partial: <install_dir>/install_awx.sh` it will build and install only Ansible/AWX docker containers from your local Dockerfiles that you can adapt as needed => use **stop_awx.sh** and **start_awx.sh** after  
-`try it: <install_dir>/install_awx_from_dockerhub.sh` mainly dedicated to try bullsequana edge system management tool, it install dockerhub atosorigin images, you cannot adapt the local Dockerfiles => use **stop_awx_from_dockerhub.sh*** and **start_awx_from_dockerhub.sh** after  
+`try it: <install_dir>/install_awx_from_dockerhub.sh` mainly dedicated to try bullsequana edge system management tool, it will install dockerhub atosorigin images, you cannot adapt the local Dockerfiles => use **stop_awx_from_dockerhub.sh*** and **start_awx_from_dockerhub.sh** after  
 For more information about dockerhub installation Visit https://hub.docker.com/repository/docker/atosorigin/bull-sequana-edge-awx-web
  
 ![#9ECBFF](https://placehold.it/15/9ECBFF/000000?text=+) Best Practice: remove useless install, stop and start scripts

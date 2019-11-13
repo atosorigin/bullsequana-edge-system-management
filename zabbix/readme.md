@@ -63,7 +63,7 @@ Just choose your favorite installation for your environment
 `local: import zabbix/server/external_scripts/ templates`: you can import Atos templates in your Zabbix environment if you have an existing Zabbix installation  
 `full: <install_dir>/install.sh` it will build and install Ansible and Zabbix Bull Sequana Edge Extensions docker containers at once from your local Dockerfiles => use **stop.sh** and **start.sh** after  
 `partial: <install_dir>/install_zabbix.sh` it will build and install only Zabbix docker containers from your local Dockerfiles that you can adapt as needed => use **stop_zabbix.sh** and **start_zabbix.sh** after  
-`try it: <install_dir>/install_zabbix_from_dockerhub.sh` mainly dedicated to try bullsequana edge system management tool, it install dockerhub atosorigin images, you cannot adapt the local Dockerfiles => use **stop_zabbix_from_dockerhub.sh*** and **start_zabbix_from_dockerhub.sh** after  
+`try it: <install_dir>/install_zabbix_from_dockerhub.sh` mainly dedicated to try bullsequana edge system management tool, it will install dockerhub atosorigin images, you cannot adapt the local Dockerfiles => use **stop_zabbix_from_dockerhub.sh*** and **start_zabbix_from_dockerhub.sh** after  
 For more information about dockerhub installation Visit https://hub.docker.com/repository/docker/atosorigin/bull-sequana-edge-zabbix-server
  
 ![#9ECBFF](https://placehold.it/15/9ECBFF/000000?text=+) Best Practice: remove useless install, stop and start scripts
@@ -83,7 +83,8 @@ For more information about dockerhub installation Visit https://hub.docker.com/r
 Visible name : Zabbix Server
 4. Enter name with a minus '-'
 Host Name    : zabbix-server
-5. ![#c5f015](https://placehold.it/15/c5f015/000000?text=+) => stop and start docker containers
+
+![#c5f015](https://placehold.it/15/c5f015/000000?text=+) => stop and start zabbix docker containers
 
 ![#f03c15](https://placehold.it/15/f03c15/000000?text=+) !!! very important !!!
 you should first rename your Zabbix Server
