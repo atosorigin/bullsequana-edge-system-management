@@ -5,9 +5,6 @@ services:
     build:
       context: Dockerfiles
       dockerfile: Dockerfile-zabbix.${MISM_BULLSEQUANA_EDGE_VERSION}
-      args:
-        MISM_BULLSEQUANA_EDGE_VERSION: ${MISM_BULLSEQUANA_EDGE_VERSION}
-        ZABBIX_BULLSEQUANA_EDGE_VERSION: ${ZABBIX_BULLSEQUANA_EDGE_VERSION}
     ports:
       - 10051:10051
     expose: 
@@ -46,9 +43,6 @@ services:
     build:
       context: Dockerfiles
       dockerfile: Dockerfile-zabbix-web.${MISM_BULLSEQUANA_EDGE_VERSION}
-      args:
-        MISM_BULLSEQUANA_EDGE_VERSION: ${MISM_BULLSEQUANA_EDGE_VERSION}
-        ZABBIX_BULLSEQUANA_EDGE_VERSION: ${ZABBIX_BULLSEQUANA_EDGE_VERSION}
     restart: always    
     container_name: zabbix-web
     env_file:
@@ -74,9 +68,6 @@ services:
     build:
       context: Dockerfiles
       dockerfile: Dockerfile-zabbix-agent.${MISM_BULLSEQUANA_EDGE_VERSION}
-      args:
-        MISM_BULLSEQUANA_EDGE_VERSION: ${MISM_BULLSEQUANA_EDGE_VERSION}
-        ZABBIX_BULLSEQUANA_EDGE_VERSION: ${ZABBIX_BULLSEQUANA_EDGE_VERSION}
     ports:
       - 10050:10050
     expose: 
