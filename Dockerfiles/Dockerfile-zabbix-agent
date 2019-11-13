@@ -1,9 +1,9 @@
 #set base image 
-FROM zabbix/zabbix-agent:latest
+FROM zabbix/zabbix-agent:centos-4.4.1
 
 USER root 
 
-ENV MISM_BULLSEQUANA_EDGE_VERSION=latest
+ENV MISM_BULLSEQUANA_EDGE_VERSION=2.0.1
 
 ENV PYTHONWARNINGS="ignore:Unverified HTTPS request"
 
