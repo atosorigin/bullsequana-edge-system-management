@@ -81,7 +81,7 @@ services:
       - Dockerfiles/ansible.env
 
   memcached:
-    image: memcached:alpine
+    image: memcached:${MEMCACHED_AWX_BULLSEQUANA_EDGE_VERSION}
     container_name: awx_memcached
     restart: unless-stopped
 
