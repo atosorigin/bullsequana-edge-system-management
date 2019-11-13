@@ -1,12 +1,9 @@
-ARG AWX_BULLSEQUANA_EDGE_VERSION
-
 #set base image 
-FROM ansible/awx_web:$AWX_BULLSEQUANA_EDGE_VERSION
+FROM ansible/awx_web:latest
 
 USER root 
 
-ARG MISM_BULLSEQUANA_EDGE_VERSION
-ENV MISM_BULLSEQUANA_EDGE_VERSION=$MISM_BULLSEQUANA_EDGE_VERSION
+ENV MISM_BULLSEQUANA_EDGE_VERSION=latest
 
 # security
 COPY ansible.credentials.py /etc/tower/conf.d/credentials.py
