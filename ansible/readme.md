@@ -22,7 +22,7 @@ Optionaly, 2 ready-to-go AWX-Ansible images are available on Dockerhub
 - [BullSequana Edge Playbooks](#playbooks)
 - [What to do first on AWX](#what_awx)
 - [What to do first on Ansible](#what_ansible)
-- [How to log on a docker container](#howto_docker_logon)<
+- [How to log on a docker container](#howto_docker_logon)
 - [How to manage encrypted passwords](#howto_manage_password)
 - [How to change my proxy](#howto_proxy)
 - [How to change technical states file path](#howto_ts)

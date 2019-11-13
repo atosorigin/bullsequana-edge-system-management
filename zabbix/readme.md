@@ -248,6 +248,9 @@ If ever you start docker containers after loading the rsyslog template :
 
 `rm -rf /var/log/rsyslog`
 
+and check that the file exists BEFORE loading rsyslog template
+`ls /var/log|grep rsyslog`
+
 ### activate udp/tcp rsyslog port
 In /etc/rsyslog.conf file, uncomment or copy the following lines:
 ```
@@ -310,20 +313,23 @@ systemctl start rsyslog
 ```
 
 ### rsyslog from the bmc 
-` ssh user@<my_bmc>`
-with telnet to check port opening:
-` telnet <my_rsyslog_server_ip> <my_rsyslog_port>`
+log on to your bmc : ` ssh user@<my_bmc>`  
 
-with logger command:
-` logger -n <my_rsyslog_server_ip> 'here is a test log message from <my_rsyslog_server_ip>'`
+with journalctl:  
+` journalctl -r`  
+
+with telnet to check port opening:  
+` telnet <my_rsyslog_server_ip> <my_rsyslog_port>`  
+
+with logger command:  
+` logger 'here is a test log message from <my_rsyslog_server_ip>'`  
 
 More information: Vist https://www.tecmint.com/install-rsyslog-centralized-logging-in-centos-ubuntu/
 
 ### flush iptables
 If telnet is not working but the ping is working : iptables rules could be the issue  
 You can flush the iptables rules   
-![#f03c15](https://placehold.it/15/f03c15/000000?text=+) Be careful to be able to recreate itables rules after this command
-` iptables -F `
+![#f03c15](https://placehold.it/15/f03c15/000000?text=+) Be careful to be able to recreate iptables rules after this command ` iptables -F `
 
 ## <a name="howto_proxy"></a>How to change my Proxy
 By default, when you start the installer, the proxy environment variables are copied in containers thanks to the following section in docker-compose-zabbix.yml file:
