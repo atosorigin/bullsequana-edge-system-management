@@ -1,13 +1,14 @@
 #!/bin/sh
 
 echo "stopping bullsequana edge system management containers ...."
-docker-compose -f docker_compose_awx.yml down
-docker-compose -f docker_compose_zabbix.yml down
-docker-compose -f docker_compose_awx_from_atos_dockerhub.yml down
-docker-compose -f docker_compose_zabbix_from_atos_dockerhub.yml down
+docker-compose -f docker_compose_awx.yml down --remove-orphans
+docker-compose -f docker_compose_zabbix.yml down  --remove-orphans
+docker-compose -f docker_compose_awx_from_atos_dockerhub.yml down --remove-orphans
+docker-compose -f docker_compose_zabbix_from_atos_dockerhub.yml down --remove-orphans
 
 echo "removing bullsequana edge system management images ...."
 docker rmi -f `docker images |grep 'bullsequana-edge-system-management' |awk '{ print $3; }'`
+docker rmi -f `docker images |grep 'bull-sequana-edge' |awk '{ print $3; }'`
 docker rmi -f `docker images |grep 'ansible/awx' |awk '{ print $3; }'`
 docker rmi -f `docker images |grep 'zabbix/zabbix' |awk '{ print $3; }'`
 docker rmi -f `docker images |grep 'rabbitmq' |awk '{ print $3; }'`
