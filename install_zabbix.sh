@@ -24,11 +24,52 @@ export HTTP_PROXY=$HTTP_PROXY
 export HTTPS_PROXY=$HTTPS_PROXY
 
 export MISM_BULLSEQUANA_EDGE_VERSION=2.0.1
+export MISM_TAG_BULLSEQUANA_EDGE_VERSION=tag
 export ZABBIX_BULLSEQUANA_EDGE_VERSION=centos-4.4.1
 export POSTGRES_ZABBIX_BULLSEQUANA_EDGE_VERSION=12.0-alpine
 
+export docker_image=`docker images |grep 'bullsequana-edge-system-management_zabbix-web' |awk '{ print $3; }'`
+if [ -z "$docker_image" ] 
+then
+  if [ -f bullsequana-edge-system-management_zabbix-web.$MISM_BULLSEQUANA_EDGE_VERSION.tar ]
+  then
+    echo "loading Zabbix web image ...."
+    docker load --input bullsequana-edge-system-management_zabbix-web.$MISM_BULLSEQUANA_EDGE_VERSION.tar
+  fi
+fi
+
+export docker_image=`docker images |grep 'bullsequana-edge-system-management_zabbix-server' |awk '{ print $3; }'`
+if [ -z "$docker_image" ] 
+then
+  if [ -f bullsequana-edge-system-management_zabbix-server.$MISM_BULLSEQUANA_EDGE_VERSION.tar ]
+  then
+    echo "loading Zabbix server image ...."
+    docker load --input bullsequana-edge-system-management_zabbix-server.$MISM_BULLSEQUANA_EDGE_VERSION.tar
+  fi
+fi
+
+export docker_image=`docker images |grep 'bullsequana-edge-system-management_zabbix-agent' |awk '{ print $3; }'`
+if [ -z "$docker_image" ] 
+then
+  if [ -f bullsequana-edge-system-management_zabbix-agent.$MISM_BULLSEQUANA_EDGE_VERSION.tar ]
+  then
+    echo "loading Zabbix task image ...."
+    docker load --input bullsequana-edge-system-management_zabbix-agent.$MISM_BULLSEQUANA_EDGE_VERSION.tar
+  fi
+fi
+
+export docker_image=`docker images |grep 'postgres' |awk '{ print $3; }'`
+if [ -z "$docker_image" ] 
+then
+  if [ -f postgres.$MISM_BULLSEQUANA_EDGE_VERSION.tar ]
+  then
+    echo "loading postgres $MISM_BULLSEQUANA_EDGE_VERSION image ...."
+    docker load --input postgres.$MISM_BULLSEQUANA_EDGE_VERSION.tar
+  fi
+fi
+
 echo "starting BullSequana Edge Zabbix containers ...."
-docker-compose -f docker_compose_zabbix.yml up -d
+docker-compose -f docker_compose_zabbix.yml up
 echo "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
 echo "Zabbix is available on https://localhost:4443"
 echo "for more info, refer to documentation"

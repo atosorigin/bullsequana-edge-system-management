@@ -5,7 +5,7 @@ services:
     image: bullsequana-edge-system-management_awx_web:${MISM_BULLSEQUANA_EDGE_VERSION}
     build: 
       context: Dockerfiles
-      dockerfile: Dockerfile-awx_web.${MISM_BULLSEQUANA_EDGE_VERSION}
+      dockerfile: Dockerfile-awx_web.${MISM_TAG_BULLSEQUANA_EDGE_VERSION}
     container_name: awx_web
     depends_on:
       - rabbitmq
@@ -41,7 +41,7 @@ services:
     image: bullsequana-edge-system-management_awx_task:${MISM_BULLSEQUANA_EDGE_VERSION}
     build: 
       context: Dockerfiles
-      dockerfile: Dockerfile-awx_task.${MISM_BULLSEQUANA_EDGE_VERSION}
+      dockerfile: Dockerfile-awx_task.${MISM_TAG_BULLSEQUANA_EDGE_VERSION}
     container_name: awx_task
     depends_on:
       - rabbitmq

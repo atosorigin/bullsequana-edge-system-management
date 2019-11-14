@@ -1,5 +1,5 @@
 #!/bin/sh
 
 echo "stopping BullSequana Edge Ansible AWX containers ...."
-docker-compose -f docker-compose-awx.yml down
+docker-compose -f docker_compose_awx.yml down
 
