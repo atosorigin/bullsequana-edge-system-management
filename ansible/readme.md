@@ -306,13 +306,14 @@ This extension can be installed:
 ### how to install ansible
 #### <a name="install_locally"></a>install ansible locally
 If you already have an Ansible installation, you can just install ansible playbooks and plugins:  
-1. install ansible 
-`yum install python3`   
+1. install python3 as a prerequisite   
+`yum install python3`  
+1. install ansible  
 `pip3 install ansible`  
-2. edit and customize *install_playbooks_and_plugins.sh* script
-The script basically copies ansible and plugins in default ansible directories  
-![#f03c15](https://placehold.it/15/f03c15/000000?text=+) If you change default ansible directories, you should adapt the script target directories as needed
-3. run the script `<install_dir>/install_playbooks_and_plugins.sh`  
+3. run the script (edit the script if you changed default ansible configuration)   
+`<install_dir>/install_playbooks_and_plugins.sh`  
+
+![#f03c15](https://placehold.it/15/f03c15/000000?text=+) Warning: If you change default ansible directories, you should adapt the script target directories as needed  
 
 Check your ansible python version:  
 `ansible --version`  
