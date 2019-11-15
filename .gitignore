@@ -1,6 +1,8 @@
 # TODO uncomment to get tar files
 *.tar
 *.gz
+bull*.zip
+bullsequana-edge-system-management-2.0.1/
 
 #ignore mism tar creation
 /mism
