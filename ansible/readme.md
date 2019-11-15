@@ -88,33 +88,36 @@ By default, the following proxy environment variables are copied in AWX docker c
 
 For more details, read the [How to change my Proxy](#howto_proxy)
 
-### launch installer
-First download zip or clone the github repository  
+### get it !
+You can get it from
+- Bull SOL (Support on line): full installation
+- get zip from this repository
+- clone this repository  
 
 ![alt text](https://github.com/atosorigin/bullsequana-edge-system-management/blob/master/ansible/doc/git_clone.png)
 
-if you copy this repository, just type:   
+from zip file, just unzip the file:  
+```
+unzip <your_zip>
+```
+
+from this repository, just clone:   
 ```
 git clone https://github.com/atosorigin/bullsequana-edge-system-management.git
 ```
 
-if you zip the repository, just type:   
-```
-unzip <your_downloaded_zip>
-```
-
+### launch installer
 Bull Sequana Edge Ansible Extensions has 3 AWX installers and an option to try it  
 Just choose your favorite installation for your environment  
-`local: <install_dir>/install_playbooks_and_plugins.sh` it will copy Ansible playbooks and plugins in default Ansible environment, mainly dedicated to an existing Ansible/AWX environment  
-`internet: <install_dir>/install_awx_from_internet.sh` it will build from internet and install Ansible/AWX docker containers with your local Dockerfiles that you can adapt as needed => use **stop_awx.sh** and **start_awx.sh** after  
-`no internet: <install_dir>/install_awx_from_tar_files.sh` it will install from tar files Ansible/AWX docker containers with your local Dockerfiles that you can adapt as needed => use **stop_awx.sh** and **start_awx.sh** after  
-`try it: <install_dir>/install_awx_from_dockerhub.sh` mainly dedicated to try bullsequana edge system management tool, it will install dockerhub atosorigin images, you cannot adapt the local Dockerfiles => use **stop_awx_from_dockerhub.sh*** and **start_awx_from_dockerhub.sh** after  
+`on existing AWX:` nothing to install: go to the next section to add playbooks and plugins  
+`from clone or zip: <install_dir>/install_awx.sh` it will build docker containers and install Ansible/AWX docker containers with your local Dockerfiles that you can adapt as needed => use **stop_awx.sh** and **start_awx.sh** after  
+`try it: <install_dir>/install_awx_from_dockerhub.sh` mainly dedicated to try bullsequana edge system management tool, it will install dockerhub atosorigin images, you cannot adapt the local Dockerfiles => use **stop_awx.sh*** and **start_awx.sh** after  
 
 For more information about dockerhub installation Visit https://hub.docker.com/repository/docker/atosorigin/bull-sequana-edge-awx-web
  
-![#9ECBFF](https://placehold.it/15/9ECBFF/000000?text=+) Best Practice: remove useless install, stop and start scripts
-
-![#f03c15](https://placehold.it/15/f03c15/000000?text=+) Warning: atosorigin dockerhub images have no warranty, do not use in production
+![#9ECBFF](https://placehold.it/15/9ECBFF/000000?text=+) Best Practice: remove useless install, stop and start scripts  
+![#f03c15](https://placehold.it/15/f03c15/000000?text=+) Warning: atosorigin dockerhub images have no warranty, do not use in production  
+![#c5f015](https://placehold.it/15/c5f015/000000?text=+) Info: if tar files are not present, images are loaded from internet  
 
 ### access your dashboard
 run a browser with: ` https://<your_server>`  
@@ -136,6 +139,8 @@ You should have now:
 - 1 Project : BullSequana Edge Playbooks
 - 1 Credential : Bull Sequana Edge Vault
 - Bull playbooks
+
+![#f03c15](https://placehold.it/15/f03c15/000000?text=+) Warning: on existing installation, tower-cli should be installed to run add_playbooks.sh
 
 ### complete your inventory first
 1. go to Inventory 
@@ -304,23 +309,22 @@ If you already have an Ansible installation, you can just install ansible playbo
 1. install ansible 
 `yum install python3`   
 `pip3 install ansible`  
-
-2. edit and customize *install_locally.sh* script
+2. edit and customize *install_playbooks_and_plugins.sh* script
 The script basically copies ansible and plugins in default ansible directories  
 ![#f03c15](https://placehold.it/15/f03c15/000000?text=+) If you change default ansible directories, you should adapt the script target directories as needed
-3. run the script `<install_dir>/install_locally.sh`  
+3. run the script `<install_dir>/install_playbooks_and_plugins.sh`  
 
 Check your ansible python version:  
 `ansible --version`  
 
-As explained in the documentation, you should force python3 interpreter:
+As explained in the documentation, you should force python3 interpreter:  
 ![alt text](https://github.com/atosorigin/bullsequana-edge-system-management/blob/master/ansible/doc/ansible_python3_interpreter.png)
 
 #### <a name="install_docker"></a>Install ansible on docker
-Bull Sequana Edge Ansible Extensions has three installers: Just choose your favorite installation for your environment
+Bull Sequana Edge Ansible Extensions has three docker installers: Just choose your favorite installation for your environment
 1. `<install_dir>/install.sh` run all (Ansible and Zabbix Bull Sequana Edge Extensions) => use stop.sh and start.sh after  
 2. `<install_dir>/install_awx.sh` build and run from local Dockerfile that you can adapt => use stop_awx.sh and start_awx.sh after  
-3. `<install_dir>/install_awx_from_dockerhub.sh` download and run atosorigin dockerhub images => use stop_awx_from_dockerhub.sh and start_awx_from_dockerhub.sh after  
+3. `<install_dir>/install_awx_from_dockerhub.sh` download and run atosorigin dockerhub images => use stop_awx.sh and start_awx.sh after  
 
 ![#9ECBFF](https://placehold.it/15/9ECBFF/000000?text=+) Best Practice: remove useless install, stop and start scripts
 

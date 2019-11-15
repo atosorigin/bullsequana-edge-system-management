@@ -29,18 +29,18 @@ docker images
 docker volume list
 
 #echo "removing ansible..."
-#rm -rf ansible
+rm -rf ansible
 #echo "removing zabbix..."
-#rm -rf zabbix
+rm -rf zabbix
 #echo "removing Dockerfiles..."
-#rm -rf Dockerfiles
+rm -rf Dockerfiles
 #echo "removing postgres backups..."
-#rm -rf ansible/pgadmin
-#rm -rf zabbix/pgadmin
+rm -rf ansible/pgadmin
+rm -rf zabbix/pgadmin
 #echo "shells"
-#rm -f *.sh
+rm -f *.sh
 #echo "yml files"
-#rm -f *.yml
+rm -f *.yml
 #echo "md files"
-#rm -f *.md
+rm -f *.md
 
