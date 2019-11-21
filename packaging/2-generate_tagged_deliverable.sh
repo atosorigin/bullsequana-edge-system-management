@@ -1,9 +1,5 @@
 #!/bin/sh
 
-unset $mism_version 
-echo Enter new version?
-read mism_version
-
 export MISM_BULLSEQUANA_EDGE_VERSION=$mism_version
 export MISM_TAG_BULLSEQUANA_EDGE_VERSION=tag
 export AWX_BULLSEQUANA_EDGE_VERSION=9.0.1
@@ -15,26 +11,9 @@ export MEMCACHED_AWX_BULLSEQUANA_EDGE_VERSION=1.5.20-alpine
 export ZABBIX_BULLSEQUANA_EDGE_VERSION=centos-4.4.1
 export POSTGRES_ZABBIX_BULLSEQUANA_EDGE_VERSION=12.0-alpine
 
-echo "delete old generation"
-# delete local tag
-git tag -d $MISM_BULLSEQUANA_EDGE_VERSION
-# delete remote tag (eg, GitHub version too)
-git push origin :refs/tags/$MISM_BULLSEQUANA_EDGE_VERSION
+cd /var/livraisons/$MISM_BULLSEQUANA_EDGE_VERSION-bullsequana-edge-system-management/bullsequana-edge-system-management
 
-cd /var
-rm -rf /var/livraisons/$MISM_BULLSEQUANA_EDGE_VERSION-bullsequana-edge-system-management
-mkdir /var/livraisons/$MISM_BULLSEQUANA_EDGE_VERSION-bullsequana-edge-system-management
-cd /var/livraisons/$MISM_BULLSEQUANA_EDGE_VERSION-bullsequana-edge-system-management
-
-git clone https://github.com/atosorigin/bullsequana-edge-system-management.git
-
-cd bullsequana-edge-system-management
-
-git tag $MISM_BULLSEQUANA_EDGE_VERSION
-git push origin master --tags
-
-git checkout $MISM_BULLSEQUANA_EDGE_VERSION
-
+echo "docker atos"
 docker save -o bullsequana-edge-system-management_zabbix-web.$MISM_BULLSEQUANA_EDGE_VERSION.tar bullsequana-edge-system-management_zabbix-web:$MISM_BULLSEQUANA_EDGE_VERSION
 docker save -o bullsequana-edge-system-management_zabbix-agent.$MISM_BULLSEQUANA_EDGE_VERSION.tar bullsequana-edge-system-management_zabbix-agent:$MISM_BULLSEQUANA_EDGE_VERSION
 docker save -o bullsequana-edge-system-management_zabbix-server.$MISM_BULLSEQUANA_EDGE_VERSION.tar bullsequana-edge-system-management_zabbix-server:$MISM_BULLSEQUANA_EDGE_VERSION
@@ -50,7 +29,7 @@ docker save -o zabbix-agent.$MISM_BULLSEQUANA_EDGE_VERSION.tar zabbix/zabbix-age
 docker save -o postgres.$MISM_BULLSEQUANA_EDGE_VERSION.tar postgres:$POSTGRES_AWX_BULLSEQUANA_EDGE_VERSION
 docker save -o pgadmin4.$MISM_BULLSEQUANA_EDGE_VERSION.tar dpage/pgadmin4:$PGADMIN_AWX_BULLSEQUANA_EDGE_VERSION
 
-rm mism.$MISM_BULLSEQUANA_EDGE_VERSION.tar.gz
+rm -f mism.$MISM_BULLSEQUANA_EDGE_VERSION.tar.gz
 
 tar -czvf mism.$MISM_BULLSEQUANA_EDGE_VERSION.tar.gz *
 
