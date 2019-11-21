@@ -1,5 +1,6 @@
 #!/bin/sh
 
+unset $mism_version 
 echo Enter new version?
 read mism_version
 
@@ -14,9 +15,16 @@ export MEMCACHED_AWX_BULLSEQUANA_EDGE_VERSION=1.5.20-alpine
 export ZABBIX_BULLSEQUANA_EDGE_VERSION=centos-4.4.1
 export POSTGRES_ZABBIX_BULLSEQUANA_EDGE_VERSION=12.0-alpine
 
+echo "delete old generation"
+# delete local tag
+git tag -d $MISM_BULLSEQUANA_EDGE_VERSION
+# delete remote tag (eg, GitHub version too)
+git push origin :refs/tags/$MISM_BULLSEQUANA_EDGE_VERSION
+
 cd /var
-rm /var/$MISM_TAG_BULLSEQUANA_EDGE_VERSION-bullsequana-edge-system-management
-cd /var/$MISM_TAG_BULLSEQUANA_EDGE_VERSION-bullsequana-edge-system-management
+rm -rf /var/livraisons/$MISM_BULLSEQUANA_EDGE_VERSION-bullsequana-edge-system-management
+mkdir /var/livraisons/$MISM_BULLSEQUANA_EDGE_VERSION-bullsequana-edge-system-management
+cd /var/livraisons/$MISM_BULLSEQUANA_EDGE_VERSION-bullsequana-edge-system-management
 
 git clone https://github.com/atosorigin/bullsequana-edge-system-management.git
 
