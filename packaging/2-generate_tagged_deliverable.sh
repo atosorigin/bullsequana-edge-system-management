@@ -1,5 +1,10 @@
 #!/bin/sh
 
+
+unset $mism_version 
+echo Enter new version ?
+read mism_version
+
 export MISM_BULLSEQUANA_EDGE_VERSION=$mism_version
 export MISM_TAG_BULLSEQUANA_EDGE_VERSION=tag
 export AWX_BULLSEQUANA_EDGE_VERSION=9.0.1

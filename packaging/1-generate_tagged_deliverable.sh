@@ -1,7 +1,7 @@
 #!/bin/sh
 
 unset $mism_version 
-echo Enter new version?
+echo Enter new version ?
 read mism_version
 
 export MISM_BULLSEQUANA_EDGE_VERSION=$mism_version
