@@ -1,6 +1,5 @@
 #!/bin/sh
 
-
 unset $mism_version 
 echo Enter new version ?
 read mism_version
@@ -16,9 +15,37 @@ export MEMCACHED_AWX_BULLSEQUANA_EDGE_VERSION=1.5.20-alpine
 export ZABBIX_BULLSEQUANA_EDGE_VERSION=centos-4.4.1
 export POSTGRES_ZABBIX_BULLSEQUANA_EDGE_VERSION=12.0-alpine
 
-cd /var/livraisons/$MISM_BULLSEQUANA_EDGE_VERSION-bullsequana-edge-system-management/bullsequana-edge-system-management
+echo "git add all"
 
-echo "docker atos"
+git add . --all
+git commit -m "deliverable $MISM_BULLSEQUANA_EDGE_VERSION"
+git push
+
+echo "delete old generation"
+# delete local tag
+git tag -d $MISM_BULLSEQUANA_EDGE_VERSION
+# delete remote tag (eg, GitHub version too)
+git push origin :refs/tags/$MISM_BULLSEQUANA_EDGE_VERSION
+
+rm -rf /var/livraisons/$MISM_BULLSEQUANA_EDGE_VERSION-bullsequana-edge-system-management
+mkdir /var/livraisons/$MISM_BULLSEQUANA_EDGE_VERSION-bullsequana-edge-system-management
+cd /var/livraisons/$MISM_BULLSEQUANA_EDGE_VERSION-bullsequana-edge-system-management
+
+echo "git clone atos"
+git clone https://github.com/atosorigin/bullsequana-edge-system-management.git
+
+cd bullsequana-edge-system-management
+
+echo "git tag $MISM_BULLSEQUANA_EDGE_VERSION"
+git tag $MISM_BULLSEQUANA_EDGE_VERSION
+git push origin master --tags
+git checkout $MISM_BULLSEQUANA_EDGE_VERSION
+
+echo "building images tag $MISM_BULLSEQUANA_EDGE_VERSION"
+docker-compose -f docker_compose_awx.yml build --no-cache
+docker-compose -f docker_compose_zabbix.yml build --no-cache
+
+echo "docker save tag $MISM_BULLSEQUANA_EDGE_VERSION"
 docker save -o bullsequana-edge-system-management_zabbix-web.$MISM_BULLSEQUANA_EDGE_VERSION.tar bullsequana-edge-system-management_zabbix-web:$MISM_BULLSEQUANA_EDGE_VERSION
 docker save -o bullsequana-edge-system-management_zabbix-agent.$MISM_BULLSEQUANA_EDGE_VERSION.tar bullsequana-edge-system-management_zabbix-agent:$MISM_BULLSEQUANA_EDGE_VERSION
 docker save -o bullsequana-edge-system-management_zabbix-server.$MISM_BULLSEQUANA_EDGE_VERSION.tar bullsequana-edge-system-management_zabbix-server:$MISM_BULLSEQUANA_EDGE_VERSION
@@ -36,6 +63,9 @@ docker save -o pgadmin4.$MISM_BULLSEQUANA_EDGE_VERSION.tar dpage/pgadmin4:$PGADM
 
 rm -f mism.$MISM_BULLSEQUANA_EDGE_VERSION.tar.gz
 
+echo "docker tar $MISM_BULLSEQUANA_EDGE_VERSION"
 tar -czvf mism.$MISM_BULLSEQUANA_EDGE_VERSION.tar.gz *
+echo "terminated : docker mism.$MISM_BULLSEQUANA_EDGE_VERSION.tar.gz file generated in /var/livraisons/$MISM_BULLSEQUANA_EDGE_VERSION-bullsequana-edge-system-management"
+
 
 
