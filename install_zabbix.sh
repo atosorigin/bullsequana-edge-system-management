@@ -1,5 +1,9 @@
 #!/bin/sh
 
+export NO_PROXY=$NO_PROXY
+export HTTP_PROXY=$HTTP_PROXY
+export HTTPS_PROXY=$HTTPS_PROXY
+
 chmod uo+w zabbix/server/externalscripts/openbmc
 
 set -euo pipefail
@@ -18,10 +22,6 @@ else  # compare files by contents
 fi
 
 echo $timezone
-
-export NO_PROXY=$NO_PROXY
-export HTTP_PROXY=$HTTP_PROXY
-export HTTPS_PROXY=$HTTPS_PROXY
 
 export MISM_BULLSEQUANA_EDGE_VERSION=2.0.1
 export MISM_TAG_BULLSEQUANA_EDGE_VERSION=tag
