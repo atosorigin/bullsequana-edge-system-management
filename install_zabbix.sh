@@ -69,7 +69,7 @@ then
 fi
 
 echo "starting BullSequana Edge Zabbix containers ...."
-docker-compose -f docker_compose_zabbix.yml up
+docker-compose -f docker_compose_zabbix.yml up -d
 echo "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
 echo "Zabbix is available on https://localhost:4443"
 echo "for more info, refer to documentation"

@@ -6,6 +6,8 @@ cd /var/bullsequana-edge-system-management/
 cp -r /var/mism/* .
 cp /var/mism/.gitignore .
 rm -rf /var/bullsequana-edge-system-management/cli
+rm -rf /var/bullsequana-edge-system-management/ansible/pgdata
+rm -rf /var/bullsequana-edge-system-management/zabbix/pgdata
 
 git add . --all
 git commit -m "synchro with bitbucket $MISM_BULLSEQUANA_EDGE_VERSION"
