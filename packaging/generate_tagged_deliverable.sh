@@ -21,12 +21,6 @@ git add . --all
 git commit -m "deliverable $MISM_BULLSEQUANA_EDGE_VERSION"
 git push
 
-echo "delete old generation"
-# delete local tag
-git tag -d $MISM_BULLSEQUANA_EDGE_VERSION
-# delete remote tag (eg, GitHub version too)
-git push origin :refs/tags/$MISM_BULLSEQUANA_EDGE_VERSION
-
 rm -rf /var/livraisons/$MISM_BULLSEQUANA_EDGE_VERSION-bullsequana-edge-system-management
 mkdir /var/livraisons/$MISM_BULLSEQUANA_EDGE_VERSION-bullsequana-edge-system-management
 cd /var/livraisons/$MISM_BULLSEQUANA_EDGE_VERSION-bullsequana-edge-system-management
@@ -34,12 +28,18 @@ cd /var/livraisons/$MISM_BULLSEQUANA_EDGE_VERSION-bullsequana-edge-system-manage
 echo "git clone atos"
 git clone https://github.com/atosorigin/bullsequana-edge-system-management.git
 
-cd bullsequana-edge-system-management
+echo "delete old generation"
+# delete local tag
+git tag -d $MISM_BULLSEQUANA_EDGE_VERSION
+# delete remote tag (eg, GitHub version too)
+git push origin :refs/tags/$MISM_BULLSEQUANA_EDGE_VERSION
 
 echo "git tag $MISM_BULLSEQUANA_EDGE_VERSION"
 git tag $MISM_BULLSEQUANA_EDGE_VERSION
 git push origin master --tags
 git checkout $MISM_BULLSEQUANA_EDGE_VERSION
+
+cd bullsequana-edge-system-management
 
 echo "building images tag $MISM_BULLSEQUANA_EDGE_VERSION"
 docker-compose -f docker_compose_awx.yml build --no-cache
