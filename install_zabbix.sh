@@ -23,10 +23,7 @@ fi
 
 echo $timezone
 
-export MISM_BULLSEQUANA_EDGE_VERSION=2.0.2
-export MISM_TAG_BULLSEQUANA_EDGE_VERSION=tag
-export ZABBIX_BULLSEQUANA_EDGE_VERSION=centos-4.4.1
-export POSTGRES_ZABBIX_BULLSEQUANA_EDGE_VERSION=12.0-alpine
+./versions.sh
 
 export docker_image=`docker images |grep 'bullsequana-edge-system-management_zabbix-web' |awk '{ print $3; }'`
 if [ -z "$docker_image" ] 
