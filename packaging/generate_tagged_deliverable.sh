@@ -1,32 +1,38 @@
 #!/bin/sh
 
 unset $mism_version 
-echo Enter new version ?
+
+echo ---------------------------------------
+echo You should build a version over jenkins
+echo ---------------------------------------
+
+echo Enter jenkins new version ?
 read mism_version
 
-export MISM_BULLSEQUANA_EDGE_VERSION=$mism_version
-export MISM_TAG_BULLSEQUANA_EDGE_VERSION=tag
-export AWX_BULLSEQUANA_EDGE_VERSION=9.0.1
-export RABBITMQ_AWX_BULLSEQUANA_EDGE_VERSION=3.8.1-management
-export POSTGRES_AWX_BULLSEQUANA_EDGE_VERSION=12.0-alpine
-export PGADMIN_AWX_BULLSEQUANA_EDGE_VERSION=4.14
-export MEMCACHED_AWX_BULLSEQUANA_EDGE_VERSION=1.5.20-alpine
+git fetch && git fetch --tags
+git checkout $mism_version
 
-export ZABBIX_BULLSEQUANA_EDGE_VERSION=centos-4.4.1
-export POSTGRES_ZABBIX_BULLSEQUANA_EDGE_VERSION=12.0-alpine
-
-echo "git add all"
-
-git add . --all
-git commit -m "deliverable $MISM_BULLSEQUANA_EDGE_VERSION"
-git push
-
-rm -rf /var/livraisons/$MISM_BULLSEQUANA_EDGE_VERSION-bullsequana-edge-system-management
-mkdir /var/livraisons/$MISM_BULLSEQUANA_EDGE_VERSION-bullsequana-edge-system-management
-cd /var/livraisons/$MISM_BULLSEQUANA_EDGE_VERSION-bullsequana-edge-system-management
+cd /var/livraisons/
+mkdir $mism_version-bullsequana-edge-system-management
+cd $mism_version-bullsequana-edge-system-management
 
 echo "git clone atos"
 git clone https://github.com/atosorigin/bullsequana-edge-system-management.git
+
+cd bullsequana-edge-system-management
+
+echo "copy mism to livraison $mism_version"
+cp -rf /var/mism/* .
+cp /var/mism/.gitignore .
+rm -rf /var/bullsequana-edge-system-management/cli
+rm -rf /var/bullsequana-edge-system-management/ansible/pgdata
+rm -rf /var/bullsequana-edge-system-management/zabbix/pgdata
+
+. ./versions.sh
+
+git add . --all
+git commit -m "synchro with bitbucket $MISM_BULLSEQUANA_EDGE_VERSION"
+git push
 
 echo "delete old generation"
 # delete local tag
@@ -38,8 +44,6 @@ echo "git tag $MISM_BULLSEQUANA_EDGE_VERSION"
 git tag $MISM_BULLSEQUANA_EDGE_VERSION
 git push origin master --tags
 git checkout $MISM_BULLSEQUANA_EDGE_VERSION
-
-cd bullsequana-edge-system-management
 
 echo "building images tag $MISM_BULLSEQUANA_EDGE_VERSION"
 docker-compose -f docker_compose_awx.yml build --no-cache
@@ -65,7 +69,6 @@ rm -f mism.$MISM_BULLSEQUANA_EDGE_VERSION.tar.gz
 
 echo "docker tar $MISM_BULLSEQUANA_EDGE_VERSION"
 tar -czvf mism.$MISM_BULLSEQUANA_EDGE_VERSION.tar.gz *
-echo "terminated : docker mism.$MISM_BULLSEQUANA_EDGE_VERSION.tar.gz file generated in /var/livraisons/$MISM_BULLSEQUANA_EDGE_VERSION-bullsequana-edge-system-management"
+echo "terminated : docker mism.$MISM_BULLSEQUANA_EDGE_VERSION.tar.gz file generated in /var/livraisons/$MISM_BULLSEQUANA_EDGE_VERSION-bullsequana-edge-system-management/bullsequana-edge-system-management"
 
-
-
+git checkout master
