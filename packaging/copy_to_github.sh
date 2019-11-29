@@ -1,5 +1,6 @@
 #!/bin/sh
 
+. /var/mism/versions.sh
 
 cd /var/bullsequana-edge-system-management/
 
@@ -14,6 +15,7 @@ git commit -m "synchro with bitbucket $MISM_BULLSEQUANA_EDGE_VERSION"
 git push
 
 echo "delete old generation"
+git pull --tag
 # delete local tag
 git tag -d $MISM_BULLSEQUANA_EDGE_VERSION
 # delete remote tag (eg, GitHub version too)

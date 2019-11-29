@@ -4,7 +4,7 @@ export NO_PROXY=$NO_PROXY
 export HTTP_PROXY=$HTTP_PROXY
 export HTTPS_PROXY=$HTTPS_PROXY
 
-./versions.sh
+. ./versions.sh
 
 echo "starting BullSequana Edge Ansible AWX containers ...."
 docker-compose -f docker_compose_awx_from_atos_dockerhub.yml up -d

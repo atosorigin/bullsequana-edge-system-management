@@ -23,7 +23,7 @@ fi
 
 echo $timezone
 
-./versions.sh
+. ./versions.sh
 
 echo "starting BullSequana Edge Zabbix containers ...."
 docker-compose -f docker_compose_zabbix_from_atos_dockerhub.yml up -d

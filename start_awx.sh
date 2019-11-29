@@ -1,5 +1,7 @@
 #!/bin/sh
 
+. ./versions.sh
+
 echo "starting MISM containers ...."
 echo "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
 echo "AWX is available on https://localhost"

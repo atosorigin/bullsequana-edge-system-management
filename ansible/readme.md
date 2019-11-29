@@ -110,7 +110,8 @@ git clone https://github.com/atosorigin/bullsequana-edge-system-management.git
 Bull Sequana Edge Ansible Extensions has 3 AWX installers and an option to try it  
 Just choose your favorite installation for your environment  
 `on existing AWX:` nothing to install: go to the next section to add playbooks and plugins  
-`from clone or zip: <install_dir>/install_awx.sh` it will build docker containers and install Ansible/AWX docker containers with your local Dockerfiles that you can adapt as needed => use **stop_awx.sh** and **start_awx.sh** after  
+`full install: <install_dir>/install.sh` it will build full docker containers and install all containers with your local Dockerfiles that you can adapt as needed => use **stop.sh** and **start.sh** after  
+`partial install AWX: <install_dir>/install_awx.sh` it will build docker containers and install Ansible/AWX docker containers with your local Dockerfiles that you can adapt as needed => use **stop_awx.sh** and **start_awx.sh** after  
 `try it: <install_dir>/install_awx_from_dockerhub.sh` mainly dedicated to try bullsequana edge system management tool, it will install dockerhub atosorigin images, you cannot adapt the local Dockerfiles => use **stop_awx.sh*** and **start_awx.sh** after  
 
 For more information about dockerhub installation Visit https://hub.docker.com/repository/docker/atosorigin/bull-sequana-edge-awx-web

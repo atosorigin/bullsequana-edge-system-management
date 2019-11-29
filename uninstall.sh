@@ -37,10 +37,16 @@ rm -rf Dockerfiles
 #echo "removing postgres backups..."
 rm -rf ansible/pgadmin
 rm -rf zabbix/pgadmin
+#echo "removing packaging..."
+rm -rf packaging
 #echo "shells"
 rm -f *.sh
 #echo "yml files"
 rm -f *.yml
 #echo "md files"
 rm -f *.md
+#echo "tar files"
+rm -f *.tar
+#echo "gz files"
+rm -f *.gz
 

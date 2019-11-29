@@ -35,6 +35,7 @@ RUN pip install pika
 RUN pip install ansible-tower-cli
 RUN export TOWER_HOST=https://localhost:8052
 RUN pip install paramiko --upgrade
+RUN pip install pycryptodome
 
 #Install netaddr so we can use ipaddr filter in ansible
 RUN pip install netaddr

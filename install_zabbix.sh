@@ -4,6 +4,8 @@ export NO_PROXY=$NO_PROXY
 export HTTP_PROXY=$HTTP_PROXY
 export HTTPS_PROXY=$HTTPS_PROXY
 
+. ./versions.sh
+
 chmod uo+w zabbix/server/externalscripts/openbmc
 
 set -euo pipefail
