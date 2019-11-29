@@ -24,9 +24,9 @@ cd bullsequana-edge-system-management
 echo "copy mism to livraison $mism_version"
 cp -rf /var/mism/* .
 cp /var/mism/.gitignore .
-rm -rf /var/bullsequana-edge-system-management/cli
-rm -rf /var/bullsequana-edge-system-management/ansible/pgdata
-rm -rf /var/bullsequana-edge-system-management/zabbix/pgdata
+rm -rf cli
+rm -rf ansible/pgdata
+rm -rf zabbix/pgdata
 
 . ./versions.sh
 
@@ -71,4 +71,5 @@ echo "docker tar $MISM_BULLSEQUANA_EDGE_VERSION"
 tar -czvf mism.$MISM_BULLSEQUANA_EDGE_VERSION.tar.gz *
 echo "terminated : docker mism.$MISM_BULLSEQUANA_EDGE_VERSION.tar.gz file generated in /var/livraisons/$MISM_BULLSEQUANA_EDGE_VERSION-bullsequana-edge-system-management/bullsequana-edge-system-management"
 
+cd /var/mism
 git checkout master
