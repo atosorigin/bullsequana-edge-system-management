@@ -30,6 +30,7 @@ rm -rf cli
 rm -rf ansible/pgdata
 rm -rf zabbix/pgdata
 
+chmod ugo+x versions.sh
 ./versions.sh
 
 git add . --all
