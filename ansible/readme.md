@@ -309,10 +309,13 @@ This extension can be installed:
 If you already have an Ansible installation, you can just install ansible playbooks and plugins:  
 1. install python3 as a prerequisite   
 `yum install python3`  
-1. install ansible  
+2. install ansible  
 `pip3 install ansible`  
 3. run the script (edit the script if you changed default ansible configuration)   
 `<install_dir>/install_playbooks_and_plugins.sh`  
+4. optionnaly if you use Ansible vault:
+`pip3 install pycryptodome`  
+`pip3 install ansible-vault`  
 
 ![#f03c15](https://placehold.it/15/f03c15/000000?text=+) Warning: If you change default ansible directories, you should adapt the script target directories as needed  
 
@@ -737,18 +740,41 @@ docker exec -it awx_task bash`
 docker exec -it awx_web ansible-playbook projects/openbmc/inventory/get_sensors.yml`
 ```
 ## <a name="howto_manage_password"></a>How to manage an encrypted password
-### add an encrypted password
+### add an Ansible native vault
+1. execute the following native ansible command with the name of your password and the real password you want to encrypt  
+`generate_encrypted_password_for_Ansible.sh --name your_password_name your_real_password_to_encrypt`  
+2. you are prompted for a vault password you should remember
+
+examples  
+```
+[root@vm247-1 mism]# ./generate_encrypted_password_for_Ansible.sh --name bmc_root_password "p@s$w0rd[$#34"
+New vault password (bullsequana_edge_password): 
+Confirm new vault password (bullsequana_edge_password): 
+bmc_root_password: !vault |
+          $ANSIBLE_VAULT;1.2;AES256;bullsequana_edge_password
+          39656666313438326438616632616163666339376539366439313935356232346634343135376430
+          3735393731386363313838363238653361303536663736310a666161656563633436316539346234
+          62353536313164306161356365623539646334393337383732636539643036613338643539653139
+          3338663538303138350a323363623164383837633934373233333437353730613630316635646464
+          6139
+Encryption successful
+
+```
+
+![#c5f015](https://placehold.it/15/c5f015/000000?text=+) Info: you should install optional prerequisites => See [install ansible locally](#install_locally)
+
+### add a AWX vault
 1. open a terminal on the host
 2. execute the following script with the name of your password and the real password you want to encrypt  
   
-`./generate_encrypted_password_for_AWX_Ansible.sh --name your_password_name your_real_password_to_encrypt`  
+`./generate_encrypted_password_for_AWX.sh --name your_password_name your_real_password_to_encrypt`  
 
 ![alt text](https://github.com/atosorigin/bullsequana-edge-system-management/blob/master/ansible/doc/generate_password_result.png)  
 
 *you should indicate your customized vault password during this generation*
 
 ### remove an encrypted password
-1. edit the file <install_dir>/ansible/playbooks/vars/passwords.yml
+1. edit the file <install_dir>/ansible/vars/passwords.yml
 2. remove the password entry as desired
 
 ![alt text](https://github.com/atosorigin/bullsequana-edge-system-management/blob/master/ansible/doc/remove_password.png)

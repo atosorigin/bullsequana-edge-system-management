@@ -1,11 +1,10 @@
 ---
 - hosts: all
-  name: Firmware Update
+  name: Firmware Inventory Active
   connection: local
   gather_facts: False
   vars_files:
-    - /etc/ansible/vars/external_vars.yml
-    - /etc/ansible/vars/passwords.yaml"
+    - /etc/ansible/vars/passwords.yml
 
   tasks:
 

@@ -4,18 +4,53 @@
   connection: local
   gather_facts: False
   vars_files:
+    - /etc/ansible/vars/external_vars.yml
     - /etc/ansible/vars/passwords.yml
   
   tasks:
 
-  - name: assert image variable
+  - name: assert image purpose
     assert:
       that:
-        - image is defined
-      fail_msg: "Please enter the image to delete like image=3f4512a12"
-      success_msg: "The image is defined"
+        - purpose_to_delete is defined
+      fail_msg: "Please enter the purpose to delete like purpose_to_delete=BMC"
+      success_msg: "The purpose_to_delete is defined"
+
+  - name: assert image version
+    assert:
+      that:
+        - version_to_delete is defined
+      fail_msg: "Please enter the purpose to delete like version_to_delete=33.0.0"
+      success_msg: "The version_to_delete is defined"
+
+  - name: purpose_to_delete deleted
+    debug:
+      var: purpose_to_delete
+
+  - name: version_to_delete deleted
+    debug:
+      var: version_to_delete
 
   - include_tasks: ../utils/utils_create_token.yml
 
-  - include_tasks: ../utils/utils_delete_uploaded_firmware.yml
-  
+  - include_tasks: ../utils/utils_firmware_inventory.yml
+
+  - name: delete image
+    uri:
+      url: https://{{ baseuri }}{{ item.key }}/action/Delete
+      method: POST
+      validate_certs: no
+      headers:
+        X-Auth-Token: "{{ x_token }}"
+        Content-Type: "application/json"
+      body_format: json
+      body: 
+        data: []
+    when: item.value.Activation is defined and item.value.Activation == "xyz.openbmc_project.Software.Activation.Activations.Ready" and item.value.Purpose is defined and item.value.Purpose == purpose_to_delete and item.value.Version == version_to_delete
+    with_dict: "{{ firmware_inventory }}"
+
+  - name: image deleted
+    debug:
+      msg: "Image deleted {{ item.value.Purpose }} - {{ item.value.Version }} ({{ item.key }})"
+    when: item.value.Activation is defined and item.value.Activation == "xyz.openbmc_project.Software.Activation.Activations.Ready" and item.value.Purpose is defined and item.value.Purpose == purpose_to_delete and item.value.Version == version_to_delete
+    with_dict: "{{ firmware_inventory }}"

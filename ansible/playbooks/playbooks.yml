@@ -44,6 +44,8 @@ job_templates:
     verbosity: 0
   - name: Delete firmware image
     description: Delete firmware image
+    extra_vars: ["purpose_to_delete: xyz.openbmc_project.Software.Version.VersionPurpose.BMC", "version_to_delete: 21.0.0"]
+    ask_variables_on_launch: 1
     inventory: BullSequana Edge Inventory
     project: BullSequana Edge Playbooks
     playbook: firmware/delete_firmware_image.yml

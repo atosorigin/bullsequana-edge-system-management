@@ -2,9 +2,10 @@
 
 unset $mism_version 
 
-echo ---------------------------------------
-echo You should build a version over jenkins
-echo ---------------------------------------
+echo ------------------------------------------
+echo 1. You should edit Dockerfile .tag files
+echo 2. You should build a version over jenkins
+echo ------------------------------------------
 
 echo Enter jenkins new version ?
 read mism_version
@@ -13,6 +14,7 @@ git fetch && git fetch --tags
 git checkout $mism_version
 
 cd /var/livraisons/
+rm -rf $mism_version-bullsequana-edge-system-management 
 mkdir $mism_version-bullsequana-edge-system-management
 cd $mism_version-bullsequana-edge-system-management
 
@@ -28,7 +30,7 @@ rm -rf cli
 rm -rf ansible/pgdata
 rm -rf zabbix/pgdata
 
-. ./versions.sh
+./versions.sh
 
 git add . --all
 git commit -m "synchro with bitbucket $MISM_BULLSEQUANA_EDGE_VERSION"
