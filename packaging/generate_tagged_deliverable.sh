@@ -31,7 +31,7 @@ rm -rf ansible/pgdata
 rm -rf zabbix/pgdata
 
 chmod ugo+x versions.sh
-./versions.sh
+. ./versions.sh
 
 git add . --all
 git commit -m "synchro with bitbucket $MISM_BULLSEQUANA_EDGE_VERSION"
