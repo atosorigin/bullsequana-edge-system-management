@@ -311,13 +311,13 @@ If you already have an Ansible installation, you can just install ansible playbo
 `yum install python3`  
 2. install ansible  
 `pip3 install ansible`  
-3. run the script (edit the script if you changed default ansible configuration)   
+3. run the script (Careful: edit the script => See Warning after)   
 `<install_dir>/install_playbooks_and_plugins.sh`  
-4. optionnaly if you use Ansible vault:
+4. optionnaly if you use Ansible vault:  
 `pip3 install pycryptodome`  
 `pip3 install ansible-vault`  
 
-![#f03c15](https://placehold.it/15/f03c15/000000?text=+) Warning: If you change default ansible directories, you should adapt the script target directories as needed  
+![#f03c15](https://placehold.it/15/f03c15/000000?text=+) Warning: If you already changed default ansible directories, you should adapt the target directories of the install_playbooks_and_plugins.sh scrit as needed  
 
 Check your ansible python version:  
 `ansible --version`  
@@ -335,10 +335,10 @@ Bull Sequana Edge Ansible Extensions has three docker installers: Just choose yo
 
 ### how to change ansible configuration
 Here is the basic configuration for ansible:  
-config file = <install_dir>/ansible/inventory/ansible.cfg file  
-inventory = <install_dir>/ansible/inventory/hosts file  
-variables = <install_dir>/ansible/vars/external_vars.yml file  
-encrypted passwords = <install_dir>/ansible/vars/passwords.yml file  
+config file = /etc/ansible/inventory/ansible.cfg file  
+inventory = /etc/ansible/inventory/hosts file  
+variables = /etc/ansible/vars/external_vars.yml file  
+encrypted passwords = /etc/ansible/vars/passwords.yml file  
 
 ![#9ECBFF](https://placehold.it/15/9ECBFF/000000?text=+) With docker installation, for all CLI commands like *ansible* or *ansible-playbook*, you should be logged on a docker awx_web container: [See How to log on a docker container](#howto_docker_logon)
 

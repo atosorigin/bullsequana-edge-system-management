@@ -1,5 +1,7 @@
 #!/bin/sh
 
+. ./versions.sh
+
 echo "stopping bullsequana edge system management containers ...."
 docker-compose -f docker_compose_awx.yml down --remove-orphans
 docker-compose -f docker_compose_zabbix.yml down  --remove-orphans
@@ -34,9 +36,6 @@ rm -rf ansible
 rm -rf zabbix
 #echo "removing Dockerfiles..."
 rm -rf Dockerfiles
-#echo "removing postgres backups..."
-rm -rf ansible/pgadmin
-rm -rf zabbix/pgadmin
 #echo "removing packaging..."
 rm -rf packaging
 #echo "shells"
