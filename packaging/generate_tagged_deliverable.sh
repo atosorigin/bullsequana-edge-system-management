@@ -51,6 +51,8 @@ git checkout $MISM_BULLSEQUANA_EDGE_VERSION
 echo "building images tag $MISM_BULLSEQUANA_EDGE_VERSION"
 docker-compose -f docker_compose_awx.yml build --no-cache
 docker-compose -f docker_compose_zabbix.yml build --no-cache
+docker-compose -f docker_compose_awx.yml pull --ignore-pull-failures
+docker-compose -f docker_compose_zabbix.yml pull --ignore-pull-failures
 
 echo "docker save tag $MISM_BULLSEQUANA_EDGE_VERSION"
 docker save -o bullsequana-edge-system-management_zabbix-web.$MISM_BULLSEQUANA_EDGE_VERSION.tar bullsequana-edge-system-management_zabbix-web:$MISM_BULLSEQUANA_EDGE_VERSION
@@ -68,6 +70,8 @@ docker save -o zabbix-agent.$MISM_BULLSEQUANA_EDGE_VERSION.tar zabbix/zabbix-age
 docker save -o postgres.$MISM_BULLSEQUANA_EDGE_VERSION.tar postgres:$POSTGRES_AWX_BULLSEQUANA_EDGE_VERSION
 docker save -o pgadmin4.$MISM_BULLSEQUANA_EDGE_VERSION.tar dpage/pgadmin4:$PGADMIN_AWX_BULLSEQUANA_EDGE_VERSION
 
+rm -rf ansible/pgdata
+rm -rf zabbix/pgdata
 rm -f mism.$MISM_BULLSEQUANA_EDGE_VERSION.tar.gz
 
 echo "docker tar $MISM_BULLSEQUANA_EDGE_VERSION"

@@ -1,11 +1,10 @@
 # TODO uncomment to get tar files
 *.tar
 *.gz
+*.bak
 bull*.zip
-bullsequana-edge-system-management-2.0.1/
 
 #ignore mism tar creation
-/mism
 ansible/plugins/inventory/ansible-inventory-cache
 
 #ignore pgdata
@@ -14,7 +13,7 @@ ansible/plugins/inventory/ansible-inventory-cache
 /zabbix/pgdata
 
 # json generated zabbix files not commited
-#/zabbix/server/externalscripts/openbmc/*.json
+/zabbix/server/externalscripts/openbmc/*.json
 # no pid files
 *.pid
 

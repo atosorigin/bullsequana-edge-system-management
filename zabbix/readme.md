@@ -38,7 +38,7 @@ Optionally, 3 ready-to-go zabbix images are available on Dockerhub
 
 ### check proxy configuration
 
-By default, the following XXX_PROXY environment variables are copied in zabbix context : HTTP_PROXY, HTTPS_PROXY, NO_PROXY
+The following XXX_PROXY environment variables are automatically *copied* in zabbix context : HTTP_PROXY, HTTPS_PROXY, NO_PROXY
 
 For more details, read the [How to change my Proxy](#howto_proxy) part
 
@@ -334,24 +334,35 @@ If telnet is not working but the ping is working : iptables rules could be the i
 You can flush the iptables rules   
 ![#f03c15](https://placehold.it/15/f03c15/000000?text=+) Be careful to be able to recreate iptables rules after this command ` iptables -F `
 
-## <a name="howto_proxy"></a>How to change my Proxy
-By default, when you start the installer, the proxy environment variables are copied in containers thanks to the following section in docker-compose-zabbix.yml file:
+## <a name="howto_proxy"></a>How to change my proxy
+By default, when you start the installer, the proxy environment variables are added in containers thanks to the following section in docker-compose-awx.yml file:
 
 ```
-    environment:
-      HTTP_PROXY: ${HTTP_PROXY}
-      HTTPS_PROXY: ${HTTPS_PROXY}
-      NO_PROXY: ${NO_PROXY}
+    env-file:
+        - Dockerfiles/zabbix.env
       ...
 ```
+
+You can see your PROXY environment while starting up your AWX:
+
+![alt text](https://github.com/atosorigin/bullsequana-edge-system-management/blob/master/zabbix/doc/proxy.png)
+
 ![#f03c15](https://placehold.it/15/f03c15/000000?text=+) If your bullsequana edge IP address is not declared in proxy: You may need to add your bullsequana edge IP address in your NO_PROXY configuration to bypass the proxy 
 
 ```
 export NO_PROXY="<your bullsequana edge IP address>,$NO_PROXY"
 ```
 
-If you don't want to use XX_PROXY environment variables, you can directly adapt the proxy configuration as desired in *docker-compose-zabbix.yml* file:
+If you don't want to use the host configuration for XX_PROXY environment variables:
+1. Remove the following line in *install and start shells* 
 ```
+. ./proxy.sh
+```
+
+2. Add your proxy environement as desired in *docker-compose-awx.yml* file with explicit IP addresses and host names:
+```
+    env-file:
+      ansible.env
     environment:
       HTTP_PROXY: http://<your proxy>:<your port>
       HTTPS_PROXY: https://<your proxy>:<your port>
@@ -359,11 +370,11 @@ If you don't want to use XX_PROXY environment variables, you can directly adapt 
       ...
 ```
 
-![#f03c15](https://placehold.it/15/f03c15/000000?text=+) if you change a XXX_PROXY env variable, you should restart the containers :
+![#f03c15](https://placehold.it/15/f03c15/000000?text=+) INFO: If you change a XXX_PROXY env variable, you should restart the containers :
 
 ```
-./stop.sh
-./start.sh
+./stop.sh or ./stop_zabbix.sh 
+./start.sh or ./start_zabbix.sh
 ```
 
 ## <a name="datetimezone"></a>How to change local Date / Time Zone

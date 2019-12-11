@@ -1,5 +1,5 @@
 #set base image 
-FROM zabbix/zabbix-server-pgsql:latest
+FROM zabbix/zabbix-server-pgsql:centos-latest
 
 USER root 
 

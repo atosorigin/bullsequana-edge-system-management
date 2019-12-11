@@ -1,5 +1,5 @@
 #set base image 
-FROM zabbix/zabbix-web-nginx-pgsql:latest
+FROM zabbix/zabbix-web-nginx-pgsql:centos-latest
 
 ENV MISM_BULLSEQUANA_EDGE_VERSION=latest
 

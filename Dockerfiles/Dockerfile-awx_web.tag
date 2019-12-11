@@ -22,6 +22,8 @@ RUN yum install -y epel-release
 
 RUN pip3 install --upgrade pip
 
+RUN pip install --upgrade ansible
+
 # Warning : NOT nmap => https://stackoverflow.com/questions/14913153/module-object-has-no-attribute-portscanner
 RUN pip install python-nmap
 RUN pip install requests
@@ -35,6 +37,7 @@ RUN pip install pika
 RUN pip install ansible-tower-cli
 RUN export TOWER_HOST=https://localhost:8052
 RUN pip install paramiko --upgrade
+RUN pip install pycryptodome
 
 #Install netaddr so we can use ipaddr filter in ansible
 RUN pip install netaddr

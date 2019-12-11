@@ -29,10 +29,6 @@ services:
       - /:/host:ro
     env_file:
       - Dockerfiles/ansible.env
-    environment:
-      HTTP_PROXY: ${HTTP_PROXY}
-      HTTPS_PROXY: ${HTTPS_PROXY}
-      NO_PROXY: ${NO_PROXY}
 
   awx_task:
     image: atosorigin/bull-sequana-edge-awx-task:${MISM_BULLSEQUANA_EDGE_VERSION}
@@ -61,10 +57,6 @@ services:
       - /:/host:ro
     env_file:
       - Dockerfiles/ansible.env
-    environment:
-      HTTP_PROXY: ${HTTP_PROXY}
-      HTTPS_PROXY: ${HTTPS_PROXY}
-      NO_PROXY: ${NO_PROXY}
 
   rabbitmq:
     image: rabbitmq:${RABBITMQ_AWX_BULLSEQUANA_EDGE_VERSION}

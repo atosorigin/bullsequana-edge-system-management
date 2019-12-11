@@ -33,9 +33,6 @@ services:
     env_file:
       - Dockerfiles/zabbix.env
     environment:
-      HTTP_PROXY: ${HTTP_PROXY}
-      HTTPS_PROXY: ${HTTPS_PROXY}
-      NO_PROXY: ${NO_PROXY}
       PHP_TZ: ${timezone}
 
   zabbix-web:
@@ -48,9 +45,6 @@ services:
     env_file:
       - Dockerfiles/zabbix.env
     environment:
-      HTTP_PROXY: ${HTTP_PROXY}
-      HTTPS_PROXY: ${HTTPS_PROXY}
-      NO_PROXY: ${NO_PROXY}
       PHP_TZ: ${timezone}
     ports:
       - 4443:443
@@ -82,9 +76,6 @@ services:
     env_file:
       - Dockerfiles/zabbix.env
     environment:
-      HTTP_PROXY: ${HTTP_PROXY}
-      HTTPS_PROXY: ${HTTPS_PROXY}
-      NO_PROXY: ${NO_PROXY}
       PHP_TZ: ${timezone}
     volumes:
       - /etc/localtime:/etc/localtime:ro
@@ -108,9 +99,6 @@ services:
       - Dockerfiles/zabbix.env
     environment:
       PGDATA: /var/lib/postgresql/data/pgdata
-      HTTP_PROXY: ${HTTP_PROXY}
-      HTTPS_PROXY: ${HTTPS_PROXY}
-      NO_PROXY: ${NO_PROXY}
       PHP_TZ: ${timezone}
     ports:
       - 5555:5432

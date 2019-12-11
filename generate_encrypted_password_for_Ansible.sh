@@ -6,7 +6,7 @@ ANSIBLECMD="ansible-vault encrypt_string --vault-id bullsequana_edge_password@pr
 usage()
 {
   echo -e "\033[32mUsage: See Options for $ANSIBLECMD\033[0m"
-  echo "Example: $CMDNAME --name= 'name_for_my_password' 'my_secre!_p@ssw0rd' "
+  echo "Example: $CMDNAME --name='name_for_my_password' 'my_secre!_p@ssw0rd' "
   echo
   echo "Following is the help for $ANSIBLECMD Options":
   $ANSIBLECMD --help

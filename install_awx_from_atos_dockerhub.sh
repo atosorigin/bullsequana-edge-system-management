@@ -1,9 +1,6 @@
 #!/bin/sh
 
-export NO_PROXY=$NO_PROXY
-export HTTP_PROXY=$HTTP_PROXY
-export HTTPS_PROXY=$HTTPS_PROXY
-
+. ./proxy.sh
 . ./versions.sh
 
 echo "starting BullSequana Edge Ansible AWX containers ...."

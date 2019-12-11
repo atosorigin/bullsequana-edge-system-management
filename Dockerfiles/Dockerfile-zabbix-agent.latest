@@ -1,5 +1,5 @@
 #set base image 
-FROM zabbix/zabbix-agent:latest
+FROM zabbix/zabbix-agent:centos-latest
 
 USER root 
 

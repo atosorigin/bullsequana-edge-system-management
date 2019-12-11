@@ -25,10 +25,6 @@ git clone "https://github.com/atosorigin/bullsequana-edge-system-management.git"
 cd bullsequana-edge-system-management
 ```
 ## and run the desired installer  
-### local install
-`./install_playbooks_and_plugins.sh`  
-### doker installs
-`./install.sh`  
 `./install_awx_from_dockerhub.sh`  
 `./install_awx.sh`  
 `./install_zabbix_from_dockerhub.sh`  

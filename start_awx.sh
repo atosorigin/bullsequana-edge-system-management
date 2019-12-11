@@ -1,5 +1,6 @@
 #!/bin/sh
 
+. ./proxy.sh
 . ./versions.sh
 
 echo "starting MISM containers ...."
