@@ -18,8 +18,8 @@ ansible/plugins/inventory/ansible-inventory-cache
 *.pid
 
 # external-vars not commited
-/ansible/playbooks/vars/passwords.yml
-/ansible/playbooks/vars/external-vars
+/ansible/vars/passwords.yml
+/ansible/vars/external-vars
 
 # some readme
 *readme.md

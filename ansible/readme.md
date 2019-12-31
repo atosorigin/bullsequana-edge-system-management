@@ -772,9 +772,13 @@ Encryption successful
 
 ```
 
-![#c5f015](https://placehold.it/15/c5f015/000000?text=+) Info: you should run your playbooks with *--ask-vault-pass* or or *--vault-id* in command line (alternatively you can indicate a vault_password_file in your ansible.cfg : See next section)  
+![#c5f015](https://placehold.it/15/c5f015/000000?text=+) Info: you should run your playbooks with *--ask-vault-pass* or *--vault-id* in command line (alternatively you can indicate a vault_password_file in your ansible.cfg : See next section)  
+
+*--ask-vault-pass*
 
 ![alt text](https://raw.githubusercontent.com/atosorigin/bullsequana-edge-system-management/master/ansible/doc/ansible_ask_vault_pass.png)
+
+or alternatively *--vault-id*
 
 ![alt text](https://raw.githubusercontent.com/atosorigin/bullsequana-edge-system-management/master/ansible/doc/ansible_prompt_vault_id.png) 
 
