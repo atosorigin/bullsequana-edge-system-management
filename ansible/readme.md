@@ -772,12 +772,13 @@ Encryption successful
 
 ```
 
-![#c5f015](https://placehold.it/15/c5f015/000000?text=+) Info: you should run your playbooks with --ask-vault-pass or indicate a vault_password_file in your ansible.cfg (See next section)  
+![#c5f015](https://placehold.it/15/c5f015/000000?text=+) Info: you should run your playbooks with *--ask-vault-pass* or or *--vault-id* in command line (alternatively you can indicate a vault_password_file in your ansible.cfg : See next section)  
 
 ![alt text](https://raw.githubusercontent.com/atosorigin/bullsequana-edge-system-management/master/ansible/doc/ansible_ask_vault_pass.png)
 
+![alt text](https://raw.githubusercontent.com/atosorigin/bullsequana-edge-system-management/master/ansible/doc/ansible_prompt_vault_id.png) 
 
-![#f03c15](https://placehold.it/15/f03c15/000000?text=+) Warning: If you do NOT add --vault-id followed by bull_sequana_edge_password vault identifier, you will have the following error
+![#f03c15](https://placehold.it/15/f03c15/000000?text=+) Warning: If you do *NOT* add --vault-id followed by bull_sequana_edge_password vault identifier, you will have the following error: *no vault secrets found*
  
 ![alt text](https://raw.githubusercontent.com/atosorigin/bullsequana-edge-system-management/master/ansible/doc/error_secure_password.png)
   
@@ -827,7 +828,7 @@ you can now generate as many encrypted password variables as needed and play you
 2. remove the password entry as desired  
 ![alt text](https://raw.githubusercontent.com/atosorigin/bullsequana-edge-system-management/master/ansible/doc/remove_password.png)
 
-### clean a corrupted an encrypted password file
+### clean a corrupted password file
 1. edit the file <install_dir>/ansible/vars/passwords.yml  
 2. check that each line has the following structure  
   
