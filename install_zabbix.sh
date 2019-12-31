@@ -1,25 +1,5 @@
 #!/bin/sh
 
-echo "stopping Zabbix bullsequana edge system management containers ...."
-docker container stop `docker container list |grep 'bullsequana-edge-system-management_zabbix-server' |awk '{ print $1; }'`
-docker container stop `docker container list |grep 'bullsequana-edge-system-management_zabbix-agent' |awk '{ print $1; }'`
-docker container stop `docker container list |grep 'bullsequana-edge-system-management_zabbix-web' |awk '{ print $1; }'`
-docker container stop `docker container list |grep -m 1 'zabbix-postgres' |awk '{ print $1; }'`
-
-echo "removing Zabbix bullsequana edge system management containers ...."
-docker container rm -f `docker container list --all |grep 'bullsequana-edge-system-management_zabbix-server' |awk '{ print $1; }'`
-docker container rm -f `docker container list --all |grep 'bullsequana-edge-system-management_zabbix-agent' |awk '{ print $1; }'`
-docker container rm -f `docker container list --all |grep 'bullsequana-edge-system-management_zabbix-web' |awk '{ print $1; }'`
-docker container rm -f `docker container list --all |grep -m 1 'zabbix-postgres' |awk '{ print $1; }'`
-
-docker image rmi -f `docker images |grep 'bullsequana-edge-system-management_zabbix-server' |awk '{ print $3; }'`
-docker image rmi -f `docker images |grep 'bullsequana-edge-system-management_zabbix-agent' |awk '{ print $3; }'`
-docker image rmi -f `docker images |grep 'bullsequana-edge-system-management_zabbix-web' |awk '{ print $3; }'`
-docker image rmi -f `docker images |grep 'zabbix-postgres' |awk '{ print $3; }'`
-docker image rmi -f `docker images |grep 'zabbix/zabbix-web-nginx-pgsql' |awk '{ print $3; }'`
-docker image rmi -f `docker images |grep 'zabbix/zabbix-server-pgsql' |awk '{ print $3; }'`
-docker image rmi -f `docker images |grep 'zabbix/zabbix-agent' |awk '{ print $3; }'`
-
 chmod uo+w zabbix/server/externalscripts/openbmc
 
 set -euo pipefail
@@ -39,6 +19,7 @@ fi
 
 echo $timezone
 
+. ./remove_zabbix_containers.sh
 . ./proxy.sh
 . ./versions.sh
 
@@ -84,10 +65,11 @@ fi
 
 echo "starting BullSequana Edge Zabbix containers ...."
 docker-compose -f docker_compose_zabbix.yml up -d
-echo "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
+
+echo "---------------------------------------------------------------------------------------------------"
 echo "Zabbix is available on https://localhost:4443"
-echo "for more info, refer to documentation"
-echo "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
+echo "for more info, refer to github site https://github.com/atosorigin/bullsequana-edge-system-management"
+echo "----------------------------------------------------------------------------------------------------"
 
 
 

@@ -1,10 +1,11 @@
 ---
 - hosts: all
   connection: local
-  name: Manage Server LED Light on - 
+  name: Manage Server LED Light on 
   gather_facts: False
   vars_files:
-    - /etc/ansible/vars/passwords.yml
+    - "{{ ANSIBLE_EXTERNAL_VARS }}"
+    - "{{ ANSIBLE_PASSWORDS }}"
 
   tasks:
 

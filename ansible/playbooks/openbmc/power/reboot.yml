@@ -4,8 +4,8 @@
   name: Manage System Power - Reboot BMC
   gather_facts: False
   vars_files:
-    - /etc/ansible/vars/external_vars.yml
-    - /etc/ansible/vars/passwords.yml
+    - "{{ ANSIBLE_EXTERNAL_VARS }}"
+    - "{{ ANSIBLE_PASSWORDS }}"
 
   tasks:
 

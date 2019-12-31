@@ -19,16 +19,17 @@ fi
 
 echo $timezone
 
+. ./remove_zabbix_containers.sh
 . ./proxy.sh
 . ./versions.sh
 
 echo "starting BullSequana Edge Zabbix containers ...."
 docker-compose -f docker_compose_zabbix_from_atos_dockerhub.yml up -d
 
-echo "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
+echo "----------------------------------------------------------------------------------------------------"
 echo "check the login page at https://localhost:4443"
-echo "for more info, refer to github https://github.com/atosorigin/bullsequana-edge-system-management/tree/master/zabbix"
-echo "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
+echo "for more info, refer to github site https://github.com/atosorigin/bullsequana-edge-system-management"
+echo "----------------------------------------------------------------------------------------------------"
 
 
 

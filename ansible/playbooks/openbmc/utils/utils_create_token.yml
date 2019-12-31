@@ -1,5 +1,29 @@
 ---
 
+  - name: assert ANSIBLE_PASSWORDS path
+    assert:
+      that:
+        - ANSIBLE_PASSWORDS is defined
+      fail_msg: "The variable ANSIBLE_PASSWORDS is NOT defined in inventory (AWX or Ansible default is /etc/ansible/hosts) file. See readme.md for more details."
+      success_msg: "The variable ANSIBLE_PASSWORDS is defined"
+
+  - name: assert ANSIBLE_EXTERNAL_VARS path
+    assert:
+      that:
+        - ANSIBLE_EXTERNAL_VARS is defined
+      fail_msg: "The variable ANSIBLE_EXTERNAL_VARS is NOT defined in inventory (AWX) or /etc/ansible/hosts file (Ansible). See readme.md for more details."
+      success_msg: "The variable ANSIBLE_EXTERNAL_VARS is defined"
+
+  - name: Secure passwords file
+    debug:
+      msg: "Path to passwords file is {{ ANSIBLE_PASSWORDS }}"
+    when: ANSIBLE_PASSWORDS is defined
+
+  - name: External vars file
+    debug:
+      msg: "Path to external vars file is {{ ANSIBLE_EXTERNAL_VARS }}"
+    when: ANSIBLE_EXTERNAL_VARS is defined
+
   - name: create token from OpenBMC
     uri:
       url: https://{{ baseuri }}/login

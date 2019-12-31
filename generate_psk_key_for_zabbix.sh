@@ -18,10 +18,10 @@ echo "PSK:"
 docker exec -it zabbix-agent cat /etc/zabbix/zabbix_agentd.psk
 echo
 echo "this psk has been added in your <install_dir>/zabbix/agent/zabbix_agentd.psk file"
-echo "this psk will now used to generate your encrypted passwords"
+echo "this psk can now be used to generate your encrypted passwords"
 echo
 echo "5. for each password you should run"
-echo "./generate_encrypted_password_for_zabbix.sh --passord=<your_password>"
+echo "./generate_encrypted_password_for_zabbix.sh --password=<your_password>"
 echo
 echo -e "\033[31m!!WARNING : if you change this psk or re-run this script, you should change all generated passwords!!\033[0m"
 echo

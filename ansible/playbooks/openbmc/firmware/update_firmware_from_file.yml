@@ -4,8 +4,8 @@
   connection: local
   gather_facts: False
   vars_files:
-    - /etc/ansible/vars/external_vars.yml
-    - /etc/ansible/vars/passwords.yml
+    - "{{ ANSIBLE_EXTERNAL_VARS }}"
+    - "{{ ANSIBLE_PASSWORDS }}"
 
   tasks:
   - name: validate forceoff variable
@@ -52,12 +52,21 @@
       headers:
         X-Auth-Token: "{{ x_token }}"
         Content-Type: "application/octet-stream"
-    ignore_errors: yes    
+    ignore_errors: no
     register: result_upload_firmware
+
+  - debug:
+      var: result_upload_firmware
+    when: result_upload_firmware is defined
 
   - name: check if file not found
     fail: msg="Bad path or file name, Please check file path and name in --extra-vars"
     when: result_upload_firmware.failed and not result_upload_firmware.changed and "Could not find or access" in result_upload_firmware.msg
+
+  - name: check tar failure
+    fail: msg="tar failure"
+    when: result_upload_firmware.failed and "Version already exists" in result_upload_firmware.msg
+
 
   - include_tasks: ../utils/utils_firmware_inventory.yml
 
@@ -91,10 +100,52 @@
       body_format: json
     when: reboot == true
 
-  - name: render Evaluate Firmware update
-    debug: 
-      var: evaluate_firmware_update
-    when: reboot == false and evaluate_firmware_update is defined
+  - include_tasks: ../utils/utils_firmware_inventory.yml
+    when: reboot == false
+
+  - name:  get upload failures
+    fail: 
+      msg: "Ignored failures - {{ result_upload_firmware.json.data.description }}"
+    when: reboot == false and result_upload_firmware.status == 400
+
+  - name: get activation failures
+    fail: 
+      msg: "{{ item.value.Activation }}"
+    when: reboot == False and item.value.Activation is defined and item.value.Activation == 'xyz.openbmc_project.Software.Activation.Activations.Failed' and item.value.RequestedActivation is defined and item.value.RequestedActivation =='xyz.openbmc_project.Software.Activation.RequestedActivations.Active'
+    with_dict: "{{ firmware_inventory }}"
+
+
+  - include_tasks: ../utils/utils_firmware_inventory.yml
+
+  - name: render Uploaded Firmwares
+    debug:
+      msg: "Ready firmware = {{ item.key }} as {{ item.value.Purpose }}-{{ item.value.Version }}"
+    when: item.value.Activation is defined and item.value.Activation == "xyz.openbmc_project.Software.Activation.Activations.Ready"
+    with_dict: "{{ firmware_inventory }}"
+  
+  - include_tasks: ../utils/utils_host_power_off.yml    
+    when: forceoff == True
+  
+  - include_tasks: ../utils/utils_active_firmware_update.yml
+
+  - name: Count down "{{poweroff_countdown}}" seconds before checking BIOS activation
+    pause:
+      seconds: "{{poweroff_countdown}}"
+    when: forceoff == True and item.value.Activation is defined and item.value.Purpose is defined and item.value.Activation == "xyz.openbmc_project.Software.Activation.Activations.Ready" and item.value.Purpose == "xyz.openbmc_project.Software.Version.VersionPurpose.Host"
+    with_dict: "{{ firmware_inventory }}"
+
+  - name: reboot BMC
+    uri:
+      url: https://{{ baseuri }}/xyz/openbmc_project/state/bmc0/attr/RequestedBMCTransition
+      method: PUT
+      validate_certs: no
+      headers:
+        X-Auth-Token: "{{ x_token }}"
+        Content-Type: "application/json"
+      body:
+        data: xyz.openbmc_project.State.BMC.Transition.Reboot
+      body_format: json
+    when: reboot == true
 
   - include_tasks: ../utils/utils_firmware_inventory.yml
     when: reboot == false
@@ -109,5 +160,6 @@
       msg: "{{ item.value.Activation }}"
     when: reboot == False and item.value.Activation is defined and item.value.Activation == 'xyz.openbmc_project.Software.Activation.Activations.Failed' and item.value.RequestedActivation is defined and item.value.RequestedActivation =='xyz.openbmc_project.Software.Activation.RequestedActivations.Active'
     with_dict: "{{ firmware_inventory }}"
+
 
 

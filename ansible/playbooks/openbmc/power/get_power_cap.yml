@@ -4,7 +4,8 @@
   name: Get Power Cap
   gather_facts: False
   vars_files:
-    - /etc/ansible/vars/passwords.yml
+    - "{{ ANSIBLE_EXTERNAL_VARS }}"
+    - "{{ ANSIBLE_PASSWORDS }}"
 
   tasks:
   - include_tasks: ../utils/utils_create_token.yml

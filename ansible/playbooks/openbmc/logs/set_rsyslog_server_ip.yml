@@ -4,8 +4,8 @@
   name: Set Rsyslog Server Ip
   gather_facts: False
   vars_files:
-    - /etc/ansible/vars/external_vars.yml
-    - /etc/ansible/vars/passwords.yml
+    - "{{ ANSIBLE_EXTERNAL_VARS }}"
+    - "{{ ANSIBLE_PASSWORDS }}"
 
   tasks:
   - name: validate rsyslog_server_ip variable

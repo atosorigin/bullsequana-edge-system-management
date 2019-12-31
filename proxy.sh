@@ -1,5 +1,8 @@
 #!/bin/sh
 
+# Copy proxy to .env files for use in docker_compose files
+#     env_file:
+#       - Dockerfiles/ansible.env  
 ansible_file=Dockerfiles/ansible.env
 zabbix_file=Dockerfiles/zabbix.env
 

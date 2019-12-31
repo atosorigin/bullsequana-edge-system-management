@@ -4,7 +4,8 @@
   name: Sensor Inventory
   gather_facts: False
   vars_files:
-    - /etc/ansible/vars/passwords.yml
+    - "{{ ANSIBLE_EXTERNAL_VARS }}"
+    - "{{ ANSIBLE_PASSWORDS }}"
 
   tasks:
   - name: create auth token

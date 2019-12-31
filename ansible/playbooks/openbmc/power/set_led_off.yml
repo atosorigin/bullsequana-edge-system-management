@@ -4,7 +4,8 @@
   name: Manage Server LED Light off -
   gather_facts: False
   vars_files:
-    - /etc/ansible/vars/passwords.yml
+    - "{{ ANSIBLE_EXTERNAL_VARS }}"
+    - "{{ ANSIBLE_PASSWORDS }}"
 
   tasks:
 
