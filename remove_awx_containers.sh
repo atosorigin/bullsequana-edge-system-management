@@ -4,7 +4,7 @@ echo "stopping AWX bullsequana edge system management container"
 docker-compose -f docker_compose_awx.yml down --remove-orphans &>/dev/null
 docker-compose -f docker_compose_awx_from_atos_dockerhub.yml down --remove-orphans &>/dev/null
 
-echo "removing dangling MISM containers (containers without images"
+echo "removing dangling MISM containers (containers without images)"
 docker container prune --force &>/dev/null
 echo "removing dangling MISM images (images without containers)"
 docker image prune --force &>/dev/null
