@@ -262,6 +262,9 @@ The default *Bull Sequana Edge Vault* has intentionaly NO password, so you shoul
 ![#c5f015](https://placehold.it/15/c5f015/000000?text=+) Info: The vault-id can be used in ansible command line  
 ![alt text](https://raw.githubusercontent.com/atosorigin/bullsequana-edge-system-management/master/ansible/doc/vault_ansible_id.png)
 
+![#c5f015](https://placehold.it/15/c5f015/000000?text=+) Info: If you forget to change vault AWX vault credential, you have the following run error  
+![alt text](https://raw.githubusercontent.com/atosorigin/bullsequana-edge-system-management/master/ansible/doc/awx_credential_vault_failed.png)
+
 #### - generate your passwords
 You can now generate your passwords: See [How to manage encrypted passwords](#howto_manage_password)
 You should generate as many *password variables* as different real passwords you have.

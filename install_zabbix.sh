@@ -1,5 +1,8 @@
 #!/bin/sh
 
+. ./check_prerequisites.sh
+. ./remove_zabbix_containers.sh
+
 chmod uo+w zabbix/server/externalscripts/openbmc
 
 set -euo pipefail
@@ -19,7 +22,6 @@ fi
 
 echo $timezone
 
-. ./remove_zabbix_containers.sh
 . ./proxy.sh
 . ./versions.sh
 

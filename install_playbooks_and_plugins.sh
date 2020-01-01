@@ -1,5 +1,13 @@
 #!/bin/sh
 
+echo "checking ansible prerequisite"
+ansible_version=$(ansible --version|grep "ansible python module location")
+if [ -z "$ansible_version" ]
+then
+  echo -e "\033[31mansible is NOT installed\033[0m"
+  exit -1
+fi
+
 if [ -z $ANSIBLE_CONFIG ]
 then
   export ANSIBLE_CONFIG=/etc/ansible/ansible.cfg
