@@ -7,8 +7,7 @@ echo 1. You should edit Dockerfile .tag files
 echo 2. You should build a version over jenkins
 echo ------------------------------------------
 
-echo Enter jenkins new version ?
-read mism_version
+read -p "Enter jenkins new version ? " mism_version
 
 git fetch && git fetch --tags
 git checkout $mism_version
