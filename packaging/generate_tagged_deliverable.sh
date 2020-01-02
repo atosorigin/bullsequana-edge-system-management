@@ -35,9 +35,9 @@ chmod ugo+x versions.sh
 echo "changing to MISM version"
 if [ -v MISM_BULLSEQUANA_EDGE_VERSION ]
 then
-  dockerfile="Dockerfiles/Dockerfile-awx-web.tag"
+  dockerfile="Dockerfiles/Dockerfile-awx_web.tag"
   sed -i 's|$MISM_BULLSEQUANA_EDGE_VERSION|'$MISM_BULLSEQUANA_EDGE_VERSION'|g' $dockerfile
-  dockerfile="Dockerfiles/Dockerfile-awx-task.tag"
+  dockerfile="Dockerfiles/Dockerfile-awx_task.tag"
   sed -i 's|$MISM_BULLSEQUANA_EDGE_VERSION|'$MISM_BULLSEQUANA_EDGE_VERSION'|g' $dockerfile
   dockerfile="Dockerfiles/Dockerfile-zabbix.tag"
   sed -i 's|$MISM_BULLSEQUANA_EDGE_VERSION|'$MISM_BULLSEQUANA_EDGE_VERSION'|g' $dockerfile
