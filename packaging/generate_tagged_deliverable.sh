@@ -47,7 +47,6 @@ then
   sed -i 's|$MISM_BULLSEQUANA_EDGE_VERSION|'$MISM_BULLSEQUANA_EDGE_VERSION'|g' $dockerfile
   dockerfile="Dockerfiles/loginModal.partial.html"
   sed -i 's|$MISM_BULLSEQUANA_EDGE_VERSION|'$MISM_BULLSEQUANA_EDGE_VERSION'|g' $dockerfile
-MISM_BULLSEQUANA_EDGE_VERSION
 fi
 
 echo "git add/commit/push to github"
