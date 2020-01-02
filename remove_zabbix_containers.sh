@@ -1,8 +1,8 @@
 #!/bin/sh
 
 echo "stopping Zabbix bullsequana edge system management containers"
-docker-compose -f docker_compose_zabbix.yml down  --remove-orphans &>/dev/null
-docker-compose -f docker_compose_zabbix_from_atos_dockerhub.yml down --remove-orphans &>/dev/null
+docker-compose -f docker_compose_zabbix.yml down  &>/dev/null
+docker-compose -f docker_compose_zabbix_from_atos_dockerhub.yml down &>/dev/null
 
 echo "removing dangling MISM containers (containers without images)"
 docker container prune --force &>/dev/null
@@ -85,37 +85,7 @@ then
   fi
 fi
 
-docker_image=$(docker images |grep 'zabbix-postgres')
-if [ ! -z "$docker_image" ] 
-then
-  docker_image=$(echo $docker_image |awk '{ print $3; }')
-  if [ ! -z "$docker_image" ] 
-  then    
-    docker image rmi -f  "$docker_image"
-  fi
-fi
-
-docker_image=$(docker images |grep 'zabbix/zabbix-web-nginx-pgsql')
-if [ ! -z "$docker_image" ] 
-then
-  docker_image=$(echo $docker_image |awk '{ print $3; }')
-  if [ ! -z "$docker_image" ] 
-  then    
-    docker image rmi -f  "$docker_image"
-  fi
-fi
-
-docker_image=$(docker images |grep 'zabbix/zabbix-server-pgsql')
-if [ ! -z "$docker_image" ] 
-then
-  docker_image=$(echo $docker_image |awk '{ print $3; }')
-  if [ ! -z "$docker_image" ] 
-  then    
-    docker image rmi -f  "$docker_image"
-  fi
-fi
-
-docker_image=$(docker images |grep 'zabbix/zabbix-agent')
+docker_image=$(docker images |grep 'postgres')
 if [ ! -z "$docker_image" ] 
 then
   docker_image=$(echo $docker_image |awk '{ print $3; }')

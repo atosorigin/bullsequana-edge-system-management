@@ -1,5 +1,6 @@
 #!/bin/sh
 
+. ./check_prerequisites.sh
 . ./remove_awx_containers.sh
 . ./proxy.sh
 . ./versions.sh

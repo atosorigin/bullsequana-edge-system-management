@@ -38,8 +38,8 @@ Optionaly, 2 ready-to-go AWX-Ansible images are available on Dockerhub
 - `Activate firmware updates`: Activate BullSequana Edge updated firmwares
 - `Evaluate firmware update from Technical State`:Evaluate firmware update from Atos specific Technical State file (comparaison)
 - `Delete firmware image`: Delete a firmware image by id
-- `Firmware inventory` - Active: Get  firmware inventory in "Active" state
-- `Firmware inventory - Ready`: Get  firmware inventory in "Ready" state
+- `Firmware inventory` - Active: Get firmware inventory in "Active" state
+- `Firmware inventory - Ready`: Get firmware inventory in "Ready" state
 - `BIOS Boot Mode`: Get current BIOS Boot Mode
 - `Set BIOS Boot Mode Regular`: Set BIOS Boot Mode to Regular
 - `Set BIOS Boot Mode Safe`: Set BIOS Boot Mode to Safe
@@ -85,6 +85,10 @@ The proxy environment variables are automatically *copied* in AWX docker context
 - HTTP_PROXY
 - HTTPS_PROXY
 - NO_PROXY
+
+You can check while installating and starting your containers:
+
+![alt text](https://raw.githubusercontent.com/atosorigin/bullsequana-edge-system-management/master/ansible/doc/check_proxy.png)
 
 For more details, read the [How to change my Proxy](#howto_proxy)
 
@@ -340,16 +344,22 @@ Bull Sequana Edge Ansible Extensions has three docker installers: Just choose yo
 Here is the basic configuration for ansible:  
 config file = /etc/ansible/inventory/ansible.cfg file  
 inventory = /etc/ansible/inventory/hosts file  
-variables = /etc/ansible/vars/external_vars.yml file  
-encrypted passwords = /etc/ansible/vars/passwords.yml file  
+variables = <install_dir>/ansible/vars/external_vars.yml file  
+encrypted passwords = <install_dir>/ansible/vars/passwords.yml file  
 
 ![#9ECBFF](https://placehold.it/15/9ECBFF/000000?text=+) With docker installation, for all CLI commands like *ansible* or *ansible-playbook*, you should be logged on a docker awx_web container: [See How to log on a docker container](#howto_docker_logon)
 
 ### how to add a host in ansible inventory
-1. edit ansible/inventory/hosts file
+1. edit <install_dir>/ansible/inventory/hosts file
 2. add your ip addresses or hostnames followed by baseuri and username variables
+```
+# add a group optionaly []
+[linux_mipocket]
+10.10.0.2 baseuri={{ host }} user=root password=A_cle@r_p@ssw0rd
+```
 3. generate an encrypted password for your password variable
-4. add your password variable for your host
+4. add your encrypted password variable 
+`password='{{ my_encryoted_variable }}'`
 
 ![alt text](https://raw.githubusercontent.com/atosorigin/bullsequana-edge-system-management/master/ansible/doc/host_password.png)
 

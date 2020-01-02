@@ -1,10 +1,10 @@
 #!/bin/sh
 
 echo "stopping AWX bullsequana edge system management container"
-docker-compose -f docker_compose_awx.yml down --remove-orphans &>/dev/null
-docker-compose -f docker_compose_awx_from_atos_dockerhub.yml down --remove-orphans &>/dev/null
+docker-compose -f docker_compose_awx.yml down &>/dev/null
+docker-compose -f docker_compose_awx_from_atos_dockerhub.yml down &>/dev/null
 
-echo "removing dangling MISM containers (containers without images)"
+echo "removing dangling MISM containers (containers without images"
 docker container prune --force &>/dev/null
 echo "removing dangling MISM images (images without containers)"
 docker image prune --force &>/dev/null
@@ -106,36 +106,6 @@ then
 fi
 
 docker_image=$(docker images |grep 'rabbitmq')
-if [ ! -z "$docker_image" ] 
-then
-  docker_image=$(echo $docker_image |awk '{ print $3; }')
-  if [ ! -z "$docker_image" ] 
-  then    
-    docker image rmi -f  "$docker_image"
-  fi
-fi
-
-docker_image=$(docker images |grep 'awx_postgres')
-if [ ! -z "$docker_image" ] 
-then
-  docker_image=$(echo $docker_image |awk '{ print $3; }')
-  if [ ! -z "$docker_image" ] 
-  then    
-    docker image rmi -f  "$docker_image"
-  fi
-fi
-
-docker_image=$(docker images |grep 'ansible/awx_web')
-if [ ! -z "$docker_image" ] 
-then
-  docker_image=$(echo $docker_image |awk '{ print $3; }')
-  if [ ! -z "$docker_image" ] 
-  then    
-    docker image rmi -f  "$docker_image"
-  fi
-fi
-
-docker_image=$(docker images |grep 'ansible/awx_task')
 if [ ! -z "$docker_image" ] 
 then
   docker_image=$(echo $docker_image |awk '{ print $3; }')
