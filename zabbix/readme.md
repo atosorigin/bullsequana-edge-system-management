@@ -37,12 +37,6 @@ Optionally, 3 ready-to-go zabbix images are available on Dockerhub
 
 ## <a name="what_first"></a>What to do first
 
-### check proxy configuration
-
-The following XXX_PROXY environment variables are automatically *copied* in zabbix context : HTTP_PROXY, HTTPS_PROXY, NO_PROXY
-
-For more details, read the [How to change your Proxy](#howto_proxy) part
-
 ### get it !
 You can get it from
 - Bull SOL (Support on line): full installation
@@ -60,6 +54,15 @@ from this repository, just clone:
 ```
 git clone https://github.com/atosorigin/bullsequana-edge-system-management.git
 ```
+
+### check proxy configuration
+
+The following XXX_PROXY environment variables are automatically **copied** in zabbix context:
+- HTTP_PROXY
+- HTTPS_PROXY
+- NO_PROXY
+
+For more details, read the [How to change your Proxy](#howto_proxy) section
 
 ### launch installer
 Bull Sequana Edge Zabbix Extensions has 3 Zabbix installers and an option to try it  
@@ -105,15 +108,44 @@ Be careful: The "Visible name" is used by Zabbix Dashboards, so let "Zabbix serv
 - Port should be 10050
 
 ### install Atos templates
-You should copy the templates from <install_dir>\zabbix\server\externalscripts\ to a local path
-1. Go to Configuration / Templates
-2. Click on Import button at the right
-![alt text](https://github.com/atosorigin/bullsequana-edge-system-management/blob/master/zabbix/doc/Import_templates.png)
-3. Locate your Atos templates
-![alt text](https://github.com/atosorigin/bullsequana-edge-system-management/blob/master/zabbix/doc/Select_template.png)
-4. Click on Import button below
+Available Atos templates:
+- **template-atos_openbmc-lld-zbxv4.xml**: should be applied on all Atos mipockets
+- **template-atos_openbmc-rsyslog-zbxv4.xml**: shoudl be applied only on the zabbix server
 
-### add your hosts
+To install it:
+1. Copy the templates from <install_dir>\zabbix\server\externalscripts\ to a **local path on you client computer running the browser**
+2. Open a browser and go to Configuration / Templates
+3. Click on Import button at the right
+![alt text](https://github.com/atosorigin/bullsequana-edge-system-management/blob/master/zabbix/doc/Import_templates.png)
+4. Locate your Atos templates
+![alt text](https://github.com/atosorigin/bullsequana-edge-system-management/blob/master/zabbix/doc/Select_template.png)
+5. Click on Import button below
+
+### add your hosts with Zabbix discovery service
+Optionaly, you can use the Zabbix discovery service to add your hosts.
+1. First you should add a **Zabbix Discovery rule**
+- Go to Configuration / Discovery
+- Create a new Discovery Rule
+![alt text](https://github.com/atosorigin/bullsequana-edge-system-management/blob/master/zabbix/doc/create_discovery_rule.png)
+- Fill the IP range and "Check https" protocol. Care the Update interval (1h by default) and choose DNS Name only if you have a DNS (instead you can choose IP Address)
+![alt text](https://github.com/atosorigin/bullsequana-edge-system-management/blob/master/zabbix/doc/discovery_rule.png)
+
+2. Second you should add a **Zabbix Discovery action**:
+- Go to Configuration / Actions
+- Select Event Source = **Discovery**
+- Create a new action
+- In New condition select ""Discovery rule"" and choose your previously created rule
+![alt text](https://github.com/atosorigin/bullsequana-edge-system-management/blob/master/zabbix/doc/select_discovery_rule_in_action.png)
+- Add your Condition
+![alt text](https://github.com/atosorigin/bullsequana-edge-system-management/blob/master/zabbix/doc/add_discovery_rule.png)
+- Click Operations tab
+- Fill the Operations you want: here the rule add the discovered host, add the host to "discovered hosts" group, link the template, enable the host and set the inventory to automatic
+![alt text](https://github.com/atosorigin/bullsequana-edge-system-management/blob/master/zabbix/doc/operations_discovery_rule.png)
+3. Go to section **Fill Atos template macros** to complete your host with {$OPENBMC},{$USER}, {$PASSWORD} 
+
+![#f03c15](https://placehold.it/15/f03c15/000000?text=+) Warning: after Discovery complete, you may disable the Action to stop discovering hosts all the time and do some changes on you host.
+
+### add your hosts manually
 1. Go to Configuration / Hosts
 2. Click on the right button "Create Host"
 3. Add a Name 
@@ -130,11 +162,17 @@ You should copy the templates from <install_dir>\zabbix\server\externalscripts\ 
 4. Filter Atos template and retrieve Atos LLD template
 5. Click on Add Link => The template should apear in "Linked Templates" part above
 6. Click on Update button
-7. Click on "Macros" tab
+
+### Fill Atos template macros
+1. Go to Configuration/Hosts
+2. Select your host
+3. Click on "Macros" tab
 You must add 3 macros on each mipocket host:
-- {$PASSWORD} with the password for Mipocket (could be encrypted with PSK => See Security below)
-- {$USER} with the username to be used
-- {$OPENBMC} the reachable address of Mipocket
+- **{$OPENBMC}** the reachable address of Mipocket
+- **{$USER}** with the username to be used
+- **{$PASSWORD}** with the password for Mipocket (could be encrypted with PSK => See Security below)
+
+![alt text](https://github.com/atosorigin/bullsequana-edge-system-management/blob/master/zabbix/doc/macros.png)
 
 ## <a name="edge_template"></a>How to install BullSequana Edge template
 ### template content
@@ -493,6 +531,9 @@ if you need to adapt the versions:
 ![#f03c15](https://placehold.it/15/f03c15/000000?text=+) Warning: do *NOT* forget to comment the remove-xxx-containers.sh line at the beginning of the install-xxx script
 
 ![alt text](https://raw.githubusercontent.com/atosorigin/bullsequana-edge-system-management/master/ansible/doc/comment_remove.png) 
+
+After a build and install process, the result should be:
+![alt text](https://raw.githubusercontent.com/atosorigin/bullsequana-edge-system-management/master/ansible/doc/build_process.png) 
 
 ## <a name="updates"></a>Warning for updates
 

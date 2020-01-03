@@ -793,6 +793,9 @@ if you need to adapt the versions:
 
 ![alt text](https://raw.githubusercontent.com/atosorigin/bullsequana-edge-system-management/master/ansible/doc/comment_remove.png) 
 
+After a build and install process, the result should be:
+![alt text](https://raw.githubusercontent.com/atosorigin/bullsequana-edge-system-management/master/ansible/doc/build_process.png) 
+
 ## <a name="howto_manage_password"></a>How to manage an encrypted password
 ### add an Ansible native encrypted password
 1. execute the following native ansible command with the name of your password and the real password you want to encrypt  
