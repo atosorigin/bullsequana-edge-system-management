@@ -1,9 +1,12 @@
 #!/bin/sh
 
+###############################################################################################################
+# this script builds from docker-compose-awx.yml 
+# build context is Dockerfiles/Dockerfile-awx_xxx file
+###############################################################################################################
+
 . ./check_prerequisites.sh
-# comment the next line if you build from your own Dockerfiles with build_awx.sh
 . ./remove_awx_containers.sh
-. ./proxy.sh
 . ./versions.sh
 
 export docker_image=`docker images |grep 'bullsequana-edge-system-management_awx_web' |awk '{ print $3; }'`
@@ -86,15 +89,12 @@ then
   fi
 fi
 
-echo "starting BullSequana Edge Ansible AWX containers ...."
-docker-compose -f docker_compose_awx.yml up -d
+echo "building BullSequana Edge Ansible AWX containers and images ...."
+docker-compose -f docker_compose_awx.yml build
 
 echo "----------------------------------------------------------------------------------------------------"
-echo "now wait 10 minutes for the migration to complete...."
-echo "check the login page at https://localhost"
-echo "and run ./add_playbooks.sh"
-echo "AWX is available on https://localhost"
-echo "pgadmin is available on http://localhost:7070"
-echo "for more info, refer to github site https://github.com/atosorigin/bullsequana-edge-system-management"
+echo "now edit install_awx.sh"
+echo -e "\033[32mcomment the line . ./remove_awx_containers.sh\033[0m"
+echo "BEFORE running ./install_awx.sh"
 echo "----------------------------------------------------------------------------------------------------"
 

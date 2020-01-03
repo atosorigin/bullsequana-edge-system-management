@@ -22,12 +22,13 @@ Optionaly, 2 ready-to-go AWX-Ansible images are available on Dockerhub
 - [BullSequana Edge Playbooks](#playbooks)
 - [What to do first on AWX](#what_awx)
 - [What to do first on Ansible](#what_ansible)
-- [How to log on a docker container](#howto_docker_logon)
 - [How to manage encrypted passwords](#howto_manage_password)
-- [How to change my proxy](#howto_proxy)
+- [How to change your proxy](#howto_proxy)
 - [How to change technical states file path](#howto_ts)
 - [How to change certificat on AWX server](#howto_cert)
 - [How to change AWX passwords](#howto_passwords)
+- [How to log on a docker container](#howto_docker_logon)
+- [How to build your own docker container](#howto_build)
 - [Warning for updates](#warning_updates)
 - [More help](#more_help)
 - [Support](#support)
@@ -90,7 +91,7 @@ You can check while installating and starting your containers:
 
 ![alt text](https://raw.githubusercontent.com/atosorigin/bullsequana-edge-system-management/master/ansible/doc/check_proxy.png)
 
-For more details, read the [How to change my Proxy](#howto_proxy)
+For more details, read the [How to change your Proxy](#howto_proxy)
 
 ### get it !
 You can get it from
@@ -359,7 +360,7 @@ encrypted passwords = <install_dir>/ansible/vars/passwords.yml file
 ```
 3. generate an encrypted password for your password variable
 4. add your encrypted password variable 
-`password='{{ my_encryoted_variable }}'`
+`password='{{ your_encryoted_variable }}'`
 
 ![alt text](https://raw.githubusercontent.com/atosorigin/bullsequana-edge-system-management/master/ansible/doc/host_password.png)
 
@@ -406,9 +407,9 @@ General options can always be used with any ansible command as an optional and c
 
 #### how to limit to a group of servers :
 ```
---limit=<my_group> 
+--limit=<your_group> 
 ```
-*<my_group> should be declared in hosts file*
+*<your_group> should be declared in hosts file*
 
 #### how to specify a BMC password in the CLI on the fly:
 ```
@@ -420,10 +421,10 @@ You can refer to Ansible documentation: Visit https://docs.ansible.com/ansible/2
 To summarize, two main possibilities:
 1. As a command parameter, indicate variable/value with --extra-vars as CLI argument :
 
-`ansible-playbook myfile.yml --extra-vars "ma_variable=my_value"`
+`ansible-playbook yourfile.yml --extra-vars "ma_variable=your_value"`
 
 2. In the appropriate extra_vars file <install_dir>/ansible/vars/external_vars.yml, uncomment and set the desired variable :
-`my_variable: my_value`
+`your_variable: your_value`
 
 ![#f03c15](https://placehold.it/15/f03c15/000000?text=+) Warning : You can set extra variables differently but care the precedence order  
 ![alt text](https://raw.githubusercontent.com/atosorigin/bullsequana-edge-system-management/master/ansible/doc/precedence_order.png)
@@ -481,7 +482,7 @@ ex: [root@awx firmware]# ansible-playbook --limit=openbmc delete_firmware_image.
 ```
 ansible-playbook power_off.yml
 ```
-ex: [root@awx power]# ansible-playbook --limit=openbmc -e "username=my_user password=my_pass" power_off.yml 
+ex: [root@awx power]# ansible-playbook --limit=openbmc -e "username=your_user password=your_pass" power_off.yml 
 
 #### how to start host
 
@@ -648,7 +649,7 @@ TOWER_PASSWORD=<here your new tower password>
 TOWER_VERIFY_SSL=false  
 TOWER_INSECURE=true  
 
-## <a name="howto_proxy"></a>How to change my proxy
+## <a name="howto_proxy"></a>How to change your proxy
 By default, when you start the installer, the proxy environment variables are added in containers thanks to the following section in docker-compose-awx.yml file:
 
 ```
@@ -763,6 +764,35 @@ examples
 docker exec -it awx_task bash`
 docker exec -it awx_web ansible-playbook projects/openbmc/inventory/get_sensors.yml`
 ```
+
+## <a name="howto_build"></a>How to build my own docker container
+If you need to adapt a Dockerfile in Dockerfiles directory:
+1. edit the desired Dockerfile-xxx.**tag** and adapt it
+2. run the corresponding build-xxx
+3. edit the corresponding install-xxx script 
+4. comment the remove-xxx-containers.sh line
+5. run your newly modified install script
+
+![alt text](https://raw.githubusercontent.com/atosorigin/bullsequana-edge-system-management/master/ansible/doc/dockerfiles_tag_latest.png) 
+
+![#f03c15](https://placehold.it/15/f03c15/000000?text=+) Warning: if you change MISM_TAG_BULLSEQUANA_EDGE_VERSION=**tag** to MISM_TAG_BULLSEQUANA_EDGE_VERSION=**latest**, you should use Dockerfile-xxx.**latest** files
+
+if you need to adapt the versions:
+1. edit versions.sh and adapt it
+2. run the corresponding build-xxx
+3. edit the corresponding install-xxx script 
+4. comment the remove-xxx-containers.sh line
+5. run your newly modified install script
+
+- versions **tag**
+![alt text](https://raw.githubusercontent.com/atosorigin/bullsequana-edge-system-management/master/ansible/doc/versions_tag.png) 
+- versions **latest**
+![alt text](https://raw.githubusercontent.com/atosorigin/bullsequana-edge-system-management/master/ansible/doc/versions_latest.png) 
+
+![#f03c15](https://placehold.it/15/f03c15/000000?text=+) Warning: do *NOT* forget to comment the remove-xxx-containers.sh line at the beginning of the install-xxx script
+
+![alt text](https://raw.githubusercontent.com/atosorigin/bullsequana-edge-system-management/master/ansible/doc/comment_remove.png) 
+
 ## <a name="howto_manage_password"></a>How to manage an encrypted password
 ### add an Ansible native encrypted password
 1. execute the following native ansible command with the name of your password and the real password you want to encrypt  

@@ -1,7 +1,11 @@
 #!/bin/sh
 
+###############################################################################################################
+# this script builds from docker-compose-awx.yml 
+# build context is Dockerfiles/Dockerfile-awx_xxx file
+###############################################################################################################
+
 . ./check_prerequisites.sh
-# comment the next line if you build from your own Dockerfiles with build_zabbix.sh
 . ./remove_zabbix_containers.sh
 
 chmod uo+w zabbix/server/externalscripts/openbmc
@@ -99,10 +103,9 @@ fi
 echo "starting BullSequana Edge Zabbix containers ...."
 docker-compose -f docker_compose_zabbix.yml up -d
 
-echo "---------------------------------------------------------------------------------------------------"
-echo "Zabbix is available on https://localhost:4443"
-echo "for more info, refer to github site https://github.com/atosorigin/bullsequana-edge-system-management"
 echo "----------------------------------------------------------------------------------------------------"
-
-
+echo "now edit install_zabbix.sh"
+echo -e "\033[32mcomment the line . ./remove_zabbix_containers.sh\033[0m"
+echo "BEFORE running ./install_zabbix.sh"
+echo "----------------------------------------------------------------------------------------------------"
 

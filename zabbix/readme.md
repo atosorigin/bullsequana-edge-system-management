@@ -23,12 +23,13 @@ Optionally, 3 ready-to-go zabbix images are available on Dockerhub
 - [What to do first](#what_first)
 - [How to install BullSequana Edge template](#edge_template)
 - [How to install rsyslog template](#rsyslog_template)
-- [How to create my first Edge dashboard](#dashboard)
-- [How to change my Proxy](#howto_proxy)
+- [How to create your first Edge dashboard](#dashboard)
+- [How to change your Proxy](#howto_proxy)
 - [How to change Local Date / Time Zone](#datetimezone)
 - [How to add Security](#security)
 - [How to test](#test)
 - [How to log on a docker container](#howto_docker_logon)
+- [How to build your own docker container](#howto_build)
 - [Warning for updates](#updates)
 - [Support](#support)
 - [LICENSE](#license)
@@ -40,7 +41,7 @@ Optionally, 3 ready-to-go zabbix images are available on Dockerhub
 
 The following XXX_PROXY environment variables are automatically *copied* in zabbix context : HTTP_PROXY, HTTPS_PROXY, NO_PROXY
 
-For more details, read the [How to change my Proxy](#howto_proxy) part
+For more details, read the [How to change your Proxy](#howto_proxy) part
 
 ### get it !
 You can get it from
@@ -180,7 +181,7 @@ Screens appear in contextual menu when Host column is available:
 
 ![alt text](https://github.com/atosorigin/bullsequana-edge-system-management/blob/master/zabbix/doc/contextual_host_menu.png)
 
-## <a name="dashboard"></a>How to create my first Edge dashboard
+## <a name="dashboard"></a>How to create your first Edge dashboard
 ### create a dashboard
 1. Go to Monitoring / Dashboard
 2. Click on the right button "Create Dashboard"
@@ -299,10 +300,10 @@ and add the following lines in your /etc/rsyslog.conf
 ```
 $template RemoteLogs,"/var/log/rsyslog"
 #*.* ?RemoteLogs;rsyslog_format
-:hostname, contains, "my_naming_convention"	?RemoteLogs;rsyslog_format
+:hostname, contains, "your_naming_convention"	?RemoteLogs;rsyslog_format
 & ~
 ```
-where my_naming_convention is a substring contained in all BMC hostnames
+where your_naming_convention is a substring contained in all BMC hostnames
 
 ### rsyslog configuration
 Change user permission on rsyslog
@@ -316,16 +317,16 @@ systemctl start rsyslog
 ```
 
 ### rsyslog from the bmc 
-log on to your bmc : ` ssh user@<my_bmc>`  
+log on to your bmc : ` ssh user@<your_bmc>`  
 
 with journalctl:  
 ` journalctl -r`  
 
 with telnet to check port opening:  
-` telnet <my_rsyslog_server_ip> <my_rsyslog_port>`  
+` telnet <your_rsyslog_server_ip> <your_rsyslog_port>`  
 
 with logger command:  
-` logger 'here is a test log message from <my_rsyslog_server_ip>'`  
+` logger 'here is a test log message from <your_rsyslog_server_ip>'`  
 
 More information: Vist https://www.tecmint.com/install-rsyslog-centralized-logging-in-centos-ubuntu/
 
@@ -334,7 +335,7 @@ If telnet is not working but the ping is working : iptables rules could be the i
 You can flush the iptables rules   
 ![#f03c15](https://placehold.it/15/f03c15/000000?text=+) Be careful to be able to recreate iptables rules after this command ` iptables -F `
 
-## <a name="howto_proxy"></a>How to change my proxy
+## <a name="howto_proxy"></a>How to change your proxy
 By default, when you start the installer, the proxy environment variables are added in containers thanks to the following section in docker-compose-awx.yml file:
 
 ```
@@ -464,6 +465,34 @@ zabbix-postgres
 
 examples :
 `docker exec -it zabbix-server bash`
+
+## <a name="howto_build"></a>How to build your own docker container
+If you need to adapt a Dockerfile in Dockerfiles directory:
+1. edit the desired Dockerfile-xxx.**tag** and adapt it
+2. run the corresponding build-xxx
+3. edit the corresponding install-xxx script 
+4. comment the remove-xxx-containers.sh line
+5. run your newly modified install script
+
+![alt text](https://raw.githubusercontent.com/atosorigin/bullsequana-edge-system-management/master/ansible/doc/dockerfiles_tag_latest.png) 
+
+![#f03c15](https://placehold.it/15/f03c15/000000?text=+) Warning: if you change MISM_TAG_BULLSEQUANA_EDGE_VERSION=**tag** to MISM_TAG_BULLSEQUANA_EDGE_VERSION=**latest**, you should use Dockerfile-xxx.**latest** files
+
+if you need to adapt the versions:
+1. edit versions.sh and adapt it
+2. run the corresponding build-xxx
+3. edit the corresponding install-xxx script 
+4. comment the remove-xxx-containers.sh line
+5. run your newly modified install script
+
+- versions **tag**
+![alt text](https://raw.githubusercontent.com/atosorigin/bullsequana-edge-system-management/master/ansible/doc/versions_tag.png) 
+- versions **latest**
+![alt text](https://raw.githubusercontent.com/atosorigin/bullsequana-edge-system-management/master/ansible/doc/versions_latest.png) 
+
+![#f03c15](https://placehold.it/15/f03c15/000000?text=+) Warning: do *NOT* forget to comment the remove-xxx-containers.sh line at the beginning of the install-xxx script
+
+![alt text](https://raw.githubusercontent.com/atosorigin/bullsequana-edge-system-management/master/ansible/doc/comment_remove.png) 
 
 ## <a name="updates"></a>Warning for updates
 
