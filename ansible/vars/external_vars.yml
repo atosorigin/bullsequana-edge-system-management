@@ -10,7 +10,7 @@ poweron_countdown: 15
 poweroff_countdown: 15
 
 # Set a path to a Bull Technical State file
-technical_state_path: /host/mnt
+technical_state_path: /mnt
 
 # Define rsyslog ip and port
 # default rsyslog port is 514

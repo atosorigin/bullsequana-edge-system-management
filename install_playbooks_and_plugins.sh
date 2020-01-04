@@ -65,6 +65,11 @@ sed -i "/all:vars/a ANSIBLE_EXTERNAL_VARS=$ANSIBLE_EXTERNAL_VARS" $ANSIBLE_INVEN
 echo "the following line was added in your $ANSIBLE_INVENTORY :"
 echo -e "\033[32mANSIBLE_EXTERNAL_VARS=$ANSIBLE_EXTERNAL_VARS\033[0m"
 
+# ansible plugin callback is copied in default shared directory /usr/share/ansible/plugins/callback/
+# you can adapt it if you have another ansible plugin callback directory
+mkdir /usr/share/ansible/plugins/callback
+cp -r ansible/plugins/callback/ansible_stdout_compact_logger      /usr/share/ansible/plugins/callback/ansible_stdout_compact_logger
+
 # ansible plugin inventory is copied in default directory /usr/lib/python<major>.<minor>/site-packages/ansible/modules
 # you can adapt it if you have another ansible plugin inventory directory
 
