@@ -2,99 +2,41 @@
 
 ###############################################################################################################
 # this script builds from docker-compose-awx.yml 
-# build context is Dockerfiles/Dockerfile-awx_xxx file
+# build context is Dockerfiles/Dockerfile-awx_xxx.tag or .latest file
 ###############################################################################################################
+
+echo -e "This script is usefull if you change some AWX Dockerfiles before running"
+echo -e "\033[31m!!!!!!! You will lost the WARRANTY as you change the Dockerfiles at your own risk !!!!!!!\033[0m"
+
+continuebuild()
+{
+  echo "tar files will be overwritten"
+  echo -e "\033[32myou can always get the original tar file from github to have WARRANTY again\033[0m"
+}
+
+while true; do
+    read -p "Do you wish to continue and build your own Dockerfiles ? y yes / n no: " yn
+    case $yn in
+        [Yy]* ) continuebuild; break;;
+        [Nn]* ) exit; break;;
+        * ) echo "Please answer yes or no.";;
+    esac
+done
 
 . ./check_prerequisites.sh
 . ./remove_awx_containers.sh
 . ./versions.sh
 
-export docker_image=`docker images |grep 'bullsequana-edge-system-management_awx_web' |awk '{ print $3; }'`
-if [ -z "$docker_image" ] 
-then
-  if [ -f bullsequana-edge-system-management_awx_web.$MISM_BULLSEQUANA_EDGE_VERSION.tar ]
-  then
-    echo "loading Bull AWX web image ...."
-    docker load --input bullsequana-edge-system-management_awx_web.$MISM_BULLSEQUANA_EDGE_VERSION.tar
-  fi
-fi
-
-export docker_image=`docker images |grep 'bullsequana-edge-system-management_awx_task' |awk '{ print $3; }'`
-if [ -z "$docker_image" ] 
-then
-  if [ -f bullsequana-edge-system-management_awx_task.$MISM_BULLSEQUANA_EDGE_VERSION.tar ]
-  then
-    echo "loading Bull AWX task image ...."
-    docker load --input bullsequana-edge-system-management_awx_task.$MISM_BULLSEQUANA_EDGE_VERSION.tar
-  fi
-fi
-
-export docker_image=`docker images |grep 'ansible/awx_web' |awk '{ print $3; }'`
-if [ -z "$docker_image" ] 
-then
-  if [ -f awx_web.$MISM_BULLSEQUANA_EDGE_VERSION.tar ]
-  then
-    echo "loading ansible/awx_web image ...."
-    docker load --input awx_web.$MISM_BULLSEQUANA_EDGE_VERSION.tar
-  fi
-fi
-
-export docker_image=`docker images |grep 'ansible/awx_task' |awk '{ print $3; }'`
-if [ -z "$docker_image" ] 
-then
-  if [ -f awx_task.$MISM_BULLSEQUANA_EDGE_VERSION.tar ]
-  then
-    echo "loading ansible/awx_task image ...."
-    docker load --input awx_task.$MISM_BULLSEQUANA_EDGE_VERSION.tar
-  fi
-fi
-
-export docker_image=`docker images |grep 'rabbitmq' |awk '{ print $3; }'`
-if [ -z "$docker_image" ] 
-then
-  if [ -f rabbitmq.$MISM_BULLSEQUANA_EDGE_VERSION.tar ]
-  then
-    echo "loading rabbitmq $MISM_BULLSEQUANA_EDGE_VERSION image ...."
-    docker load --input rabbitmq.$MISM_BULLSEQUANA_EDGE_VERSION.tar
-  fi
-fi
-
-export docker_image=`docker images |grep 'memcached' |awk '{ print $3; }'`
-if [ -z "$docker_image" ] 
-then
-  if [ -f memcached.$MISM_BULLSEQUANA_EDGE_VERSION.tar ]
-  then
-    echo "loading memcached $MISM_BULLSEQUANA_EDGE_VERSION image ...."
-    docker load --input memcached.$MISM_BULLSEQUANA_EDGE_VERSION.tar
-  fi
-fi
-
-export docker_image=`docker images |grep 'postgres' |awk '{ print $3; }'`
-if [ -z "$docker_image" ] 
-then
-  if [ -f postgres.$MISM_BULLSEQUANA_EDGE_VERSION.tar ]
-  then
-    echo "loading postgres $MISM_BULLSEQUANA_EDGE_VERSION image ...."
-    docker load --input postgres.$MISM_BULLSEQUANA_EDGE_VERSION.tar
-  fi
-fi
-
-export docker_image=`docker images |grep 'pgadmin4' |awk '{ print $3; }'`
-if [ -z "$docker_image" ] 
-then
-  if [ -f pgadmin4.$MISM_BULLSEQUANA_EDGE_VERSION.tar ]
-  then
-    echo "loading pgadmin4 $MISM_BULLSEQUANA_EDGE_VERSION image ...."
-    docker load --input pgadmin4.$MISM_BULLSEQUANA_EDGE_VERSION.tar
-  fi
-fi
-
 echo "building BullSequana Edge Ansible AWX containers and images ...."
 docker-compose -f docker_compose_awx.yml build
 
+echo "saving BullSequana Edge Ansible AWX containers and images in tar files ...."
+echo -e "\033[31mit will take several minutes\033[0m"
+docker save -o bullsequana-edge-system-management_awx_task.$MISM_BULLSEQUANA_EDGE_VERSION.tar bullsequana-edge-system-management_awx_task:$MISM_BULLSEQUANA_EDGE_VERSION
+docker save -o bullsequana-edge-system-management_awx_web.$MISM_BULLSEQUANA_EDGE_VERSION.tar bullsequana-edge-system-management_awx_web:$MISM_BULLSEQUANA_EDGE_VERSION
+
+echo "... save completed"
 echo "----------------------------------------------------------------------------------------------------"
-echo "now edit install_awx.sh"
-echo -e "\033[32mcomment the line . ./remove_awx_containers.sh\033[0m"
-echo "BEFORE running ./install_awx.sh"
+echo -e "\033[31mnow you can run ./install_awx.sh... enjoy your customization !!\033[0m"
 echo "----------------------------------------------------------------------------------------------------"
 

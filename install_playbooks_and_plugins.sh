@@ -65,10 +65,11 @@ sed -i "/all:vars/a ANSIBLE_EXTERNAL_VARS=$ANSIBLE_EXTERNAL_VARS" $ANSIBLE_INVEN
 echo "the following line was added in your $ANSIBLE_INVENTORY :"
 echo -e "\033[32mANSIBLE_EXTERNAL_VARS=$ANSIBLE_EXTERNAL_VARS\033[0m"
 
-# ansible plugin callback is copied in default shared directory /usr/share/ansible/plugins/callback/
-# you can adapt it if you have another ansible plugin callback directory
-mkdir /usr/share/ansible/plugins/callback
-cp -r ansible/plugins/callback/ansible_stdout_compact_logger    /usr/share/ansible/plugins/callback/ansible_stdout_compact_logger
+if [ ! -d "/usr/share/ansible/plugins/callback" ]
+then
+  mkdir /usr/share/ansible/plugins/callback
+  cp -r ansible/plugins/callback/ansible_stdout_compact_logger /usr/share/ansible/plugins/callback/ansible_stdout_compact_logger
+fi
 
 # ansible plugin inventory is copied in default directory /usr/lib/python<major>.<minor>/site-packages/ansible/modules
 # you can adapt it if you have another ansible plugin inventory directory
@@ -82,7 +83,7 @@ then
   cp ansible/plugins/modules/remote_management/openbmc/atos_openbmc.py       /usr/lib/python2.7/site-packages/ansible/modules/remote_management/openbmc/atos_openbmc.py
   echo "atos_openbmc.py copied in Ansible modules: /usr/lib/python2.7/site-packages/ansible/modules/remote_management/openbmc/atos_openbmc.py"
   cp ansible/plugins/modules/remote_management/openbmc/atos_openbmc_utils.py /usr/lib/python2.7/site-packages/ansible/module_utils/atos_openbmc_utils.py
-  echo "atos_openbmc_utils.py copied in Ansible module_utils /usr/lib/python2.7/site-packages/ansible/modules/remote_management/openbmc/atos_openbmc.py"
+  echo "atos_openbmc_utils.py copied in Ansible module_utils /usr/lib/python2.7/site-packages/ansible/module_utils/atos_openbmc_utils.py"
   cp ansible/plugins/modules/remote_management/openbmc/__init__.py           /usr/lib/python2.7/site-packages/ansible/modules/remote_management/openbmc/__init__.py
   exit 0
 fi
@@ -96,7 +97,7 @@ then
   cp ansible/plugins/modules/remote_management/openbmc/atos_openbmc.py       /usr/lib/python3.6/site-packages/ansible/modules/remote_management/openbmc/atos_openbmc.py
   echo "atos_openbmc.py copied in Ansible modules: /usr/lib/python3.6/site-packages/ansible/modules/remote_management/openbmc/atos_openbmc.py"
   cp ansible/plugins/modules/remote_management/openbmc/atos_openbmc_utils.py /usr/lib/python3.6/site-packages/ansible/module_utils/atos_openbmc_utils.py
-  echo "atos_openbmc_utils.py copied in Ansible module_utils /usr/lib/python3.6/site-packages/ansible/modules/remote_management/openbmc/atos_openbmc.py"
+  echo "atos_openbmc_utils.py copied in Ansible module_utils /usr/lib/python3.6/site-packages/ansible/module_utils/atos_openbmc_utils.py"
   cp ansible/plugins/modules/remote_management/openbmc/__init__.py           /usr/lib/python3.6/site-packages/ansible/modules/remote_management/openbmc/__init__.py
   exit 0
 fi

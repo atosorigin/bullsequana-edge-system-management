@@ -110,10 +110,10 @@ if tower.job_templates:
         j['credential'] = cred['id']
         job_template_res.create(**j)
 
-print("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
+print("-----------------------------------------------------------------------------------------")
 print("What to do first ?")
 print("See https://github.com/atosorigin/bullsequana-edge-system-management/tree/master/ansible")
-print("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
+print("-----------------------------------------------------------------------------------------")
 
 inv_res.delete(name="Demo Inventory")
 project_res.delete(name="Demo Project")
