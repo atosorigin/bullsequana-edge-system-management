@@ -37,7 +37,7 @@ add_lines()
 }
 
 while true; do
-    read -p "Do you wish to overwrite your $ANSIBLE_CONFIG file ? y yes / n no " yn
+    read -p "Do you wish to overwrite your $ANSIBLE_CONFIG file ? y yes / n no: " yn
     case $yn in
         [Yy]* ) cp ansible/inventory/ansible.cfg $ANSIBLE_CONFIG ; break;;
         [Nn]* ) add_lines; break;;
@@ -65,54 +65,36 @@ sed -i "/all:vars/a ANSIBLE_EXTERNAL_VARS=$ANSIBLE_EXTERNAL_VARS" $ANSIBLE_INVEN
 echo "the following line was added in your $ANSIBLE_INVENTORY :"
 echo -e "\033[32mANSIBLE_EXTERNAL_VARS=$ANSIBLE_EXTERNAL_VARS\033[0m"
 
-# ansible plugin inventory is copied in default shared directory /usr/share/ansible/plugins/inventory/
+# ansible plugin inventory is copied in default directory /usr/lib/python<major>.<minor>/site-packages/ansible/modules
 # you can adapt it if you have another ansible plugin inventory directory
 
-if [ ! -d "/usr/share/ansible" ]
+if [ -d "/usr/lib/python2.7/site-packages/ansible/modules/remote_management" ]
 then
-  mkdir /usr/share/ansible
+  if [ ! -d "/usr/lib/python2.7/site-packages/ansible/modules/remote_management/openbmc" ]
+  then
+    mkdir /usr/lib/python2.7/site-packages/ansible/modules/remote_management/openbmc
+  fi
+  cp ansible/plugins/modules/remote_management/openbmc/atos_openbmc.py       /usr/lib/python2.7/site-packages/ansible/modules/remote_management/openbmc/atos_openbmc.py
+  echo "atos_openbmc.py copied in Ansible modules: /usr/lib/python2.7/site-packages/ansible/modules/remote_management/openbmc/atos_openbmc.py"
+  cp ansible/plugins/modules/remote_management/openbmc/atos_openbmc_utils.py /usr/lib/python2.7/site-packages/ansible/module_utils/atos_openbmc_utils.py
+  echo "atos_openbmc_utils.py copied in Ansible module_utils /usr/lib/python2.7/site-packages/ansible/modules/remote_management/openbmc/atos_openbmc.py"
+  cp ansible/plugins/modules/remote_management/openbmc/__init__.py           /usr/lib/python2.7/site-packages/ansible/modules/remote_management/openbmc/__init__.py
+  exit 0
 fi
 
-if [ ! -d "/usr/share/ansible/plugins" ]
+if [ -d "/usr/lib/python3.6/site-packages/ansible/modules/remote_management" ]
 then
-  mkdir /usr/share/ansible/plugins
+  if [ ! -d "/usr/lib/python2.7/site-packages/ansible/modules/remote_management/openbmc" ]
+  then
+    mkdir /usr/lib/python2.7/site-packages/ansible/modules/remote_management/openbmc
+  fi
+  cp ansible/plugins/modules/remote_management/openbmc/atos_openbmc.py       /usr/lib/python3.6/site-packages/ansible/modules/remote_management/openbmc/atos_openbmc.py
+  echo "atos_openbmc.py copied in Ansible modules: /usr/lib/python3.6/site-packages/ansible/modules/remote_management/openbmc/atos_openbmc.py"
+  cp ansible/plugins/modules/remote_management/openbmc/atos_openbmc_utils.py /usr/lib/python3.6/site-packages/ansible/module_utils/atos_openbmc_utils.py
+  echo "atos_openbmc_utils.py copied in Ansible module_utils /usr/lib/python3.6/site-packages/ansible/modules/remote_management/openbmc/atos_openbmc.py"
+  cp ansible/plugins/modules/remote_management/openbmc/__init__.py           /usr/lib/python3.6/site-packages/ansible/modules/remote_management/openbmc/__init__.py
+  exit 0
 fi
 
-if [ ! -d "/usr/share/ansible/plugins/inventory" ]
-then
-  mkdir /usr/share/ansible/plugins/inventory
-fi
- 
-cp ansible/plugins/inventory/redfish_plugin_ansible_inventory.yml /usr/share/ansible/plugins/inventory/redfish_plugin_ansible_inventory.yml
-cp ansible/plugins/inventory/redfish_plugin_ansible_inventory.py  /usr/share/ansible/plugins/inventory/redfish_plugin_ansible_inventory.py
-
-# ansible plugin callback is copied in default shared directory /usr/share/ansible/plugins/callback/
-# you can adapt it if you have another ansible plugin callback directory
-
-if [ ! -d "/usr/share/ansible/plugins/callback" ]
-then
-  mkdir /usr/share/ansible/plugins/callback
-fi
-
-cp -r ansible/plugins/callback/ansible_stdout_compact_logger      /usr/share/ansible/plugins/callback/ansible_stdout_compact_logger
-
-# ansible plugin module is copied in default shared directory /usr/share/ansible/plugins/modules/
-# you can adapt it if you have another ansible plugin module directory
-if [ ! -d "/usr/share/ansible/plugins/modules" ]
-then
-  mkdir /usr/share/ansible/plugins/modules
-fi
-
-if [ ! -d "/usr/share/ansible/plugins/modules/remote_management" ]
-then
-  mkdir /usr/share/ansible/plugins/modules/remote_management
-fi
-
-if [ ! -d "/usr/share/ansible/plugins/modules/remote_management/openbmc" ]
-then
-  mkdir /usr/share/ansible/plugins/modules/remote_management/openbmc
-fi
-
-cp ansible/plugins/modules/remote_management/openbmc/atos_openbmc.py       /usr/share/ansible/plugins/modules/remote_management/openbmc/atos_openbmc.py
-cp ansible/plugins/modules/remote_management/openbmc/atos_openbmc_utils.py /usr/share/ansible/plugins/modules/remote_management/openbmc/atos_openbmc_utils.py
-
+echo -e "\033[31mError: NO Ansible modules/module_utils directory found"
+echo "you should manually copy atos_openbmc modules and module_utils"
