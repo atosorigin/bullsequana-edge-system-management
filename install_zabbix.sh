@@ -26,7 +26,7 @@ echo $timezone
 . ./proxy.sh
 . ./versions.sh
 
-export docker_image=`docker images |grep 'bullsequana-edge-system-management_zabbix-web' |awk '{ print $3; }'`
+export docker_image=`docker images |grep $MISM_BULLSEQUANA_EDGE_VERSION |grep 'bullsequana-edge-system-management_zabbix-web' |awk '{ print $3; }'`
 if [ -z "$docker_image" ] 
 then
   if [ -f bullsequana-edge-system-management_zabbix-web.$MISM_BULLSEQUANA_EDGE_VERSION.tar ]
@@ -36,7 +36,7 @@ then
   fi
 fi
 
-export docker_image=`docker images |grep 'bullsequana-edge-system-management_zabbix-server' |awk '{ print $3; }'`
+export docker_image=`docker images |grep $MISM_BULLSEQUANA_EDGE_VERSION |grep 'bullsequana-edge-system-management_zabbix-server' |awk '{ print $3; }'`
 if [ -z "$docker_image" ] 
 then
   if [ -f bullsequana-edge-system-management_zabbix-server.$MISM_BULLSEQUANA_EDGE_VERSION.tar ]
@@ -46,7 +46,7 @@ then
   fi
 fi
 
-export docker_image=`docker images |grep 'bullsequana-edge-system-management_zabbix-agent' |awk '{ print $3; }'`
+export docker_image=`docker images |grep $MISM_BULLSEQUANA_EDGE_VERSION |grep 'bullsequana-edge-system-management_zabbix-agent' |awk '{ print $3; }'`
 if [ -z "$docker_image" ] 
 then
   if [ -f bullsequana-edge-system-management_zabbix-agent.$MISM_BULLSEQUANA_EDGE_VERSION.tar ]
@@ -56,7 +56,7 @@ then
   fi
 fi
 
-export docker_image=`docker images |grep 'zabbix-server-pgsql' |awk '{ print $3; }'`
+export docker_image=`docker images |grep $ZABBIX_BULLSEQUANA_EDGE_VERSION |grep 'zabbix-server-pgsql' |awk '{ print $3; }'`
 if [ -z "$docker_image" ] 
 then
   if [ -f zabbix-server-pgsql.$MISM_BULLSEQUANA_EDGE_VERSION.tar ]
@@ -66,7 +66,7 @@ then
   fi
 fi
 
-export docker_image=`docker images |grep 'zabbix-web-nginx-pgsql' |awk '{ print $3; }'`
+export docker_image=`docker images |grep $ZABBIX_BULLSEQUANA_EDGE_VERSION |grep 'zabbix-web-nginx-pgsql' |awk '{ print $3; }'`
 if [ -z "$docker_image" ] 
 then
   if [ -f zabbix-web-nginx-pgsql.$MISM_BULLSEQUANA_EDGE_VERSION.tar ]
@@ -76,7 +76,7 @@ then
   fi
 fi
 
-export docker_image=`docker images |grep 'zabbix-agent' |awk '{ print $3; }'`
+export docker_image=`docker images |grep $ZABBIX_BULLSEQUANA_EDGE_VERSION |grep 'zabbix-agent' |awk '{ print $3; }'`
 if [ -z "$docker_image" ] 
 then
   if [ -f zabbix-agent.$MISM_BULLSEQUANA_EDGE_VERSION.tar ]
@@ -86,7 +86,7 @@ then
   fi
 fi
 
-export docker_image=`docker images |grep 'postgres' |awk '{ print $3; }'`
+export docker_image=`docker images |grep $POSTGRES_ZABBIX_BULLSEQUANA_EDGE_VERSION |grep 'postgres' |awk '{ print $3; }'`
 if [ -z "$docker_image" ] 
 then
   if [ -f postgres.$MISM_BULLSEQUANA_EDGE_VERSION.tar ]

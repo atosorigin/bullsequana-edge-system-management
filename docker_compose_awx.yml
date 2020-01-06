@@ -21,13 +21,16 @@ services:
       - ./ansible/inventory:/var/lib/awx/inventory:rw
       - ./ansible/inventory:/etc/ansible:rw
       - ./ansible/vars:/etc/ansible/vars:rw
-      - ./ansible/plugins/inventory/redfish_plugin_ansible_inventory.yml:/usr/lib/python3.6/site-packages/ansible/plugins/inventory/redfish_plugin_ansible_inventory.yml
-      - ./ansible/plugins/inventory/redfish_plugin_ansible_inventory.yml:/usr/share/ansible/plugins/inventory/redfish_plugin_ansible_inventory.yml
-      - ./ansible/plugins/inventory/redfish_plugin_ansible_inventory.py:/usr/lib/python3.6/site-packages/ansible/plugins/inventory/redfish_plugin_ansible_inventory.py
+#      - ./ansible/plugins/inventory/redfish_plugin_ansible_inventory.yml:/usr/lib/python3.6/site-packages/ansible/plugins/inventory/redfish_plugin_ansible_inventory.yml
+#      - ./ansible/plugins/inventory/redfish_plugin_ansible_inventory.yml:/usr/share/ansible/plugins/inventory/redfish_plugin_ansible_inventory.yml
+#      - ./ansible/plugins/inventory/redfish_plugin_ansible_inventory.py:/usr/lib/python3.6/site-packages/ansible/plugins/inventory/redfish_plugin_ansible_inventory.py
 #      - ./ansible/plugins/inventory/:/usr/share/ansible/plugins/inventory
       - ./ansible/plugins/callback/ansible_stdout_compact_logger:/usr/share/ansible/plugins/callback/ansible_stdout_compact_logger
-      - ./ansible/plugins/modules/remote_management/openbmc/atos_openbmc.py:/usr/lib/python3.6/site-packages/ansible/modules/remote_management/openbmc/atos_openbmc.py:ro
-      - ./ansible/plugins/modules/remote_management/openbmc/atos_openbmc_utils.py:/usr/lib/python3.6/site-packages/ansible/module_utils/atos_openbmc_utils.py:ro
+#      - ./ansible/plugins/modules/remote_management/openbmc/atos_openbmc.py:/usr/lib/python3.6/site-packages/ansible/modules/remote_management/openbmc/atos_openbmc.py:ro
+#      - ./ansible/plugins/modules/remote_management/openbmc/atos_openbmc_utils.py:/usr/lib/python3.6/site-packages/ansible/module_utils/atos_openbmc_utils.py:ro
+      - ./ansible/plugins/modules/remote_management/openbmc/atos_openbmc.py:/usr/share/ansible/plugins/modules/atos_openbmc.py:ro
+      - ./ansible/plugins/modules/remote_management/openbmc/atos_openbmc_utils.py:/usr/share/ansible/plugins/module_utils/atos_openbmc_utils.py:ro
+      - ./ansible/plugins/modules/remote_management/openbmc/atos_openbmc_utils.py:/usr/share/ansible/plugins/modules/__init__.py:ro
       - ./ansible/awx-ssl:/var/lib/awx-ssl:rw
       - /:/host:ro
     env_file:
@@ -53,12 +56,15 @@ services:
       - ./ansible/inventory:/var/lib/awx/inventory:rw
       - ./ansible/inventory:/etc/ansible:rw
       - ./ansible/vars:/etc/ansible/vars:rw
-      - ./ansible/plugins/inventory/redfish_plugin_ansible_inventory.yml:/usr/share/ansible/plugins/inventory/redfish_plugin_ansible_inventory.yml
-      - ./ansible/plugins/inventory/redfish_plugin_ansible_inventory.py:/usr/lib/python3.6/site-packages/ansible/plugins/inventory/redfish_plugin_ansible_inventory.py
+#      - ./ansible/plugins/inventory/redfish_plugin_ansible_inventory.yml:/usr/share/ansible/plugins/inventory/redfish_plugin_ansible_inventory.yml
+#      - ./ansible/plugins/inventory/redfish_plugin_ansible_inventory.py:/usr/lib/python3.6/site-packages/ansible/plugins/inventory/redfish_plugin_ansible_inventory.py
 #      - ./ansible/plugins/inventory/:/usr/share/ansible/plugins/inventory
       - ./ansible/plugins/callback/ansible_stdout_compact_logger:/usr/share/ansible/plugins/callback/ansible_stdout_compact_logger
-      - ./ansible/plugins/modules/remote_management/openbmc/atos_openbmc.py:/usr/lib/python3.6/site-packages/ansible/modules/remote_management/openbmc/atos_openbmc.py:ro
-      - ./ansible/plugins/modules/remote_management/openbmc/atos_openbmc_utils.py:/usr/lib/python3.6/site-packages/ansible/module_utils/atos_openbmc_utils.py:ro
+#      - ./ansible/plugins/modules/remote_management/openbmc/atos_openbmc.py:/usr/lib/python3.6/site-packages/ansible/modules/remote_management/openbmc/atos_openbmc.py:ro
+#      - ./ansible/plugins/modules/remote_management/openbmc/atos_openbmc_utils.py:/usr/lib/python3.6/site-packages/ansible/module_utils/atos_openbmc_utils.py:ro
+      - ./ansible/plugins/modules/remote_management/openbmc/atos_openbmc.py:/usr/share/ansible/plugins/modules/atos_openbmc.py:ro
+      - ./ansible/plugins/modules/remote_management/openbmc/atos_openbmc_utils.py:/usr/share/ansible/plugins/module_utils/atos_openbmc_utils.py:ro
+      - ./ansible/plugins/modules/remote_management/openbmc/atos_openbmc_utils.py:/usr/share/ansible/plugins/modules/__init__.py:ro
       - ./ansible/awx-ssl:/var/lib/awx-ssl:rw
       - /:/host:ro
     env_file:

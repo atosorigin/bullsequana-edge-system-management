@@ -24,9 +24,11 @@ add_lines()
 {
   echo -e "\033[32m---------------------------------------------------------------------------------------\033[0m"
   echo -e "\033[32mPlease change yourself the following configuration in your $ANSIBLE_CONFIG:\033[0m"
-  echo "# for a better Atos sensors / log / yaml rendering"
+  echo "# MADATORY: for atos plugin to work, uncomment line at the begining of thefile:"
+  echo -e "\033[32mmodule_utils   = /usr/share/ansible/plugins/modules\033[0m"
+  echo "# OPTION for a better Atos sensors / log / yaml rendering"
   echo -e "stdout_callback = \033[31mmismunixy\033[0m"
-  echo "# if you wish a more human-readable rendering"
+  echo "# OPTION if you wish a more human-readable rendering"
   echo "See https://docs.ansible.com/ansible/2.5/plugins/callback.html#managing-adhoc"
   echo -e "bin_ansible_callbacks = \033[31mTrue\033[0m"
   echo "# to enable Atos python3 playbboks"
@@ -68,39 +70,30 @@ echo -e "\033[32mANSIBLE_EXTERNAL_VARS=$ANSIBLE_EXTERNAL_VARS\033[0m"
 if [ ! -d "/usr/share/ansible/plugins/callback" ]
 then
   mkdir /usr/share/ansible/plugins/callback
-  cp -r ansible/plugins/callback/ansible_stdout_compact_logger /usr/share/ansible/plugins/callback/ansible_stdout_compact_logger
 fi
+cp -r ansible/plugins/callback/ansible_stdout_compact_logger /usr/share/ansible/plugins/callback/ansible_stdout_compact_logger
 
 # ansible plugin inventory is copied in default directory /usr/lib/python<major>.<minor>/site-packages/ansible/modules
 # you can adapt it if you have another ansible plugin inventory directory
 
-if [ -d "/usr/lib/python2.7/site-packages/ansible/modules/remote_management" ]
+# ansible plugin module is copied in default shared directory /usr/share/ansible/plugins/modules/
+# you can adapt it if you have another ansible plugin module directory
+
+if [ ! -d "/usr/share/ansible" ]
 then
-  if [ ! -d "/usr/lib/python2.7/site-packages/ansible/modules/remote_management/openbmc" ]
-  then
-    mkdir /usr/lib/python2.7/site-packages/ansible/modules/remote_management/openbmc
-  fi
-  cp ansible/plugins/modules/remote_management/openbmc/atos_openbmc.py       /usr/lib/python2.7/site-packages/ansible/modules/remote_management/openbmc/atos_openbmc.py
-  echo "atos_openbmc.py copied in Ansible modules: /usr/lib/python2.7/site-packages/ansible/modules/remote_management/openbmc/atos_openbmc.py"
-  cp ansible/plugins/modules/remote_management/openbmc/atos_openbmc_utils.py /usr/lib/python2.7/site-packages/ansible/module_utils/atos_openbmc_utils.py
-  echo "atos_openbmc_utils.py copied in Ansible module_utils /usr/lib/python2.7/site-packages/ansible/module_utils/atos_openbmc_utils.py"
-  cp ansible/plugins/modules/remote_management/openbmc/__init__.py           /usr/lib/python2.7/site-packages/ansible/modules/remote_management/openbmc/__init__.py
-  exit 0
+  mkdir /usr/share/ansible
 fi
 
-if [ -d "/usr/lib/python3.6/site-packages/ansible/modules/remote_management" ]
+if [ ! -d "/usr/share/ansible/plugins" ]
 then
-  if [ ! -d "/usr/lib/python2.7/site-packages/ansible/modules/remote_management/openbmc" ]
-  then
-    mkdir /usr/lib/python2.7/site-packages/ansible/modules/remote_management/openbmc
-  fi
-  cp ansible/plugins/modules/remote_management/openbmc/atos_openbmc.py       /usr/lib/python3.6/site-packages/ansible/modules/remote_management/openbmc/atos_openbmc.py
-  echo "atos_openbmc.py copied in Ansible modules: /usr/lib/python3.6/site-packages/ansible/modules/remote_management/openbmc/atos_openbmc.py"
-  cp ansible/plugins/modules/remote_management/openbmc/atos_openbmc_utils.py /usr/lib/python3.6/site-packages/ansible/module_utils/atos_openbmc_utils.py
-  echo "atos_openbmc_utils.py copied in Ansible module_utils /usr/lib/python3.6/site-packages/ansible/module_utils/atos_openbmc_utils.py"
-  cp ansible/plugins/modules/remote_management/openbmc/__init__.py           /usr/lib/python3.6/site-packages/ansible/modules/remote_management/openbmc/__init__.py
-  exit 0
+  mkdir /usr/share/ansible/plugins
 fi
 
-echo -e "\033[31mError: NO Ansible modules/module_utils directory found"
-echo "you should manually copy atos_openbmc modules and module_utils"
+if [ ! -d "/usr/share/ansible/plugins/modules" ]
+then
+  mkdir /usr/share/ansible/plugins/modules
+fi
+
+cp ansible/plugins/modules/remote_management/openbmc/atos_openbmc.py       /usr/share/ansible/plugins/modules/atos_openbmc.py
+cp ansible/plugins/modules/remote_management/openbmc/atos_openbmc_utils.py /usr/share/ansible/plugins/modules/atos_openbmc_utils.py
+cp ansible/plugins/modules/remote_management/openbmc/atos_openbmc_utils.py /usr/share/ansible/plugins/modules/__init__.py

@@ -8,7 +8,7 @@ then
   exit -1
 fi
 
-echo "checking docker version prerequisite"
+echo "checking docker compose prerequisite"
 docker_compose_version=$(docker-compose --version|grep version)
 if [ -z "$docker_compose_version" ]
 then

@@ -1,7 +1,6 @@
 [all:vars]
 host="{{inventory_hostname}}"
 
-
 #[openbmc]
 # <here an IP address> baseuri="{{host}}" username=<here bmc username> password=<here bmc password>
 

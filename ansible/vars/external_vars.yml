@@ -1,7 +1,7 @@
 ---
 # Update and Activate playbooks use these variables if needed
-forceoff: True
-reboot: True
+forceoff: False
+reboot: False
 
 # Count down before checking a successfull reboot in MINUTES
 reboot_countdown: 3
@@ -10,7 +10,8 @@ poweron_countdown: 15
 poweroff_countdown: 15
 
 # Set a path to a Bull Technical State file
-technical_state_path: /mnt
+# uncomment for CLI Ansible ONLY (for AWX, please use the external vars in the graphical AWX inventory externale vars) 
+# technical_state_path: /mnt
 
 # Define rsyslog ip and port
 # default rsyslog port is 514

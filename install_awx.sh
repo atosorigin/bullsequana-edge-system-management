@@ -6,7 +6,7 @@
 . ./proxy.sh
 . ./versions.sh
 
-export docker_image=`docker images |grep 'bullsequana-edge-system-management_awx_web' |awk '{ print $3; }'`
+export docker_image=`docker images |grep $MISM_BULLSEQUANA_EDGE_VERSION |grep 'bullsequana-edge-system-management_awx_web' |awk '{ print $3; }'`
 if [ -z "$docker_image" ] 
 then
   if [ -f bullsequana-edge-system-management_awx_web.$MISM_BULLSEQUANA_EDGE_VERSION.tar ]
@@ -16,7 +16,7 @@ then
   fi
 fi
 
-export docker_image=`docker images |grep 'bullsequana-edge-system-management_awx_task' |awk '{ print $3; }'`
+export docker_image=`docker images |grep $MISM_BULLSEQUANA_EDGE_VERSION |grep 'bullsequana-edge-system-management_awx_task' |awk '{ print $3; }'`
 if [ -z "$docker_image" ] 
 then
   if [ -f bullsequana-edge-system-management_awx_task.$MISM_BULLSEQUANA_EDGE_VERSION.tar ]
@@ -26,7 +26,7 @@ then
   fi
 fi
 
-export docker_image=`docker images |grep 'ansible/awx_web' |awk '{ print $3; }'`
+export docker_image=`docker images |grep $AWX_BULLSEQUANA_EDGE_VERSION |grep 'ansible/awx_web' |awk '{ print $3; }'`
 if [ -z "$docker_image" ] 
 then
   if [ -f awx_web.$MISM_BULLSEQUANA_EDGE_VERSION.tar ]
@@ -36,7 +36,7 @@ then
   fi
 fi
 
-export docker_image=`docker images |grep 'ansible/awx_task' |awk '{ print $3; }'`
+export docker_image=`docker images |grep $AWX_BULLSEQUANA_EDGE_VERSION |grep 'ansible/awx_task' |awk '{ print $3; }'`
 if [ -z "$docker_image" ] 
 then
   if [ -f awx_task.$MISM_BULLSEQUANA_EDGE_VERSION.tar ]
@@ -46,7 +46,7 @@ then
   fi
 fi
 
-export docker_image=`docker images |grep 'rabbitmq' |awk '{ print $3; }'`
+export docker_image=`docker images |grep $RABBITMQ_AWX_BULLSEQUANA_EDGE_VERSION |grep 'rabbitmq' |awk '{ print $3; }'`
 if [ -z "$docker_image" ] 
 then
   if [ -f rabbitmq.$MISM_BULLSEQUANA_EDGE_VERSION.tar ]
@@ -56,7 +56,7 @@ then
   fi
 fi
 
-export docker_image=`docker images |grep 'memcached' |awk '{ print $3; }'`
+export docker_image=`docker images |grep $MEMCACHED_AWX_BULLSEQUANA_EDGE_VERSION |grep 'memcached' |awk '{ print $3; }'`
 if [ -z "$docker_image" ] 
 then
   if [ -f memcached.$MISM_BULLSEQUANA_EDGE_VERSION.tar ]
@@ -66,7 +66,7 @@ then
   fi
 fi
 
-export docker_image=`docker images |grep 'postgres' |awk '{ print $3; }'`
+export docker_image=`docker images |grep $POSTGRES_AWX_BULLSEQUANA_EDGE_VERSION |grep 'postgres' |awk '{ print $3; }'`
 if [ -z "$docker_image" ] 
 then
   if [ -f postgres.$MISM_BULLSEQUANA_EDGE_VERSION.tar ]
@@ -76,7 +76,7 @@ then
   fi
 fi
 
-export docker_image=`docker images |grep 'pgadmin4' |awk '{ print $3; }'`
+export docker_image=`docker images |grep $PGADMIN_AWX_BULLSEQUANA_EDGE_VERSION |grep 'pgadmin4' |awk '{ print $3; }'`
 if [ -z "$docker_image" ] 
 then
   if [ -f pgadmin4.$MISM_BULLSEQUANA_EDGE_VERSION.tar ]

@@ -125,6 +125,27 @@ then
   fi
 fi
 
+docker_image=$(docker images |grep 'ansible/awx_web')
+if [ ! -z "$docker_image" ] 
+then
+  docker_image=$(echo $docker_image |awk '{ print $3; }')
+  if [ ! -z "$docker_image" ] 
+  then    
+    docker image rmi -f  "$docker_image"
+  fi
+fi
+
+
+docker_image=$(docker images |grep 'ansible/awx_task')
+if [ ! -z "$docker_image" ] 
+then
+  docker_image=$(echo $docker_image |awk '{ print $3; }')
+  if [ ! -z "$docker_image" ] 
+  then    
+    docker image rmi -f  "$docker_image"
+  fi
+fi
+
 docker_image=$(docker images |grep 'page/pgadmin4')
 if [ ! -z "$docker_image" ] 
 then
