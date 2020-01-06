@@ -11,7 +11,7 @@ docker image prune --force &>/dev/null
 docker volume prune --force &>/dev/null
 
 echo "removing docker containers"
-docker_container=$(docker container list |grep bullsequana-edge-system-management_zabbix-server)
+docker_container=$(docker container list |grep 'bullsequana-edge-system-management_zabbix-server')
 if [ ! -z "$docker_container" ]
 then
   docker_container=$(echo $docker_container |awk '{ print $1; }')
@@ -22,7 +22,7 @@ then
   fi
 fi
 
-docker_container=$(docker container list |grep bullsequana-edge-system-management_zabbix-agent)
+docker_container=$(docker container list |grep 'bullsequana-edge-system-management_zabbix-agent')
 if [ ! -z "$docker_container" ] 
 then
   docker_container=$(echo $docker_container |awk '{ print $1; }')
@@ -76,6 +76,36 @@ then
 fi
 
 docker_image=$(docker images |grep 'bullsequana-edge-system-management_zabbix-web')
+if [ ! -z "$docker_image" ] 
+then
+  docker_image=$(echo $docker_image |awk '{ print $3; }')
+  if [ ! -z "$docker_image" ] 
+  then    
+    docker image rmi -f  "$docker_image"
+  fi
+fi
+
+docker_image=$(docker images |grep 'zabbix/zabbix-web-nginx-pgsql')
+if [ ! -z "$docker_image" ] 
+then
+  docker_image=$(echo $docker_image |awk '{ print $3; }')
+  if [ ! -z "$docker_image" ] 
+  then    
+    docker image rmi -f  "$docker_image"
+  fi
+fi
+
+docker_image=$(docker images |grep 'zabbix/zabbix-server-pgsql')
+if [ ! -z "$docker_image" ] 
+then
+  docker_image=$(echo $docker_image |awk '{ print $3; }')
+  if [ ! -z "$docker_image" ] 
+  then    
+    docker image rmi -f  "$docker_image"
+  fi
+fi
+
+docker_image=$(docker images |grep 'zabbix/zabbix-agent')
 if [ ! -z "$docker_image" ] 
 then
   docker_image=$(echo $docker_image |awk '{ print $3; }')
