@@ -28,6 +28,8 @@ if len(sys.argv) > 1:
 c = yaml.load(open(playbooks).read())
 tower = Config(**c)
 
+bool_force_create=False
+
 org_res = tower_cli.get_resource('organization')
 inv_res = tower_cli.get_resource('inventory')
 host_res = tower_cli.get_resource('host')
@@ -47,68 +49,87 @@ org = org_res.create(name=tower.org, description=tower.org_desc)
 org_id = org['id']
 
 if tower.credentials:
-    # create one credential
-    print("Creating Bull Sequana Edge Vault\n")
     for i in tower.credentials:
-        #print(i)
-        vault = cred_type.get(name=i['credential_type'])
-        i['credential_type'] = vault['id']
-        i['organization'] = org_id
-        cred = cred_res.create(**i)
-
+        try:
+            vault = cred_type.get(name=i['credential_type'])
+            i['credential_type'] = vault['id']
+            i['organization'] = org_id
+            cred = cred_res.get(name=i['name'])
+            print("Bull Sequana Edge Vault already exists\n")
+        except:
+            cred = cred_res.create(**i)
+            print("Creating Bull Sequana Edge Vault\n")
+            bool_force_create=True
+        
 if tower.inventories:
-    # create inventories
-    print("Creating Inventories\n")
-    for i in tower.inventories:
-        #print(i)
+    # create inventories    
+    for i in tower.inventories:        
         i['organization'] = org_id
-        inv = inv_res.create(**i)
-        # create dynamic groups, static ones can be imported better with awx-manage
-        if 'groups' in i:
-            for g in i['groups']:
-                #print(g)
-                g['inventory'] = inv['id']
-                # set the credential if this group has one
-                group = group_res.create(**g)
-                # sync the group if it has a credential
-                if 'group' in group:
-                    id = group['group']
-                elif 'id' in group :
-                    id = group['id']
-                if 'credential' in g:
-                    group_res.sync(id)
-                if 'hosts' in g:
-                    for h in g['hosts']:
-                        h['inventory'] = inv['id']
-                        #print(h)
-                        host = host_res.create(**h)
-                        host_res.associate(host=host['id'], group=group['id'])
-
+        try:
+            inv = inv_res.get(name=i['name'])
+            print("Updating Inventory: {name} variables\n".format(name=i['name']))
+            inv_res.modify(name=i['name'], variables=i['variables'])
+        except:
+            print("Creating Inventory: {name}\n".format(name=i['name']))
+            inv = inv_res.create(**i)
+            bool_force_create=True
+            # create dynamic groups, static ones can be imported better with awx-manage
+            if 'groups' in i:
+                for g in i['groups']:
+                    #print(g)
+                    g['inventory'] = inv['id']
+                    # set the credential if this group has one
+                    group = group_res.create(**g)
+                    # sync the group if it has a credential
+                    if 'group' in group:
+                        id = group['group']
+                    elif 'id' in group :
+                        id = group['id']
+                    if 'credential' in g:
+                        group_res.sync(id)
+                    if 'hosts' in g:
+                        for h in g['hosts']:
+                            h['inventory'] = inv['id']
+                            #print(h)
+                            host = host_res.create(**h)
+                            host_res.associate(host=host['id'], group=group['id'])
+        
 if tower.projects:
-    # create projects 
-    print("Creating Project: Playbooks {version} for BullSequana Edge\n".format(version=os.environ.get('MISM_BULLSEQUANA_EDGE_VERSION')))
     for p in tower.projects:
-        #print(p)
-        p['organization'] = org_id
-        p['description'] = "Playbooks {version} for BullSequana Edge".format(version=os.environ.get('MISM_BULLSEQUANA_EDGE_VERSION'))
-        project_res.create(**p)
+        p['description'] = "Playbooks {version} for BullSequana Edge".format(version=os.environ.get('MISM_BULLSEQUANA_EDGE_VERSION'))        
+        try:
+            proj = project_res.get(name=p['name'])
+            print("Updating Project: {name} description\n".format(name=p['name']))
+            project_res.modify(name=p['name'], description=p['description'])
+        except:
+            print("Creating Project: Playbooks {version} for BullSequana Edge\n".format(version=os.environ.get('MISM_BULLSEQUANA_EDGE_VERSION')))
+            p['organization'] = org_id
+            project_res.create(**p)
+            bool_force_create=True
 
 if tower.job_templates:
     print("Waiting 30 seconds for projects to index.")
     print("Press any key to skip if you know what you're doing.")
     timeout = 30
     rlist, wlist, xlist = select([sys.stdin], [], [], timeout)
-    # create job templates
-    print("Creating Job Templates...\n")
     for j in tower.job_templates:
-        print(j)
-        inv = inv_res.get(name=j['inventory'])
-        j['inventory'] = inv['id']
-        project = project_res.get(name=j['project'])
-        j['project'] = project['id']
-        j['organization'] = org_id
-        j['credential'] = cred['id']
-        job_template_res.create(**j)
+        try:
+            inv = inv_res.get(name=j['inventory'])
+            j['inventory'] = inv['id']
+            project = project_res.get(name=j['project'])
+            j['project'] = project['id']
+            j['organization'] = org_id
+            j['credential'] = cred['id']
+            if bool_force_create :
+                print("  Creating Job Template {name}\n".format(name=j['name']))
+                job_template_res.create(**j)
+                continue
+            else:
+                job_temp = job_template_res.get(name=j['name'])
+                print("  Job Template {name} already exists\n".format(name=j['name']))
+        except:
+            print("  Creating Job Template {name}\n".format(name=j['name']))
+            job_template_res.create(**j)
 
 print("-----------------------------------------------------------------------------------------")
 print("What to do first ?")
@@ -119,4 +140,3 @@ inv_res.delete(name="Demo Inventory")
 project_res.delete(name="Demo Project")
 cred_res.delete(name="Demo Credential")
 job_template_res.delete(name="Demo Job Template") 
-

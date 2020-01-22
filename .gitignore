@@ -1,6 +1,8 @@
 # TODO uncomment to get tar files
 *.tar
+!prerequisites/*.tar
 *.gz
+!prerequisites/*.gz
 *.bak
 bull*.zip
 

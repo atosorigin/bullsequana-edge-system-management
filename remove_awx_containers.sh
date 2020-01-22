@@ -95,6 +95,26 @@ then
   fi
 fi
 
+docker_image=$(docker images |grep 'atosorigin/bull-sequana-edge-awx-web')
+if [ ! -z "$docker_image" ] 
+then
+  docker_image=$(echo $docker_image |awk '{ print $3; }')
+  if [ ! -z "$docker_image" ] 
+  then    
+    docker image rmi -f  "$docker_image"
+  fi
+fi
+
+docker_image=$(docker images |grep 'atosorigin/bull-sequana-edge-awx-task')
+if [ ! -z "$docker_image" ] 
+then
+  docker_image=$(echo $docker_image |awk '{ print $3; }')
+  if [ ! -z "$docker_image" ] 
+  then    
+    docker image rmi -f  "$docker_image"
+  fi
+fi
+
 docker_image=$(docker images |grep 'memcached')
 if [ ! -z "$docker_image" ] 
 then

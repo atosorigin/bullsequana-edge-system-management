@@ -32,6 +32,7 @@ then
     docker container rm -f "$docker_container"
   fi
 fi
+
 docker_container=$(docker container list |grep 'bullsequana-edge-system-management_zabbix-web')
 if [ ! -z "$docker_container" ] 
 then
@@ -42,6 +43,7 @@ then
     docker container rm -f "$docker_container"
   fi
 fi
+
 docker_container=$(docker container list |grep -m 1 'zabbix-postgres')
 if [ ! -z "$docker_container" ] 
 then
@@ -76,6 +78,36 @@ then
 fi
 
 docker_image=$(docker images |grep 'bullsequana-edge-system-management_zabbix-web')
+if [ ! -z "$docker_image" ] 
+then
+  docker_image=$(echo $docker_image |awk '{ print $3; }')
+  if [ ! -z "$docker_image" ] 
+  then    
+    docker image rmi -f  "$docker_image"
+  fi
+fi
+
+docker_image=$(docker images |grep 'atosorigin/bull-sequana-edge-zabbix-server')
+if [ ! -z "$docker_image" ] 
+then
+  docker_image=$(echo $docker_image |awk '{ print $3; }')
+  if [ ! -z "$docker_image" ] 
+  then    
+    docker image rmi -f  "$docker_image"
+  fi
+fi
+
+docker_image=$(docker images |grep 'atosorigin/bull-sequana-edge-zabbix-agent')
+if [ ! -z "$docker_image" ] 
+then
+  docker_image=$(echo $docker_image |awk '{ print $3; }')
+  if [ ! -z "$docker_image" ] 
+  then    
+    docker image rmi -f  "$docker_image"
+  fi
+fi
+
+docker_image=$(docker images |grep 'atosorigin/bull-sequana-edge-zabbix-web')
 if [ ! -z "$docker_image" ] 
 then
   docker_image=$(echo $docker_image |awk '{ print $3; }')

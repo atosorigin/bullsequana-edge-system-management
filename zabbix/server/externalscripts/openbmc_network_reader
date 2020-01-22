@@ -54,6 +54,6 @@ def main(args):
   if response:
     if type(response) == unicode and response.startswith("xyz.openbmc_project.Network."):
       response = response.replace('xyz.openbmc_project.Network.','')
-    print(response)
+    print(json.dumps(response))
 
 main(sys.argv)

@@ -77,6 +77,10 @@ For more information about dockerhub installation Visit https://hub.docker.com/r
 ![#f03c15](https://placehold.it/15/f03c15/000000?text=+) Warning: atosorigin dockerhub images have no warranty, do not use in production  
 ![#c5f015](https://placehold.it/15/c5f015/000000?text=+) Info: if tar files are not present, images are loaded from internet  
 
+### log on to zabbix
+- default url: `https://<ip_address_of_your_host>:4443`
+- default user/password is default zabbix user/password: `Admin / zabbix` !! Care the uppercase 'A' !!
+
 ### enable automatic inventory by default
 1. Go to Administration / General / Others
 2. Check 'Automatic' for inventory
@@ -110,7 +114,7 @@ Be careful: The "Visible name" is used by Zabbix Dashboards, so let "Zabbix serv
 ### install Atos templates
 Available Atos templates:
 - **template-atos_openbmc-lld-zbxv4.xml**: should be applied on all Atos mipockets
-- **template-atos_openbmc-rsyslog-zbxv4.xml**: shoudl be applied only on the zabbix server
+- **template-atos_openbmc-rsyslog-zbxv4.xml**: should be applied only on the zabbix server
 
 To install it:
 1. Copy the templates from <install_dir>\zabbix\server\externalscripts\ to a **local path on you client computer running the browser**
@@ -181,7 +185,7 @@ You must add 3 macros on each mipocket host:
 
 - items belong to Applications
 
-- discovered items belong to Applications named "Discovery..."
+- discovered items belong to Applications named "...Discovery..."
 
 Fans, Temperature and Voltage are discovered - values are float => it could be added in 'Graph'
 
@@ -207,6 +211,8 @@ Model, Asset, Serial number, Software Version, OOB IP Address and Manufacturer a
 - 1 screen with the 3 graphs : All Fans, Temperatures and Voltages
 
 ![alt text](https://github.com/atosorigin/bullsequana-edge-system-management/blob/master/zabbix/doc/host_screens.png)
+
+- collect items belong to Applications named "...Collect..." : background scripts => NO DATA, do NOT use Collect applications/items in dashboard, except if you are interested in collect background information itself
 
 screens are available in host inventory details:
 

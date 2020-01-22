@@ -24,7 +24,7 @@ add_lines()
 {
   echo -e "\033[32m---------------------------------------------------------------------------------------\033[0m"
   echo -e "\033[32mPlease change yourself the following configuration in your $ANSIBLE_CONFIG:\033[0m"
-  echo "# MADATORY: for atos plugin to work, uncomment line at the begining of thefile:"
+  echo "# MANDATORY: for atos plugin to work, uncomment line at the begining of thefile:"
   echo -e "\033[32mmodule_utils   = /usr/share/ansible/plugins/modules\033[0m"
   echo "# OPTION for a better Atos sensors / log / yaml rendering"
   echo -e "stdout_callback = \033[31mmismunixy\033[0m"

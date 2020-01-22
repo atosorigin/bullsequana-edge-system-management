@@ -65,7 +65,7 @@ else
   # extract variable name to help user
   name_variable=$(echo "$result_ansible_vault_password" | awk -F: '{print$1}')
   echo "you can now use your variable in your Ansible inventory"
-  echo -e "edit the your /etc/ansible/hosts file and add \033[32mpassword: '{{ $name_variable }}' \033[0m"
+  echo -e "edit the your hosts and modify \033[32mpassword=\"{{ $name_variable }}\" \033[0m"
 fi
 
 if test -f "/tmp/fileEncrypt$$"
