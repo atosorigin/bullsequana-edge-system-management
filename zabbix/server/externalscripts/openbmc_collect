@@ -25,6 +25,7 @@ from requests.auth import HTTPBasicAuth
 import os
 import json
 import argparse
+from openbmc_psk_password import AESCipher
 
 urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
@@ -50,7 +51,16 @@ def main(args):
   parser.add_argument("-p", "--password", dest="password", help="password for BMC", required=True)
   parser.add_argument("-b", "--bmc", dest="bmc", help="IP for the BMC", required=True)
   parser.add_argument("-i", "--item", dest="item", help="item identifier like /xyz/openbmc_project/sensors/enumerate or /xyz/openbmc_project/inventory/system", required=True)
-  args = parser.parse_args()
+  args = parser.parse_args()  
+
+  if not args.user or not args.password or not args.bmc or not args.item:
+    raise TypeError('openbmc_collect() takes 4 arguments ({} given)'.format(len(args) + 1))
+
+  password = args.password.strip()
+  decrypted_password = AESCipher(args.password.strip()).decrypt()
+  if decrypted_password:
+    password = decrypted_password
+
   uri = "https://{host}{item_url}".format(host=args.bmc.strip(), item_url=args.item)
   timeout = int(os.environ.get('ZBX_TIMEOUT',4)) - 1
   data = {}

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <zabbix_export>
     <version>4.4</version>
-    <date>2019-11-07T17:58:52Z</date>
+    <date>2020-01-22T13:29:59Z</date>
     <groups>
         <group>
             <name>Templates</name>
@@ -937,6 +937,20 @@
                     </applications>
                 </item>
                 <item>
+                    <name>System: Motherboard Dimm 0</name>
+                    <type>EXTERNAL</type>
+                    <key>openbmc_reader[-f={$OPENBMC}-system.json,-i=/xyz/openbmc_project/inventory/system/chassis/motherboard/dimm0]</key>
+                    <delay>10m</delay>
+                    <history>7d</history>
+                    <trends>0</trends>
+                    <value_type>TEXT</value_type>
+                    <applications>
+                        <application>
+                            <name>BullSequanaEdge System Information</name>
+                        </application>
+                    </applications>
+                </item>
+                <item>
                     <name>System: Motherboard Dimm 1</name>
                     <type>EXTERNAL</type>
                     <key>openbmc_reader[-f={$OPENBMC}-system.json,-i=/xyz/openbmc_project/inventory/system/chassis/motherboard/dimm1]</key>
@@ -979,34 +993,6 @@
                     </applications>
                 </item>
                 <item>
-                    <name>Chassis: Fan 0 - Functional</name>
-                    <type>EXTERNAL</type>
-                    <key>openbmc_reader[-f={$OPENBMC}-system.json,-i=/xyz/openbmc_project/inventory/system/chassis/motherboard/fan0,-p=Functional]</key>
-                    <delay>10m</delay>
-                    <history>7d</history>
-                    <trends>0</trends>
-                    <value_type>TEXT</value_type>
-                    <applications>
-                        <application>
-                            <name>BullSequanaEdge Presence and Functional Information</name>
-                        </application>
-                    </applications>
-                </item>
-                <item>
-                    <name>Chassis: Fan 0 - Present</name>
-                    <type>EXTERNAL</type>
-                    <key>openbmc_reader[-f={$OPENBMC}-system.json,-i=/xyz/openbmc_project/inventory/system/chassis/motherboard/fan0,-p=Present]</key>
-                    <delay>10m</delay>
-                    <history>7d</history>
-                    <trends>0</trends>
-                    <value_type>TEXT</value_type>
-                    <applications>
-                        <application>
-                            <name>BullSequanaEdge Presence and Functional Information</name>
-                        </application>
-                    </applications>
-                </item>
-                <item>
                     <name>Chassis: Fan 0 GPU - Present</name>
                     <type>EXTERNAL</type>
                     <key>openbmc_reader[-f={$OPENBMC}-system.json,-i=/xyz/openbmc_project/inventory/system/chassis/motherboard/fan0_GPU,-p=Present]</key>
@@ -1021,23 +1007,9 @@
                     </applications>
                 </item>
                 <item>
-                    <name>Chassis: Fan 1 - Functional</name>
+                    <name>Chassis: Fan 0 PCI - Present</name>
                     <type>EXTERNAL</type>
-                    <key>openbmc_reader[-f={$OPENBMC}-system.json,-i=/xyz/openbmc_project/inventory/system/chassis/motherboard/fan1,-p=Functional]</key>
-                    <delay>10m</delay>
-                    <history>7d</history>
-                    <trends>0</trends>
-                    <value_type>TEXT</value_type>
-                    <applications>
-                        <application>
-                            <name>BullSequanaEdge Presence and Functional Information</name>
-                        </application>
-                    </applications>
-                </item>
-                <item>
-                    <name>Chassis: Fan 1 - Present</name>
-                    <type>EXTERNAL</type>
-                    <key>openbmc_reader[-f={$OPENBMC}-system.json,-i=/xyz/openbmc_project/inventory/system/chassis/motherboard/fan1,-p=Present]</key>
+                    <key>openbmc_reader[-f={$OPENBMC}-system.json,-i=/xyz/openbmc_project/inventory/system/chassis/motherboard/fan0_PCI,-p=Present]</key>
                     <delay>10m</delay>
                     <history>7d</history>
                     <trends>0</trends>
@@ -1063,48 +1035,6 @@
                     </applications>
                 </item>
                 <item>
-                    <name>Chassis: Fan 2 - Functional</name>
-                    <type>EXTERNAL</type>
-                    <key>openbmc_reader[-f={$OPENBMC}-system.json,-i=/xyz/openbmc_project/inventory/system/chassis/motherboard/fan2,-p=Functional]</key>
-                    <delay>10m</delay>
-                    <history>7d</history>
-                    <trends>0</trends>
-                    <value_type>TEXT</value_type>
-                    <applications>
-                        <application>
-                            <name>BullSequanaEdge Presence and Functional Information</name>
-                        </application>
-                    </applications>
-                </item>
-                <item>
-                    <name>Chassis: Fan 2 - Present</name>
-                    <type>EXTERNAL</type>
-                    <key>openbmc_reader[-f={$OPENBMC}-system.json,-i=/xyz/openbmc_project/inventory/system/chassis/motherboard/fan2,-p=Present]</key>
-                    <delay>10m</delay>
-                    <history>7d</history>
-                    <trends>0</trends>
-                    <value_type>TEXT</value_type>
-                    <applications>
-                        <application>
-                            <name>BullSequanaEdge Presence and Functional Information</name>
-                        </application>
-                    </applications>
-                </item>
-                <item>
-                    <name>Chassis: Fan 2 BMC - Present</name>
-                    <type>EXTERNAL</type>
-                    <key>openbmc_reader[-f={$OPENBMC}-system.json,-i=/xyz/openbmc_project/inventory/system/chassis/motherboard/fan2_bmc,-p=Present]</key>
-                    <delay>10m</delay>
-                    <history>7d</history>
-                    <trends>0</trends>
-                    <value_type>TEXT</value_type>
-                    <applications>
-                        <application>
-                            <name>BullSequanaEdge Presence and Functional Information</name>
-                        </application>
-                    </applications>
-                </item>
-                <item>
                     <name>Chassis: Fan 2 PSU - Present</name>
                     <type>EXTERNAL</type>
                     <key>openbmc_reader[-f={$OPENBMC}-system.json,-i=/xyz/openbmc_project/inventory/system/chassis/motherboard/fan2_PSU,-p=Present]</key>
@@ -1117,6 +1047,650 @@
                             <name>BullSequanaEdge Presence and Functional Information</name>
                         </application>
                     </applications>
+                </item>
+                <item>
+                    <name>System: Dimm 0 Manufacturer</name>
+                    <type>DEPENDENT</type>
+                    <key>system_dimm0_manufacturer</key>
+                    <delay>0</delay>
+                    <history>1d</history>
+                    <trends>0</trends>
+                    <value_type>TEXT</value_type>
+                    <applications>
+                        <application>
+                            <name>BullSequanaEdge System Information</name>
+                        </application>
+                    </applications>
+                    <preprocessing>
+                        <step>
+                            <type>JSONPATH</type>
+                            <params>$.Manufacturer</params>
+                        </step>
+                    </preprocessing>
+                    <master_item>
+                        <key>openbmc_reader[-f={$OPENBMC}-system.json,-i=/xyz/openbmc_project/inventory/system/chassis/motherboard/dimm0]</key>
+                    </master_item>
+                </item>
+                <item>
+                    <name>System: Dimm 0 Part Number</name>
+                    <type>DEPENDENT</type>
+                    <key>system_dimm0_part_number</key>
+                    <delay>0</delay>
+                    <history>1d</history>
+                    <trends>0</trends>
+                    <value_type>TEXT</value_type>
+                    <applications>
+                        <application>
+                            <name>BullSequanaEdge System Information</name>
+                        </application>
+                    </applications>
+                    <preprocessing>
+                        <step>
+                            <type>JSONPATH</type>
+                            <params>$.PartNumber</params>
+                        </step>
+                    </preprocessing>
+                    <master_item>
+                        <key>openbmc_reader[-f={$OPENBMC}-system.json,-i=/xyz/openbmc_project/inventory/system/chassis/motherboard/dimm0]</key>
+                    </master_item>
+                </item>
+                <item>
+                    <name>System: Dimm 0 Present</name>
+                    <type>DEPENDENT</type>
+                    <key>system_dimm0_present</key>
+                    <delay>0</delay>
+                    <history>1d</history>
+                    <trends>0</trends>
+                    <value_type>TEXT</value_type>
+                    <applications>
+                        <application>
+                            <name>BullSequanaEdge System Information</name>
+                        </application>
+                    </applications>
+                    <preprocessing>
+                        <step>
+                            <type>JSONPATH</type>
+                            <params>$.Present</params>
+                        </step>
+                    </preprocessing>
+                    <master_item>
+                        <key>openbmc_reader[-f={$OPENBMC}-system.json,-i=/xyz/openbmc_project/inventory/system/chassis/motherboard/dimm0]</key>
+                    </master_item>
+                </item>
+                <item>
+                    <name>System: Dimm 0 Serial Number</name>
+                    <type>DEPENDENT</type>
+                    <key>system_dimm0_serial_number</key>
+                    <delay>0</delay>
+                    <history>1d</history>
+                    <trends>0</trends>
+                    <value_type>TEXT</value_type>
+                    <applications>
+                        <application>
+                            <name>BullSequanaEdge System Information</name>
+                        </application>
+                    </applications>
+                    <preprocessing>
+                        <step>
+                            <type>JSONPATH</type>
+                            <params>$.SerialNumber</params>
+                        </step>
+                    </preprocessing>
+                    <master_item>
+                        <key>openbmc_reader[-f={$OPENBMC}-system.json,-i=/xyz/openbmc_project/inventory/system/chassis/motherboard/dimm0]</key>
+                    </master_item>
+                </item>
+                <item>
+                    <name>System: Dimm 0 Size</name>
+                    <type>DEPENDENT</type>
+                    <key>system_dimm0_size</key>
+                    <delay>0</delay>
+                    <history>1d</history>
+                    <trends>0</trends>
+                    <value_type>TEXT</value_type>
+                    <applications>
+                        <application>
+                            <name>BullSequanaEdge System Information</name>
+                        </application>
+                    </applications>
+                    <preprocessing>
+                        <step>
+                            <type>JSONPATH</type>
+                            <params>$.CustomField1</params>
+                        </step>
+                    </preprocessing>
+                    <master_item>
+                        <key>openbmc_reader[-f={$OPENBMC}-system.json,-i=/xyz/openbmc_project/inventory/system/chassis/motherboard/dimm0]</key>
+                    </master_item>
+                </item>
+                <item>
+                    <name>System: Dimm 0 Type</name>
+                    <type>DEPENDENT</type>
+                    <key>system_dimm0_type</key>
+                    <delay>0</delay>
+                    <history>1d</history>
+                    <trends>0</trends>
+                    <value_type>TEXT</value_type>
+                    <applications>
+                        <application>
+                            <name>BullSequanaEdge System Information</name>
+                        </application>
+                    </applications>
+                    <preprocessing>
+                        <step>
+                            <type>JSONPATH</type>
+                            <params>$.CustomField2</params>
+                        </step>
+                    </preprocessing>
+                    <master_item>
+                        <key>openbmc_reader[-f={$OPENBMC}-system.json,-i=/xyz/openbmc_project/inventory/system/chassis/motherboard/dimm0]</key>
+                    </master_item>
+                </item>
+                <item>
+                    <name>System: Dimm 0 Version</name>
+                    <type>DEPENDENT</type>
+                    <key>system_dimm0_version</key>
+                    <delay>0</delay>
+                    <history>1d</history>
+                    <trends>0</trends>
+                    <value_type>TEXT</value_type>
+                    <applications>
+                        <application>
+                            <name>BullSequanaEdge System Information</name>
+                        </application>
+                    </applications>
+                    <preprocessing>
+                        <step>
+                            <type>JSONPATH</type>
+                            <params>$.CustomField2</params>
+                        </step>
+                    </preprocessing>
+                    <master_item>
+                        <key>openbmc_reader[-f={$OPENBMC}-system.json,-i=/xyz/openbmc_project/inventory/system/chassis/motherboard/dimm0]</key>
+                    </master_item>
+                </item>
+                <item>
+                    <name>System: Dimm 1 Manufacturer</name>
+                    <type>DEPENDENT</type>
+                    <key>system_dimm1_manufacturer</key>
+                    <delay>0</delay>
+                    <history>1d</history>
+                    <trends>0</trends>
+                    <value_type>TEXT</value_type>
+                    <applications>
+                        <application>
+                            <name>BullSequanaEdge System Information</name>
+                        </application>
+                    </applications>
+                    <preprocessing>
+                        <step>
+                            <type>JSONPATH</type>
+                            <params>$.Manufacturer</params>
+                        </step>
+                    </preprocessing>
+                    <master_item>
+                        <key>openbmc_reader[-f={$OPENBMC}-system.json,-i=/xyz/openbmc_project/inventory/system/chassis/motherboard/dimm1]</key>
+                    </master_item>
+                </item>
+                <item>
+                    <name>System: Dimm 1 Part Number</name>
+                    <type>DEPENDENT</type>
+                    <key>system_dimm1_part_number</key>
+                    <delay>0</delay>
+                    <history>1d</history>
+                    <trends>0</trends>
+                    <value_type>TEXT</value_type>
+                    <applications>
+                        <application>
+                            <name>BullSequanaEdge System Information</name>
+                        </application>
+                    </applications>
+                    <preprocessing>
+                        <step>
+                            <type>JSONPATH</type>
+                            <params>$.PartNumber</params>
+                        </step>
+                    </preprocessing>
+                    <master_item>
+                        <key>openbmc_reader[-f={$OPENBMC}-system.json,-i=/xyz/openbmc_project/inventory/system/chassis/motherboard/dimm1]</key>
+                    </master_item>
+                </item>
+                <item>
+                    <name>System: Dimm 1 Present</name>
+                    <type>DEPENDENT</type>
+                    <key>system_dimm1_present</key>
+                    <delay>0</delay>
+                    <history>1d</history>
+                    <trends>0</trends>
+                    <value_type>TEXT</value_type>
+                    <applications>
+                        <application>
+                            <name>BullSequanaEdge System Information</name>
+                        </application>
+                    </applications>
+                    <preprocessing>
+                        <step>
+                            <type>JSONPATH</type>
+                            <params>$.Present</params>
+                        </step>
+                    </preprocessing>
+                    <master_item>
+                        <key>openbmc_reader[-f={$OPENBMC}-system.json,-i=/xyz/openbmc_project/inventory/system/chassis/motherboard/dimm1]</key>
+                    </master_item>
+                </item>
+                <item>
+                    <name>System: Dimm 1 Serial Number</name>
+                    <type>DEPENDENT</type>
+                    <key>system_dimm1_serial_number</key>
+                    <delay>0</delay>
+                    <history>1d</history>
+                    <trends>0</trends>
+                    <value_type>TEXT</value_type>
+                    <applications>
+                        <application>
+                            <name>BullSequanaEdge System Information</name>
+                        </application>
+                    </applications>
+                    <preprocessing>
+                        <step>
+                            <type>JSONPATH</type>
+                            <params>$.SerialNumber</params>
+                        </step>
+                    </preprocessing>
+                    <master_item>
+                        <key>openbmc_reader[-f={$OPENBMC}-system.json,-i=/xyz/openbmc_project/inventory/system/chassis/motherboard/dimm1]</key>
+                    </master_item>
+                </item>
+                <item>
+                    <name>System: Dimm 1 Size</name>
+                    <type>DEPENDENT</type>
+                    <key>system_dimm1_size</key>
+                    <delay>0</delay>
+                    <history>1d</history>
+                    <trends>0</trends>
+                    <value_type>TEXT</value_type>
+                    <applications>
+                        <application>
+                            <name>BullSequanaEdge System Information</name>
+                        </application>
+                    </applications>
+                    <preprocessing>
+                        <step>
+                            <type>JSONPATH</type>
+                            <params>$.CustomField1</params>
+                        </step>
+                    </preprocessing>
+                    <master_item>
+                        <key>openbmc_reader[-f={$OPENBMC}-system.json,-i=/xyz/openbmc_project/inventory/system/chassis/motherboard/dimm1]</key>
+                    </master_item>
+                </item>
+                <item>
+                    <name>System: Dimm 1 Type</name>
+                    <type>DEPENDENT</type>
+                    <key>system_dimm1_type</key>
+                    <delay>0</delay>
+                    <history>1d</history>
+                    <trends>0</trends>
+                    <value_type>TEXT</value_type>
+                    <applications>
+                        <application>
+                            <name>BullSequanaEdge System Information</name>
+                        </application>
+                    </applications>
+                    <preprocessing>
+                        <step>
+                            <type>JSONPATH</type>
+                            <params>$.CustomField2</params>
+                        </step>
+                    </preprocessing>
+                    <master_item>
+                        <key>openbmc_reader[-f={$OPENBMC}-system.json,-i=/xyz/openbmc_project/inventory/system/chassis/motherboard/dimm1]</key>
+                    </master_item>
+                </item>
+                <item>
+                    <name>System: Dimm 1 Version</name>
+                    <type>DEPENDENT</type>
+                    <key>system_dimm1_version</key>
+                    <delay>0</delay>
+                    <history>1d</history>
+                    <trends>0</trends>
+                    <value_type>TEXT</value_type>
+                    <applications>
+                        <application>
+                            <name>BullSequanaEdge System Information</name>
+                        </application>
+                    </applications>
+                    <preprocessing>
+                        <step>
+                            <type>JSONPATH</type>
+                            <params>$.CustomField2</params>
+                        </step>
+                    </preprocessing>
+                    <master_item>
+                        <key>openbmc_reader[-f={$OPENBMC}-system.json,-i=/xyz/openbmc_project/inventory/system/chassis/motherboard/dimm1]</key>
+                    </master_item>
+                </item>
+                <item>
+                    <name>System: Dimm 2 Manufacturer</name>
+                    <type>DEPENDENT</type>
+                    <key>system_dimm2_manufacturer</key>
+                    <delay>0</delay>
+                    <history>1d</history>
+                    <trends>0</trends>
+                    <value_type>TEXT</value_type>
+                    <applications>
+                        <application>
+                            <name>BullSequanaEdge System Information</name>
+                        </application>
+                    </applications>
+                    <preprocessing>
+                        <step>
+                            <type>JSONPATH</type>
+                            <params>$.Manufacturer</params>
+                        </step>
+                    </preprocessing>
+                    <master_item>
+                        <key>openbmc_reader[-f={$OPENBMC}-system.json,-i=/xyz/openbmc_project/inventory/system/chassis/motherboard/dimm2]</key>
+                    </master_item>
+                </item>
+                <item>
+                    <name>System: Dimm 2 Part Number</name>
+                    <type>DEPENDENT</type>
+                    <key>system_dimm2_part_number</key>
+                    <delay>0</delay>
+                    <history>1d</history>
+                    <trends>0</trends>
+                    <value_type>TEXT</value_type>
+                    <applications>
+                        <application>
+                            <name>BullSequanaEdge System Information</name>
+                        </application>
+                    </applications>
+                    <preprocessing>
+                        <step>
+                            <type>JSONPATH</type>
+                            <params>$.PartNumber</params>
+                        </step>
+                    </preprocessing>
+                    <master_item>
+                        <key>openbmc_reader[-f={$OPENBMC}-system.json,-i=/xyz/openbmc_project/inventory/system/chassis/motherboard/dimm2]</key>
+                    </master_item>
+                </item>
+                <item>
+                    <name>System: Dimm 2 Present</name>
+                    <type>DEPENDENT</type>
+                    <key>system_dimm2_present</key>
+                    <delay>0</delay>
+                    <history>1d</history>
+                    <trends>0</trends>
+                    <value_type>TEXT</value_type>
+                    <applications>
+                        <application>
+                            <name>BullSequanaEdge System Information</name>
+                        </application>
+                    </applications>
+                    <preprocessing>
+                        <step>
+                            <type>JSONPATH</type>
+                            <params>$.Present</params>
+                        </step>
+                    </preprocessing>
+                    <master_item>
+                        <key>openbmc_reader[-f={$OPENBMC}-system.json,-i=/xyz/openbmc_project/inventory/system/chassis/motherboard/dimm2]</key>
+                    </master_item>
+                </item>
+                <item>
+                    <name>System: Dimm 2 Serial Number</name>
+                    <type>DEPENDENT</type>
+                    <key>system_dimm2_serial_number</key>
+                    <delay>0</delay>
+                    <history>1d</history>
+                    <trends>0</trends>
+                    <value_type>TEXT</value_type>
+                    <applications>
+                        <application>
+                            <name>BullSequanaEdge System Information</name>
+                        </application>
+                    </applications>
+                    <preprocessing>
+                        <step>
+                            <type>JSONPATH</type>
+                            <params>$.SerialNumber</params>
+                        </step>
+                    </preprocessing>
+                    <master_item>
+                        <key>openbmc_reader[-f={$OPENBMC}-system.json,-i=/xyz/openbmc_project/inventory/system/chassis/motherboard/dimm2]</key>
+                    </master_item>
+                </item>
+                <item>
+                    <name>System: Dimm 2 Size</name>
+                    <type>DEPENDENT</type>
+                    <key>system_dimm2_size</key>
+                    <delay>0</delay>
+                    <history>1d</history>
+                    <trends>0</trends>
+                    <value_type>TEXT</value_type>
+                    <applications>
+                        <application>
+                            <name>BullSequanaEdge System Information</name>
+                        </application>
+                    </applications>
+                    <preprocessing>
+                        <step>
+                            <type>JSONPATH</type>
+                            <params>$.CustomField1</params>
+                        </step>
+                    </preprocessing>
+                    <master_item>
+                        <key>openbmc_reader[-f={$OPENBMC}-system.json,-i=/xyz/openbmc_project/inventory/system/chassis/motherboard/dimm2]</key>
+                    </master_item>
+                </item>
+                <item>
+                    <name>System: Dimm 2 Type</name>
+                    <type>DEPENDENT</type>
+                    <key>system_dimm2_type</key>
+                    <delay>0</delay>
+                    <history>1d</history>
+                    <trends>0</trends>
+                    <value_type>TEXT</value_type>
+                    <applications>
+                        <application>
+                            <name>BullSequanaEdge System Information</name>
+                        </application>
+                    </applications>
+                    <preprocessing>
+                        <step>
+                            <type>JSONPATH</type>
+                            <params>$.CustomField2</params>
+                        </step>
+                    </preprocessing>
+                    <master_item>
+                        <key>openbmc_reader[-f={$OPENBMC}-system.json,-i=/xyz/openbmc_project/inventory/system/chassis/motherboard/dimm2]</key>
+                    </master_item>
+                </item>
+                <item>
+                    <name>System: Dimm 2 Version</name>
+                    <type>DEPENDENT</type>
+                    <key>system_dimm2_version</key>
+                    <delay>0</delay>
+                    <history>1d</history>
+                    <trends>0</trends>
+                    <value_type>TEXT</value_type>
+                    <applications>
+                        <application>
+                            <name>BullSequanaEdge System Information</name>
+                        </application>
+                    </applications>
+                    <preprocessing>
+                        <step>
+                            <type>JSONPATH</type>
+                            <params>$.CustomField2</params>
+                        </step>
+                    </preprocessing>
+                    <master_item>
+                        <key>openbmc_reader[-f={$OPENBMC}-system.json,-i=/xyz/openbmc_project/inventory/system/chassis/motherboard/dimm2]</key>
+                    </master_item>
+                </item>
+                <item>
+                    <name>System: Dimm 3 Manufacturer</name>
+                    <type>DEPENDENT</type>
+                    <key>system_dimm3_manufacturer</key>
+                    <delay>0</delay>
+                    <history>1d</history>
+                    <trends>0</trends>
+                    <value_type>TEXT</value_type>
+                    <applications>
+                        <application>
+                            <name>BullSequanaEdge System Information</name>
+                        </application>
+                    </applications>
+                    <preprocessing>
+                        <step>
+                            <type>JSONPATH</type>
+                            <params>$.Manufacturer</params>
+                        </step>
+                    </preprocessing>
+                    <master_item>
+                        <key>openbmc_reader[-f={$OPENBMC}-system.json,-i=/xyz/openbmc_project/inventory/system/chassis/motherboard/dimm3]</key>
+                    </master_item>
+                </item>
+                <item>
+                    <name>System: Dimm 3 Part Number</name>
+                    <type>DEPENDENT</type>
+                    <key>system_dimm3_part_number</key>
+                    <delay>0</delay>
+                    <history>1d</history>
+                    <trends>0</trends>
+                    <value_type>TEXT</value_type>
+                    <applications>
+                        <application>
+                            <name>BullSequanaEdge System Information</name>
+                        </application>
+                    </applications>
+                    <preprocessing>
+                        <step>
+                            <type>JSONPATH</type>
+                            <params>$.PartNumber</params>
+                        </step>
+                    </preprocessing>
+                    <master_item>
+                        <key>openbmc_reader[-f={$OPENBMC}-system.json,-i=/xyz/openbmc_project/inventory/system/chassis/motherboard/dimm3]</key>
+                    </master_item>
+                </item>
+                <item>
+                    <name>System: Dimm 3 Present</name>
+                    <type>DEPENDENT</type>
+                    <key>system_dimm3_present</key>
+                    <delay>0</delay>
+                    <history>1d</history>
+                    <trends>0</trends>
+                    <value_type>TEXT</value_type>
+                    <applications>
+                        <application>
+                            <name>BullSequanaEdge System Information</name>
+                        </application>
+                    </applications>
+                    <preprocessing>
+                        <step>
+                            <type>JSONPATH</type>
+                            <params>$.Present</params>
+                        </step>
+                    </preprocessing>
+                    <master_item>
+                        <key>openbmc_reader[-f={$OPENBMC}-system.json,-i=/xyz/openbmc_project/inventory/system/chassis/motherboard/dimm3]</key>
+                    </master_item>
+                </item>
+                <item>
+                    <name>System: Dimm 3 Serial Number</name>
+                    <type>DEPENDENT</type>
+                    <key>system_dimm3_serial_number</key>
+                    <delay>0</delay>
+                    <history>1d</history>
+                    <trends>0</trends>
+                    <value_type>TEXT</value_type>
+                    <applications>
+                        <application>
+                            <name>BullSequanaEdge System Information</name>
+                        </application>
+                    </applications>
+                    <preprocessing>
+                        <step>
+                            <type>JSONPATH</type>
+                            <params>$.SerialNumber</params>
+                        </step>
+                    </preprocessing>
+                    <master_item>
+                        <key>openbmc_reader[-f={$OPENBMC}-system.json,-i=/xyz/openbmc_project/inventory/system/chassis/motherboard/dimm3]</key>
+                    </master_item>
+                </item>
+                <item>
+                    <name>System: Dimm 3 Size</name>
+                    <type>DEPENDENT</type>
+                    <key>system_dimm3_size</key>
+                    <delay>0</delay>
+                    <history>1d</history>
+                    <trends>0</trends>
+                    <value_type>TEXT</value_type>
+                    <applications>
+                        <application>
+                            <name>BullSequanaEdge System Information</name>
+                        </application>
+                    </applications>
+                    <preprocessing>
+                        <step>
+                            <type>JSONPATH</type>
+                            <params>$.CustomField1</params>
+                        </step>
+                    </preprocessing>
+                    <master_item>
+                        <key>openbmc_reader[-f={$OPENBMC}-system.json,-i=/xyz/openbmc_project/inventory/system/chassis/motherboard/dimm3]</key>
+                    </master_item>
+                </item>
+                <item>
+                    <name>System: Dimm 3 Type</name>
+                    <type>DEPENDENT</type>
+                    <key>system_dimm3_type</key>
+                    <delay>0</delay>
+                    <history>1d</history>
+                    <trends>0</trends>
+                    <value_type>TEXT</value_type>
+                    <applications>
+                        <application>
+                            <name>BullSequanaEdge System Information</name>
+                        </application>
+                    </applications>
+                    <preprocessing>
+                        <step>
+                            <type>JSONPATH</type>
+                            <params>$.CustomField2</params>
+                        </step>
+                    </preprocessing>
+                    <master_item>
+                        <key>openbmc_reader[-f={$OPENBMC}-system.json,-i=/xyz/openbmc_project/inventory/system/chassis/motherboard/dimm3]</key>
+                    </master_item>
+                </item>
+                <item>
+                    <name>System: Dimm 3 Version</name>
+                    <type>DEPENDENT</type>
+                    <key>system_dimm3_version</key>
+                    <delay>0</delay>
+                    <history>1d</history>
+                    <trends>0</trends>
+                    <value_type>TEXT</value_type>
+                    <applications>
+                        <application>
+                            <name>BullSequanaEdge System Information</name>
+                        </application>
+                    </applications>
+                    <preprocessing>
+                        <step>
+                            <type>JSONPATH</type>
+                            <params>$.CustomField2</params>
+                        </step>
+                    </preprocessing>
+                    <master_item>
+                        <key>openbmc_reader[-f={$OPENBMC}-system.json,-i=/xyz/openbmc_project/inventory/system/chassis/motherboard/dimm3]</key>
+                    </master_item>
                 </item>
             </items>
             <discovery_rules>
@@ -1892,6 +2466,629 @@
                             <height>100</height>
                             <x>2</x>
                             <y>0</y>
+                            <colspan>1</colspan>
+                            <rowspan>1</rowspan>
+                            <elements>1</elements>
+                            <valign>0</valign>
+                            <halign>0</halign>
+                            <dynamic>0</dynamic>
+                            <sort_triggers>0</sort_triggers>
+                            <url/>
+                            <application/>
+                            <max_columns>3</max_columns>
+                        </screen_item>
+                    </screen_items>
+                </screen>
+                <screen>
+                    <name>System</name>
+                    <hsize>4</hsize>
+                    <vsize>7</vsize>
+                    <screen_items>
+                        <screen_item>
+                            <resourcetype>3</resourcetype>
+                            <style>0</style>
+                            <resource>
+                                <key>system_dimm0_type</key>
+                                <host>Template Hw Atos BullSequanaEdge LLD</host>
+                            </resource>
+                            <width>500</width>
+                            <height>100</height>
+                            <x>0</x>
+                            <y>0</y>
+                            <colspan>1</colspan>
+                            <rowspan>1</rowspan>
+                            <elements>1</elements>
+                            <valign>0</valign>
+                            <halign>0</halign>
+                            <dynamic>0</dynamic>
+                            <sort_triggers>0</sort_triggers>
+                            <url/>
+                            <application/>
+                            <max_columns>3</max_columns>
+                        </screen_item>
+                        <screen_item>
+                            <resourcetype>3</resourcetype>
+                            <style>0</style>
+                            <resource>
+                                <key>system_dimm1_type</key>
+                                <host>Template Hw Atos BullSequanaEdge LLD</host>
+                            </resource>
+                            <width>500</width>
+                            <height>100</height>
+                            <x>1</x>
+                            <y>0</y>
+                            <colspan>1</colspan>
+                            <rowspan>1</rowspan>
+                            <elements>1</elements>
+                            <valign>0</valign>
+                            <halign>0</halign>
+                            <dynamic>0</dynamic>
+                            <sort_triggers>0</sort_triggers>
+                            <url/>
+                            <application/>
+                            <max_columns>3</max_columns>
+                        </screen_item>
+                        <screen_item>
+                            <resourcetype>3</resourcetype>
+                            <style>0</style>
+                            <resource>
+                                <key>system_dimm2_type</key>
+                                <host>Template Hw Atos BullSequanaEdge LLD</host>
+                            </resource>
+                            <width>500</width>
+                            <height>100</height>
+                            <x>2</x>
+                            <y>0</y>
+                            <colspan>1</colspan>
+                            <rowspan>1</rowspan>
+                            <elements>1</elements>
+                            <valign>0</valign>
+                            <halign>0</halign>
+                            <dynamic>0</dynamic>
+                            <sort_triggers>0</sort_triggers>
+                            <url/>
+                            <application/>
+                            <max_columns>3</max_columns>
+                        </screen_item>
+                        <screen_item>
+                            <resourcetype>3</resourcetype>
+                            <style>0</style>
+                            <resource>
+                                <key>system_dimm3_type</key>
+                                <host>Template Hw Atos BullSequanaEdge LLD</host>
+                            </resource>
+                            <width>500</width>
+                            <height>100</height>
+                            <x>3</x>
+                            <y>0</y>
+                            <colspan>1</colspan>
+                            <rowspan>1</rowspan>
+                            <elements>1</elements>
+                            <valign>0</valign>
+                            <halign>0</halign>
+                            <dynamic>0</dynamic>
+                            <sort_triggers>0</sort_triggers>
+                            <url/>
+                            <application/>
+                            <max_columns>3</max_columns>
+                        </screen_item>
+                        <screen_item>
+                            <resourcetype>3</resourcetype>
+                            <style>0</style>
+                            <resource>
+                                <key>system_dimm0_size</key>
+                                <host>Template Hw Atos BullSequanaEdge LLD</host>
+                            </resource>
+                            <width>500</width>
+                            <height>100</height>
+                            <x>0</x>
+                            <y>1</y>
+                            <colspan>1</colspan>
+                            <rowspan>1</rowspan>
+                            <elements>1</elements>
+                            <valign>0</valign>
+                            <halign>0</halign>
+                            <dynamic>0</dynamic>
+                            <sort_triggers>0</sort_triggers>
+                            <url/>
+                            <application/>
+                            <max_columns>3</max_columns>
+                        </screen_item>
+                        <screen_item>
+                            <resourcetype>3</resourcetype>
+                            <style>0</style>
+                            <resource>
+                                <key>system_dimm1_size</key>
+                                <host>Template Hw Atos BullSequanaEdge LLD</host>
+                            </resource>
+                            <width>500</width>
+                            <height>100</height>
+                            <x>1</x>
+                            <y>1</y>
+                            <colspan>1</colspan>
+                            <rowspan>1</rowspan>
+                            <elements>1</elements>
+                            <valign>0</valign>
+                            <halign>0</halign>
+                            <dynamic>0</dynamic>
+                            <sort_triggers>0</sort_triggers>
+                            <url/>
+                            <application/>
+                            <max_columns>3</max_columns>
+                        </screen_item>
+                        <screen_item>
+                            <resourcetype>3</resourcetype>
+                            <style>0</style>
+                            <resource>
+                                <key>system_dimm2_size</key>
+                                <host>Template Hw Atos BullSequanaEdge LLD</host>
+                            </resource>
+                            <width>500</width>
+                            <height>100</height>
+                            <x>2</x>
+                            <y>1</y>
+                            <colspan>1</colspan>
+                            <rowspan>1</rowspan>
+                            <elements>1</elements>
+                            <valign>0</valign>
+                            <halign>0</halign>
+                            <dynamic>0</dynamic>
+                            <sort_triggers>0</sort_triggers>
+                            <url/>
+                            <application/>
+                            <max_columns>3</max_columns>
+                        </screen_item>
+                        <screen_item>
+                            <resourcetype>3</resourcetype>
+                            <style>0</style>
+                            <resource>
+                                <key>system_dimm3_size</key>
+                                <host>Template Hw Atos BullSequanaEdge LLD</host>
+                            </resource>
+                            <width>500</width>
+                            <height>100</height>
+                            <x>3</x>
+                            <y>1</y>
+                            <colspan>1</colspan>
+                            <rowspan>1</rowspan>
+                            <elements>1</elements>
+                            <valign>0</valign>
+                            <halign>0</halign>
+                            <dynamic>0</dynamic>
+                            <sort_triggers>0</sort_triggers>
+                            <url/>
+                            <application/>
+                            <max_columns>3</max_columns>
+                        </screen_item>
+                        <screen_item>
+                            <resourcetype>3</resourcetype>
+                            <style>0</style>
+                            <resource>
+                                <key>system_dimm0_version</key>
+                                <host>Template Hw Atos BullSequanaEdge LLD</host>
+                            </resource>
+                            <width>500</width>
+                            <height>100</height>
+                            <x>0</x>
+                            <y>2</y>
+                            <colspan>1</colspan>
+                            <rowspan>1</rowspan>
+                            <elements>1</elements>
+                            <valign>0</valign>
+                            <halign>0</halign>
+                            <dynamic>0</dynamic>
+                            <sort_triggers>0</sort_triggers>
+                            <url/>
+                            <application/>
+                            <max_columns>3</max_columns>
+                        </screen_item>
+                        <screen_item>
+                            <resourcetype>3</resourcetype>
+                            <style>0</style>
+                            <resource>
+                                <key>system_dimm1_version</key>
+                                <host>Template Hw Atos BullSequanaEdge LLD</host>
+                            </resource>
+                            <width>500</width>
+                            <height>100</height>
+                            <x>1</x>
+                            <y>2</y>
+                            <colspan>1</colspan>
+                            <rowspan>1</rowspan>
+                            <elements>1</elements>
+                            <valign>0</valign>
+                            <halign>0</halign>
+                            <dynamic>0</dynamic>
+                            <sort_triggers>0</sort_triggers>
+                            <url/>
+                            <application/>
+                            <max_columns>3</max_columns>
+                        </screen_item>
+                        <screen_item>
+                            <resourcetype>3</resourcetype>
+                            <style>0</style>
+                            <resource>
+                                <key>system_dimm2_version</key>
+                                <host>Template Hw Atos BullSequanaEdge LLD</host>
+                            </resource>
+                            <width>500</width>
+                            <height>100</height>
+                            <x>2</x>
+                            <y>2</y>
+                            <colspan>1</colspan>
+                            <rowspan>1</rowspan>
+                            <elements>1</elements>
+                            <valign>0</valign>
+                            <halign>0</halign>
+                            <dynamic>0</dynamic>
+                            <sort_triggers>0</sort_triggers>
+                            <url/>
+                            <application/>
+                            <max_columns>3</max_columns>
+                        </screen_item>
+                        <screen_item>
+                            <resourcetype>3</resourcetype>
+                            <style>0</style>
+                            <resource>
+                                <key>system_dimm3_version</key>
+                                <host>Template Hw Atos BullSequanaEdge LLD</host>
+                            </resource>
+                            <width>500</width>
+                            <height>100</height>
+                            <x>3</x>
+                            <y>2</y>
+                            <colspan>1</colspan>
+                            <rowspan>1</rowspan>
+                            <elements>1</elements>
+                            <valign>0</valign>
+                            <halign>0</halign>
+                            <dynamic>0</dynamic>
+                            <sort_triggers>0</sort_triggers>
+                            <url/>
+                            <application/>
+                            <max_columns>3</max_columns>
+                        </screen_item>
+                        <screen_item>
+                            <resourcetype>3</resourcetype>
+                            <style>0</style>
+                            <resource>
+                                <key>system_dimm0_serial_number</key>
+                                <host>Template Hw Atos BullSequanaEdge LLD</host>
+                            </resource>
+                            <width>500</width>
+                            <height>100</height>
+                            <x>0</x>
+                            <y>3</y>
+                            <colspan>1</colspan>
+                            <rowspan>1</rowspan>
+                            <elements>1</elements>
+                            <valign>0</valign>
+                            <halign>0</halign>
+                            <dynamic>0</dynamic>
+                            <sort_triggers>0</sort_triggers>
+                            <url/>
+                            <application/>
+                            <max_columns>3</max_columns>
+                        </screen_item>
+                        <screen_item>
+                            <resourcetype>3</resourcetype>
+                            <style>0</style>
+                            <resource>
+                                <key>system_dimm1_serial_number</key>
+                                <host>Template Hw Atos BullSequanaEdge LLD</host>
+                            </resource>
+                            <width>500</width>
+                            <height>100</height>
+                            <x>1</x>
+                            <y>3</y>
+                            <colspan>1</colspan>
+                            <rowspan>1</rowspan>
+                            <elements>1</elements>
+                            <valign>0</valign>
+                            <halign>0</halign>
+                            <dynamic>0</dynamic>
+                            <sort_triggers>0</sort_triggers>
+                            <url/>
+                            <application/>
+                            <max_columns>3</max_columns>
+                        </screen_item>
+                        <screen_item>
+                            <resourcetype>3</resourcetype>
+                            <style>0</style>
+                            <resource>
+                                <key>system_dimm2_serial_number</key>
+                                <host>Template Hw Atos BullSequanaEdge LLD</host>
+                            </resource>
+                            <width>500</width>
+                            <height>100</height>
+                            <x>2</x>
+                            <y>3</y>
+                            <colspan>1</colspan>
+                            <rowspan>1</rowspan>
+                            <elements>1</elements>
+                            <valign>0</valign>
+                            <halign>0</halign>
+                            <dynamic>0</dynamic>
+                            <sort_triggers>0</sort_triggers>
+                            <url/>
+                            <application/>
+                            <max_columns>3</max_columns>
+                        </screen_item>
+                        <screen_item>
+                            <resourcetype>3</resourcetype>
+                            <style>0</style>
+                            <resource>
+                                <key>system_dimm3_serial_number</key>
+                                <host>Template Hw Atos BullSequanaEdge LLD</host>
+                            </resource>
+                            <width>500</width>
+                            <height>100</height>
+                            <x>3</x>
+                            <y>3</y>
+                            <colspan>1</colspan>
+                            <rowspan>1</rowspan>
+                            <elements>1</elements>
+                            <valign>0</valign>
+                            <halign>0</halign>
+                            <dynamic>0</dynamic>
+                            <sort_triggers>0</sort_triggers>
+                            <url/>
+                            <application/>
+                            <max_columns>3</max_columns>
+                        </screen_item>
+                        <screen_item>
+                            <resourcetype>3</resourcetype>
+                            <style>0</style>
+                            <resource>
+                                <key>system_dimm0_manufacturer</key>
+                                <host>Template Hw Atos BullSequanaEdge LLD</host>
+                            </resource>
+                            <width>500</width>
+                            <height>100</height>
+                            <x>0</x>
+                            <y>4</y>
+                            <colspan>1</colspan>
+                            <rowspan>1</rowspan>
+                            <elements>1</elements>
+                            <valign>0</valign>
+                            <halign>0</halign>
+                            <dynamic>0</dynamic>
+                            <sort_triggers>0</sort_triggers>
+                            <url/>
+                            <application/>
+                            <max_columns>3</max_columns>
+                        </screen_item>
+                        <screen_item>
+                            <resourcetype>3</resourcetype>
+                            <style>0</style>
+                            <resource>
+                                <key>system_dimm1_manufacturer</key>
+                                <host>Template Hw Atos BullSequanaEdge LLD</host>
+                            </resource>
+                            <width>500</width>
+                            <height>100</height>
+                            <x>1</x>
+                            <y>4</y>
+                            <colspan>1</colspan>
+                            <rowspan>1</rowspan>
+                            <elements>1</elements>
+                            <valign>0</valign>
+                            <halign>0</halign>
+                            <dynamic>0</dynamic>
+                            <sort_triggers>0</sort_triggers>
+                            <url/>
+                            <application/>
+                            <max_columns>3</max_columns>
+                        </screen_item>
+                        <screen_item>
+                            <resourcetype>3</resourcetype>
+                            <style>0</style>
+                            <resource>
+                                <key>system_dimm2_manufacturer</key>
+                                <host>Template Hw Atos BullSequanaEdge LLD</host>
+                            </resource>
+                            <width>500</width>
+                            <height>100</height>
+                            <x>2</x>
+                            <y>4</y>
+                            <colspan>1</colspan>
+                            <rowspan>1</rowspan>
+                            <elements>1</elements>
+                            <valign>0</valign>
+                            <halign>0</halign>
+                            <dynamic>0</dynamic>
+                            <sort_triggers>0</sort_triggers>
+                            <url/>
+                            <application/>
+                            <max_columns>3</max_columns>
+                        </screen_item>
+                        <screen_item>
+                            <resourcetype>3</resourcetype>
+                            <style>0</style>
+                            <resource>
+                                <key>system_dimm3_manufacturer</key>
+                                <host>Template Hw Atos BullSequanaEdge LLD</host>
+                            </resource>
+                            <width>500</width>
+                            <height>100</height>
+                            <x>3</x>
+                            <y>4</y>
+                            <colspan>1</colspan>
+                            <rowspan>1</rowspan>
+                            <elements>1</elements>
+                            <valign>0</valign>
+                            <halign>0</halign>
+                            <dynamic>0</dynamic>
+                            <sort_triggers>0</sort_triggers>
+                            <url/>
+                            <application/>
+                            <max_columns>3</max_columns>
+                        </screen_item>
+                        <screen_item>
+                            <resourcetype>3</resourcetype>
+                            <style>0</style>
+                            <resource>
+                                <key>system_dimm0_part_number</key>
+                                <host>Template Hw Atos BullSequanaEdge LLD</host>
+                            </resource>
+                            <width>500</width>
+                            <height>100</height>
+                            <x>0</x>
+                            <y>5</y>
+                            <colspan>1</colspan>
+                            <rowspan>1</rowspan>
+                            <elements>1</elements>
+                            <valign>0</valign>
+                            <halign>0</halign>
+                            <dynamic>0</dynamic>
+                            <sort_triggers>0</sort_triggers>
+                            <url/>
+                            <application/>
+                            <max_columns>3</max_columns>
+                        </screen_item>
+                        <screen_item>
+                            <resourcetype>3</resourcetype>
+                            <style>0</style>
+                            <resource>
+                                <key>system_dimm1_part_number</key>
+                                <host>Template Hw Atos BullSequanaEdge LLD</host>
+                            </resource>
+                            <width>500</width>
+                            <height>100</height>
+                            <x>1</x>
+                            <y>5</y>
+                            <colspan>1</colspan>
+                            <rowspan>1</rowspan>
+                            <elements>1</elements>
+                            <valign>0</valign>
+                            <halign>0</halign>
+                            <dynamic>0</dynamic>
+                            <sort_triggers>0</sort_triggers>
+                            <url/>
+                            <application/>
+                            <max_columns>3</max_columns>
+                        </screen_item>
+                        <screen_item>
+                            <resourcetype>3</resourcetype>
+                            <style>0</style>
+                            <resource>
+                                <key>system_dimm2_part_number</key>
+                                <host>Template Hw Atos BullSequanaEdge LLD</host>
+                            </resource>
+                            <width>500</width>
+                            <height>100</height>
+                            <x>2</x>
+                            <y>5</y>
+                            <colspan>1</colspan>
+                            <rowspan>1</rowspan>
+                            <elements>1</elements>
+                            <valign>0</valign>
+                            <halign>0</halign>
+                            <dynamic>0</dynamic>
+                            <sort_triggers>0</sort_triggers>
+                            <url/>
+                            <application/>
+                            <max_columns>3</max_columns>
+                        </screen_item>
+                        <screen_item>
+                            <resourcetype>3</resourcetype>
+                            <style>0</style>
+                            <resource>
+                                <key>system_dimm3_part_number</key>
+                                <host>Template Hw Atos BullSequanaEdge LLD</host>
+                            </resource>
+                            <width>500</width>
+                            <height>100</height>
+                            <x>3</x>
+                            <y>5</y>
+                            <colspan>1</colspan>
+                            <rowspan>1</rowspan>
+                            <elements>1</elements>
+                            <valign>0</valign>
+                            <halign>0</halign>
+                            <dynamic>0</dynamic>
+                            <sort_triggers>0</sort_triggers>
+                            <url/>
+                            <application/>
+                            <max_columns>3</max_columns>
+                        </screen_item>
+                        <screen_item>
+                            <resourcetype>3</resourcetype>
+                            <style>0</style>
+                            <resource>
+                                <key>system_dimm0_present</key>
+                                <host>Template Hw Atos BullSequanaEdge LLD</host>
+                            </resource>
+                            <width>500</width>
+                            <height>100</height>
+                            <x>0</x>
+                            <y>6</y>
+                            <colspan>1</colspan>
+                            <rowspan>1</rowspan>
+                            <elements>1</elements>
+                            <valign>0</valign>
+                            <halign>0</halign>
+                            <dynamic>0</dynamic>
+                            <sort_triggers>0</sort_triggers>
+                            <url/>
+                            <application/>
+                            <max_columns>3</max_columns>
+                        </screen_item>
+                        <screen_item>
+                            <resourcetype>3</resourcetype>
+                            <style>0</style>
+                            <resource>
+                                <key>system_dimm1_present</key>
+                                <host>Template Hw Atos BullSequanaEdge LLD</host>
+                            </resource>
+                            <width>500</width>
+                            <height>100</height>
+                            <x>1</x>
+                            <y>6</y>
+                            <colspan>1</colspan>
+                            <rowspan>1</rowspan>
+                            <elements>1</elements>
+                            <valign>0</valign>
+                            <halign>0</halign>
+                            <dynamic>0</dynamic>
+                            <sort_triggers>0</sort_triggers>
+                            <url/>
+                            <application/>
+                            <max_columns>3</max_columns>
+                        </screen_item>
+                        <screen_item>
+                            <resourcetype>3</resourcetype>
+                            <style>0</style>
+                            <resource>
+                                <key>system_dimm2_present</key>
+                                <host>Template Hw Atos BullSequanaEdge LLD</host>
+                            </resource>
+                            <width>500</width>
+                            <height>100</height>
+                            <x>2</x>
+                            <y>6</y>
+                            <colspan>1</colspan>
+                            <rowspan>1</rowspan>
+                            <elements>1</elements>
+                            <valign>0</valign>
+                            <halign>0</halign>
+                            <dynamic>0</dynamic>
+                            <sort_triggers>0</sort_triggers>
+                            <url/>
+                            <application/>
+                            <max_columns>3</max_columns>
+                        </screen_item>
+                        <screen_item>
+                            <resourcetype>3</resourcetype>
+                            <style>0</style>
+                            <resource>
+                                <key>system_dimm3_present</key>
+                                <host>Template Hw Atos BullSequanaEdge LLD</host>
+                            </resource>
+                            <width>500</width>
+                            <height>100</height>
+                            <x>3</x>
+                            <y>6</y>
                             <colspan>1</colspan>
                             <rowspan>1</rowspan>
                             <elements>1</elements>

@@ -16,8 +16,7 @@
 # by francine.sauvage@atos.net
 #
 #
-#print('{"data": [{"{#SENSORS}": "sensors/temperature/vr13_pch_temp"}, {"{#SENSORS}": "sensors/voltage/p3v3_aux"}]}')
-#exit(0)
+
 import sys
 import requests
 import urllib
