@@ -283,9 +283,9 @@ Volt: *
 ## <a name="rsyslog_template"></a>rsyslog template installation
 ### template content
 - application rsyslog is available for textual widget and history analysis
-- 1 item
+- 1 item  
 A unique item is detecting rsyslog file change
-- trigger
+- 1 trigger  
 A unique trigger is triggering on BullSequana Edge device error events
 
 ![#f03c15](https://placehold.it/15/f03c15/000000?text=+) The rsyslog should be activated BEFORE loading rsyslog template
@@ -318,6 +318,23 @@ In docker-compose-zabbix.yml file, zabbix-server service section, uncomment :
        # - /var/log/rsyslog:/var/log/zabbix/rsyslog:rw
 ```
 where /var/log/rsyslog is a physical (or shared) file on host of the zabbix docker container containing the rsyslog server file
+
+### check the read/write rights
+check the path of the file, the zabbix agent should have the rights to read it and your system should have the right to write in the file, all along the **path**:
+```
+example:
+- chmod ugo+rw /var
+- chmod ugo+rw /var/log
+- chmod ugo+rw /var/log/rsyslog
+```
+
+![#f03c15](https://placehold.it/15/f03c15/000000?text=+) The rsyslog should have read / write rights all along the **path**
+
+![alt text](https://raw.githubusercontent.com/atosorigin/bullsequana-edge-system-management/master/ansible/doc/rsyslog_rights.png)
+
+The **rsyslog* file is monitored after the import of the template, so the collect will be triggered by the next line written in the rsyslog file.
+
+![alt text](https://raw.githubusercontent.com/atosorigin/bullsequana-edge-system-management/master/ansible/doc/rsyslog_key.png)
 
 ### install logrotate
 log rotation is mandatory for the rsyslog template

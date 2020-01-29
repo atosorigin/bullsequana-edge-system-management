@@ -25,6 +25,7 @@ DOCUMENTATION = '''
 
 import yaml
 import json
+import tzlocal
 from datetime import datetime
 from os.path import basename
 from datetime import datetime
@@ -355,14 +356,24 @@ class CallbackModule(Default):
     '''
     def deep_serialize_sensors(self, name, sensors, check=False):
         self._display.display("{header_name}".format(header_name=name+" | sensors:"))
-        output = "{header_key:<40}:{header_value:>10}{header_crit_low:>10}{header_crit_high:>10}".format(header_key="sensor", header_value="current",header_crit_low="crit low",header_crit_high="crit high")
+        output = "{header_key:<40}:{header_value:>10}{header_crit_low:>10}{header_crit_high:>10}{unit:>9}".format(header_key="sensor", header_value="current",header_crit_low="crit low",header_crit_high="crit high",unit="unit")
         self._display.display(output, color='bright blue')
         sorted_sensors = sorted(sensors.items(), key=getKey)
         for (key, sensor) in sorted_sensors:
             value = sensor.get("Value", None)
             crit_low = sensor.get("CriticalLow", None)
             crit_high = sensor.get("CriticalHigh", None)
-            output = "{key:<40}:{value:>10}{crit_low:>10}{crit_high:>10}".format(key=key.replace("/xyz/openbmc_project/sensors/",""),value=value,crit_low=crit_low,crit_high=crit_high)
+            unit = sensor.get("Unit", None).replace("xyz.openbmc_project.Sensor.Value.Unit.", "")
+            scale = sensor.get("Scale", None)
+            if scale == "-3":
+                value_float = float(value)
+                value_float = value_float / 1000
+                unit = "m{unit}".format(unit=unit)
+            if scale == "3":
+                value_float = float(value)
+                value_float = value_float * 1000
+                unit = "k{unit}".format(unit=unit)
+            output = "{key:<40}:{value:>10}{crit_low:>10}{crit_high:>10}{unit:>9}".format(key=key.replace("/xyz/openbmc_project/sensors/",""),value=value,crit_low=crit_low,crit_high=crit_high,unit=unit)
             if int(value) < int(crit_low) :
                 self._display.display(output, color='red')
             else:
@@ -400,7 +411,7 @@ class CallbackModule(Default):
     '''        
     def deep_serialize_logs(self, name, logs, check=False):
         self._display.display("{header_name}".format(header_name=name+" | logs"))
-        output = "{id_log:<5}{purpose:<10}{resolved:<10}{severity:<15}{date_log:<30}{version:<15}{message:<}".format(id_log="id", message="message",purpose="purpose",resolved="resolved",severity="severity",date_log="date/time",version="version")
+        output = "{id_log:<5}{purpose:<10}{resolved:<10}{severity:<15}{date_log:<33}{version:<15}{message:<}".format(id_log="id", message="message",purpose="purpose",resolved="resolved",severity="severity",date_log="date/time",version="version")
         if "/xyz/openbmc_project/logging/config/remote" in logs:
             address = logs["/xyz/openbmc_project/logging/config/remote"].get("Address",None)
             port = logs["/xyz/openbmc_project/logging/config/remote"].get("Port",None)
@@ -424,15 +435,17 @@ class CallbackModule(Default):
                     severity = severity.replace('xyz.openbmc_project.Logging.Entry.Level.','')
                 timestamp = log.get("Timestamp", None)
                 if timestamp :
-                    timestamp = datetime.utcfromtimestamp(float(timestamp)/1000).strftime('%Y-%m-%d %H:%M:%S,%f')
+                    time_stamp = datetime.fromtimestamp(float(timestamp)/1000, tzlocal.get_localzone())
+                    timestamp = time_stamp.strftime('%Y-%m-%d %I:%M:%S %p %Z%z')
+
                 version = log.get("Version", None)
-                output = "{id_log:<5}{purpose:<10}{resolved:<10}{severity:<15}{timestamp:<30}{version:<15}{message:<}".format(id_log=id_log, message=message,purpose=purpose,resolved=resolved,severity=severity,timestamp=timestamp,version=version)
+                output = "{id_log:<5}{purpose:<10}{resolved:<10}{severity:<15}{timestamp:<33}{version:<15}{message:<}".format(id_log=id_log, message=message,purpose=purpose,resolved=resolved,severity=severity,timestamp=timestamp,version=version)
                 if severity == "Notice":
                     self._display.display(output, color='yellow')
-                    return
+                    continue
                 if severity == "Error":
                     self._display.display(output, color='red')
-                    return
+                    continue
                 self._display.display(output, color='green')
 
     def _get_duration(self):

@@ -23,6 +23,8 @@ rm -rf zabbix
 rm -rf Dockerfiles
 #echo "removing packaging..."
 rm -rf packaging
+#echo "prerequisites"
+rm -rf prerequisites
 #echo "shells"
 rm -f *.sh
 #echo "yml files"
