@@ -23,16 +23,18 @@ echo "your ansible inventory hosts file is $ANSIBLE_INVENTORY"
 add_lines()
 {
   echo -e "\033[32m---------------------------------------------------------------------------------------\033[0m"
-  echo -e "\033[32mPlease change yourself the following configuration in your $ANSIBLE_CONFIG:\033[0m"
-  echo "# MANDATORY: for atos plugin to work, uncomment line at the begining of thefile:"
-  echo -e "\033[32mmodule_utils   = /usr/share/ansible/plugins/modules\033[0m"
+  echo -e "\033[31mPlease change yourself the following configuration in your $ANSIBLE_CONFIG:\033[0m"
+  echo "# MANDATORY: for atos module plugin to work, uncomment line at the begining of thefile:"
+  echo -e "\033[31mlibrary = /usr/share/ansible/plugins/modules\033[0m"
+  echo "# MANDATORY: for atos module utils to work, uncomment line at the begining of thefile:"
+  echo -e "\033[31mmodule_utils = /usr/share/ansible/plugins/module_utils\033[0m"
   echo "# OPTION for a better Atos sensors / log / yaml rendering"
-  echo -e "stdout_callback = \033[31mmismunixy\033[0m"
+  echo -e "stdout_callback = \033[32mmismunixy\033[0m"
   echo "# OPTION if you wish a more human-readable rendering"
   echo "See https://docs.ansible.com/ansible/2.5/plugins/callback.html#managing-adhoc"
-  echo -e "bin_ansible_callbacks = \033[31mTrue\033[0m"
+  echo -e "bin_ansible_callbacks = \033[32mTrue\033[0m"
   echo "# to enable Atos python3 playbboks"
-  echo -e "ansible_python_interpreter = \033[31m/usr/bin/python3\033[0m"
+  echo -e "ansible_python_interpreter = \033[32m/usr/bin/python3\033[0m"
   echo "# if target certificates are self-signed"
   echo "host_key_checking = False"
   echo -e "\033[32m----------------------------------------------------------------------------------------\033[0m"
@@ -94,6 +96,11 @@ then
   mkdir /usr/share/ansible/plugins/modules
 fi
 
-cp ansible/plugins/modules/remote_management/openbmc/atos_openbmc.py       /usr/share/ansible/plugins/modules/atos_openbmc.py
-cp ansible/plugins/modules/remote_management/openbmc/atos_openbmc_utils.py /usr/share/ansible/plugins/modules/atos_openbmc_utils.py
-cp ansible/plugins/modules/remote_management/openbmc/atos_openbmc_utils.py /usr/share/ansible/plugins/modules/__init__.py
+if [ ! -d "/usr/share/ansible/plugins/module_utils" ]
+then
+  mkdir /usr/share/ansible/plugins/module_utils
+fi
+
+cp ansible/plugins/modules/remote_management/openbmc/atos_openbmc.py        /usr/share/ansible/plugins/modules/atos_openbmc.py
+cp ansible/plugins/modules/remote_management/openbmc/atos_openbmc_utils.py  /usr/share/ansible/plugins/module_utils/atos_openbmc_utils.py
+cp ansible/plugins/modules/remote_management/openbmc/__init__.py            /usr/share/ansible/plugins/modules/__init__.py

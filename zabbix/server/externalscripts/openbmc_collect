@@ -65,7 +65,7 @@ def main(args):
   timeout = int(os.environ.get('ZBX_TIMEOUT',4)) - 1
   data = {}
   try:
-    response = requests.get(uri, auth=HTTPBasicAuth(args.user.strip(), args.password.strip()), verify=False, timeout=timeout)
+    response = requests.get(uri, auth=HTTPBasicAuth(args.user.strip(), password), verify=False, timeout=timeout)
     data = response.json()
   except requests.exceptions.Timeout:
     # Maybe set up for a retry, or continue in a retry loop

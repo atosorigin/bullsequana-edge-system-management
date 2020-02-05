@@ -391,9 +391,25 @@ with logger command:
 
 More information: Vist https://www.tecmint.com/install-rsyslog-centralized-logging-in-centos-ubuntu/
 
-### flush iptables
+### classical errors
+#### add firewall rules
+If telnet is not working but the ping is working : firewall daemon could be the issue  
+You should add 2 firewall rules   
+```
+[root@server ~]# firewall-cmd --permanent --zone=public --add-port=514/tcp
+[root@server ~]# firewall-cmd --permanent --zone=public --add-port=514/udp
+[root@server ~]# firewall-cmd --reload 
+```
+![#f03c15](https://placehold.it/15/f03c15/000000?text=+) Be careful to reload it after changes
+
+![#f03c15](https://placehold.it/15/f03c15/000000?text=+) See https://www.itzgeek.com/how-tos/linux/centos-how-tos/setup-syslog-server-on-centos-7-rhel-7.html
+
+![alt text](https://github.com/atosorigin/bullsequana-edge-system-management/blob/master/zabbix/doc/sysLog_firewall_add_exception.png)
+
+#### flush iptables
 If telnet is not working but the ping is working : iptables rules could be the issue  
 You can flush the iptables rules   
+
 ![#f03c15](https://placehold.it/15/f03c15/000000?text=+) Be careful to be able to recreate iptables rules after this command ` iptables -F `
 
 ## <a name="howto_proxy"></a>How to change your proxy

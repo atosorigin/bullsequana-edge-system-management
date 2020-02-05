@@ -9,6 +9,23 @@
 
   tasks:
 
+  - name: assert power_cap
+    assert:
+      that:
+        - power_cap is defined
+      fail_msg: "The variable power_cap is NOT defined (in AWX inventory variables or external_vars.yml file). See readme.md for more details."
+      success_msg: "The variable power_cap is defined"
+    run_once: True
+
+  - name: assert power cap between 100 and 10,000 Watts
+    assert:
+      that:
+        - power_cap <= 10000
+        - power_cap >= 100
+      fail_msg: "'power_cap' must be between 100 and 10,000 Watts => change it in external_vars.yml file OR in variables in AWX inventory"
+      success_msg: "'power_cap' is between 100 and 10,000 Watts"
+    run_once: True
+
   - include_tasks: ../utils/utils_create_token.yml
 
   - name: set Power Cap

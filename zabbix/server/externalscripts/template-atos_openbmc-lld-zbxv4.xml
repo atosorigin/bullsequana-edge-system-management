@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <zabbix_export>
     <version>4.4</version>
-    <date>2020-01-22T13:29:59Z</date>
+    <date>2020-02-03T18:20:29Z</date>
     <groups>
         <group>
             <name>Templates</name>
@@ -54,6 +54,9 @@
                     <name>BullSequanaEdge Network Information</name>
                 </application>
                 <application>
+                    <name>BullSequanaEdge Other Sensors</name>
+                </application>
+                <application>
                     <name>BullSequanaEdge Presence and Functional Information</name>
                 </application>
                 <application>
@@ -99,6 +102,20 @@
                     <name>Collect Network</name>
                     <type>EXTERNAL</type>
                     <key>openbmc_collect[-u={$USER},-p={$PASSWORD},-b={$OPENBMC},-i=/xyz/openbmc_project/network/enumerate]</key>
+                    <delay>10m</delay>
+                    <history>7d</history>
+                    <trends>0</trends>
+                    <value_type>TEXT</value_type>
+                    <applications>
+                        <application>
+                            <name>BullSequanaEdge Collect Information</name>
+                        </application>
+                    </applications>
+                </item>
+                <item>
+                    <name>Collect Sensors</name>
+                    <type>EXTERNAL</type>
+                    <key>openbmc_collect[-u={$USER},-p={$PASSWORD},-b={$OPENBMC},-i=/xyz/openbmc_project/sensors/enumerate]</key>
                     <delay>10m</delay>
                     <history>7d</history>
                     <trends>0</trends>
@@ -692,6 +709,46 @@
                             <name>BullSequanaEdge Control Information</name>
                         </application>
                     </applications>
+                </item>
+                <item>
+                    <name>Sensors: Psu In/Out</name>
+                    <type>EXTERNAL</type>
+                    <key>openbmc_reader[-f={$OPENBMC}-sensors.json,-i=/xyz/openbmc_project/sensors/current/psu_iout,-p=Value]</key>
+                    <delay>10s</delay>
+                    <history>7d</history>
+                    <value_type>FLOAT</value_type>
+                    <units>Amperes</units>
+                    <applications>
+                        <application>
+                            <name>BullSequanaEdge Other Sensors</name>
+                        </application>
+                    </applications>
+                    <preprocessing>
+                        <step>
+                            <type>MULTIPLIER</type>
+                            <params>0.001</params>
+                        </step>
+                    </preprocessing>
+                </item>
+                <item>
+                    <name>Sensors: Total Power</name>
+                    <type>EXTERNAL</type>
+                    <key>openbmc_reader[-f={$OPENBMC}-sensors.json,-i=/xyz/openbmc_project/sensors/power/total_power,-p=Value]</key>
+                    <delay>10s</delay>
+                    <history>7d</history>
+                    <value_type>FLOAT</value_type>
+                    <units>Watts</units>
+                    <applications>
+                        <application>
+                            <name>BullSequanaEdge Other Sensors</name>
+                        </application>
+                    </applications>
+                    <preprocessing>
+                        <step>
+                            <type>MULTIPLIER</type>
+                            <params>0.000001</params>
+                        </step>
+                    </preprocessing>
                 </item>
                 <item>
                     <name>State: BMC</name>
@@ -1756,6 +1813,7 @@
                             <type>EXTERNAL</type>
                             <key>openbmc_reader[-f={$OPENBMC}-fan_tach.json,-i={#FAN_TACH},-p=Value]</key>
                             <delay>30s</delay>
+                            <units>rpms</units>
                             <applications>
                                 <application>
                                     <name>BullSequanaEdge Discovery Fan Information</name>
@@ -3236,4 +3294,30 @@
             </screens>
         </template>
     </templates>
+    <graphs>
+        <graph>
+            <name>psu i/out</name>
+            <graph_items>
+                <graph_item>
+                    <color>C2185B</color>
+                    <item>
+                        <host>Template Hw Atos BullSequanaEdge LLD</host>
+                        <key>openbmc_reader[-f={$OPENBMC}-sensors.json,-i=/xyz/openbmc_project/sensors/current/psu_iout,-p=Value]</key>
+                    </item>
+                </graph_item>
+            </graph_items>
+        </graph>
+        <graph>
+            <name>total power</name>
+            <graph_items>
+                <graph_item>
+                    <color>1976D2</color>
+                    <item>
+                        <host>Template Hw Atos BullSequanaEdge LLD</host>
+                        <key>openbmc_reader[-f={$OPENBMC}-sensors.json,-i=/xyz/openbmc_project/sensors/power/total_power,-p=Value]</key>
+                    </item>
+                </graph_item>
+            </graph_items>
+        </graph>
+    </graphs>
 </zabbix_export>
