@@ -91,8 +91,8 @@ Host Name    : zabbix-server
 
 ![#c5f015](https://placehold.it/15/c5f015/000000?text=+) => stop and start zabbix docker containers
 
-![#f03c15](https://placehold.it/15/f03c15/000000?text=+) !!! very important !!!
-![#f03c15](https://via.placeholder.com/150/0000FF/808080?Text=+) you should first rename your Zabbix Server
+![#f03c15](https://placehold.it/15/f03c15/000000?text=+) !!! very important !!!  
+![#808080](https://via.placeholder.com/15/000000/808080?Text=you should first rename your Zabbix Server)  
 => This is because it is highly recommanded to have a hostname without space (by default on Zabbix !!)
 
 Be careful: The "Visible name" is used by Zabbix Dashboards, so let "Zabbix server" persist as a Visible name.
