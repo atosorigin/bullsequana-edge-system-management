@@ -81,12 +81,6 @@ For more information about dockerhub installation Visit https://hub.docker.com/r
 - default url: `https://<ip_address_of_your_host>:4443`
 - default user/password is default zabbix user/password: `Admin / zabbix` !! Care the uppercase 'A' !!
 
-### enable automatic inventory by default
-1. Go to Administration / General / Others
-2. Check 'Automatic' for inventory
-
-![alt text](https://github.com/atosorigin/bullsequana-edge-system-management/blob/master/zabbix/doc/Admin_Automatic_Inventory.png)
-
 ### rename Zabbix Server
 1. Go to Configuration / Hosts
 2. Select you Zabbix server host
@@ -98,7 +92,7 @@ Host Name    : zabbix-server
 ![#c5f015](https://placehold.it/15/c5f015/000000?text=+) => stop and start zabbix docker containers
 
 ![#f03c15](https://placehold.it/15/f03c15/000000?text=+) !!! very important !!!
-you should first rename your Zabbix Server
+!(https://via.placeholder.com/150/0000FF/808080 ?Text=you should first rename your Zabbix Server)
 => This is because it is highly recommanded to have a hostname without space (by default on Zabbix !!)
 
 Be careful: The "Visible name" is used by Zabbix Dashboards, so let "Zabbix server" persist as a Visible name.
@@ -110,6 +104,12 @@ Be careful: The "Visible name" is used by Zabbix Dashboards, so let "Zabbix serv
 - Add DNS = zabbix-agent on the NEXT CASE
 - Click on DNS instead of IP
 - Port should be 10050
+
+### enable automatic inventory by default
+1. Go to Administration / General / Others
+2. Check 'Automatic' for inventory
+
+![alt text](https://github.com/atosorigin/bullsequana-edge-system-management/blob/master/zabbix/doc/Admin_Automatic_Inventory.png)
 
 ### install Atos templates
 Available Atos templates:
