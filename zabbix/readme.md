@@ -81,7 +81,18 @@ For more information about dockerhub installation Visit https://hub.docker.com/r
 - default url: `https://<ip_address_of_your_host>:4443`
 - default user/password is default zabbix user/password: `Admin / zabbix` !! Care the uppercase 'A' !!
 
+### enable automatic inventory by default
+1. Go to Administration / General / Others
+2. Check 'Automatic' for inventory
+
+![alt text](https://github.com/atosorigin/bullsequana-edge-system-management/blob/master/zabbix/doc/Admin_Automatic_Inventory.png)
+
 ### rename Zabbix Server
+
+![#f03c15](https://placehold.it/15/f03c15/000000?text=+) !!! VERY IMPORTANT !!! ![#f03c15](https://placehold.it/15/f03c15/000000?text=+) 
+You should first rename your Zabbix Server
+=> It is highly recommanded to have a hostname without space (by default Zabbix Server hostname has a blank space)
+
 1. Go to Configuration / Hosts
 2. Select you Zabbix server host
 3. Cut/Paste the "Zabbix server" name to "Visible name":
@@ -89,13 +100,9 @@ Visible name : Zabbix Server
 4. Enter name with a minus '-'
 Host Name    : zabbix-server
 
+![#f03c15](https://placehold.it/15/f03c15/000000?text=+) Be careful: The "Visible name" is used by Zabbix Dashboards, so let "Zabbix server" persist as a Visible name.
+
 ![#c5f015](https://placehold.it/15/c5f015/000000?text=+) => stop and start zabbix docker containers
-
-![#f03c15](https://placehold.it/15/f03c15/000000?text=+) !!! very important !!!  
-you should first rename your Zabbix Server
-=> This is because it is highly recommanded to have a hostname without space (by default on Zabbix !!)
-
-Be careful: The "Visible name" is used by Zabbix Dashboards, so let "Zabbix server" persist as a Visible name.
 
 ![alt text](https://github.com/atosorigin/bullsequana-edge-system-management/blob/master/zabbix/doc/Zabbix_Server_Configuration.png)
 
@@ -105,16 +112,10 @@ Be careful: The "Visible name" is used by Zabbix Dashboards, so let "Zabbix serv
 - Click on DNS instead of IP
 - Port should be 10050
 
-### enable automatic inventory by default
-1. Go to Administration / General / Others
-2. Check 'Automatic' for inventory
-
-![alt text](https://github.com/atosorigin/bullsequana-edge-system-management/blob/master/zabbix/doc/Admin_Automatic_Inventory.png)
-
 ### install Atos templates
 Available Atos templates:
 - **template-atos_openbmc-lld-zbxv4.xml**: should be applied on all Atos mipockets
-- **template-atos_openbmc-rsyslog-zbxv4.xml**: should be applied only on the zabbix server
+- **template-atos_openbmc-rsyslog-zbxv4.xml**: should be applied only on the zabbix-server
 
 To install it:
 1. Copy the templates from <install_dir>\zabbix\server\externalscripts\ to a **local path on you client computer running the browser**
@@ -330,11 +331,11 @@ example:
 
 ![#f03c15](https://placehold.it/15/f03c15/000000?text=+) The rsyslog should have read / write rights all along the **path**
 
-![alt text](https://raw.githubusercontent.com/atosorigin/bullsequana-edge-system-management/master/ansible/doc/rsyslog_rights.png)
+![alt text](https://raw.githubusercontent.com/atosorigin/bullsequana-edge-system-management/master/zabbix/doc/rsyslog_rights.png)
 
 The **rsyslog* file is monitored after the import of the template, so the collect will be triggered by the next line written in the rsyslog file.
 
-![alt text](https://raw.githubusercontent.com/atosorigin/bullsequana-edge-system-management/master/ansible/doc/rsyslog_key.png)
+![alt text](https://raw.githubusercontent.com/atosorigin/bullsequana-edge-system-management/master/zabbix/doc/rsyslog_key.png)
 
 ### install logrotate
 log rotation is mandatory for the rsyslog template
@@ -389,7 +390,7 @@ with telnet to check port opening:
 with logger command:  
 ` logger 'here is a test log message from <your_rsyslog_server_ip>'`  
 
-More information: Vist https://www.tecmint.com/install-rsyslog-centralized-logging-in-centos-ubuntu/
+More information: Visit https://www.tecmint.com/install-rsyslog-centralized-logging-in-centos-ubuntu/
 
 ### classical errors
 #### add firewall rules
@@ -402,7 +403,7 @@ You should add 2 firewall rules
 ```
 ![#f03c15](https://placehold.it/15/f03c15/000000?text=+) Be careful to reload it after changes
 
-![#f03c15](https://placehold.it/15/f03c15/000000?text=+) See https://www.itzgeek.com/how-tos/linux/centos-how-tos/setup-syslog-server-on-centos-7-rhel-7.html
+![#f03c15](https://placehold.it/15/f03c15/000000?text=+) More information: Visit https://www.itzgeek.com/how-tos/linux/centos-how-tos/setup-syslog-server-on-centos-7-rhel-7.html
 
 ![alt text](https://github.com/atosorigin/bullsequana-edge-system-management/blob/master/zabbix/doc/sysLog_firewall_add_exception.png)
 
@@ -421,7 +422,7 @@ By default, when you start the installer, the proxy environment variables are ad
       ...
 ```
 
-You can see your PROXY environment while starting up your AWX:
+You can check your PROXY environment while starting up your AWX:
 
 ![alt text](https://github.com/atosorigin/bullsequana-edge-system-management/blob/master/zabbix/doc/proxy.png)
 
@@ -437,10 +438,10 @@ If you don't want to use the host configuration for XX_PROXY environment variabl
 . ./proxy.sh
 ```
 
-2. Add your proxy environement as desired in *docker-compose-awx.yml* file with explicit IP addresses and host names:
+2. Add your proxy environement as desired in *docker-compose-zabbix.yml* file with explicit IP addresses and host names:
 ```
     env-file:
-      ansible.env
+      zabbix.env
     environment:
       HTTP_PROXY: http://<your proxy>:<your port>
       HTTPS_PROXY: https://<your proxy>:<your port>

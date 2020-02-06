@@ -76,7 +76,7 @@ services:
       - /var/log/rsyslog:/var/log/zabbix/rsyslog:rw
       - ./zabbix/agent/zabbix_agentd.conf:/etc/zabbix/zabbix_agentd.conf:Z
       - ./zabbix/agent/zabbix_agentd.psk:/etc/zabbix/zabbix_agentd.psk:Z
-      - ./zabbix/agent/zabbix_agentd.userparams.conf:/etc/zabbix/zabbix_agentd.d/zabbix_agentd.userparams.conf:Z
+#      - ./zabbix/agent/zabbix_agentd.userparams.conf:/etc/zabbix/zabbix_agentd.d/zabbix_agentd.userparams.conf:Z
 #      - ./zabbix/externalscripts:/usr/lib/zabbix/externalscripts:rw
 #      - ./zabbix/alertscripts:/usr/lib/zabbix/alertscripts:rw
 #      - ./zabbix/agent/modules:/var/lib/zabbix/modules
