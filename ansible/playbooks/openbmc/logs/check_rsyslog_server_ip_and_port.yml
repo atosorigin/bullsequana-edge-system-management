@@ -53,10 +53,10 @@
 
   - name: diff rsyslog ip server
     fail: 
-      msg: "rsyslog ip server {{result_rsyslog_server_ip.data}} is different in external_vars.yaml file {{rsyslog_server_ip}}"
-    when: result_rsyslog_server_ip.json.data != rsyslog_server_ip
+      msg: "rsyslog ip server {{result_rsyslog_server_ip.json.data}} is different in external_vars.yaml file {{rsyslog_server_ip}}"
+    when: result_rsyslog_server_ip.json.data is defined and result_rsyslog_server_ip.json.data != rsyslog_server_ip
 
   - name: diff rsyslog port server
     fail: 
-      msg: "rsyslog port server {{result_rsyslog_server_port.data}} is different in external_vars.yaml file {{rsyslog_server_port}}"
-    when: result_rsyslog_server_port.json.data != rsyslog_server_port
+      msg: "rsyslog port server {{result_rsyslog_server_port.json.data}} is different in external_vars.yaml file {{rsyslog_server_port}}"
+    when: result_rsyslog_server_port.json.data is defined and result_rsyslog_server_port.json.data != rsyslog_server_port
