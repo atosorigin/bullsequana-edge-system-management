@@ -3,7 +3,7 @@ FROM ansible/awx_task:9.0.1
 
 USER root
 
-ENV MISM_BULLSEQUANA_EDGE_VERSION=2.0.5
+ENV MISM_BULLSEQUANA_EDGE_VERSION=2.0.6
 
 COPY ansible.credentials.py /etc/tower/conf.d/credentials.py
 COPY ansible.env /etc/tower/conf.d/environment.sh

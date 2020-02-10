@@ -39,5 +39,5 @@
     debug:
       var: item.value
       verbosity: 2
-    failed_when: "{{ item.value.CriticalAlarm=High }} == true and {{ item.value.Value }} != 0"
+    failed_when: "{{ item.value.CriticalAlarmHigh }} == true and {{ item.value.Value }} != 0"
     with_dict: "{{ check_sensors }}"
