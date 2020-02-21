@@ -102,8 +102,13 @@
       var: evaluate_firmware_update
     when: evaluate_firmware_update is defined
 
+  - name: pause {{ reboot_countdown }} minuts for BMC to reboot
+    pause:
+      minuts: "{{ reboot_countdown }}"
+    when: reboot == True and item.value.Activation is defined and item.value.Purpose is defined and item.value.Activation == "xyz.openbmc_project.Software.Activation.Activations.Ready" and item.value.Purpose == "xyz.openbmc_project.Software.Version.VersionPurpose.BMC"
+    with_dict: "{{ firmware_inventory }}"
+
   - include_tasks: ../utils/utils_firmware_inventory.yml
-    when: reboot == False
 
   - name: check Activation Failures
     fail: 

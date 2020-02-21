@@ -8,6 +8,7 @@
     - "{{ ANSIBLE_PASSWORDS }}"
 
   tasks:
+
   - name: validate forceoff variable
     assert:
       that:
@@ -147,13 +148,13 @@
       body_format: json
     when: reboot == true
 
-  - include_tasks: ../utils/utils_firmware_inventory.yml
-    when: reboot == false
+  - name: pause {{ reboot_countdown }} minuts for BMC to reboot
+    pause:
+      minuts: "{{ reboot_countdown }}"
+    when: reboot == True and item.value.Activation is defined and item.value.Purpose is defined and item.value.Activation == "xyz.openbmc_project.Software.Activation.Activations.Ready" and item.value.Purpose == "xyz.openbmc_project.Software.Version.VersionPurpose.BMC"
+    with_dict: "{{ firmware_inventory }}"
 
-  - name:  get upload failures
-    fail: 
-      msg: "Ignored failures - {{ result_upload_firmware.json.data.description }}"
-    when: reboot == false and result_upload_firmware.status == 400
+  - include_tasks: ../utils/utils_firmware_inventory.yml
 
   - name: get activation failures
     fail: 

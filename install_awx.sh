@@ -86,6 +86,12 @@ then
   fi
 fi
 
+if [ ! -f ansible/vars/passwords.yml ] 
+then
+  echo -e "\033[32mansible/vars/passwords.yml was successfully created\033[0m"
+  touch ansible/vars/passwords.yml
+fi
+
 echo "starting BullSequana Edge Ansible AWX containers ...."
 docker-compose -f docker_compose_awx.yml up -d
 

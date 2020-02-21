@@ -55,6 +55,12 @@ pwd=$(pwd)
 export ANSIBLE_PASSWORDS=$pwd/ansible/vars/passwords.yml
 export ANSIBLE_EXTERNAL_VARS=$pwd/ansible/vars/external_vars.yml
 
+if [ ! -f $pwd/ansible/vars/passwords.yml ] 
+then
+  echo -e "\033[32mansible/vars/passwords.yml was successfully created\033[0m"
+  touch $pwd/ansible/vars/passwords.yml
+fi 
+
 # delete old ANSIBLE_PASSWORDS path
 grep -q ANSIBLE_PASSWORDS= $ANSIBLE_INVENTORY && sed -i.bak '/ANSIBLE_PASSWORDS=.*/d' $ANSIBLE_INVENTORY
 # add the new ANSIBLE_PASSWORDS path
@@ -69,38 +75,42 @@ sed -i "/all:vars/a ANSIBLE_EXTERNAL_VARS=$ANSIBLE_EXTERNAL_VARS" $ANSIBLE_INVEN
 echo "the following line was added in your $ANSIBLE_INVENTORY :"
 echo -e "\033[32mANSIBLE_EXTERNAL_VARS=$ANSIBLE_EXTERNAL_VARS\033[0m"
 
-if [ ! -d "/usr/share/ansible/plugins/callback" ]
-then
-  mkdir /usr/share/ansible/plugins/callback
-fi
-cp -r ansible/plugins/callback/ansible_stdout_compact_logger /usr/share/ansible/plugins/callback/ansible_stdout_compact_logger
-
 # ansible plugin inventory is copied in default directory /usr/lib/python<major>.<minor>/site-packages/ansible/modules
 # you can adapt it if you have another ansible plugin inventory directory
 
 # ansible plugin module is copied in default shared directory /usr/share/ansible/plugins/modules/
 # you can adapt it if you have another ansible plugin module directory
 
-if [ ! -d "/usr/share/ansible" ]
+
+if [ ! -d "/usr/share/ansible/plugins/callback/ansible_stdout_compact_logger" ]
 then
-  mkdir /usr/share/ansible
+  mkdir -p /usr/share/ansible/plugins/callback/ansible_stdout_compact_logger
 fi
 
-if [ ! -d "/usr/share/ansible/plugins" ]
-then
-  mkdir /usr/share/ansible/plugins
-fi
+cp -r ansible/plugins/callback/ansible_stdout_compact_logger/mismunixy.py /usr/share/ansible/plugins/callback/ansible_stdout_compact_logger/mismunixy.py
+
 
 if [ ! -d "/usr/share/ansible/plugins/modules" ]
 then
-  mkdir /usr/share/ansible/plugins/modules
+  mkdir -p /usr/share/ansible/plugins/modules
 fi
 
 if [ ! -d "/usr/share/ansible/plugins/module_utils" ]
 then
-  mkdir /usr/share/ansible/plugins/module_utils
+  mkdir -p /usr/share/ansible/plugins/module_utils
 fi
 
 cp ansible/plugins/modules/remote_management/openbmc/atos_openbmc.py        /usr/share/ansible/plugins/modules/atos_openbmc.py
 cp ansible/plugins/modules/remote_management/openbmc/atos_openbmc_utils.py  /usr/share/ansible/plugins/module_utils/atos_openbmc_utils.py
 cp ansible/plugins/modules/remote_management/openbmc/__init__.py            /usr/share/ansible/plugins/modules/__init__.py
+
+# previous install issue
+if [ -d "/usr/share/ansible/plugins/callback/ansible_stdout_compact_logger/ansible_stdout_compact_logger" ]
+then
+  rm -rf /usr/share/ansible/plugins/callback/ansible_stdout_compact_logger/ansible_stdout_compact_logger
+fi
+
+if [ -d "/usr/share/ansible/plugins/callback/ansible_stdout_compact_logger/callback" ]
+then
+  rm -rf /usr/share/ansible/plugins/callback/ansible_stdout_compact_logger/callback
+fi

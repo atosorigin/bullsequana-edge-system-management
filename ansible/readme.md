@@ -22,7 +22,8 @@ Optionaly, 2 ready-to-go AWX-Ansible images are available on Dockerhub
 - [BullSequana Edge Playbooks](#playbooks)
 - [What to do first on AWX](#what_awx)
 - [What to do first on Ansible](#what_ansible)
-- [How to manage encrypted passwords](#howto_manage_password)
+- [How to manage AWX encrypted passwords](#howto_manage_ansible_password)
+- [How to manage Ansible encrypted passwords](#howto_manage_awx_password)
 - [How to change your proxy](#howto_proxy)
 - [How to change technical states file path](#howto_ts)
 - [How to change certificat on AWX server](#howto_cert)
@@ -36,7 +37,7 @@ Optionaly, 2 ready-to-go AWX-Ansible images are available on Dockerhub
 - [Version](#version)
 
 ## <a name="playbooks"></a>BullSequana Edge Playbooks
-- `Activate firmware updates`: Activate BullSequana Edge updated firmwares
+- `Activate firmware updates`: Activate BullSequana Edge uploaded firmwares - Do NOT upload firmwares (need to be planed before)
 - `Evaluate firmware update from Technical State`:Evaluate firmware update from Atos specific Technical State file (comparaison)
 - `Delete firmware image`: Delete a firmware image by id
 - `Firmware inventory` - Active: Get firmware inventory in "Active" state
@@ -271,7 +272,7 @@ The default *Bull Sequana Edge Vault* has intentionaly NO password, so you shoul
 ![alt text](https://raw.githubusercontent.com/atosorigin/bullsequana-edge-system-management/master/ansible/doc/awx_credential_vault_failed.png)
 
 #### - generate your passwords
-You can now generate your passwords: See [How to manage encrypted passwords](#howto_manage_password)
+You can now generate your passwords: See [How to manage AWX encrypted passwords](#howto_manage_awx_password)
 You should generate as many *password variables* as different real passwords you have.
 
 #### - use it in your inventory
@@ -546,7 +547,7 @@ ansible-playbook evaluate_firmware_update.yml -i /etc/ansible/redfish_plugin_ans
 ```
 
 ### how to use a CLI Vault
-1. generate your encrypted password: See [How to manage encrypted passwords](#howto_manage_password)
+1. generate your encrypted password: See [How to manage encrypted passwords](#howto_manage_ansible_password)
 2. run your playbook
 `ansible-playbook --vault-id root_password@prompt projects/openbmc/inventory/get_sensors.yml`
 
@@ -796,8 +797,8 @@ if you need to adapt the versions:
 After a build and install process, the result should be:
 ![alt text](https://raw.githubusercontent.com/atosorigin/bullsequana-edge-system-management/master/ansible/doc/build_process.png) 
 
-## <a name="howto_manage_password"></a>How to manage an encrypted password
-### add an Ansible native encrypted password
+## <a name="howto_manage_ansible_password"></a>How to manage Ansible encrypted passwords
+### generate an Ansible native encrypted password
 1. execute the following native ansible command with the name of your password and the real password you want to encrypt  
 `generate_encrypted_password_for_Ansible.sh --name your_password_name your_real_password_to_encrypt`  
 2. you are prompted for a vault password you should remember
@@ -817,6 +818,12 @@ bmc_root_password: !vault |
 Encryption successful
 
 ```
+
+### use your Ansible encrypted password
+You should replace " password= " in your hosts file
+
+![alt text](https://raw.githubusercontent.com/atosorigin/bullsequana-edge-system-management/master/ansible/doc/your_ansible_password_in_host.png)
+
 
 ![#c5f015](https://placehold.it/15/c5f015/000000?text=+) Info: you should run your playbooks with *--ask-vault-pass* or *--vault-id* in command line (alternatively you can indicate a vault_password_file in your ansible.cfg : See next section)  
 
@@ -863,16 +870,6 @@ you can now generate as many encrypted password variables as needed and play you
 
 ![#9ECBFF](https://placehold.it/15/9ECBFF/000000?text=+) Best Practice: Vault passwords could be retrieved from python script. For more information See https://docs.ansible.com/ansible/latest/user_guide/vault.html
 
-### add a AWX vault
-1. open a terminal on the host
-2. execute the following script with the name of your password and the real password you want to encrypt  
-  
-`./generate_encrypted_password_for_AWX.sh --name your_password_name your_real_password_to_encrypt`  
-
-![alt text](https://raw.githubusercontent.com/atosorigin/bullsequana-edge-system-management/master/ansible/doc/generate_password_result.png)  
-
-*you should indicate your customized vault password during this generation*
-
 ### remove an encrypted password
 1. edit the file <install_dir>/ansible/vars/passwords.yml  
 2. remove the password entry as desired  
@@ -893,6 +890,22 @@ a_named_variable: !vault |
 3. remove the lines that are corrupted  
 ![alt text](https://raw.githubusercontent.com/atosorigin/bullsequana-edge-system-management/master/ansible/doc/corrupted_passwords.png)
   
+## <a name="howto_manage_awx_password"></a>How to manage AWX encrypted vault and passwords
+### generate an AWX(Ansible) native encrypted password
+1. open a terminal on the host
+2. execute the following script with the name of your password and the real password you want to encrypt  
+  
+`./generate_encrypted_password_for_AWX.sh --name your_password_name your_real_password_to_encrypt`  
+
+![alt text](https://raw.githubusercontent.com/atosorigin/bullsequana-edge-system-management/master/ansible/doc/generate_password_result.png)  
+
+*you should indicate your customized vault password during this generation*
+
+### use your Ansible encrypted password
+You should replace your " password:" in your inventory / hosts VARIABLES part:  
+
+![alt text](https://raw.githubusercontent.com/atosorigin/bullsequana-edge-system-management/master/ansible/doc/your_awx_password_in_host.png)
+
 ## <a name="warning_updates"></a>Warning for updates
 ![#f03c15](https://placehold.it/15/f03c15/000000?text=+) Never change original playbooks => duplicate playbooks  
   
