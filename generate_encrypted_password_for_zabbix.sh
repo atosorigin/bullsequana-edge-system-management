@@ -2,7 +2,8 @@
 
 echo -n Please enter the password you want to encrypt: 
 read -s password
-echo $password
+
+echo
 
 ZABBIXCMD="./encrypt_psk_password"
 

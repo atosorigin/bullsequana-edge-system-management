@@ -4,7 +4,7 @@
 # comment the next line if you build from your own Dockerfiles with build_zabbix.sh
 . ./remove_zabbix_containers.sh
 
-chmod uo+w zabbix/server/externalscripts/openbmc
+chmod ugo+w zabbix/server/externalscripts/openbmc
 
 set -euo pipefail
 

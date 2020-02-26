@@ -10,11 +10,12 @@ sed -i 's/#.*TLSPSKIdentity.*=.*/TLSPSKIdentity=PSK_Mipocket_Agent/g' zabbix/age
 sed -i 's/#.*TLSPSKFile.*=.*/TLSPSKFile=\/etc\/zabbix\/zabbix_agentd.psk/g' zabbix/agent/zabbix_agentd.conf
 
 echo "Steps to activate Encryption"
-echo "In Zabbix / Configuration / Hosts / selected_host / Encryption"
-echo -e "Connections to host : <select \033[32mPSK\033[0m>"
-echo -e "Connections from host : <select \033[32mPSK\033[0m>"
-echo -e "\033[32mPSK Identity: PSK_Mipocket_Agent\033[0m"
-echo -e "\033[32mPSK:$zabbix_psk\033[0m"
+echo "1. Got to Zabbix / Configuration / Hosts / selected_host / Encryption"
+echo "2. Select:"
+echo -e "- Connections to host : <select \033[32mPSK\033[0m>"
+echo -e "- Connections from host : <select \033[32mPSK\033[0m>"
+echo -e "\033[32m- PSK Identity: PSK_Mipocket_Agent\033[0m"
+echo -e "\033[32m- PSK:$zabbix_psk\033[0m"
 echo -e "\033[31m!!WARNING: You should repeat these steps for zabbix-server itself and ALL your hosts\033[0m"
 echo
 echo "This psk is available in <install_dir>/zabbix/agent/zabbix_agentd.psk file"

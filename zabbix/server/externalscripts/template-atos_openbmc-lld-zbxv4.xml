@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <zabbix_export>
     <version>4.4</version>
-    <date>2020-02-03T18:20:29Z</date>
+    <date>2020-02-26T13:11:04Z</date>
     <groups>
         <group>
             <name>Templates</name>
@@ -2414,6 +2414,123 @@
                     </screen_items>
                 </screen>
                 <screen>
+                    <name>FRU</name>
+                    <hsize>1</hsize>
+                    <vsize>5</vsize>
+                    <screen_items>
+                        <screen_item>
+                            <resourcetype>3</resourcetype>
+                            <style>0</style>
+                            <resource>
+                                <key>openbmc_reader[-f={$OPENBMC}-system.json,-i=/xyz/openbmc_project/inventory/system,-p=Model]</key>
+                                <host>Template Hw Atos BullSequanaEdge LLD</host>
+                            </resource>
+                            <width>500</width>
+                            <height>100</height>
+                            <x>0</x>
+                            <y>0</y>
+                            <colspan>1</colspan>
+                            <rowspan>1</rowspan>
+                            <elements>1</elements>
+                            <valign>0</valign>
+                            <halign>0</halign>
+                            <dynamic>0</dynamic>
+                            <sort_triggers>0</sort_triggers>
+                            <url/>
+                            <application/>
+                            <max_columns>3</max_columns>
+                        </screen_item>
+                        <screen_item>
+                            <resourcetype>3</resourcetype>
+                            <style>0</style>
+                            <resource>
+                                <key>openbmc_reader[-f={$OPENBMC}-system.json,-i=/xyz/openbmc_project/inventory/system,-p=Manufacturer]</key>
+                                <host>Template Hw Atos BullSequanaEdge LLD</host>
+                            </resource>
+                            <width>500</width>
+                            <height>100</height>
+                            <x>0</x>
+                            <y>1</y>
+                            <colspan>1</colspan>
+                            <rowspan>1</rowspan>
+                            <elements>1</elements>
+                            <valign>0</valign>
+                            <halign>0</halign>
+                            <dynamic>0</dynamic>
+                            <sort_triggers>0</sort_triggers>
+                            <url/>
+                            <application/>
+                            <max_columns>3</max_columns>
+                        </screen_item>
+                        <screen_item>
+                            <resourcetype>3</resourcetype>
+                            <style>0</style>
+                            <resource>
+                                <key>openbmc_reader[-f={$OPENBMC}-system.json,-i=/xyz/openbmc_project/inventory/system,-p=AssetTag]</key>
+                                <host>Template Hw Atos BullSequanaEdge LLD</host>
+                            </resource>
+                            <width>500</width>
+                            <height>100</height>
+                            <x>0</x>
+                            <y>2</y>
+                            <colspan>1</colspan>
+                            <rowspan>1</rowspan>
+                            <elements>1</elements>
+                            <valign>0</valign>
+                            <halign>0</halign>
+                            <dynamic>0</dynamic>
+                            <sort_triggers>0</sort_triggers>
+                            <url/>
+                            <application/>
+                            <max_columns>3</max_columns>
+                        </screen_item>
+                        <screen_item>
+                            <resourcetype>3</resourcetype>
+                            <style>0</style>
+                            <resource>
+                                <key>openbmc_reader[-f={$OPENBMC}-system.json,-i=/xyz/openbmc_project/inventory/system,-p=SerialNumber]</key>
+                                <host>Template Hw Atos BullSequanaEdge LLD</host>
+                            </resource>
+                            <width>500</width>
+                            <height>100</height>
+                            <x>0</x>
+                            <y>3</y>
+                            <colspan>1</colspan>
+                            <rowspan>1</rowspan>
+                            <elements>1</elements>
+                            <valign>0</valign>
+                            <halign>0</halign>
+                            <dynamic>0</dynamic>
+                            <sort_triggers>0</sort_triggers>
+                            <url/>
+                            <application/>
+                            <max_columns>3</max_columns>
+                        </screen_item>
+                        <screen_item>
+                            <resourcetype>3</resourcetype>
+                            <style>0</style>
+                            <resource>
+                                <key>openbmc_reader[-f={$OPENBMC}-system.json,-i=/xyz/openbmc_project/inventory/system,-p=PartNumber]</key>
+                                <host>Template Hw Atos BullSequanaEdge LLD</host>
+                            </resource>
+                            <width>500</width>
+                            <height>100</height>
+                            <x>0</x>
+                            <y>4</y>
+                            <colspan>1</colspan>
+                            <rowspan>1</rowspan>
+                            <elements>1</elements>
+                            <valign>0</valign>
+                            <halign>0</halign>
+                            <dynamic>0</dynamic>
+                            <sort_triggers>0</sort_triggers>
+                            <url/>
+                            <application/>
+                            <max_columns>3</max_columns>
+                        </screen_item>
+                    </screen_items>
+                </screen>
+                <screen>
                     <name>Network</name>
                     <hsize>3</hsize>
                     <vsize>1</vsize>
@@ -2538,7 +2655,7 @@
                     </screen_items>
                 </screen>
                 <screen>
-                    <name>System</name>
+                    <name>System Dimm</name>
                     <hsize>4</hsize>
                     <vsize>7</vsize>
                     <screen_items>

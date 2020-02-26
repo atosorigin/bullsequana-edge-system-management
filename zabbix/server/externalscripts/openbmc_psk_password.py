@@ -12,6 +12,7 @@ from base64 import b64encode,b64decode
 #
 class AESCipher:
   def __init__(self,data):
+    self.key=None
     if os.path.exists('/etc/zabbix/zabbix_agentd.psk'):
       with open('/etc/zabbix/zabbix_agentd.psk', 'r') as psk_file:
         self.key = psk_file.read()

@@ -3,7 +3,7 @@
 . ./check_prerequisites.sh
 . ./remove_awx_containers.sh
 
-chmod uo+w zabbix/server/externalscripts/openbmc
+chmod ugo+w zabbix/server/externalscripts/openbmc
 
 set -euo pipefail
 

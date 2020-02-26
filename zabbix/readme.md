@@ -23,6 +23,7 @@ Optionally, 3 ready-to-go zabbix images are available on Dockerhub
 - [What to do first](#what_first)
 - [How to install BullSequana Edge template](#edge_template)
 - [How to install rsyslog template](#rsyslog_template)
+- [How to install BullSequana Edge Map template](#map_template)
 - [How to create your first Edge dashboard](#dashboard)
 - [How to change your Proxy](#howto_proxy)
 - [How to change Local Date / Time Zone](#datetimezone)
@@ -412,6 +413,36 @@ If telnet is not working but the ping is working : iptables rules could be the i
 You can flush the iptables rules   
 
 ![#f03c15](https://placehold.it/15/f03c15/000000?text=+) Be careful to be able to recreate iptables rules after this command ` iptables -F `
+
+## <a name="map_template"></a>BullSequanaEdgeMap template installation
+### template content
+- 1 Map template
+
+![#f03c15](https://placehold.it/15/f03c15/000000?text=+) The BullSequanaEdgeInconMapping should be created BEFORE importing BullSequanaEdgeMap template
+
+### Create BullSequanaEdge icons
+
+1. From your browser, you should be able to access <instal_dir>/zabbix/icons directory
+2. Go to Administration / General / Image / Icon
+3. Create as many icons as images in <instal_dir>/zabbix/icons directory
+![alt text](https://github.com/atosorigin/bullsequana-edge-system-management/blob/master/zabbix/doc/BullSequanaEdge_create_icon.png)
+4. Check your icons
+![alt text](https://github.com/atosorigin/bullsequana-edge-system-management/blob/master/zabbix/doc/BullSequanaEdge_images.png)
+
+### Create BullSequanaEdge icon mapping
+
+1. Go to Administration / General / Image / IconMapping
+2. Create one "Icon Mapping" as below:
+  a- Name should be BullSequanaEdgeIconMapping
+  b- Select Inventory field = Model
+  c- Write Expression = BullSequana Edge
+  d- Select your prefered Icon Size and Default Icon Size
+
+![alt text](https://github.com/atosorigin/bullsequana-edge-system-management/blob/master/zabbix/doc/BullSequanaEdge_icon_mapping.png.png)
+  
+![#f03c15](https://placehold.it/15/f03c15/000000?text=+) WARNING: Inventory should be "Automatic" for your BullSequana Edge (Model field should be filled)
+
+![#c5f015](https://placehold.it/15/c5f015/000000?text=+) INFO: Your icons will be automatically detected for BullSequana Edge 
 
 ## <a name="howto_proxy"></a>How to change your proxy
 By default, when you start the installer, the proxy environment variables are added in containers thanks to the following section in docker-compose-awx.yml file:

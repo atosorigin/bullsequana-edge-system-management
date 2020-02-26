@@ -105,7 +105,7 @@
   - name: pause {{ reboot_countdown }} minuts for BMC to reboot
     pause:
       minuts: "{{ reboot_countdown }}"
-    when: reboot == True and item.value.Activation is defined and item.value.Purpose is defined and item.value.Activation == "xyz.openbmc_project.Software.Activation.Activations.Ready" and item.value.Purpose == "xyz.openbmc_project.Software.Version.VersionPurpose.BMC"
+    when: reboot == True and item.value.Purpose is defined and item.value.RequestedActivation is defined and item.value.Purpose == "xyz.openbmc_project.Software.Version.VersionPurpose.BMC" and item.value.RequestedActivation == "xyz.openbmc_project.Software.Activation.RequestedActivations.Active"
     with_dict: "{{ firmware_inventory }}"
 
   - include_tasks: ../utils/utils_firmware_inventory.yml
@@ -113,6 +113,6 @@
   - name: check Activation Failures
     fail: 
       msg: "Failure in activation for {{item.value.Purpose}} - {{item.value.Version}}"
-    when: reboot == False and item.value.Activation is defined and item.value.Activation == 'xyz.openbmc_project.Software.Activation.Activations.Failed' and item.value.RequestedActivation is defined and item.value.RequestedActivation =='xyz.openbmc_project.Software.Activation.RequestedActivations.Active'
+    when: item.value.Activation is defined and item.value.Activation == 'xyz.openbmc_project.Software.Activation.Activations.Failed' and item.value.RequestedActivation is defined and item.value.RequestedActivation =='xyz.openbmc_project.Software.Activation.RequestedActivations.Active'
     with_dict: "{{ firmware_inventory }}"
 

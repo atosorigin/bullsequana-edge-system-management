@@ -159,7 +159,7 @@
   - name: get activation failures
     fail: 
       msg: "{{ item.value.Activation }}"
-    when: reboot == False and item.value.Activation is defined and item.value.Activation == 'xyz.openbmc_project.Software.Activation.Activations.Failed' and item.value.RequestedActivation is defined and item.value.RequestedActivation =='xyz.openbmc_project.Software.Activation.RequestedActivations.Active'
+    when: item.value.Activation is defined and item.value.Activation == 'xyz.openbmc_project.Software.Activation.Activations.Failed' and item.value.RequestedActivation is defined and item.value.RequestedActivation =='xyz.openbmc_project.Software.Activation.RequestedActivations.Active'
     with_dict: "{{ firmware_inventory }}"
 
 

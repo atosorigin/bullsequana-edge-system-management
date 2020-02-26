@@ -532,7 +532,7 @@ output {
   float: left;
   display: block;
   width: 95px;
-  height: 25px;
+  height: 35px;
   background: url(../img/logo-header.svg) no-repeat 0;
   background-size: 95px 30px;
 }
@@ -2254,7 +2254,7 @@ button[disabled], button[disabled]:hover, button[disabled]:active {
   margin-bottom: 21px;
   width: 114px;
   height: 30px;
-  background: url(../img/logo-header.svg) no-repeat 0;
+  background: url(../img/logo-zabbix-header.png) no-repeat 0;
   background-repeat: no-repeat;
   background-size: 114px 30px;
 }

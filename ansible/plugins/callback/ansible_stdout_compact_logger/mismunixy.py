@@ -34,6 +34,7 @@ from ansible import context
 from ansible.module_utils._text import to_text
 from ansible.parsing.yaml.dumper import AnsibleDumper
 from ansible.utils.color import colorize, hostcolor
+from ansible.utils.unsafe_proxy import AnsibleUnsafeText
 from ansible.plugins.callback import CallbackBase, strip_internal_keys, module_response_deepcopy
 from ansible.plugins.callback.default import CallbackModule as Default
 
@@ -90,29 +91,48 @@ class CallbackModule(Default):
             self.deep_serialize_logs(task_result, logs, True)
             return
         
-        # Upload
-        if result._result.get('url') and result._result.get('msg') and "/upload/image" in result._result.get('url') :
+        # Upload        
+        if result._result.get('url', None) and result._result.get('msg', None) and "/upload/image" in result._result.get('url', None) :
             # specific case : not a failure => Version already exists OR tar extraction error
             json_body = result._result.get('json', None)
             if not json_body: # return default msg
                 task_result += " | " + to_text(result._result.get('msg', None))
                 self._display.display(task_result, display_color, stderr=err)
                 return
+
             json_data = json_body.get('data', None)
             if not json_data: # return default msg
                 task_result += " | " + to_text(result._result.get('msg', None))
                 self._display.display(task_result, display_color, stderr=err)
                 return
 
+            if type(json_data) is str:
+                task_result += " | Upload: " + json_data
+                self._display.display(task_result, display_color, stderr=err)
+                return
+
+
+            if type(json_data) is AnsibleUnsafeText :
+                task_result_final = "{task_result} | image id: {json_data}".format(task_result=task_result, json_data=json_data)
+                self._display.display(task_result_final, display_color, stderr=err)
+                return
+ 
             data_description = json_data.get('description', None)
 
             if data_description: 
                 task_result += " | " + to_text(data_description)
                 self._display.display(task_result, display_color, stderr=err)
                 return
+            
+
             # else = return default msg
-            task_result += " | " + to_text(result._result.get('msg', None))
-            self._display.display(task_result, display_color, stderr=err)
+            self._display.display("Pas de description Upload", display_color, stderr=err)
+            msg = result._result.get('msg', None)
+            if msg:
+                task_result += " | " + to_text(msg)
+                self._display.display(task_result, display_color, stderr=err)
+                return
+            self._display.display("OK Upload", display_color, stderr=err)
             return            
 
         # debug msg
