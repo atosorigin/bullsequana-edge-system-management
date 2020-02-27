@@ -453,9 +453,19 @@ You can flush the iptables rules
 4. Check Maps and Images checkboxes only for Update
 5. Import **template-atos_openbmc-sysmaps-zbxv4.xml**
 
-![alt text](https://github.com/atosorigin/bullsequana-edge-system-management/blob/master/zabbix/doc/BullSequanaEdge_map.png)
+![#c5f015](https://placehold.it/15/c5f015/000000?text=+) INFO: Your icons will be automatically detected for BullSequana Edge while creating your maps
 
-![#c5f015](https://placehold.it/15/c5f015/000000?text=+) INFO: Your icons will be automatically detected for BullSequana Edge and behave like any other servers
+### Create a map 
+1. Go to Monitoring / Maps
+2. Create a new Map
+3. Add a new Map item
+  a- Select 'Host' type  
+  b- Select your Host  
+  c- Select Automatic icon mapping  
+
+![alt text](https://github.com/atosorigin/bullsequana-edge-system-management/blob/master/zabbix/doc/BullSequanaEdge_map.png)
+  
+Your server should behave like any other servers:  
 
 ![alt text](https://github.com/atosorigin/bullsequana-edge-system-management/blob/master/zabbix/doc/BullSequanaEdge_map_warning.png)
 
