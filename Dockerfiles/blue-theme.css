@@ -2251,13 +2251,14 @@ button[disabled], button[disabled]:hover, button[disabled]:active {
 
 .signin-logo {
   margin: 0 auto;
+  margin-right: 0px;
   margin-bottom: 21px;
-  width: 114px;
-  height: 30px;
+  width: 250px;
+  height: 50px;
   background: url(../img/logo-zabbix-header.png) no-repeat 0;
   background-repeat: no-repeat;
-  background-size: 114px 30px;
-}
+  background-size: 250px 50px;
+} 
 
 .signin-links {
   width: 100%;

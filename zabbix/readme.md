@@ -28,6 +28,10 @@ Optionally, 3 ready-to-go zabbix images are available on Dockerhub
 - [How to change your Proxy](#howto_proxy)
 - [How to change Local Date / Time Zone](#datetimezone)
 - [How to add Security](#security)
+- [How to send Email ](#email)
+- [How to send SMS](#sms)
+- [How to add a Media for a User](#add_media)
+- [How to configure a Triggered Action for Users / User Group](#configure_media_action)
 - [How to test](#test)
 - [How to log on a docker container](#howto_docker_logon)
 - [How to build your own docker container](#howto_build)
@@ -438,7 +442,7 @@ You can flush the iptables rules
   c- Write Expression = BullSequana Edge
   d- Select your prefered Icon Size and Default Icon Size
 
-![alt text](https://github.com/atosorigin/bullsequana-edge-system-management/blob/master/zabbix/doc/BullSequanaEdge_icon_mapping.png.png)
+![alt text](https://github.com/atosorigin/bullsequana-edge-system-management/blob/master/zabbix/doc/BullSequanaEdge_icon_mapping.png)
   
 ![#f03c15](https://placehold.it/15/f03c15/000000?text=+) WARNING: Inventory should be "Automatic" for your BullSequana Edge (Model field should be filled)
 
@@ -507,7 +511,7 @@ To override your time zone, edit docker-compose-zabbix.yml file
 ```
 
 ## <a name="security"></a>How to add Security
-## activate PSK security on zabbix
+### activate PSK security on zabbix
 1. generate a key in /etc/zabbix/zabbix_agentd.psk and follow the instructions
 ```
 <install_dir>/generate_psk_key_for_zabbix.sh
@@ -533,15 +537,96 @@ PSK Identity: PSK_Mipocket_Agent"
 echo PSK: <your psk>
 ```
 
+![alt text](https://raw.githubusercontent.com/atosorigin/bullsequana-edge-system-management/master/zabbix/doc/BullSequanaEdge_Zabbix_vault_generate_steps.png)
+
 ![#c5f015](https://placehold.it/15/c5f015/000000?text=+) you should restart docker containers
 
 *more info on https://www.zabbix.com/documentation/4.0/fr/manual/encryption/using_pre_shared_keys*
 
-## generate an encrypted passwords
+### generate an encrypted passwords
 1. generate an encrypted password for each different password 
 ` <install_dir>/generate_encrypted_password_for_zabbix.sh --password=<your_clear_password> `
 
 2. copy/paste encrypted result it in zabbix / Configuration / Hosts / you host / Macros / {$PASSWORD} Value
+
+
+## <a name="email"></a>How to configure Email
+### Configure Email
+1. Go to Administration / Media types
+2. Select Email
+![alt text](https://raw.githubusercontent.com/atosorigin/bullsequana-edge-system-management/master/zabbix/doc/BullSequanaEdge_Email_SMTP.png)
+3. Change email server configuration
+![alt text](https://raw.githubusercontent.com/atosorigin/bullsequana-edge-system-management/master/zabbix/doc/BullSequanaEdge_Email_SMTP_Detail.png)
+4. Go to
+
+### Test it !
+![alt text](https://raw.githubusercontent.com/atosorigin/bullsequana-edge-system-management/master/zabbix/doc/BullSequanaEdge_Email_SMTP_Test.png)
+
+## <a name="sms"></a>How to configure SMS for smsmode
+### Create a smsmode User
+1. Go to your SMS provider smsmode
+See https://ui.smsmode.com
+2. Create a token (API key)
+![alt text](https://raw.githubusercontent.com/atosorigin/bullsequana-edge-system-management/master/zabbix/doc/BullSequanaEdge_SMS_Token.png)
+3. Copy it for further usage
+4. You can consult your SMS list to check SMS traffic
+![alt text](https://raw.githubusercontent.com/atosorigin/bullsequana-edge-system-management/master/zabbix/doc/BullSequanaEdge_SMS_smsMode_SMSList.png)
+
+![#f03c15](https://placehold.it/15/f03c15/000000?text=+) INFO: 
+
+### Configure SMS
+1. Go to Administration / Media types
+2. Click on right button "Create Mediatype"
+![alt text](https://raw.githubusercontent.com/atosorigin/bullsequana-edge-system-management/master/zabbix/doc/BullSequanaEdge_SMS_Mediatype_Create.png)
+3. Fill the form with following parameters
+  
+--message={ALERT.SUBJECT} - {ALERT.MESSAGE}  
+--to={ALERT.SENDTO}  
+**--accessToken=<here paste your smsmode token>**  
+
+![alt text](https://raw.githubusercontent.com/atosorigin/bullsequana-edge-system-management/master/zabbix/doc/BullSequanaEdge_SMS_Mediatype.png)
+
+4. Save the form
+![alt text](https://raw.githubusercontent.com/atosorigin/bullsequana-edge-system-management/master/zabbix/doc/BullSequanaEdge_SMS_smsmode.png)
+
+## <a name="add_media"></a>How to add a Media for a User
+1. Go to Administration / User / <your user> / Media
+2. Click "Add" to add a Media
+![alt text](https://raw.githubusercontent.com/atosorigin/bullsequana-edge-system-management/master/zabbix/doc/BullSequanaEdge_SMS_Add_Media_For_User.png)
+3. Select Email or SMS
+4. Enter respectively a correct email or phone number
+![alt text](https://raw.githubusercontent.com/atosorigin/bullsequana-edge-system-management/master/zabbix/doc/BullSequanaEdge_SMS_Media.png)
+5. Fill the active hours and the minimum severity level
+6. Check your  newly created Media in the media list
+![alt text](https://raw.githubusercontent.com/atosorigin/bullsequana-edge-system-management/master/zabbix/doc/BullSequanaEdge_SMS_User_Media.png)
+
+### Optionaly add User to a Group
+You can add a User to a Group to send Email or SMS to all users of a named group
+1. Go to Administration / UserGroups
+2. Add User to your desired group
+
+## <a name="configure_media_action"></a>How to configure a Triggered Action for Users / User Group
+### Create an action
+1. Go to ConfigurationActions
+2. Check if "Trigger" Action is selected
+3. Click on right button "Create Action"
+![alt text](https://raw.githubusercontent.com/atosorigin/bullsequana-edge-system-management/master/zabbix/doc/BullSequanaEdge_SMS_Create_Action.png) 
+4. Name the Action
+![alt text](https://raw.githubusercontent.com/atosorigin/bullsequana-edge-system-management/master/zabbix/doc/BullSequanaEdge_SMS_Add_Action.png) 
+5. Optionaly add a new condition. Your can let it empty to have NO condition
+
+### Create an operation inside an action
+1. Add an Operation
+![alt text](https://raw.githubusercontent.com/atosorigin/bullsequana-edge-system-management/master/zabbix/doc/BullSequanaEdge_SMS_Create_Operation.png) 
+2. Add your desired users or user groups
+![alt text](https://raw.githubusercontent.com/atosorigin/bullsequana-edge-system-management/master/zabbix/doc/BullSequanaEdge_SMS_Create_Operation_Detail.png) 
+3. Care the "Send only to" field and select needed target : Email or SMS or all
+![alt text](https://raw.githubusercontent.com/atosorigin/bullsequana-edge-system-management/master/zabbix/doc/BullSequanaEdge_SMS_Action_Sendto.png) 
+4. For each problem - having the minimum severity level in Problems - you should receive an SMS:
+
+![alt text](https://raw.githubusercontent.com/atosorigin/bullsequana-edge-system-management/master/zabbix/doc/BullSequanaEdge_SMS_Alert.png) 
+  
+![alt text](https://raw.githubusercontent.com/atosorigin/bullsequana-edge-system-management/master/zabbix/doc/BullSequanaEdge_SMS_Alert_SMS.png) 
 
 ## <a name="test"></a>How to Test
 ### on mi-pocket side
@@ -583,7 +668,7 @@ If you need to adapt a Dockerfile in Dockerfiles directory:
 4. comment the remove-xxx-containers.sh line
 5. run your newly modified install script
 
-![alt text](https://raw.githubusercontent.com/atosorigin/bullsequana-edge-system-management/master/ansible/doc/dockerfiles_tag_latest.png) 
+![alt text](https://raw.githubusercontent.com/atosorigin/bullsequana-edge-system-management/master/zabbix/doc/dockerfiles_tag_latest.png) 
 
 ![#f03c15](https://placehold.it/15/f03c15/000000?text=+) Warning: if you change MISM_TAG_BULLSEQUANA_EDGE_VERSION=**tag** to MISM_TAG_BULLSEQUANA_EDGE_VERSION=**latest**, you should use Dockerfile-xxx.**latest** files
 
@@ -595,16 +680,16 @@ if you need to adapt the versions:
 5. run your newly modified install script
 
 - versions **tag**
-![alt text](https://raw.githubusercontent.com/atosorigin/bullsequana-edge-system-management/master/ansible/doc/versions_tag.png) 
+![alt text](https://raw.githubusercontent.com/atosorigin/bullsequana-edge-system-management/master/zabbix/doc/versions_tag.png) 
 - versions **latest**
-![alt text](https://raw.githubusercontent.com/atosorigin/bullsequana-edge-system-management/master/ansible/doc/versions_latest.png) 
+![alt text](https://raw.githubusercontent.com/atosorigin/bullsequana-edge-system-management/master/zabbix/doc/versions_latest.png) 
 
 ![#f03c15](https://placehold.it/15/f03c15/000000?text=+) Warning: do *NOT* forget to comment the remove-xxx-containers.sh line at the beginning of the install-xxx script
 
-![alt text](https://raw.githubusercontent.com/atosorigin/bullsequana-edge-system-management/master/ansible/doc/comment_remove.png) 
+![alt text](https://raw.githubusercontent.com/atosorigin/bullsequana-edge-system-management/master/zabbix/doc/comment_remove.png) 
 
 After a build and install process, the result should be:
-![alt text](https://raw.githubusercontent.com/atosorigin/bullsequana-edge-system-management/master/ansible/doc/build_process.png) 
+![alt text](https://raw.githubusercontent.com/atosorigin/bullsequana-edge-system-management/master/zabbix/doc/build_process.png) 
 
 ## <a name="updates"></a>Warning for updates
 
