@@ -282,7 +282,7 @@ Volt: *
 ![alt text](https://github.com/atosorigin/bullsequana-edge-system-management/blob/master/zabbix/doc/select_items.png)
 
 3. Adapt the refresh interval
-3. Adapt the "show lines" number
+4. Adapt the "show lines" number
 
 ![alt text](https://github.com/atosorigin/bullsequana-edge-system-management/blob/master/zabbix/doc/network.png)
 
@@ -436,17 +436,28 @@ You can flush the iptables rules
 ### Create BullSequanaEdge icon mapping
 
 1. Go to Administration / General / Image / IconMapping
-2. Create one "Icon Mapping" as below:
-  a- Name should be BullSequanaEdgeIconMapping
-  b- Select Inventory field = Model
-  c- Write Expression = BullSequana Edge
-  d- Select your prefered Icon Size and Default Icon Size
+2. Create one "Icon Mapping" as below:  
+  a- Name should be BullSequanaEdgeIconMapping  
+  b- Select Inventory field = Model  
+  c- Write Expression = BullSequana Edge  
+  d- Select your prefered Icon Size and Default Icon Size  
 
 ![alt text](https://github.com/atosorigin/bullsequana-edge-system-management/blob/master/zabbix/doc/BullSequanaEdge_icon_mapping.png)
   
 ![#f03c15](https://placehold.it/15/f03c15/000000?text=+) WARNING: Inventory should be "Automatic" for your BullSequana Edge (Model field should be filled)
 
-![#c5f015](https://placehold.it/15/c5f015/000000?text=+) INFO: Your icons will be automatically detected for BullSequana Edge 
+### Import BullSequanaEdge Map
+1. Copy the templates from <install_dir>\zabbix\server\externalscripts\ to a **local path on you client computer running the browser**
+2. Open a browser and go to Configuration / Templates
+3. Click on Import button at the right
+4. Check Maps and Images checkboxes only for Update
+5. Import **template-atos_openbmc-sysmaps-zbxv4.xml**
+
+![alt text](https://github.com/atosorigin/bullsequana-edge-system-management/blob/master/zabbix/doc/BullSequanaEdge_map.png)
+
+![#c5f015](https://placehold.it/15/c5f015/000000?text=+) INFO: Your icons will be automatically detected for BullSequana Edge and behave like any other servers
+
+![alt text](https://github.com/atosorigin/bullsequana-edge-system-management/blob/master/zabbix/doc/BullSequanaEdge_map_warning.png)
 
 ## <a name="howto_proxy"></a>How to change your proxy
 By default, when you start the installer, the proxy environment variables are added in containers thanks to the following section in docker-compose-awx.yml file:
@@ -545,7 +556,7 @@ echo PSK: <your psk>
 
 ### generate an encrypted passwords
 1. generate an encrypted password for each different password 
-` <install_dir>/generate_encrypted_password_for_zabbix.sh --password=<your_clear_password> `
+` <install_dir>/generate_encrypted_password_for_zabbix.sh`
 
 2. copy/paste encrypted result it in zabbix / Configuration / Hosts / you host / Macros / {$PASSWORD} Value
 
@@ -557,7 +568,6 @@ echo PSK: <your psk>
 ![alt text](https://raw.githubusercontent.com/atosorigin/bullsequana-edge-system-management/master/zabbix/doc/BullSequanaEdge_Email_SMTP.png)
 3. Change email server configuration
 ![alt text](https://raw.githubusercontent.com/atosorigin/bullsequana-edge-system-management/master/zabbix/doc/BullSequanaEdge_Email_SMTP_Detail.png)
-4. Go to
 
 ### Test it !
 ![alt text](https://raw.githubusercontent.com/atosorigin/bullsequana-edge-system-management/master/zabbix/doc/BullSequanaEdge_Email_SMTP_Test.png)
