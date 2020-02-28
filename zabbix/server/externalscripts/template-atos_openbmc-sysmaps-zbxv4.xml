@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <zabbix_export>
     <version>4.4</version>
-    <date>2020-02-26T10:47:09Z</date>
+    <date>2020-02-28T08:59:58Z</date>
     <images>
         <image>
             <name>Server_(96)</name>
@@ -11,7 +11,7 @@
     </images>
     <maps>
         <map>
-            <name>Bull Sequana Edge Map</name>
+            <name>BullSequana Edge</name>
             <width>800</width>
             <height>600</height>
             <label_type>0</label_type>
@@ -21,7 +21,7 @@
             <markelements>1</markelements>
             <show_unack>0</show_unack>
             <severity_min>2</severity_min>
-            <show_suppressed>1</show_suppressed>
+            <show_suppressed>0</show_suppressed>
             <grid_size>50</grid_size>
             <grid_show>1</grid_show>
             <grid_align>1</grid_align>
@@ -32,7 +32,7 @@
             <label_type_map>2</label_type_map>
             <label_type_image>2</label_type_image>
             <label_string_host/>
-            <label_string_hostgroup>{$OPENBMC}</label_string_hostgroup>
+            <label_string_hostgroup/>
             <label_string_trigger/>
             <label_string_map/>
             <label_string_image/>
@@ -45,11 +45,13 @@
             <selements>
                 <selement>
                     <elementtype>0</elementtype>
-                    <label>{HOST.HOST}&#13;
-{HOST.DESCRIPTION}&#13;
+                    <label>BullSequana Edge&#13;
+{HOST.HOST}&#13;
+{HOST.IP1}&#13;
+{HOST.CONN1}&#13;
 </label>
-                    <label_location>0</label_location>
-                    <x>89</x>
+                    <label_location>-1</label_location>
+                    <x>139</x>
                     <y>77</y>
                     <elementsubtype>0</elementsubtype>
                     <areatype>0</areatype>
@@ -57,10 +59,10 @@
                     <height>200</height>
                     <viewtype>0</viewtype>
                     <use_iconmap>1</use_iconmap>
-                    <selementid>6</selementid>
+                    <selementid>2</selementid>
                     <elements>
                         <element>
-                            <host>172.31.92.44</host>
+                            <host>BullSequanaEdge</host>
                         </element>
                     </elements>
                     <icon_off>

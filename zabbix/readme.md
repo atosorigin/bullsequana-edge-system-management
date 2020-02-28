@@ -22,8 +22,9 @@ Optionally, 3 ready-to-go zabbix images are available on Dockerhub
 - [BullSequana Edge Zabbix Templates](#templates)
 - [What to do first](#what_first)
 - [How to install BullSequana Edge template](#edge_template)
-- [How to install rsyslog template](#rsyslog_template)
+- [How to install BullSequana Edge Host template](#host_template)
 - [How to install BullSequana Edge Map template](#map_template)
+- [How to install BullSequana Edge Rsyslog template](#rsyslog_template)
 - [How to create your first Edge dashboard](#dashboard)
 - [How to change your Proxy](#howto_proxy)
 - [How to change Local Date / Time Zone](#datetimezone)
@@ -121,6 +122,8 @@ Host Name    : zabbix-server
 Available Atos templates:
 - **template-atos_openbmc-lld-zbxv4.xml**: should be applied on all Atos mipockets
 - **template-atos_openbmc-rsyslog-zbxv4.xml**: should be applied only on the zabbix-server
+- **template-atos_openbmc-host-zbxv4.xml**: should be imported in Host Configuration
+- **template-atos_openbmc-sysmap-zbxv4.xml**: should be imported in Map Monitoring
 
 To install it:
 1. Copy the templates from <install_dir>\zabbix\server\externalscripts\ to a **local path on you client computer running the browser**
@@ -155,6 +158,15 @@ Optionaly, you can use the Zabbix discovery service to add your hosts.
 
 ![#f03c15](https://placehold.it/15/f03c15/000000?text=+) Warning: after Discovery complete, you may disable the Action to stop discovering hosts all the time and do some changes on you host.
 
+### add your hosts from host template
+If you import the host template, you should have a host "BullSequana Edge" automatically configured as your first example
+- Zabbix agent is configured
+- Automatic Inventory is configured
+- Macros are prepared
+- Atos Bull Sequana Edge LLD Template is linked
+
+![#c5f015](https://placehold.it/15/c5f015/000000?text=+) Info: You just need to complete empty Macros : go to" Fill Atos template macros" below
+
 ### add your hosts manually
 1. Go to Configuration / Hosts
 2. Click on the right button "Create Host"
@@ -184,7 +196,7 @@ You must add 3 macros on each mipocket host:
 
 ![alt text](https://github.com/atosorigin/bullsequana-edge-system-management/blob/master/zabbix/doc/macros.png)
 
-## <a name="edge_template"></a>How to install BullSequana Edge template
+## <a name="edge_template"></a>How to install LLD BullSequana Edge template
 ### template content
 - applications: All items are categorized inside applications with the following rules :
 ![alt text](https://github.com/atosorigin/bullsequana-edge-system-management/blob/master/zabbix/doc/Applications.png)
@@ -286,7 +298,19 @@ Volt: *
 
 ![alt text](https://github.com/atosorigin/bullsequana-edge-system-management/blob/master/zabbix/doc/network.png)
 
-## <a name="rsyslog_template"></a>rsyslog template installation
+## <a name="host_template"></a>How to install BullSequana Edge Host template
+### template content
+- 1 host as an example  
+### prerequisite
+![#c5f015](https://placehold.it/15/c5f015/000000?text=+) Info: You should install LLD Bull Sequana Edge before: [How to install BullSequana Edge template](#edge_template)  
+### Import BullSequanaEdge Map
+1. Copy the templates from <install_dir>\zabbix\server\externalscripts\ to a **local path on you client computer running the browser**
+2. Open a browser and go to Configuration / Templates
+3. Click on Import button at the right
+4. Check Hosts checkboxes
+5. Import **template-atos_openbmc-host-zbxv4.xml**
+
+## <a name="rsyslog_template"></a>How to install BullSequana Edge Rsyslog template
 ### template content
 - application rsyslog is available for textual widget and history analysis
 - 1 item  
@@ -421,8 +445,10 @@ You can flush the iptables rules
 ## <a name="map_template"></a>BullSequanaEdgeMap template installation
 ### template content
 - 1 Map template
+![#f03c15](https://placehold.it/15/f03c15/000000?text=+) WARNING: The BullSequanaEdgeInconMapping should be created BEFORE importing BullSequanaEdgeMap template
 
-![#f03c15](https://placehold.it/15/f03c15/000000?text=+) The BullSequanaEdgeInconMapping should be created BEFORE importing BullSequanaEdgeMap template
+### prerequisite
+![#c5f015](https://placehold.it/15/c5f015/000000?text=+) Info: You should install Host Bull Sequana Edge BEFORE: [How to install Host BullSequana Edge template](#host_template)  
 
 ### Create BullSequanaEdge icons
 
@@ -450,7 +476,7 @@ You can flush the iptables rules
 1. Copy the templates from <install_dir>\zabbix\server\externalscripts\ to a **local path on you client computer running the browser**
 2. Open a browser and go to Configuration / Templates
 3. Click on Import button at the right
-4. Check Maps and Images checkboxes only for Update
+4. Check Maps and Images checkboxes only for Create New
 5. Import **template-atos_openbmc-sysmaps-zbxv4.xml**
 
 ![#c5f015](https://placehold.it/15/c5f015/000000?text=+) INFO: Your icons will be automatically detected for BullSequana Edge while creating your maps

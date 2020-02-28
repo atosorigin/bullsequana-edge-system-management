@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<zabbix_export>
+    <version>4.4</version>
+    <date>2020-02-28T08:54:24Z</date>
+    <groups>
+        <group>
+            <name>Linux servers</name>
+        </group>
+    </groups>
+    <hosts>
+        <host>
+            <host>BullSequanaEdge</host>
+            <name>Bull Sequana Edge</name>
+            <templates>
+                <template>
+                    <name>Template Hw Atos BullSequanaEdge LLD</name>
+                </template>
+            </templates>
+            <groups>
+                <group>
+                    <name>Linux servers</name>
+                </group>
+            </groups>
+            <interfaces>
+                <interface>
+                    <useip>NO</useip>
+                    <ip/>
+                    <dns>zabbix-agent</dns>
+                    <interface_ref>if1</interface_ref>
+                </interface>
+            </interfaces>
+            <macros>
+                <macro>
+                    <macro>{$OPENBMC}</macro>
+                </macro>
+                <macro>
+                    <macro>{$PASSWORD}</macro>
+                </macro>
+                <macro>
+                    <macro>{$USER}</macro>
+                </macro>
+            </macros>
+            <inventory_mode>AUTOMATIC</inventory_mode>
+        </host>
+    </hosts>
+</zabbix_export>
