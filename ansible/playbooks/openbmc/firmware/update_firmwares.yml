@@ -102,9 +102,9 @@
       var: evaluate_firmware_update
     when: evaluate_firmware_update is defined
 
-  - name: pause {{ reboot_countdown }} minuts for BMC to reboot
+  - name: pause {{ reboot_countdown }} minutes for BMC to reboot
     pause:
-      minuts: "{{ reboot_countdown }}"
+      minutes: "{{ reboot_countdown }}"
     when: reboot == True and item.value.Purpose is defined and item.value.RequestedActivation is defined and item.value.Purpose == "xyz.openbmc_project.Software.Version.VersionPurpose.BMC" and item.value.RequestedActivation == "xyz.openbmc_project.Software.Activation.RequestedActivations.Active"
     with_dict: "{{ firmware_inventory }}"
 

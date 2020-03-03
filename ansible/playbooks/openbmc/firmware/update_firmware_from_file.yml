@@ -148,9 +148,9 @@
       body_format: json
     when: reboot == true
 
-  - name: pause {{ reboot_countdown }} minuts for BMC to reboot
+  - name: pause {{ reboot_countdown }} minutes for BMC to reboot
     pause:
-      minuts: "{{ reboot_countdown }}"
+      minutes: "{{ reboot_countdown }}"
     when: reboot == True and item.value.Activation is defined and item.value.Purpose is defined and item.value.Activation == "xyz.openbmc_project.Software.Activation.Activations.Ready" and item.value.Purpose == "xyz.openbmc_project.Software.Version.VersionPurpose.BMC"
     with_dict: "{{ firmware_inventory }}"
 

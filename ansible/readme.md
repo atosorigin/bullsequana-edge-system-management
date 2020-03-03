@@ -10,6 +10,7 @@ Ansible playbooks can be used as is with following prerequisites:
   * AWX 4.0+
   * Ansible 2.8.5+
   * Python 3.6.8+
+  * modules Python : ansible-vault and tzlocal (delivered in "prerequisites" directory)
 
 Optionaly, 2 ready-to-go AWX-Ansible images are available on Dockerhub
   * Dockerhub AWX images 
@@ -116,7 +117,7 @@ git clone https://github.com/atosorigin/bullsequana-edge-system-management.git
 Bull Sequana Edge Ansible Extensions has 3 AWX installers and an option to try it  
 Just choose your favorite installation for your environment  
 `on existing AWX:` nothing to install: go to the next section to add playbooks and plugins  
-`full install: <install_dir>/install.sh` it will build full docker containers and install all containers with your local Dockerfiles that you can adapt as needed => use **stop.sh** and **start.sh** after  
+`full install: <install_dir>/install.sh` Full install : it will load all docker containers and optionnaly install Ansible playbooks and plugins => use **stop.sh** and **start.sh** after  
 `partial install AWX: <install_dir>/install_awx.sh` it will build docker containers and install Ansible/AWX docker containers with your local Dockerfiles that you can adapt as needed => use **stop_awx.sh** and **start_awx.sh** after  
 `try it: <install_dir>/install_awx_from_dockerhub.sh` mainly dedicated to try bullsequana edge system management tool, it will install dockerhub atosorigin images, you cannot adapt the local Dockerfiles => use **stop_awx.sh*** and **start_awx.sh** after  
 
@@ -134,7 +135,7 @@ run a browser with: ` https://<your_server>`
 ### add your playbooks
 If you did not already add your playbooks, just run:  
 
-`<install_dir>/add_playbooks.sh`
+`<install_dir>/add_awx_playbooks.sh`
 
 ![alt text](https://raw.githubusercontent.com/atosorigin/bullsequana-edge-system-management/master/ansible/doc/awx_playbooks.png)
 
@@ -147,7 +148,7 @@ You should have now:
 - 1 Credential : Bull Sequana Edge Vault
 - Bull playbooks
 
-![#f03c15](https://placehold.it/15/f03c15/000000?text=+) Warning: on existing installation, tower-cli should be installed to run add_playbooks.sh
+![#f03c15](https://placehold.it/15/f03c15/000000?text=+) Warning: on existing installation, tower-cli should be installed to run add_awx_playbooks.sh
 
 ### complete your inventory first
 1. go to Inventory 
@@ -249,7 +250,7 @@ Following playbooks need these variables:
 ### use your credential
 
 #### - change your vault password
-The *add_playbooks.sh* script already creates a vault for you and associates every templates to this vault.  
+The *add_awx_playbooks.sh* script already creates a vault for you and associates every templates to this vault.  
 
 ![alt text](https://raw.githubusercontent.com/atosorigin/bullsequana-edge-system-management/master/ansible/doc/create_vault_playbooks.png)
 

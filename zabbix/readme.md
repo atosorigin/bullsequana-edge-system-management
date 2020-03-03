@@ -74,7 +74,7 @@ For more details, read the [How to change your Proxy](#howto_proxy) section
 Bull Sequana Edge Zabbix Extensions has 3 Zabbix installers and an option to try it  
 Just choose your favorite installation for your environment  
 `on existing zabbix: import Atos templates`: you can import Atos templates in your Zabbix environment if you have an existing Zabbix installation  
-`full: <install_dir>/install.sh` it will build and install Ansible and Zabbix Bull Sequana Edge Extensions docker containers at once from your local Dockerfiles => use **stop.sh** and **start.sh** after  
+`full install: <install_dir>/install.sh` Full install - All in Once - it will load all docker containers and optionnaly install Ansible playbooks and plugins => use **stop.sh** and **start.sh** after  
 `partial: <install_dir>/install_zabbix.sh` it will build and install only Zabbix docker containers from your local Dockerfiles that you can adapt as needed => use **stop_zabbix.sh** and **start_zabbix.sh** after  
 `try it: <install_dir>/install_zabbix_from_dockerhub.sh` mainly dedicated to try bullsequana edge system management tool, it will install dockerhub atosorigin images, you cannot adapt the local Dockerfiles => use **stop_zabbix.sh*** and **start_zabbix.sh** after  
 For more information about dockerhub installation Visit https://hub.docker.com/repository/docker/atosorigin/bull-sequana-edge-zabbix-server
