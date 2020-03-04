@@ -5,7 +5,7 @@ echo -e "\033[32mThis will install AWX and Zabbix\033[0m"
 while true; do
     read -p "Do you wish to install Ansible playbooks and plugins too: [yn yes no] " yn
     case $yn in
-        [Yy]* ) ./install_ansible_playbooks_and_plugins.sh; break;;
+        [Yy]* ) ./add_ansible_playbooks_and_plugins.sh; break;;
         [Nn]* ) break;;
         * ) echo "Please answer y yes or n no.";;
     esac
