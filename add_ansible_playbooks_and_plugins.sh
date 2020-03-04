@@ -1,5 +1,8 @@
 #!/bin/sh
 
+###################################################################################################################
+# ansible prerequisite
+###################################################################################################################
 echo "checking ansible prerequisite"
 ansible_version=$(ansible --version|grep "ansible python module location")
 if [ -z "$ansible_version" ]
@@ -8,6 +11,9 @@ then
   exit -1
 fi
 
+###################################################################################################################
+# ansible.config
+###################################################################################################################
 if [ -z $ANSIBLE_CONFIG ]
 then
   export ANSIBLE_CONFIG=/etc/ansible/ansible.cfg
@@ -49,17 +55,21 @@ while true; do
     esac
 done
 
+###################################################################################################################
+# passwords.yml
+###################################################################################################################
+
 # add ANSIBLE_PASSWORDS=<your install dir>/ansible/vars/passwords.yml to hosts file
 # add ANSIBLE_EXTERNAL_VARS=<your install dir>/ansible/vars/external_vars.yml to hosts file
 pwd=$(pwd)
 export ANSIBLE_PASSWORDS=$pwd/ansible/vars/passwords.yml
 export ANSIBLE_EXTERNAL_VARS=$pwd/ansible/vars/external_vars.yml
 
-if [ ! -f $pwd/ansible/vars/passwords.yml ] 
+if [ ! -f $ANSIBLE_PASSWORDS ] 
 then
-  echo -e "\033[32mansible/vars/passwords.yml was successfully created\033[0m"
-  touch $pwd/ansible/vars/passwords.yml
-fi 
+  touch $ANSIBLE_PASSWORDS
+  echo -e "\033[32m$ANSIBLE_PASSWORDS was successfully created\033[0m"
+fi
 
 # delete old ANSIBLE_PASSWORDS path
 grep -q ANSIBLE_PASSWORDS= $ANSIBLE_INVENTORY && sed -i.bak '/ANSIBLE_PASSWORDS=.*/d' $ANSIBLE_INVENTORY
@@ -71,6 +81,42 @@ echo -e "your passwords.yml file is now $ANSIBLE_PASSWORDS"
 echo -e "you should copy your passwords in $ANSIBLE_PASSWORDS"
 echo -e "\033[32m----------------------------------------------------------------------------------------\033[0m"
 
+###################################################################################################################
+# external_vars.yml
+###################################################################################################################
+add_external_vars()
+{
+  echo "# Update and Activate playbooks use these variables if needed" > $ANSIBLE_EXTERNAL_VARS
+  echo "forceoff: False" >> $ANSIBLE_EXTERNAL_VARS
+  echo "reboot: False" >> $ANSIBLE_EXTERNAL_VARS
+  echo "# Count down before checking a successfull reboot in MINUTES" >> $ANSIBLE_EXTERNAL_VARS
+  echo "reboot_countdown: 3" >> $ANSIBLE_EXTERNAL_VARS
+  echo "# Count down before checking a successfull for power on/off in SECONDS" >> $ANSIBLE_EXTERNAL_VARS
+  echo "poweron_countdown: 15" >> $ANSIBLE_EXTERNAL_VARS
+  echo "poweroff_countdown: 15" >> $ANSIBLE_EXTERNAL_VARS
+  echo "# Set a path to a Bull Technical State file" >> $ANSIBLE_EXTERNAL_VARS
+  echo "# uncomment for CLI Ansible ONLY (for AWX, please use the external vars in the graphical AWX inventory externale vars) " >> $ANSIBLE_EXTERNAL_VARS
+  echo "# technical_state_path: /mnt" >> $ANSIBLE_EXTERNAL_VARS
+  echo "# Define rsyslog ip and port" >> $ANSIBLE_EXTERNAL_VARS
+  echo "# default rsyslog port is 514" >> $ANSIBLE_EXTERNAL_VARS
+  echo "#rsyslog_server_ip: <here rsyslog ip address>" >> $ANSIBLE_EXTERNAL_VARS
+  echo "rsyslog_server_port: 514" >> $ANSIBLE_EXTERNAL_VARS
+  echo "# Define a power capability" >> $ANSIBLE_EXTERNAL_VARS
+  echo "#power_cap: 500" >> $ANSIBLE_EXTERNAL_VARS
+  echo "# File to upload with update_firmware_from_file.yml playbook" >> $ANSIBLE_EXTERNAL_VARS
+  echo "#file_to_upload: /mnt/Resources/Firmware_and_related_documents/BIOS/<here your file .tar or .gzip>" >> $ANSIBLE_EXTERNAL_VARS
+  echo "# To delete a ready image : uncomment and fill the Purpose and the Version" >> $ANSIBLE_EXTERNAL_VARS
+  echo "#purpose_to_delete: BMC" >> $ANSIBLE_EXTERNAL_VARS
+  echo "#version_to_delete: 00.00.0000" >> $ANSIBLE_EXTERNAL_VARS
+}
+
+if [ ! -f $ANSIBLE_EXTERNAL_VARS ] 
+then
+  touch $ANSIBLE_EXTERNAL_VARS
+  add_external_vars
+  echo -e "\033[32ma$ANSIBLE_EXTERNAL_VARS was successfully created\033[0m"
+fi
+
 # delete old ANSIBLE_EXTERNAL_VARS path
 grep -q ANSIBLE_EXTERNAL_VARS= $ANSIBLE_INVENTORY && sed -i.bak '/ANSIBLE_EXTERNAL_VARS=.*/d' $ANSIBLE_INVENTORY
 # add the new ANSIBLE_EXTERNAL_VARS path
@@ -79,7 +125,8 @@ echo "The following line was added in your $ANSIBLE_INVENTORY :"
 echo -e "\033[32mANSIBLE_EXTERNAL_VARS=$ANSIBLE_EXTERNAL_VARS\033[0m"
 echo -e "your external_vars.yml file is now $ANSIBLE_EXTERNAL_VARS"
 echo -e "you should edit your var preferences in $ANSIBLE_EXTERNAL_VARS"
-  echo -e "\033[32m----------------------------------------------------------------------------------------\033[0m"
+echo -e "\033[32m----------------------------------------------------------------------------------------\033[0m"
+
 # ansible plugin inventory is copied in default directory /usr/lib/python<major>.<minor>/site-packages/ansible/modules
 # you can adapt it if you have another ansible plugin inventory directory
 
