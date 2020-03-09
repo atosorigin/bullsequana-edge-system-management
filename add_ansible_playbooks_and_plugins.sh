@@ -94,6 +94,8 @@ add_external_vars()
   echo "# Count down before checking a successfull for power on/off in SECONDS" >> $ANSIBLE_EXTERNAL_VARS
   echo "poweron_countdown: 15" >> $ANSIBLE_EXTERNAL_VARS
   echo "poweroff_countdown: 15" >> $ANSIBLE_EXTERNAL_VARS
+  echo "# Count down while activating updates in SECONDS" >> $ANSIBLE_EXTERNAL_VARS
+  echo "activating_countdown: 15" >> $ANSIBLE_EXTERNAL_VARS
   echo "# Set a path to a Bull Technical State file" >> $ANSIBLE_EXTERNAL_VARS
   echo "# uncomment for CLI Ansible ONLY (for AWX, please use the external vars in the graphical AWX inventory externale vars) " >> $ANSIBLE_EXTERNAL_VARS
   echo "# technical_state_path: /mnt" >> $ANSIBLE_EXTERNAL_VARS
