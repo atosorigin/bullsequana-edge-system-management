@@ -9,6 +9,19 @@
   
   tasks:
 
+  - name: validate poweron_countdown variable
+    assert:
+      that:
+        - poweron_countdown is defined
+      fail_msg: "The variable poweron_countdown is NOT defined in inventory (AWX) or vars/external_vars file (Ansible). See readme.md for more details."
+      success_msg: "The variable poweron_countdown is defined"
+    run_once: true
+
+  - debug:
+      msg: "poweron_countdown is {{ poweron_countdown }}"
+    when: poweron_countdown is defined
+    run_once: true
+
   - include_tasks: ../utils/utils_create_token.yml
 
   - include_tasks: ../utils/utils_power_on.yml    

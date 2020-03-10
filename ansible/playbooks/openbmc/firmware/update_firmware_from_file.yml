@@ -35,17 +35,43 @@
     when: reboot is defined
     run_once: true
 
-  - name: validate file_to_upload variable
+  - name: validate reboot_countdown variable
     assert:
       that:
-        - file_to_upload is defined
-      fail_msg: "The variable file_to_upload is NOT defined in inventory (AWX) or vars/external_vars file (Ansible). See readme.md for more details."
-      success_msg: "The variable file_to_upload is defined"
+        - reboot_countdown is defined
+      fail_msg: "The variable reboot_countdown is NOT defined in inventory (AWX) or vars/external_vars file (Ansible). See readme.md for more details."
+      success_msg: "The variable reboot_countdown is defined"
     run_once: true
 
   - debug:
-      msg: "file_to_upload is {{ file_to_upload }}"
-    when: file_to_upload is defined
+      msg: "reboot_countdown is {{ reboot_countdown }}"
+    when: reboot_countdown is defined
+    run_once: true
+
+  - name: validate poweroff_countdown variable
+    assert:
+      that:
+        - poweroff_countdown is defined
+      fail_msg: "The variable poweroff_countdown is NOT defined in inventory (AWX) or vars/external_vars file (Ansible). See readme.md for more details."
+      success_msg: "The variable poweroff_countdown is defined"
+    run_once: true
+
+  - debug:
+      msg: "poweroff_countdown is {{ poweroff_countdown }}"
+    when: poweroff_countdown is defined
+    run_once: true
+
+  - name: validate activating_countdown variable
+    assert:
+      that:
+        - activating_countdown is defined
+      fail_msg: "The variable activating_countdown is NOT defined in inventory (AWX) or vars/external_vars file (Ansible). See readme.md for more details."
+      success_msg: "The variable activating_countdown is defined"
+    run_once: true
+
+  - debug:
+      msg: "activating_countdown is {{ activating_countdown }}"
+    when: activating_countdown is defined
     run_once: true
 
   - include_tasks: ../utils/utils_create_token.yml

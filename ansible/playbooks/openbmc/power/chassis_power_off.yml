@@ -8,6 +8,20 @@
     - "{{ ANSIBLE_PASSWORDS }}"
 
   tasks:
+
+  - name: validate poweroff_countdown variable
+    assert:
+      that:
+        - poweroff_countdown is defined
+      fail_msg: "The variable poweroff_countdown is NOT defined in inventory (AWX) or vars/external_vars file (Ansible). See readme.md for more details."
+      success_msg: "The variable poweroff_countdown is defined"
+    run_once: true
+
+  - debug:
+      msg: "poweroff_countdown is {{ poweroff_countdown }}"
+    when: poweroff_countdown is defined
+    run_once: true
+
   - include_tasks: ../utils/utils_create_token.yml
 
   - include_tasks: ../utils/utils_chassis_power_off.yml

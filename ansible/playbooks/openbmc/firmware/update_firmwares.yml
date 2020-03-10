@@ -160,12 +160,6 @@
 
   - include_tasks: ../utils/utils_firmware_inventory.yml
 
-  - name: render Active Firmwares
-    debug:
-      msg: "Active {{ item.value.Purpose }} - {{ item.value.Version }} ({{ item.key }})"
-    when: item.value.Activation is defined and item.value.Activation == "xyz.openbmc_project.Software.Activation.Activations.Active"
-    with_dict: "{{ firmware_inventory }}"
-
   - name: render Requested for Active Firmwares AFTER Activation
     debug:
       msg: "Requested Activation {{ item.value.Purpose }} - {{ item.value.Version }} ({{ item.key }})"

@@ -12,10 +12,12 @@
   - debug:
       msg: "rsyslog server ip in vars file = {{ rsyslog_server_ip }}"
     when: rsyslog_server_ip is defined
+    run_once: true
 
   - debug:
       msg: "rsyslog server port in vars file = {{ rsyslog_server_port }}"
     when: rsyslog_server_port is defined
+    run_once: true
 
   - include_tasks: ../utils/utils_create_token.yml
 

@@ -11,6 +11,7 @@
         - check_technical_state_path_exists.stat.exists == True
       fail_msg: "The technical state path {{ technical_state_path }} does NOT exist on host"
       success_msg: "The variable technical_state_path exist on host"
+    run_once: true
 
   - name: validate technical state directory is a directory
     assert:
@@ -18,6 +19,7 @@
         - check_technical_state_path_exists.stat.isdir == True
       fail_msg: "The technical state path {{ technical_state_path }} is NOT a directory on host"
       success_msg: "The variable technical_state_path is a directory on host"
+    run_once: true
 
   - name: load functional firmwares from Technical State xml file
     local_action: atos_openbmc technical_state_path={{ technical_state_path }} category=Update command=EvaluateFirmwareUpdate firmwares={{ firmware_inventory }}

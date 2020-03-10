@@ -15,6 +15,7 @@
         - purpose_to_delete is defined
       fail_msg: "Please enter the purpose to delete like purpose_to_delete=BMC"
       success_msg: "The purpose_to_delete is defined"
+    run_once: true
 
   - name: assert image version
     assert:
@@ -22,14 +23,17 @@
         - version_to_delete is defined
       fail_msg: "Please enter the purpose to delete like version_to_delete=33.0.0"
       success_msg: "The version_to_delete is defined"
+    run_once: true
 
   - name: purpose_to_delete deleted
     debug:
       var: purpose_to_delete
+    run_once: true
 
   - name: version_to_delete deleted
     debug:
       var: version_to_delete
+    run_once: true
 
   - include_tasks: ../utils/utils_create_token.yml
 

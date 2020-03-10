@@ -9,6 +9,19 @@
 
   tasks:
 
+  - name: assert reboot variable
+    assert:
+      that:
+        - reboot is defined
+      fail_msg: "The variable reboot is NOT defined in inventory (AWX) or vars/external_vars file (Ansible). See readme.md for more details."
+      success_msg: "The variable reboot is defined"
+    run_once: true
+
+  - debug:
+      msg: "reboot is {{ reboot }}"
+    when: reboot is defined
+    run_once: true
+
   - include_tasks: ../utils/utils_create_token.yml
 
   - include_tasks: ../utils/utils_reboot.yml   
