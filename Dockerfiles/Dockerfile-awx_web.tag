@@ -14,7 +14,7 @@ COPY ansible.nginx.conf /etc/nginx/nginx.conf
 
 #COPY logo-header.svg /var/lib/awx/venv/awx/lib64/python3.6/site-packages/awx/ui/static/assets/ 
 COPY logo-atos-login.png /var/lib/awx/venv/awx/lib64/python3.6/site-packages/awx/ui/static/assets/ 
-COPY logo-atos-login.svg /var/lib/awx/venv/awx/lib64/python3.6/site-packages/awx/ui/static/assets/ 
+COPY logo-atos-login.svg /var/lib/awx/venv/awx/lib64/python3.6/site-packages/awx/ui/static/assets/
 COPY loginModal.partial.html /var/lib/awx/venv/awx/lib64/python3.6/site-packages/awx/ui/static/partials/login/loginModal/
 
 #RUN yum update

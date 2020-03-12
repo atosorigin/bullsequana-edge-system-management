@@ -120,21 +120,33 @@ Host Name    : zabbix-server
 
 ### install Atos templates
 Available Atos templates:
-- **template-atos_openbmc-lld-zbxv4.xml**: should be applied on all Atos mipockets
-- **template-atos_openbmc-rsyslog-zbxv4.xml**: should be applied only on the zabbix-server
-- **template-atos_openbmc-host-zbxv4.xml**: should be imported in Host Configuration
-- **template-atos_openbmc-sysmap-zbxv4.xml**: should be imported in Map Monitoring
+- **template-atos_openbmc-lld-zbxv4.xml**: should be applied on all Atos mipockets - [How to install BullSequana Edge template](#edge_template)
+- **template-atos_openbmc-rsyslog-zbxv4.xml**: should be applied only on the zabbix-server - [How to install BullSequana Edge Rsyslog template](#rsyslog_template)
+- **template-atos_openbmc-host-zbxv4.xml**: should be imported in Host Configuration - [How to install BullSequana Edge Host template](#host_template)
+- **template-atos_openbmc-sysmap-zbxv4.xml**: should be imported in Map Monitoring - [How to install BullSequana Edge Map template](#map_template)
 
-To install it:
-1. Copy the templates from <install_dir>\zabbix\server\externalscripts\ to a **local path on you client computer running the browser**
-2. Open a browser and go to Configuration / Templates
-3. Click on Import button at the right
-![alt text](https://github.com/atosorigin/bullsequana-edge-system-management/blob/master/zabbix/doc/Import_templates.png)
-4. Locate your Atos templates
-![alt text](https://github.com/atosorigin/bullsequana-edge-system-management/blob/master/zabbix/doc/Select_template.png)
-5. Click on Import button below
+### add your host
+#### add your hosts from host template
+![#f03c15](https://placehold.it/15/f03c15/000000?text=+) Warning: You should import lld Bull Sequana Edge template BEFORE  
+When you import the host template, you will have a host "BullSequana Edge" automatically configured as your first example
+- Zabbix agent is configured to zabbix-agen:10050
+- Automatic Inventory is configured
+- Macros are prepared
+- Atos Bull Sequana Edge LLD Template is linked
 
-### add your hosts with Zabbix discovery service
+![#c5f015](https://placehold.it/15/c5f015/000000?text=+) Info: All you need is to complete empty Macros : go to" Fill Atos template macros" below
+
+#### add your hosts manually
+1. Go to Configuration / Hosts
+2. Click on the right button "Create Host"
+3. Add a Name 
+4. Change the agent to zabbix-agent:
+- Remove IP = 127.0.0.1  IP case should be empty
+- Add DNS = zabbix-agent on the DNS case
+- Click on DNS button instead of IP
+- Port should be 10050
+
+#### add your hosts with Zabbix discovery service
 Optionaly, you can use the Zabbix discovery service to add your hosts.
 1. First you should add a **Zabbix Discovery rule**
 - Go to Configuration / Discovery
@@ -156,35 +168,18 @@ Optionaly, you can use the Zabbix discovery service to add your hosts.
 ![alt text](https://github.com/atosorigin/bullsequana-edge-system-management/blob/master/zabbix/doc/operations_discovery_rule.png)
 3. Go to section **Fill Atos template macros** to complete your host with {$OPENBMC},{$USER}, {$PASSWORD} 
 
-![#f03c15](https://placehold.it/15/f03c15/000000?text=+) Warning: after Discovery complete, you may disable the Action to stop discovering hosts all the time and do some changes on you host.
+![#f03c15](https://placehold.it/15/f03c15/000000?text=+) Warning: after Discovery complete, you may disable the Action to stop discovering hosts all the time and do some changes on you discovered hosts.
 
-### add your hosts from host template
-If you import the host template, you should have a host "BullSequana Edge" automatically configured as your first example
-- Zabbix agent is configured
-- Automatic Inventory is configured
-- Macros are prepared
-- Atos Bull Sequana Edge LLD Template is linked
-
-![#c5f015](https://placehold.it/15/c5f015/000000?text=+) Info: You just need to complete empty Macros : go to" Fill Atos template macros" below
-
-### add your hosts manually
-1. Go to Configuration / Hosts
-2. Click on the right button "Create Host"
-3. Add a Name 
-4. Change the agent to zabbix-agent:
-- Remove IP = 127.0.0.1  IP case should be empty
-- Add DNS = zabbix-agent on the DNS case
-- Click on DNS button instead of IP
-- Port should be 10050
-
-### link Atos template to your host
+#### link Atos template to your host
 1. Go to Configuration/Hosts
 2. Select your host
 3. Click on "Template" tab
 4. Filter Atos template and retrieve Atos LLD template
 5. Click on Add Link => The template should apear in "Linked Templates" part above
 6. Click on Update button
-
+  
+*This part does not apply if you use Atos Host Template*
+  
 ### Fill Atos template macros
 1. Go to Configuration/Hosts
 2. Select your host
@@ -193,7 +188,9 @@ You must add 3 macros on each mipocket host:
 - **{$OPENBMC}** the reachable address of Mipocket
 - **{$USER}** with the username to be used
 - **{$PASSWORD}** with the password for Mipocket (could be encrypted with PSK => See Security below)
-
+  
+*This part does not apply if you use Atos Host Template*
+  
 ![alt text](https://github.com/atosorigin/bullsequana-edge-system-management/blob/master/zabbix/doc/macros.png)
 
 ## <a name="edge_template"></a>How to install LLD BullSequana Edge template
@@ -242,6 +239,15 @@ screens are available in host inventory details:
 Screens appear in contextual menu when Host column is available:
 
 ![alt text](https://github.com/atosorigin/bullsequana-edge-system-management/blob/master/zabbix/doc/contextual_host_menu.png)
+
+### import
+1. Copy the templates from <install_dir>\zabbix\server\externalscripts\ to a **local path on you client computer running the browser**
+2. Open a browser and go to Configuration / **Templates**
+3. Click on Import button at the right
+![alt text](https://github.com/atosorigin/bullsequana-edge-system-management/blob/master/zabbix/doc/Import_templates.png)
+4. Locate your Atos templates
+![alt text](https://github.com/atosorigin/bullsequana-edge-system-management/blob/master/zabbix/doc/Select_template.png)
+5. Click on Import button
 
 ## <a name="dashboard"></a>How to create your first Edge dashboard
 ### create a dashboard
@@ -303,11 +309,13 @@ Volt: *
 - 1 host as an example  
 ### prerequisite
 ![#c5f015](https://placehold.it/15/c5f015/000000?text=+) Info: You should install LLD Bull Sequana Edge before: [How to install BullSequana Edge template](#edge_template)  
-### Import BullSequanaEdge Map
+### import
 1. Copy the templates from <install_dir>\zabbix\server\externalscripts\ to a **local path on you client computer running the browser**
-2. Open a browser and go to Configuration / Templates
+2. Open a browser and go to Configuration / **Hosts**
 3. Click on Import button at the right
-4. Check Hosts checkboxes
+![alt text](https://github.com/atosorigin/bullsequana-edge-system-management/blob/master/zabbix/doc/Import_host.png)
+4. Check **Hosts** checkboxes
+![alt text](https://github.com/atosorigin/bullsequana-edge-system-management/blob/master/zabbix/doc/Select_hosts_template.png)
 5. Import **template-atos_openbmc-host-zbxv4.xml**
 
 ## <a name="rsyslog_template"></a>How to install BullSequana Edge Rsyslog template
@@ -320,14 +328,14 @@ A unique trigger is triggering on BullSequana Edge device error events
 
 ![#f03c15](https://placehold.it/15/f03c15/000000?text=+) The rsyslog should be activated BEFORE loading rsyslog template
 
-If ever you start docker containers after loading the rsyslog template : 
-
-=> remove the rsyslog directory created in /var/log/rsyslog because the docker container did not successfully map to /var/log/rsyslog and created a directory (instead of a file) by default:
-
-`rm -rf /var/log/rsyslog`
-
-and check that the file exists BEFORE loading rsyslog template
-`ls /var/log|grep rsyslog`
+### import
+1. Copy the templates from <install_dir>\zabbix\server\externalscripts\ to a **local path on you client computer running the browser**
+2. Open a browser and go to Configuration / **Templates**
+3. Click on Import button at the right
+![alt text](https://github.com/atosorigin/bullsequana-edge-system-management/blob/master/zabbix/doc/Import_templates.png)
+4. Locate your Atos templates
+![alt text](https://github.com/atosorigin/bullsequana-edge-system-management/blob/master/zabbix/doc/Select_template.png)
+5. Click on Import button
 
 ### activate udp/tcp rsyslog port
 In /etc/rsyslog.conf file, uncomment or copy the following lines:
@@ -421,7 +429,17 @@ with logger command:
 
 More information: Visit https://www.tecmint.com/install-rsyslog-centralized-logging-in-centos-ubuntu/
 
-### classical errors
+### known issues
+#### I have an rsyslog directory instead of a rsyslog file
+If ever you start docker containers after loading the rsyslog template : 
+
+=> remove the rsyslog directory created in /var/log/rsyslog because the docker container did not successfully map to /var/log/rsyslog and created a directory (instead of a file) by default:
+
+`rm -rf /var/log/rsyslog`
+
+and check that the file exists BEFORE loading rsyslog template
+`ls /var/log|grep rsyslog`
+
 #### add firewall rules
 If telnet is not working but the ping is working : firewall daemon could be the issue  
 You should add 2 firewall rules   
@@ -449,6 +467,16 @@ You can flush the iptables rules
 
 ### prerequisite
 ![#c5f015](https://placehold.it/15/c5f015/000000?text=+) Info: You should install Host Bull Sequana Edge BEFORE: [How to install Host BullSequana Edge template](#host_template)  
+
+### import
+1. Copy the templates from <install_dir>\zabbix\server\externalscripts\ to a **local path on you client computer running the browser**
+2. Open a browser and go to **Monitoring** / **Map**
+3. Click on Import button at the right
+![alt text](https://github.com/atosorigin/bullsequana-edge-system-management/blob/master/zabbix/doc/Import_map.png)
+4. Locate your Atos templates
+![alt text](https://github.com/atosorigin/bullsequana-edge-system-management/blob/master/zabbix/doc/Select_maps_template.png)
+5. Check the maps and images checkboxes
+6. Click on Import button
 
 ### Create BullSequanaEdge icons
 

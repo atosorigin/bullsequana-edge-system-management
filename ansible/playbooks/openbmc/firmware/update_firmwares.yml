@@ -1,6 +1,6 @@
 ---
 - hosts: all
-  name: Firmware Update
+  name: Update Firmware
   connection: local
   gather_facts: False
   vars_files:
@@ -203,6 +203,14 @@
     when: reboot == True and item.value.Purpose is defined and item.value.RequestedActivation is defined and item.value.Purpose == "xyz.openbmc_project.Software.Version.VersionPurpose.BMC" and item.value.RequestedActivation == "xyz.openbmc_project.Software.Activation.RequestedActivations.Active"
     with_dict: "{{ firmware_inventory }}"
 
+  - name: pause {{ activating_countdown }} seconds while activating firmware updates 
+    pause:
+      seconds: "{{ activating_countdown }}"
+    when: item.value.Purpose is defined and item.value.RequestedActivation is defined and not item.value.Purpose == "xyz.openbmc_project.Software.Version.VersionPurpose.BMC" and item.value.RequestedActivation == "xyz.openbmc_project.Software.Activation.RequestedActivations.Active"
+    with_dict: "{{ firmware_inventory }}"
+
+  - include_tasks: ../utils/utils_create_token.yml
+
   - name: get new firmware inventory
     uri:
       url: https://{{ baseuri }}/xyz/openbmc_project/software/enumerate
@@ -212,25 +220,20 @@
         X-Auth-Token: "{{ x_token }}"
     register: result_firmware_inventory
 
-  - name: pause {{ activating_countdown }} seconds while activating firmware updates 
-    pause:
-      seconds: "{{ activating_countdown }}"
-    when: reboot == False and item.value.Purpose is defined and item.value.RequestedActivation is defined and not item.value.Purpose == "xyz.openbmc_project.Software.Version.VersionPurpose.BMC" and item.value.RequestedActivation == "xyz.openbmc_project.Software.Activation.RequestedActivations.Active"
-    with_dict: "{{ firmware_inventory }}"
-
   - set_fact:
       new_firmware_inventory: "{{ result_firmware_inventory.json.data }}"
 
-  - name: check New Active Firmwares
+  - name: check key is defined in New Active Firmwares
     debug: 
-      msg: "{{ new_firmware_inventory[item] }}"
+      msg: "Failure in activation for {{ item }}"
       verbosity: 2
     with_items: "{{ firmware_inventory.keys() }}"
+    when: not new_firmware_inventory[item] is defined
 
   - name: check New Active Firmwares
     fail: 
       msg: "Failure in activation for {{ new_firmware_inventory[item].value.Purpose }} - {{ new_firmware_inventory[item].value.Version }}"
-    when: new_firmware_inventory[item].value.Version is defined and new_firmware_inventory[item].value.Purpose is defined and new_firmware_inventory[item].value.Activation is defined and not new_firmware_inventory[item].Activation == 'xyz.openbmc_project.Software.Activation.Activations.Active' and new_firmware_inventory[item].RequestedActivation is defined and not new_firmware_inventory[item].RequestedActivation == 'xyz.openbmc_project.Software.Activation.RequestedActivations.None'
+    when: new_firmware_inventory[item] is defined and new_firmware_inventory[item].value is defined and new_firmware_inventory[item].value.Version is defined and new_firmware_inventory[item].value.Purpose is defined and new_firmware_inventory[item].value.Activation is defined and not new_firmware_inventory[item].Activation == 'xyz.openbmc_project.Software.Activation.Activations.Active' and new_firmware_inventory[item].RequestedActivation is defined and not new_firmware_inventory[item].RequestedActivation == 'xyz.openbmc_project.Software.Activation.RequestedActivations.None'
     with_items: "{{ firmware_inventory.keys() }}"
 
   - include_tasks: ../utils/utils_firmware_inventory.yml
