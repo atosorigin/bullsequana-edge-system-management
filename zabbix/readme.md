@@ -455,15 +455,15 @@ You should add 2 firewall rules
 ![alt text](https://github.com/atosorigin/bullsequana-edge-system-management/blob/master/zabbix/doc/sysLog_firewall_add_exception.png)
 
 #### flush iptables
-If telnet is not working but the ping is working : iptables rules could be the issue  
+If telnet is not working but the ping is working: iptables rules could be the issue  
 You can flush the iptables rules   
 
 ![#f03c15](https://placehold.it/15/f03c15/000000?text=+) Be careful to be able to recreate iptables rules after this command ` iptables -F `
 
 ## <a name="map_template"></a>BullSequanaEdgeMap template installation
 ### template content
-- 1 Map template
-![#f03c15](https://placehold.it/15/f03c15/000000?text=+) WARNING: The BullSequanaEdgeInconMapping should be created BEFORE importing BullSequanaEdgeMap template
+- 1 Map template  
+![#f03c15](https://placehold.it/15/f03c15/000000?text=+) WARNING: The BullSequanaEdgeIconMapping should be created BEFORE importing BullSequanaEdgeMap template [Create BullSequanaEdge icons](#create_icons) and [Create BullSequanaEdge icon mapping](#create_icon_mapping)
 
 ### prerequisite
 ![#c5f015](https://placehold.it/15/c5f015/000000?text=+) Info: You should install Host Bull Sequana Edge BEFORE: [How to install Host BullSequana Edge template](#host_template)  
@@ -478,7 +478,7 @@ You can flush the iptables rules
 5. Check the maps and images checkboxes
 6. Click on Import button
 
-### Create BullSequanaEdge icons
+### <a name="create_icons"></a>Create BullSequanaEdge icons
 
 1. From your browser, you should be able to access <instal_dir>/zabbix/icons directory
 2. Go to Administration / General / Image / Icon
@@ -487,7 +487,7 @@ You can flush the iptables rules
 4. Check your icons
 ![alt text](https://github.com/atosorigin/bullsequana-edge-system-management/blob/master/zabbix/doc/BullSequanaEdge_images.png)
 
-### Create BullSequanaEdge icon mapping
+### <a name="create_icon_mapping"></a>Create BullSequanaEdge icon mapping
 
 1. Go to Administration / General / Image / IconMapping
 2. Create one "Icon Mapping" as below:  

@@ -84,40 +84,14 @@ echo -e "\033[32m---------------------------------------------------------------
 ###################################################################################################################
 # external_vars.yml
 ###################################################################################################################
-add_external_vars()
-{
-  echo "# Update and Activate playbooks use these variables if needed" > $ANSIBLE_EXTERNAL_VARS
-  echo "forceoff: False" >> $ANSIBLE_EXTERNAL_VARS
-  echo "reboot: False" >> $ANSIBLE_EXTERNAL_VARS
-  echo "# Count down before checking a successfull reboot in MINUTES" >> $ANSIBLE_EXTERNAL_VARS
-  echo "reboot_countdown: 3" >> $ANSIBLE_EXTERNAL_VARS
-  echo "# Count down before checking a successfull for power on/off in SECONDS" >> $ANSIBLE_EXTERNAL_VARS
-  echo "poweron_countdown: 15" >> $ANSIBLE_EXTERNAL_VARS
-  echo "poweroff_countdown: 15" >> $ANSIBLE_EXTERNAL_VARS
-  echo "# Count down while activating updates in SECONDS" >> $ANSIBLE_EXTERNAL_VARS
-  echo "activating_countdown: 15" >> $ANSIBLE_EXTERNAL_VARS
-  echo "# Set a path to a Bull Technical State file" >> $ANSIBLE_EXTERNAL_VARS
-  echo "# uncomment for CLI Ansible ONLY (for AWX, please use the external vars in the graphical AWX inventory externale vars) " >> $ANSIBLE_EXTERNAL_VARS
-  echo "# technical_state_path: /mnt" >> $ANSIBLE_EXTERNAL_VARS
-  echo "# Define rsyslog ip and port" >> $ANSIBLE_EXTERNAL_VARS
-  echo "# default rsyslog port is 514" >> $ANSIBLE_EXTERNAL_VARS
-  echo "#rsyslog_server_ip: <here rsyslog ip address>" >> $ANSIBLE_EXTERNAL_VARS
-  echo "rsyslog_server_port: 514" >> $ANSIBLE_EXTERNAL_VARS
-  echo "# Define a power capability" >> $ANSIBLE_EXTERNAL_VARS
-  echo "#power_cap: 500" >> $ANSIBLE_EXTERNAL_VARS
-  echo "# File to upload with update_firmware_from_file.yml playbook" >> $ANSIBLE_EXTERNAL_VARS
-  echo "#file_to_upload: /mnt/Resources/Firmware_and_related_documents/BIOS/<here your file .tar or .gzip>" >> $ANSIBLE_EXTERNAL_VARS
-  echo "# To delete a ready image : uncomment and fill the Purpose and the Version" >> $ANSIBLE_EXTERNAL_VARS
-  echo "#purpose_to_delete: BMC" >> $ANSIBLE_EXTERNAL_VARS
-  echo "#version_to_delete: 00.00.0000" >> $ANSIBLE_EXTERNAL_VARS
-}
 
 if [ ! -f $ANSIBLE_EXTERNAL_VARS ] 
 then
   touch $ANSIBLE_EXTERNAL_VARS
-  add_external_vars
   echo -e "\033[32ma$ANSIBLE_EXTERNAL_VARS was successfully created\033[0m"
 fi
+
+./set_external_vars.py
 
 # delete old ANSIBLE_EXTERNAL_VARS path
 grep -q ANSIBLE_EXTERNAL_VARS= $ANSIBLE_INVENTORY && sed -i.bak '/ANSIBLE_EXTERNAL_VARS=.*/d' $ANSIBLE_INVENTORY
