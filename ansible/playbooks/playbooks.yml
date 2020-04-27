@@ -12,7 +12,7 @@ inventories:
         hosts:
         - name: <here an ip address>
           variables: '{ "baseuri": "{{inventory_hostname}}", "username": "<here bmc user name>", "password": "{{ here_your_encryted_password_variable }}" }'
-    variables: '{ "ANSIBLE_PASSWORDS": "/etc/ansible/vars/passwords.yml", "technical_state_path": "/host/mnt", "forceoff": True, "reboot": True, "rsyslog_server_ip": "0.0.0.0", "rsyslog_server_port": 514, "reboot_countdown": "3", "poweron_countdown": "15", "activating_countdown": "30", "poweroff_countdown": "15" }'
+    variables: '{ "ANSIBLE_PASSWORDS": "/etc/ansible/vars/passwords.yml", "technical_state_path": "/host/mnt", "forceoff": True, "reboot": True, "rsyslog_server_ip": "0.0.0.0", "rsyslog_server_port": 514, "reboot_countdown": "3", "poweron_countdown": "15", "activating_countdown": "180", "poweroff_countdown": "15" }'
       
 credentials:
   - name: Bull Sequana Edge Vault

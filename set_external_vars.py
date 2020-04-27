@@ -47,9 +47,9 @@ if(not external_vars.get('poweroff_countdown')):
   f.write("# Count down before checking a successfull for power on/off in SECONDS\n")
   f.write("poweroff_countdown: 15\n")
 if(not external_vars.get('activating_countdown')):
-  print("Adding activating_countdown: 30 seconds")
+  print("Adding activating_countdown: 180 seconds")
   f.write("# Count down after activating update in SECONDS\n")
-  f.write("activating_countdown: 30\n")
+  f.write("activating_countdown: 180\n")
 if(not external_vars.get('rsyslog_server_port')):
   print("Adding rsyslog_server_port: 514")
   f.write("# rsyslog port (default is 514)\n")
