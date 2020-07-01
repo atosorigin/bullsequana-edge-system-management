@@ -23,6 +23,7 @@ Optionaly, 2 ready-to-go AWX-Ansible images are available on Dockerhub
 - [BullSequana Edge Playbooks](#playbooks)
 - [What to do first on AWX](#what_awx)
 - [What to do first on Ansible](#what_ansible)
+- [What are Firmware update Workflows](#update_workflows)
 - [How to manage AWX encrypted passwords](#howto_manage_ansible_password)
 - [How to manage Ansible encrypted passwords](#howto_manage_awx_password)
 - [How to change your proxy](#howto_proxy)
@@ -456,7 +457,7 @@ ex: [root@awx firmware]# ansible-playbook --limit=openbmc -vv evaluate_firmware_
 ansible-playbook -vv upload_firmwares.yml
 ```
 
-#### how to update all servers from a TS
+#### how to update all firmwares from a TS
 
 ```yml
 ansible-playbook --limit=openbmc update_firmwares.yml -vv
@@ -890,7 +891,17 @@ a_named_variable: !vault |
   
 3. remove the lines that are corrupted  
 ![alt text](https://raw.githubusercontent.com/atosorigin/bullsequana-edge-system-management/master/ansible/doc/corrupted_passwords.png)
-  
+
+
+## <a name="update_workflows"></a>What are Firmware update Workflows
+
+
+```mermaid
+
+```
+
+
+
 ## <a name="howto_manage_awx_password"></a>How to manage AWX encrypted vault and passwords
 ### generate an AWX(Ansible) native encrypted password
 1. open a terminal on the host
