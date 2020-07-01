@@ -24,7 +24,7 @@ ansible/plugins/inventory/ansible-inventory-cache
 /ansible/vars/external-vars
 
 # some readme
-*readme.md
+*-readme.md
 # some tests
 test-*
 test_*

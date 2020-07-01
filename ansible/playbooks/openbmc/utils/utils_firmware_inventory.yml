@@ -1,5 +1,5 @@
 ---
-  - name: get firmware inventory
+  - name: Get firmware inventory
     uri:
       url: https://{{ baseuri }}/xyz/openbmc_project/software/enumerate
       method: GET
@@ -10,4 +10,5 @@
 
   - set_fact:
       firmware_inventory: "{{ result_firmware_inventory.json.data }}"
+
 

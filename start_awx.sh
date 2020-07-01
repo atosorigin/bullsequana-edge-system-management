@@ -3,7 +3,10 @@
 . ./proxy.sh
 . ./versions.sh
 
-echo "starting MISM containers ...."
+export unless_stopped_or_no=unless_stopped
+./update_awx_containers_restart_option.sh
+
+echo "starting BullSequana Edge Ansible AWX containers ...."
 docker-compose -f docker_compose_awx.yml up -d
 echo "----------------------------------------------------------------"
 echo "AWX is available on https://localhost"

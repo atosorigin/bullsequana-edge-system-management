@@ -1,0 +1,114 @@
+---
+
+  - name: Wait until success activation
+    block:
+      - name: Set the retry counter
+        set_fact:
+          retry_activating_count: "{{ 0 if retry_activating_count is undefined else retry_activating_count|int + 1 }}"
+        
+      - name: Get Firmware inventory
+        include_tasks: utils_firmware_inventory.yml
+    
+      - debug:
+          msg: "{{ item.value.Purpose }} - {{ item.value.RequestedActivation }} - {{ item.value.Activation }}"
+          verbosity: 2
+        when: >
+            item.value.RequestedActivation is defined and 
+            item.value.Activation is defined and
+            item.value.Purpose is defined
+        with_dict: "{{ firmware_inventory }}"
+
+      - name: Recreate token when lost
+        include_tasks: utils_create_token.yml
+        when: not result_firmware_inventory.status == 200
+
+      - fail:
+          msg: "Token lost ==> recreating token"
+        when: not result_firmware_inventory.status == 200
+
+      - set_fact:
+          found_retry_activating: False
+
+      - set_fact:
+          found_retry_activating: True
+        when: >
+              item.value.Activation is defined and
+              item.value.RequestedActivation is defined and
+              item.value.Purpose is defined and
+              ( 
+                (
+                  not item.value.Purpose == "xyz.openbmc_project.Software.Version.VersionPurpose.Host" and
+                  (
+                    ( 
+                      item.value.Activation == "xyz.openbmc_project.Software.Activation.Activations.Failed" and
+                      item.value.RequestedActivation == "xyz.openbmc_project.Software.Activation.RequestedActivations.Active"
+                    )
+                    or
+                    ( 
+                      item.value.Activation == "xyz.openbmc_project.Software.Activation.Activations.Activating" and
+                      item.value.RequestedActivation == "xyz.openbmc_project.Software.Activation.RequestedActivations.Active"
+                    )
+                    or
+                    (
+                      item.value.Activation == "xyz.openbmc_project.Software.Activation.Activations.Ready" and
+                      item.value.RequestedActivation == "xyz.openbmc_project.Software.Activation.RequestedActivations.None"
+                    )
+                  )
+                )
+                or
+                (
+                  item.value.Purpose == "xyz.openbmc_project.Software.Version.VersionPurpose.Host" and
+                  (
+                    ( 
+                      item.value.Activation == "xyz.openbmc_project.Software.Activation.Activations.Failed" and
+                      item.value.RequestedActivation == "xyz.openbmc_project.Software.Activation.RequestedActivations.Active"
+                    )
+                    or
+                    ( 
+                      item.value.Activation == "xyz.openbmc_project.Software.Activation.Activations.Active" and
+                      item.value.RequestedActivation == "xyz.openbmc_project.Software.Activation.RequestedActivations.Active"
+                    )
+                    or
+                    ( 
+                      item.value.Activation == "xyz.openbmc_project.Software.Activation.Activations.Activating" and
+                      item.value.RequestedActivation == "xyz.openbmc_project.Software.Activation.RequestedActivations.Active"
+                    )
+                    or
+                    ( 
+                      item.value.Activation == "xyz.openbmc_project.Software.Activation.Activations.Ready" and
+                      item.value.RequestedActivation == "xyz.openbmc_project.Software.Activation.RequestedActivations.None"
+                    )
+                  )
+                )
+              )
+            
+        with_dict: "{{ firmware_inventory }}"
+
+      - name: Pause {{ activating_countdown }}s while firmwares are not activated
+        pause:
+          seconds: "{{ activating_countdown }}"
+        when: found_retry_activating is defined and found_retry_activating == True
+
+      - fail:
+          msg: "Not Activated"
+        when: found_retry_activating is defined and found_retry_activating == True
+
+    rescue:
+      - fail:
+          msg: Ended after {{ activating_maxretries }} retries
+        when: retry_activating_count|int == activating_maxretries|int
+
+      - name: Activating
+        debug:
+          msg: "Activating... 1 / {{ activating_maxretries }} "
+        when: retry_activating_count|int == 1
+
+      - name: Waiting for activation
+        debug:
+          msg: "Retrying check for activation... {{ retry_activating_count }} / {{ activating_maxretries }}  "
+        when: retry_activating_count|int > 1
+
+      - include_tasks: wait_until_success_activation.yml
+
+
+

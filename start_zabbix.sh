@@ -22,6 +22,9 @@ echo $timezone
 . ./proxy.sh
 . ./versions.sh
 
+export unless_stopped_or_no=unless_stopped
+./update_zabbix_containers_restart_option.sh
+
 echo "starting MISM containers ...."
 docker-compose -f docker_compose_zabbix.yml up -d
 echo "----------------------------------------------------------------"

@@ -34,22 +34,42 @@ if(not external_vars.get('forceoff')):
 if(not external_vars.get('reboot')):
   print("Adding reboot: False")
   f.write("reboot: False\n")
+if(not external_vars.get('token_timeout')):
+  print("Adding token timeout in SECONDS: 5")
+  f.write("# url timeout when creating token\n")
+  f.write("token_timeout: 5\n")
 if(not external_vars.get('reboot_countdown')):
   print("Adding reboot_countdown: 3 minutes")
   f.write("# Count down before checking a successfull reboot in MINUTES\n")
-  f.write("reboot_countdown: 3\n")
+  f.write("reboot_countdown: 2\n")
 if(not external_vars.get('poweron_countdown')):
-  print("Adding poweron_countdown: 15 seconds")
+  print("Adding poweron_countdown: 5 seconds")
   f.write("# Count down before checking a successfull for power on/off in SECONDS\n")
-  f.write("poweron_countdown: 15\n")
+  f.write("poweron_countdown: 5\n")
 if(not external_vars.get('poweroff_countdown')):
-  print("Adding poweroff_countdown: 15 seconds")
+  print("Adding poweroff_countdown: 5 seconds")
   f.write("# Count down before checking a successfull for power on/off in SECONDS\n")
-  f.write("poweroff_countdown: 15\n")
+  f.write("poweroff_countdown: 5\n")
 if(not external_vars.get('activating_countdown')):
-  print("Adding activating_countdown: 180 seconds")
+  print("Adding activating_countdown: 30 seconds")
   f.write("# Count down after activating update in SECONDS\n")
-  f.write("activating_countdown: 180\n")
+  f.write("activating_countdown: 30\n")
+if(not external_vars.get('reboot_maxretries')):
+  print("Adding reboot_maxretries: 10 times")
+  f.write("# Number of retries while rebooting before failure\n")
+  f.write("reboot_maxretries: 10\n")
+if(not external_vars.get('poweron_maxretries')):
+  print("Adding poweron_maxretries: 10 times")
+  f.write("# Number of retries while powering on before failure\n")
+  f.write("poweron_maxretries: 10\n")
+if(not external_vars.get('poweroff_maxretries')):
+  print("Adding poweroff_maxretries: 10 times")
+  f.write("# Number of retries while powering off before failure\n")
+  f.write("poweroff_maxretries: 10\n")
+if(not external_vars.get('activating_maxretries')):
+  print("Adding activating_maxretries: 10 times")
+  f.write("# Number of retries while activating firmwares before failure\n")
+  f.write("activating_maxretries: 10\n")
 if(not external_vars.get('rsyslog_server_port')):
   print("Adding rsyslog_server_port: 514")
   f.write("# rsyslog port (default is 514)\n")

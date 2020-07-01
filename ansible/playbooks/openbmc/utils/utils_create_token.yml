@@ -1,6 +1,6 @@
 ---
 
-  - name: assert ANSIBLE_PASSWORDS path
+  - name: Assert ANSIBLE_PASSWORDS path
     assert:
       that:
         - ANSIBLE_PASSWORDS is defined
@@ -20,11 +20,12 @@
     when: ANSIBLE_EXTERNAL_VARS is defined
     run_once: True
 
-  - name: create token from OpenBMC
+  - name: Create token from OpenBMC
     uri:
       url: https://{{ baseuri }}/login
       method: POST
       validate_certs: no
+      timeout: "{{ token_timeout }}"
       headers:
        Content-Type: "application/json"
       body_format: json

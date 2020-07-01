@@ -1,5 +1,5 @@
 ---
-  - name: upload Firmware Images
+  - name: Upload Firmware Images
     uri:
       url: https://{{ baseuri }}/upload/image
       method: PUT
@@ -12,4 +12,43 @@
     ignore_errors: yes
     register: result_upload_firmwares
 
+  - debug:
+      var: result_upload_firmwares
+      verbosity: 2
+    when: result_upload_firmwares is defined
+
+  - debug:
+      var: result_upload_firmwares.results
+      verbosity: 2
+    when: result_upload_firmwares.results is defined
+
+  - name: Check if all items completed
+    fail: msg="All items were NOT uploaded"
+    when: not "All items completed" in result_upload_firmwares.msg 
+
+  - name: Check if file not found
+    fail: msg="Bad path or file name, Please check file path and name in --extra-vars"
+    when: item.failed is defined and item.failed == true and "Could not find or access" in item.msg
+    with_dict: "{{ result_upload_firmwares }}"
+
+  - name: Check tar failure
+    fail: msg="tar failure"
+    when: item.failed is defined and item.failed == true and "Version already exists" in result_upload_firmware.msg
+    with_dict: "{{ result_upload_firmwares }}"
+
+  - name: Upload Failures
+    fail: 
+      msg: "Uploaded failures - {{ result_upload_firmwares.json.data.description }}"
+    when: item.status is defined and item.status == 400
+    with_dict: "{{ result_upload_firmwares }}"  
+
+  - include_tasks: utils_firmware_inventory.yml
+
+  - name: Render Ready Firmwares after Upload
+    debug:
+      msg: "Ready {{ item.value.Purpose }} - {{ item.value.Version }} ({{ item.key }})"
+    when: >
+        item.value.Activation is defined and
+        item.value.Activation == "xyz.openbmc_project.Software.Activation.Activations.Ready"
+    with_dict: "{{ firmware_inventory }}"
 

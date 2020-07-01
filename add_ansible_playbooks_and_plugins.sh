@@ -26,6 +26,13 @@ then
 fi
 echo "your ansible inventory hosts file is $ANSIBLE_INVENTORY"
 
+if [ ! -f $ANSIBLE_INVENTORY ] 
+then
+  touch $ANSIBLE_INVENTORY
+  echo -e "\033[32m$ANSIBLE_INVENTORY was successfully created\033[0m"
+  echo -e "\033[32mYou should add your hosts in $ANSIBLE_INVENTORY\033[0m"
+fi
+
 add_lines()
 {
   echo -e "\033[32m---------------------------------------------------------------------------------------\033[0m"

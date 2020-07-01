@@ -8,7 +8,7 @@
     - "{{ ANSIBLE_PASSWORDS }}"
 
   tasks:
-  - name: validate technical_state_path variable
+  - name: Validate technical_state_path variable
     assert:
       that:
         - technical_state_path is defined
@@ -27,19 +27,5 @@
 
   - include_tasks: ../utils/utils_evaluate_firmware_update.yml
 
-  - name: render active firmware
-    debug:
-      msg: "Active firmware = {{ item.key }} as {{ item.value.Purpose }}-{{ item.value.Version }}"
-    with_dict: "{{ firmware_inventory }}"
-    when: item.value.Activation is defined and item.value.Activation == "xyz.openbmc_project.Software.Activation.Activations.Active"
-
   - include_tasks: ../utils/utils_upload_firmwares.yml
-
-  - include_tasks: ../utils/utils_firmware_inventory.yml
-
-  - name: render Uploaded Firmwares
-    debug:
-      msg: "Ready firmware = {{ item.key }} as {{ item.value.Purpose }}-{{ item.value.Version }}"
-    when: item.value.Activation is defined and item.value.Activation == "xyz.openbmc_project.Software.Activation.Activations.Ready"
-    with_dict: "{{ firmware_inventory }}"
 

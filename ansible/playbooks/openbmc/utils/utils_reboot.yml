@@ -1,5 +1,5 @@
 ---
-  - name: reboot BMC
+  - name: Reboot BMC
     uri:
       url: https://{{ baseuri }}/xyz/openbmc_project/state/bmc0/attr/RequestedBMCTransition
       method: PUT

@@ -1,5 +1,30 @@
 ---
-  - name: activate firmware update
+  - include_tasks: utils_firmware_inventory.yml
+
+  - name: Render firmwares to activate (before activation)
+    debug:
+      msg: "{{ item.value.Purpose }} - {{ item.value.Version }} ({{ item.key }}) - {{ item.value.Activation }} - {{ item.value.RequestedActivation }}"      
+    when: >
+        item.value.Purpose is defined and
+        item.value.Version is defined and
+        item.value.Activation is defined and
+        item.value.RequestedActivation is defined and
+        ( 
+            ( item.value.Activation == "xyz.openbmc_project.Software.Activation.Activations.Failed" and
+              item.value.RequestedActivation == "xyz.openbmc_project.Software.Activation.RequestedActivations.Active" 
+            ) 
+            or
+            ( item.value.Activation == "xyz.openbmc_project.Software.Activation.Activations.Activating" and
+              item.value.RequestedActivation == "xyz.openbmc_project.Software.Activation.RequestedActivations.Active" 
+            ) 
+            or
+            ( item.value.Activation == "xyz.openbmc_project.Software.Activation.Activations.Ready" and
+              item.value.RequestedActivation == "xyz.openbmc_project.Software.Activation.RequestedActivations.None"
+            )
+        )
+    with_dict: "{{ firmware_inventory }}"
+
+  - name: Activate firmware update
     uri:
       url: https://{{ baseuri }}{{item.key}}/attr/RequestedActivation
       method: PUT
@@ -10,8 +35,66 @@
       body:
         data: xyz.openbmc_project.Software.Activation.RequestedActivations.Active
       body_format: json
-    when: item.value.Activation is defined and item.value.Activation == "xyz.openbmc_project.Software.Activation.Activations.Ready"
+    when: >
+        item.value.Activation is defined and
+        item.value.RequestedActivation is defined and
+        ( 
+            ( item.value.Activation == "xyz.openbmc_project.Software.Activation.Activations.Failed" and
+              item.value.RequestedActivation == "xyz.openbmc_project.Software.Activation.RequestedActivations.Active" 
+            ) 
+            or
+            ( item.value.Activation == "xyz.openbmc_project.Software.Activation.Activations.Activating" and
+              item.value.RequestedActivation == "xyz.openbmc_project.Software.Activation.RequestedActivations.Active" 
+            ) 
+            or
+            ( item.value.Activation == "xyz.openbmc_project.Software.Activation.Activations.Ready" and
+              item.value.RequestedActivation == "xyz.openbmc_project.Software.Activation.RequestedActivations.None"
+            )
+        )
+    with_dict: "{{ firmware_inventory }}"
+    ignore_errors: yes
+
+  - name: Retry until firmware is Activated
+    include_tasks: wait_until_success_activation.yml   
+
+  - include_tasks: utils_firmware_inventory.yml
+
+  - debug:
+      msg: "{{ item.value.Purpose }} - {{ item.value.Version }} ({{ item.key }}) - {{ item.value.Activation }} - {{ item.value.RequestedActivation }}"
+      verbosity: 2
+    when: >
+        item.value.Purpose is defined and 
+        item.value.Version is defined and 
+        item.value.Activation is defined and
+        item.value.RequestedActivation is defined
     with_dict: "{{ firmware_inventory }}"
 
- 
+  - name: Render Active Firmwares
+    debug:
+      msg: "Active {{ item.value.Purpose }} - {{ item.value.Version }} ({{ item.key }})"
+    when: >
+        item.value.Purpose is defined and 
+        item.value.Version is defined and 
+        item.value.Activation is defined and 
+        item.value.Activation == "xyz.openbmc_project.Software.Activation.Activations.Active"
+    with_dict: "{{ firmware_inventory }}"
 
+  - name: Render RequestedActivations is Active
+    debug:
+      msg: "Requested Activation {{ item.value.Purpose }} - {{ item.value.Version }} ({{ item.key }})"
+    when: >
+        item.value.Purpose is defined and 
+        item.value.Version is defined and 
+        item.value.RequestedActivation is defined and 
+        item.value.RequestedActivation == "xyz.openbmc_project.Software.Activation.RequestedActivations.Active"
+    with_dict: "{{ firmware_inventory }}"
+
+  - name: Check Activation Failures after Activation
+    fail: 
+      msg: "Failure in activation for {{item.value.Purpose}} - {{item.value.Version}}"
+    when: >
+        item.value.Activation is defined and
+        item.value.RequestedActivation is defined and 
+        item.value.Activation == "xyz.openbmc_project.Software.Activation.Activations.Failed" and 
+        item.value.RequestedActivation == "xyz.openbmc_project.Software.Activation.RequestedActivations.Active"
+    with_dict: "{{ firmware_inventory }}"

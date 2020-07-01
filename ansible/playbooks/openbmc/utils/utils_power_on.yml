@@ -1,5 +1,5 @@
 ---
-  - name: power on
+  - name: Power on
     uri:
       url: https://{{ baseuri }}/xyz/openbmc_project/state/host0/attr/RequestedHostTransition
       method: PUT

@@ -8,7 +8,7 @@
     - "{{ ANSIBLE_PASSWORDS }}"
  
   tasks:
-  - name: assert technical_state_path variable
+  - name: Assert technical_state_path variable
     assert:
       that:
         - technical_state_path is defined
@@ -22,8 +22,6 @@
     run_once: true
 
   - include_tasks: ../utils/utils_create_token.yml
-
-  - include_tasks: ../utils/utils_firmware_inventory.yml
 
   - include_tasks: ../utils/utils_evaluate_firmware_update.yml
 

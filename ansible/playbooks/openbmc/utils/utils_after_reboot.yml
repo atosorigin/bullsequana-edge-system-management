@@ -1,0 +1,48 @@
+---
+
+  - name: Render Updated Firmwares after reboot
+    debug: 
+      var: evaluate_firmware_update
+    when: evaluate_firmware_update is defined
+
+  - name: New firmware inventory after reboot
+    uri:
+      url: https://{{ baseuri }}/xyz/openbmc_project/software/enumerate
+      method: GET
+      validate_certs: no
+      headers:
+        X-Auth-Token: "{{ x_token }}"
+    register: result_new_firmware_inventory
+
+  - set_fact:
+      new_firmware_inventory: "{{ result_new_firmware_inventory.json.data }}"
+
+  - name: Fails if New Firmwares are not Active
+    fail: 
+      msg: "Activation failure for {{ new_firmware_inventory[item].value.Purpose }} - {{ new_firmware_inventory[item].value.Version }}"
+    when: >
+        new_firmware_inventory[item] is defined and 
+        new_firmware_inventory[item].value is defined and 
+        new_firmware_inventory[item].value.Version is defined and
+        new_firmware_inventory[item].value.Purpose is defined and 
+        new_firmware_inventory[item].value.Activation is defined and 
+        new_firmware_inventory[item].value.RequestedActivation is defined and 
+        not new_firmware_inventory[item].value.Activation == "xyz.openbmc_project.Software.Activation.Activations.Active" and 
+        not new_firmware_inventory[item].value.RequestedActivation == "xyz.openbmc_project.Software.Activation.RequestedActivations.None"
+    with_items: "{{ firmware_inventory.keys() }}"
+
+  - include_tasks: utils_firmware_inventory.yml
+
+  - name: Fails on Failed state
+    fail: 
+      msg: "Fails on {{item.value.Purpose}} - {{item.value.Version}} - {{item.value.Activation}} - {{item.value.RequestedActivation}}"
+    when: >
+        ( item.value.RequestedActivation is defined and
+          not item.value.RequestedActivation == "xyz.openbmc_project.Software.Activation.RequestedActivations.None"
+        )
+        or
+        ( item.value.Activation is defined and
+          item.value.Activation == "xyz.openbmc_project.Software.Activation.Activations.Failed" 
+        )
+    with_dict: "{{ firmware_inventory }}"
+

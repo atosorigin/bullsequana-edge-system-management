@@ -25,7 +25,12 @@ DOCUMENTATION = '''
 
 import yaml
 import json
-import tzlocal
+import_tzlocal = False
+try: 
+    import tzlocal
+    import_tzlocal = True
+except:
+    pass
 from datetime import datetime
 from os.path import basename
 from datetime import datetime
@@ -442,35 +447,45 @@ class CallbackModule(Default):
             output_config = "rsyslog server: {address:<15}:{port:>4}".format(address=address,port=port)
             self._display.display(output_config)
         self._display.display(output, color='bright blue')        
-        for (key, log) in logs.items():
-            if key.startswith('/xyz/openbmc_project/logging/entry/'):
-                id_log = log.get("Id", None)
-                message = log.get("Message", None)
-                purpose = log.get("Purpose", None)
-                if purpose :
-                    purpose = purpose.replace('xyz.openbmc_project.Software.Version.VersionPurpose.','')
-                resolved = log.get("Resolved", None)
-                if resolved:
-                    resolved = "True"
-                else:
-                    resolved = "False"
-                severity = log.get("Severity", None)
-                if severity :
-                    severity = severity.replace('xyz.openbmc_project.Logging.Entry.Level.','')
-                timestamp = log.get("Timestamp", None)
-                if timestamp :
+        logs_list = []
+        for key, log in logs.items() :
+            if not key.startswith('/xyz/openbmc_project/logging/entry/'):
+                continue
+            timestamp = log.get("Timestamp", None)
+            if not timestamp:
+                continue
+            logs_list.append(log)
+        logs_list.sort(key = lambda item: item["Timestamp"])
+        for log in logs_list:
+            id_log = log.get("Id", None)
+            message = log.get("Message", None)
+            purpose = log.get("Purpose", None)
+            if purpose :
+                purpose = purpose.replace('xyz.openbmc_project.Software.Version.VersionPurpose.','')
+            resolved = log.get("Resolved", None)
+            if resolved:
+                resolved = "True"
+            else:
+                resolved = "False"
+            severity = log.get("Severity", None)
+            if severity :
+                severity = severity.replace('xyz.openbmc_project.Logging.Entry.Level.','')
+            timestamp = log.get("Timestamp", None)
+            if timestamp :
+                if import_tzlocal == True :
                     time_stamp = datetime.fromtimestamp(float(timestamp)/1000, tzlocal.get_localzone())
-                    timestamp = time_stamp.strftime('%Y-%m-%d %I:%M:%S %p %Z%z')
-
-                version = log.get("Version", None)
-                output = "{id_log:<5}{purpose:<10}{resolved:<10}{severity:<15}{timestamp:<33}{version:<15}{message:<}".format(id_log=id_log, message=message,purpose=purpose,resolved=resolved,severity=severity,timestamp=timestamp,version=version)
-                if severity == "Notice":
-                    self._display.display(output, color='yellow')
-                    continue
-                if severity == "Error":
-                    self._display.display(output, color='red')
-                    continue
-                self._display.display(output, color='green')
+                else:
+                    time_stamp = datetime.fromtimestamp(float(timestamp)/1000)
+                timestamp = time_stamp.strftime('%Y-%m-%d %I:%M:%S %p %Z%z')
+            version = log.get("Version", None)
+            output = "{id_log:<5}{purpose:<10}{resolved:<10}{severity:<15}{timestamp:<33}{version:<15}{message:<}".format(id_log=id_log, message=message,purpose=purpose,resolved=resolved,severity=severity,timestamp=timestamp,version=version)
+            if severity == "Notice":
+                self._display.display(output, color='yellow')
+                continue
+            if severity == "Error":
+                self._display.display(output, color='red')
+                continue
+            self._display.display(output, color='green')
 
     def _get_duration(self):
         end = datetime.now()

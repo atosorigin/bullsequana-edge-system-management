@@ -22,70 +22,7 @@
     when: file_to_upload is defined
     run_once: true
 
-  - name: validate forceoff variable
-    assert:
-      that:
-        - forceoff is defined
-      fail_msg: "The variable forceoff is NOT defined in inventory (AWX) or vars/external_vars file (Ansible). See readme.md for more details."
-      success_msg: "The variable forceoff is defined"
-    run_once: true
-
-  - debug:
-      msg: "forceoff is {{ forceoff }}"
-    when: forceoff is defined
-    run_once: true
-
-  - name: validate reboot variable
-    assert:
-      that:
-        - reboot is defined
-      fail_msg: "The variable reboot is NOT defined in inventory (AWX) or vars/external_vars file (Ansible). See readme.md for more details."
-      success_msg: "The variable reboot is defined"
-    run_once: true
-
-  - debug:
-      msg: "reboot is {{ reboot }}"
-    when: reboot is defined
-    run_once: true
-
-  - name: validate reboot_countdown variable
-    assert:
-      that:
-        - reboot_countdown is defined
-      fail_msg: "The variable reboot_countdown is NOT defined in inventory (AWX) or vars/external_vars file (Ansible). See readme.md for more details."
-      success_msg: "The variable reboot_countdown is defined"
-    run_once: true
-
-  - debug:
-      msg: "reboot_countdown is {{ reboot_countdown }}"
-    when: reboot_countdown is defined
-    run_once: true
-
-  - name: validate poweroff_countdown variable
-    assert:
-      that:
-        - poweroff_countdown is defined
-      fail_msg: "The variable poweroff_countdown is NOT defined in inventory (AWX) or vars/external_vars file (Ansible). See readme.md for more details."
-      success_msg: "The variable poweroff_countdown is defined"
-    run_once: true
-
-  - debug:
-      msg: "poweroff_countdown is {{ poweroff_countdown }}"
-    when: poweroff_countdown is defined
-    run_once: true
-
-  - name: validate activating_countdown variable
-    assert:
-      that:
-        - activating_countdown is defined
-      fail_msg: "The variable activating_countdown is NOT defined in inventory (AWX) or vars/external_vars file (Ansible). See readme.md for more details."
-      success_msg: "The variable activating_countdown is defined"
-    run_once: true
-
-  - debug:
-      msg: "activating_countdown is {{ activating_countdown }}"
-    when: activating_countdown is defined
-    run_once: true
+  - include_tasks: ../utils/assert_update_variables.yml
 
   - include_tasks: ../utils/utils_create_token.yml
 
@@ -121,109 +58,14 @@
       msg: "Ready firmware = {{ item.key }} as {{ item.value.Purpose }}-{{ item.value.Version }}"
     when: item.value.Activation is defined and item.value.Activation == "xyz.openbmc_project.Software.Activation.Activations.Ready"
     with_dict: "{{ firmware_inventory }}"
-  
-  - include_tasks: ../utils/utils_host_power_off.yml    
-    when: forceoff == True and item.value.Activation is defined and item.value.Purpose is defined and item.value.Activation == "xyz.openbmc_project.Software.Activation.Activations.Ready" and item.value.Purpose == "xyz.openbmc_project.Software.Version.VersionPurpose.Host"
-    with_dict: "{{ firmware_inventory }}"
-  
-  - name: Count down "{{poweroff_countdown}}" seconds before checking BIOS activation
-    pause:
-      seconds: "{{poweroff_countdown}}"
-    when: forceoff == True and item.value.Activation is defined and item.value.Purpose is defined and item.value.Activation == "xyz.openbmc_project.Software.Activation.Activations.Ready" and item.value.Purpose == "xyz.openbmc_project.Software.Version.VersionPurpose.Host"
-    with_dict: "{{ firmware_inventory }}"
 
+  - include_tasks: ../utils/should_poweroff.yml
+  
   - include_tasks: ../utils/utils_firmware_inventory.yml
-
-  - name: render Ready Firmware BEFORE Activation
-    debug:
-      msg: "Ready {{ item.value.Purpose }} - {{ item.value.Version }} ({{ item.key }})"
-    when: item.value.Activation is defined and item.value.Activation == "xyz.openbmc_project.Software.Activation.Activations.Ready"
-    with_dict: "{{ firmware_inventory }}"
 
   - include_tasks: ../utils/utils_active_firmware_update.yml
 
-  - include_tasks: ../utils/utils_firmware_inventory.yml
+  - include_tasks: ../utils/should_reboot.yml
 
-  - name: render Active Firmware AFTER Activation
-    debug:
-      msg: "Active {{ item.value.Purpose }} - {{ item.value.Version }} ({{ item.key }})"
-    when: item.value.Activation is defined and item.value.Activation == "xyz.openbmc_project.Software.Activation.Activations.Active"
-    with_dict: "{{ firmware_inventory }}"
+  - include_tasks: ../utils/utils_after_reboot.yml
 
-  - name: render Requested for Active Firmware AFTER Activation
-    debug:
-      msg: "Requested Activation {{ item.value.Purpose }} - {{ item.value.Version }} ({{ item.key }})"
-    when: item.value.RequestedActivation is defined and item.value.RequestedActivation == "xyz.openbmc_project.Software.Activation.RequestedActivations.Active"
-    with_dict: "{{ firmware_inventory }}"
-
-  - name: check Activation Failures AFTER Activation
-    fail: 
-      msg: "Failure in activation for {{item.value.Purpose}} - {{item.value.Version}}"
-    when: item.value.Activation is defined and item.value.Activation == 'xyz.openbmc_project.Software.Activation.Activations.Failed' and item.value.RequestedActivation is defined and item.value.RequestedActivation =='xyz.openbmc_project.Software.Activation.RequestedActivations.Active'
-    with_dict: "{{ firmware_inventory }}"
-
-  - name:  get Upload Failures
-    fail: 
-      msg: "Uploaded failures - {{ result_upload_firmware.json.data.description }}"
-    when: result_upload_firmware.status == 400
-
-  - name: reboot BMC
-    uri:
-      url: https://{{ baseuri }}/xyz/openbmc_project/state/bmc0/attr/RequestedBMCTransition
-      method: PUT
-      validate_certs: no
-      headers:
-        X-Auth-Token: "{{ x_token }}"
-        Content-Type: "application/json"
-      body:
-        data: xyz.openbmc_project.State.BMC.Transition.Reboot
-      body_format: json
-    when: reboot == True and item.value.Purpose is defined and item.value.RequestedActivation is defined and item.value.Purpose == "xyz.openbmc_project.Software.Version.VersionPurpose.BMC" and item.value.RequestedActivation == "xyz.openbmc_project.Software.Activation.RequestedActivations.Active"
-    with_dict: "{{ firmware_inventory }}"
-
-  - name: pause {{ reboot_countdown }} minutes for BMC to reboot
-    pause:
-      minutes: "{{ reboot_countdown }}"
-    when: reboot == True and item.value.Purpose is defined and item.value.RequestedActivation is defined and item.value.Purpose == "xyz.openbmc_project.Software.Version.VersionPurpose.BMC" and item.value.RequestedActivation == "xyz.openbmc_project.Software.Activation.RequestedActivations.Active"
-    with_dict: "{{ firmware_inventory }}"
-
-  - name: pause {{ activating_countdown }} seconds while activating firmware updates 
-    pause:
-      seconds: "{{ activating_countdown }}"
-    when: item.value.Purpose is defined and item.value.RequestedActivation is defined and not item.value.Purpose == "xyz.openbmc_project.Software.Version.VersionPurpose.BMC" and item.value.RequestedActivation == "xyz.openbmc_project.Software.Activation.RequestedActivations.Active"
-    with_dict: "{{ firmware_inventory }}"
-
-  - include_tasks: ../utils/utils_create_token.yml
-
-  - name: get new firmware inventory
-    uri:
-      url: https://{{ baseuri }}/xyz/openbmc_project/software/enumerate
-      method: GET
-      validate_certs: no
-      headers:
-        X-Auth-Token: "{{ x_token }}"
-    register: result_firmware_inventory
-
-  - set_fact:
-      new_firmware_inventory: "{{ result_firmware_inventory.json.data }}"
-
-  - name: check key is defined in New Active Firmwares
-    debug: 
-      msg: "Failure in activation for {{ item }}"
-      verbosity: 2
-    with_items: "{{ firmware_inventory.keys() }}"
-    when: not new_firmware_inventory[item] is defined
-
-  - name: check New Active Firmwares
-    fail: 
-      msg: "Failure in activation for {{ new_firmware_inventory[item].value.Purpose }} - {{ new_firmware_inventory[item].value.Version }}"
-    when: new_firmware_inventory[item] is defined and new_firmware_inventory[item].value is defined and new_firmware_inventory[item].value.Version is defined and new_firmware_inventory[item].value.Purpose is defined and new_firmware_inventory[item].value.Activation is defined and not new_firmware_inventory[item].Activation == 'xyz.openbmc_project.Software.Activation.Activations.Active' and new_firmware_inventory[item].RequestedActivation is defined and not new_firmware_inventory[item].RequestedActivation == 'xyz.openbmc_project.Software.Activation.RequestedActivations.None'
-    with_items: "{{ firmware_inventory.keys() }}"
-
-  - include_tasks: ../utils/utils_firmware_inventory.yml
-
-  - name: check Activation Failures
-    fail: 
-      msg: "Failure in activation for {{item.value.Purpose}} - {{item.value.Version}}"
-    when: item.value.Activation is defined and item.value.Activation == 'xyz.openbmc_project.Software.Activation.Activations.Failed' and item.value.RequestedActivation is defined and item.value.RequestedActivation =='xyz.openbmc_project.Software.Activation.RequestedActivations.Active'
-    with_dict: "{{ firmware_inventory }}"

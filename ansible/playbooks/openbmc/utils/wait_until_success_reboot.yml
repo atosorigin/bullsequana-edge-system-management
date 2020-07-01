@@ -1,0 +1,70 @@
+---
+
+  - name: Wait until success reboot
+    block:
+      - name: Set the retry counter
+        set_fact:
+          retry_reboot_count: "{{ 0 if retry_reboot_count is undefined else retry_reboot_count|int + 1 }}"
+        
+      - name: Pause {{ reboot_countdown }}mn while BMC is rebooting
+        pause:
+          minutes: "{{ reboot_countdown }}"
+
+      - name: Get Firmware inventory
+        include_tasks: utils_firmware_inventory.yml
+
+      - debug:
+          msg: "{{ item.value.Purpose }} - {{ item.value.RequestedActivation }} - {{ item.value.Activation }}"
+          verbosity: 2
+        when: >
+            item.value.RequestedActivation is defined and 
+            item.value.Activation is defined and
+            item.value.Purpose is defined
+        with_dict: "{{ firmware_inventory }}"
+
+      - name: Recreate token when lost
+        include_tasks: utils_create_token.yml
+        when: not result_firmware_inventory.status == 200
+
+      - fail:
+          msg: "Token lost ==> recreating token"
+        when: not result_firmware_inventory.status == 200
+
+      - set_fact:
+          found_retry_reboot: False
+
+      - set_fact:
+          found_retry_reboot: True
+        when: >
+              item.value.Purpose is defined and
+              item.value.Activation is defined and
+              item.value.RequestedActivation is defined and
+              item.value.Activation == "xyz.openbmc_project.Software.Activation.Activations.Active" and
+              item.value.RequestedActivation == "xyz.openbmc_project.Software.Activation.RequestedActivations.Active" and
+              (
+                item.value.Purpose == "xyz.openbmc_project.Software.Version.VersionPurpose.BMC" or
+                item.value.Purpose == "xyz.openbmc_project.Software.Version.VersionPurpose.CPLD" 
+              )
+        with_dict: "{{ firmware_inventory }}"
+
+      - fail:
+          msg: "Not Available"
+        when: found_retry_reboot is defined and found_retry_reboot == True
+
+    rescue:
+      - fail:
+          msg: Ended after {{ reboot_maxretries }} retries
+        when: retry_reboot_count|int == reboot_maxretries|int
+
+      - name: Rebooting
+        debug:
+          msg: "Rebooting... 1 / {{ reboot_maxretries }} "
+        when: retry_reboot_count|int == 1
+
+      - name: Waiting for BMC reboot
+        debug:
+          msg: "Retrying check for reboot... {{ retry_reboot_count }} / {{ reboot_maxretries }}  "
+        when: retry_reboot_count|int > 1
+
+      - include_tasks: wait_until_success_reboot.yml
+

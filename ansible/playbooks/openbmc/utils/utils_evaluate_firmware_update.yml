@@ -1,11 +1,16 @@
 ---
 
-  - name: get technical state path
+  - debug:
+      msg: "technical_state_path is {{ technical_state_path }}"
+    when: technical_state_path is defined
+    run_once: true
+
+  - name: Get technical state path
     stat:
       path: "{{ technical_state_path }}"
     register: check_technical_state_path_exists
 
-  - name: validate technical state directory exists
+  - name: Validate technical state directory exists
     assert:
       that:
         - check_technical_state_path_exists.stat.exists == True
@@ -13,7 +18,7 @@
       success_msg: "The variable technical_state_path exist on host"
     run_once: true
 
-  - name: validate technical state directory is a directory
+  - name: Validate technical state directory is a directory
     assert:
       that:
         - check_technical_state_path_exists.stat.isdir == True
@@ -21,7 +26,19 @@
       success_msg: "The variable technical_state_path is a directory on host"
     run_once: true
 
-  - name: load functional firmwares from Technical State xml file
+  - include_tasks: utils_firmware_inventory.yml
+
+  - name: Render Active Firmwares before evaluation
+    debug:
+      msg: "Active {{ item.value.Purpose }} - {{ item.value.Version }} ({{ item.key }})"
+    with_dict: "{{ firmware_inventory }}"
+    when: >
+      item.value.Activation is defined and 
+      item.value.RequestedActivation is defined and 
+      item.value.Activation == "xyz.openbmc_project.Software.Activation.Activations.Active" and
+      item.value.RequestedActivation == "xyz.openbmc_project.Software.Activation.RequestedActivations.None"
+
+  - name: Load functional firmwares from Technical State xml file
     local_action: atos_openbmc technical_state_path={{ technical_state_path }} category=Update command=EvaluateFirmwareUpdate firmwares={{ firmware_inventory }}
     register: result_evaluate_firmware_update
     when: check_technical_state_path_exists.stat.exists == True and check_technical_state_path_exists.stat.isdir == True
@@ -30,17 +47,18 @@
       evaluate_firmware_update: "{{ result_evaluate_firmware_update.result.Firmwares }}"
     when: check_technical_state_path_exists.stat.exists == True and check_technical_state_path_exists.stat.isdir == True
 
-  - name: debug Evaluate Firmware to update
+  - name: Debug Evaluate Firmware to update
     debug: 
       msg: "NO firmware to update"
     when: evaluate_firmware_update is defined and evaluate_firmware_update|length==0
 
-  - name: no Firmware to update 
+  - name: No Firmware to update 
     meta: end_host
     when: evaluate_firmware_update is defined and evaluate_firmware_update|length==0
 
-  - name: render Evaluate Firmware update
+  - name: Render Evaluate Firmware update
     debug: 
       var: evaluate_firmware_update
     when: evaluate_firmware_update is defined
+
 

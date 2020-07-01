@@ -3,7 +3,7 @@ FROM ansible/awx_web:9.0.1
 
 USER root 
 
-ENV MISM_BULLSEQUANA_EDGE_VERSION=2.0.9
+ENV MISM_BULLSEQUANA_EDGE_VERSION=2.1.0
 
 # security
 COPY ansible.credentials.py /etc/tower/conf.d/credentials.py

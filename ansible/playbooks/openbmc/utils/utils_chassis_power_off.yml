@@ -1,5 +1,5 @@
 ---
-  - name: immediate Shutdown
+  - name: Immediate Shutdown
     uri:
       url: https://{{ baseuri }}/xyz/openbmc_project/state/chassis0/attr/RequestedPowerTransition
       method: PUT

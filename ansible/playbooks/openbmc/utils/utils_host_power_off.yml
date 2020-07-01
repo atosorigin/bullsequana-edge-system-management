@@ -1,5 +1,5 @@
 ---
-  - name: orderly Shutdown
+  - name: Orderly Shutdown
     uri:
       url: https://{{ baseuri }}/xyz/openbmc_project/state/host0/attr/RequestedHostTransition
       method: PUT

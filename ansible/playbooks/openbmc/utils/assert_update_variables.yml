@@ -1,0 +1,130 @@
+---
+  - name: Assert forceoff variable
+    assert:
+      that:
+        - forceoff is defined
+      fail_msg: "The variable forceoff is NOT defined in inventory (AWX) or vars/external_vars file (Ansible). See readme.md for more details."
+      success_msg: "The variable forceoff is defined"
+    run_once: true
+
+  - debug:
+      msg: "forceoff is {{ forceoff }}"
+    when: forceoff is defined
+    run_once: true
+
+  - name: Assert reboot variable
+    assert:
+      that:
+        - reboot is defined
+      fail_msg: "The variable reboot is NOT defined in inventory (AWX) or vars/external_vars file (Ansible). See readme.md for more details."
+      success_msg: "The variable reboot is defined"
+    run_once: true
+
+  - debug:
+      msg: "reboot is {{ reboot }}"
+    when: reboot is defined
+    run_once: true
+
+  - name: Assert poweroff_countdown variable
+    assert:
+      that:
+        - poweroff_countdown is defined
+      fail_msg: "The variable poweroff_countdown is NOT defined in inventory (AWX) or vars/external_vars file (Ansible). See readme.md for more details."
+      success_msg: "The variable poweroff_countdown is defined"
+    run_once: true
+
+  - debug:
+      msg: "poweroff_countdown is {{ poweroff_countdown }} SECONDS"
+    when: poweroff_countdown is defined
+    run_once: true
+
+  - name: Assert activating_countdown variable
+    assert:
+      that:
+        - activating_countdown is defined
+      fail_msg: "The variable activating_countdown is NOT defined in inventory (AWX) or vars/external_vars file (Ansible). See readme.md for more details."
+      success_msg: "The variable activating_countdown is defined"
+    run_once: true
+
+  - debug:
+      msg: "activating_countdown is {{ activating_countdown }} SECONDS"
+    when: activating_countdown is defined
+    run_once: true
+
+  - name: Assert reboot countdown variable
+    assert:
+      that:
+        - reboot_countdown is defined
+      fail_msg: "The variable reboot_countdown is NOT defined in inventory (AWX) or vars/external_vars file (Ansible). See readme.md for more details."
+      success_msg: "The variable reboot_countdown is defined"
+    run_once: true
+
+  - debug:
+      msg: "reboot_countdown is {{ reboot_countdown }} MINUTES"
+    when: reboot_countdown is defined
+    run_once: true
+
+  - name: Assert reboot max retries variable
+    assert:
+      that:
+        - reboot_maxretries is defined
+      fail_msg: "The variable reboot_maxretries is NOT defined in inventory (AWX) or vars/external_vars file (Ansible). See readme.md for more details."
+      success_msg: "The variable reboot_maxretries is defined"
+    run_once: true
+
+  - debug:
+      msg: "reboot max retries is {{ reboot_maxretries }}"
+    when: reboot_maxretries is defined
+    run_once: true
+
+  - name: Assert poweroff_maxretries variable
+    assert:
+      that:
+        - poweroff_maxretries is defined
+      fail_msg: "The variable poweroff_maxretries is NOT defined in inventory (AWX) or vars/external_vars file (Ansible). See readme.md for more details."
+      success_msg: "The variable poweroff_maxretries is defined"
+    run_once: true
+
+  - debug:
+      msg: "poweroff_maxretries is {{ poweroff_maxretries }}"
+    when: poweroff_maxretries is defined
+    run_once: true
+
+  - name: Assert activating_maxretries variable
+    assert:
+      that:
+        - activating_maxretries is defined
+      fail_msg: "The variable activating_maxretries is NOT defined in inventory (AWX) or vars/external_vars file (Ansible). See readme.md for more details."
+      success_msg: "The variable activating_maxretries is defined"
+    run_once: true
+
+  - debug:
+      msg: "activating_maxretries is {{ activating_maxretries }}"
+    when: activating_maxretries is defined
+    run_once: true
+
+  - name: Assert technical_state_path variable
+    assert:
+      that:
+        - technical_state_path is defined
+      fail_msg: "The variable technical_state_path is NOT defined in inventory (AWX) or vars/external_vars file (Ansible). See readme.md for more details."
+      success_msg: "The variable technical_state_path is defined"
+    run_once: true
+
+  - debug:
+      msg: "technical_state_path is {{ technical_state_path }}"
+    when: technical_state_path is defined
+    run_once: true
+
+  - name: Assert token_timeout variable
+    assert:
+      that:
+        - token_timeout is defined
+      fail_msg: "The variable token_timeout is NOT defined in inventory (AWX) or vars/external_vars file (Ansible). See readme.md for more details."
+      success_msg: "The variable token_timeout is defined"
+    run_once: true
+
+  - debug:
+      msg: "token_timeout is {{ token_timeout }} SECONDS"
+    when: token_timeout is defined
+    run_once: true

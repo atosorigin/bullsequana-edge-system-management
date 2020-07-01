@@ -6,12 +6,12 @@
       validate_certs: no
       headers:
         X-Auth-Token: "{{ x_token }}"
-    register: result_power_off
+    register: result_power
     
   - set_fact:
-      check_power_off: "{{ result_power_off.json.data }}"
+      power: "{{ result_power.json.data }}"
 
-  - name: Check Host Power is Off
-    fail:
-      msg: "The host NOT Off"
-    when: check_power_off != "xyz.openbmc_project.State.Host.HostState.Off"
+  - debug:
+      msg: "power is {{ power }}"
+    when: power is defined
+
