@@ -95,6 +95,15 @@ fi
 echo "starting BullSequana Edge Ansible AWX containers ...."
 docker-compose -f docker_compose_awx.yml up -d
 
+rm -f bullsequana-edge-system-management_awx_web.*.tar
+rm -f bullsequana-edge-system-management_awx_task.*.tar
+rm -f awx_web.*.tar
+rm -f awx_task.*.tar
+rm -f rabbitmq.*.tar
+rm -f memcached.*.tar
+rm -f postgres.*.tar
+rm -f pgadmin4.*.tar
+
 echo "----------------------------------------------------------------------------------------------------"
 echo "now wait 10 minutes for the migration to complete...."
 echo "check the login page at https://localhost"

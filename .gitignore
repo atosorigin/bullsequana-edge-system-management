@@ -26,6 +26,8 @@ ansible/plugins/inventory/ansible-inventory-cache
 # some readme
 *-readme.md
 # some tests
+tests/
+test/
 test-*
 test_*
 

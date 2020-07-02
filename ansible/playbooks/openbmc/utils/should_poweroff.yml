@@ -5,7 +5,11 @@
         should_poweroff: True
     when: >
          item.name is defined and
-         item.name == "xyz.openbmc_project.Software.Version.VersionPurpose.Host"
+         (
+             item.name == "xyz.openbmc_project.Software.Version.VersionPurpose.Host"
+             or
+             item.name == "xyz.openbmc_project.Software.Version.VersionPurpose.CPLD"
+         )
     with_items: "{{ evaluate_firmware_update }}"
 
   - name: Determine if Host should be powered off
@@ -14,8 +18,8 @@
       verbosity: 2
     when: should_poweroff is defined and should_poweroff == True
 
-  - name: Check if BIOS (Host) update is possible and forceoff is True
-    fail: msg="Global Update stopped - Your environment variable forceoff is False and Host should be powered off => Cannot update BIOS"
+  - name: Check if BIOS / CPLD update is possible and forceoff is True
+    fail: msg="Global Update stopped - Your environment variable forceoff is False and Host should be powered off => Cannot update BIOS/CPLD"
     when: forceoff == False and should_poweroff is defined and should_poweroff == True
 
   - include_tasks: utils_chassis_power_off.yml    

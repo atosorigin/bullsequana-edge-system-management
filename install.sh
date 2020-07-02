@@ -14,5 +14,3 @@ done
 ./install_awx.sh
 ./install_zabbix.sh
 
-echo -e "\033[32mYou can now remove safely your old tar and tar.gz file\033[0m"
-

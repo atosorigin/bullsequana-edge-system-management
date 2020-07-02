@@ -99,6 +99,14 @@ fi
 echo "starting BullSequana Edge Zabbix containers ...."
 docker-compose -f docker_compose_zabbix.yml up -d
 
+rm -f bullsequana-edge-system-management_zabbix-web.*.tar
+rm -f bullsequana-edge-system-management_zabbix-web.*.tar
+rm -f bullsequana-edge-system-management_zabbix-agent.*.tar
+rm -f zabbix-server-pgsql.*.tar
+rm -f zabbix-web-nginx-pgsql.*.tar
+rm -f zabbix-agent.*.tar
+rm -f postgres.*.tar
+
 echo "---------------------------------------------------------------------------------------------------"
 echo "Zabbix is available on https://localhost:4443"
 echo "for more info, refer to github site https://github.com/atosorigin/bullsequana-edge-system-management"
