@@ -42,12 +42,12 @@ def main(args):
   if not args.item:
     item = get_json_from_file(file_item)
     if not item:
-      print "Timeout"
+      print("Timeout")
       return
   else:
     items = get_json_from_file(file_item)
     if not items:
-      print "Timeout"
+      print("Timeout")
       return
     item = args.item.strip()
     if file_item.endswith('temperature.json'):

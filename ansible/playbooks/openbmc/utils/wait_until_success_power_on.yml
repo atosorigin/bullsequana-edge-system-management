@@ -1,0 +1,50 @@
+---
+
+  - name: Wait until success power on
+    block:
+      - name: Set the retry counter
+        set_fact:
+          retry_power_on_count: "{{ 0 if retry_power_on_count is undefined else retry_power_on_count|int + 1 }}"
+        
+      - name: Get Power
+        include_tasks: utils_get_power.yml
+
+      - debug:
+          msg: "Power ({{ power }})"
+          verbosity: 2
+
+      - set_fact:
+          found_retry_power_on: False
+
+      - set_fact:
+          found_retry_power_on: True
+        when: power == "xyz.openbmc_project.State.Host.HostState.Running"
+
+      - name: Pause {{ poweron_countdown }}s while host is not powered on
+        pause:
+          seconds: "{{ poweron_countdown }}"
+        when: found_retry_power_on is defined and found_retry_power_on == False
+
+      - fail:
+          msg: "Not Powered on"
+        when: found_retry_power_on is defined and found_retry_power_on == False
+
+    rescue:
+      - fail:
+          msg: Ended after {{ poweron_maxretries }} retries
+        when: retry_power_on_count|int == poweron_maxretries|int
+
+      - name: Powering on
+        debug:
+          msg: "Powering on... 1 / {{ poweron_maxretries }} "
+        when: retry_power_on_count|int == 1
+
+      - name: Retrying Powering on
+        debug:
+          msg: "Retrying check for power on... {{ retry_power_on_count }} / {{ poweron_maxretries }}  "
+        when: retry_power_on_count|int > 1
+
+      - include_tasks: wait_until_success_power_on.yml
+
+
+

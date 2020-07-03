@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <zabbix_export>
     <version>4.4</version>
-    <date>2020-02-26T13:11:04Z</date>
+    <date>2020-07-03T12:55:49Z</date>
     <groups>
         <group>
             <name>Templates</name>
@@ -1046,20 +1046,6 @@
                     <applications>
                         <application>
                             <name>BullSequanaEdge System Information</name>
-                        </application>
-                    </applications>
-                </item>
-                <item>
-                    <name>Chassis: Fan 0 GPU - Present</name>
-                    <type>EXTERNAL</type>
-                    <key>openbmc_reader[-f={$OPENBMC}-system.json,-i=/xyz/openbmc_project/inventory/system/chassis/motherboard/fan0_GPU,-p=Present]</key>
-                    <delay>10m</delay>
-                    <history>7d</history>
-                    <trends>0</trends>
-                    <value_type>TEXT</value_type>
-                    <applications>
-                        <application>
-                            <name>BullSequanaEdge Presence and Functional Information</name>
                         </application>
                     </applications>
                 </item>

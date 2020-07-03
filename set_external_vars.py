@@ -10,23 +10,34 @@ print("$ANSIBLE_EXTERNAL_VARS is {ansible_vars}".format(ansible_vars=ansible_var
 
 if( not os.path.exists(ansible_vars) ):
   f = open(ansible_vars,"a")
-  print("Adding commented external vars => You should uncomment and complete it after install")
-  f.write("# Set a path to a Bull Technical State file\n")
-  f.write("#technical_state_path: /mnt\n")
-  f.write("# Define rsyslog ip and port\n")
-  f.write("#rsyslog_server_ip: <here rsyslog ip address>\n")
-  f.write("# Define a power capability\n")
-  f.write("#power_cap: 500\n")
-  f.write("# File to upload with update_firmware_from_file.yml playbook\n")
-  f.write("#file_to_upload: /mnt/Resources/Firmware_and_related_documents/BIOS/<here your file .tar or .gzip>\n")
-  f.write("# To delete a ready image : uncomment and fill the Purpose and the Version\n")
-  f.write("#purpose_to_delete: BMC\n")
-  f.write("#version_to_delete: 00.00.0000\n")
   f.close()
 
 external_vars = {a:b for a, b in [i.strip('\n').split(":") for i in open(ansible_vars) if (i.strip()) and (not '#' in i) ] }
 
 f = open(ansible_vars, "a")
+if(not external_vars.get('technical_state_path')):
+  f.write("# Set a path to a Bull Technical State file\n")
+  f.write("technical_state_path: /mnt\n")
+if(not external_vars.get('rsyslog_server_ip')):
+  f.write("# Define rsyslog ip\n")
+  f.write("rsyslog_server_ip:\n")
+if(not external_vars.get('purpose_to_delete')):
+  f.write("# To delete a ready image : uncomment and fill the Purpose and the Version\n")
+  f.write("purpose_to_delete:\n")
+if(not external_vars.get('version_to_delete')):
+  f.write("version_to_delete:\n")
+if(not external_vars.get('file_to_upload')):
+  f.write("# File to upload with update_firmware_from_file.yml playbook\n")
+  f.write("#file_to_upload: /mnt/Resources/Firmware_and_related_documents/BIOS/<here your file .tar or .gzip>\n")
+  f.write("file_to_upload:\n")
+if(not external_vars.get('rsyslog_server_port')):
+  print("Adding rsyslog_server_port: 514")
+  f.write("# rsyslog port (default is 514)\n")
+  f.write("rsyslog_server_port: 514\n")
+if(not external_vars.get('power_cap')):
+  print("Adding default power cap: 500")
+  f.write("# Define a power capability\n")
+  f.write("power_cap: 500\n")
 if(not external_vars.get('forceoff')):
   print("Adding forceoff: False")
   f.write("# Update and Activate playbooks use these variables if needed\n")
@@ -70,8 +81,4 @@ if(not external_vars.get('activating_maxretries')):
   print("Adding activating_maxretries: 10 times")
   f.write("# Number of retries while activating firmwares before failure\n")
   f.write("activating_maxretries: 10\n")
-if(not external_vars.get('rsyslog_server_port')):
-  print("Adding rsyslog_server_port: 514")
-  f.write("# rsyslog port (default is 514)\n")
-  f.write("rsyslog_server_port: 514\n")
 f.close()

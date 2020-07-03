@@ -23,9 +23,11 @@ import json
 import argparse
 
 def get_json_from_file(file_name):
-  with open(os.path.join(os.getcwd(), "openbmc", file_name), 'r') as file_to_read:
-    cache = json.load(file_to_read)
-  return cache
+  try:
+    with open(os.path.join(os.getcwd(), "openbmc", file_name), 'r') as file_to_read:
+      return json.load(file_to_read)
+  except:
+    return
 
 def main(args):
   parser = argparse.ArgumentParser(description="This script reads firmware data previously collected from BullSequana Edge devices")
@@ -35,11 +37,16 @@ def main(args):
   parser.add_argument("-a", "--activation", dest="activation", help="Activation", default="Active")
   args = parser.parse_args()
   file_item = args.file.strip()  
+  response = "N/A"
 
-  items = get_json_from_file(file_item)
   targeted_purpose = args.item.strip()
   targeted_activation = args.activation.strip()
-  response = "N/A"
+
+  items = get_json_from_file(file_item)
+  if not items:
+    print(response)
+    return
+
   for _, item in items.iteritems() :    
     # Activation
     item_activation = item.get("Activation", None)

@@ -1,6 +1,6 @@
 ---
 
-  - name: Set should_poweroff if Purpose=Host and Activation=Ready or Second chance if last RequestedActivation (Active) failed
+  - name: Should power off if Purpose=Host/CPLD in evaluated inventory (TS global)
     set_fact:
         should_poweroff: True
     when: >
@@ -11,6 +11,21 @@
              item.name == "xyz.openbmc_project.Software.Version.VersionPurpose.CPLD"
          )
     with_items: "{{ evaluate_firmware_update }}"
+    when: evaluate_firmware_update is defined
+
+  - name: Should power off if Purpose=Host/CPLD in firmware inventory
+    set_fact:
+        should_poweroff: True
+    when: > 
+        item.value.Activation is defined and 
+        item.value.Activation == "xyz.openbmc_project.Software.Activation.Activations.Ready" and
+        (
+           item.value.Purpose == "xyz.openbmc_project.Software.Version.VersionPurpose.Host"
+           or
+           item.value.Purpose == "xyz.openbmc_project.Software.Version.VersionPurpose.CPLD"
+        )
+    with_dict: "{{ firmware_inventory }}"
+    when: not evaluate_firmware_update is defined
 
   - name: Determine if Host should be powered off
     debug:

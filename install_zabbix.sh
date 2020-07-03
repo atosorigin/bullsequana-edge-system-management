@@ -1,8 +1,24 @@
 #!/bin/sh
 
+export old_mism_version=$MISM_BULLSEQUANA_EDGE_VERSION
+
 . ./check_prerequisites.sh
 # comment the next line if you build from your own Dockerfiles with build_zabbix.sh
 . ./remove_zabbix_containers.sh
+
+if [ ! -z $MISM_BULLSEQUANA_EDGE_VERSION ]
+then
+  if [ $old_mism_version != $MISM_BULLSEQUANA_EDGE_VERSION  ]
+  then
+    rm -f bullsequana-edge-system-management_zabbix-web.$old_mism_version.tar
+    rm -f bullsequana-edge-system-management_zabbix-web.$old_mism_version.tar
+    rm -f bullsequana-edge-system-management_zabbix-agent.$old_mism_version.tar
+    rm -f zabbix-server-pgsql.$old_mism_version.tar
+    rm -f zabbix-web-nginx-pgsql.$old_mism_version.tar
+    rm -f zabbix-agent.$old_mism_version.tar
+    rm -f postgres.$old_mism_version.tar
+  fi
+fi
 
 chmod ugo+w zabbix/server/externalscripts/openbmc
 
@@ -98,14 +114,6 @@ fi
 
 echo "starting BullSequana Edge Zabbix containers ...."
 docker-compose -f docker_compose_zabbix.yml up -d
-
-rm -f bullsequana-edge-system-management_zabbix-web.*.tar
-rm -f bullsequana-edge-system-management_zabbix-web.*.tar
-rm -f bullsequana-edge-system-management_zabbix-agent.*.tar
-rm -f zabbix-server-pgsql.*.tar
-rm -f zabbix-web-nginx-pgsql.*.tar
-rm -f zabbix-agent.*.tar
-rm -f postgres.*.tar
 
 echo "---------------------------------------------------------------------------------------------------"
 echo "Zabbix is available on https://localhost:4443"

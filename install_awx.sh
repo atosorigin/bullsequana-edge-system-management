@@ -1,10 +1,27 @@
 #!/bin/sh
 
+export old_mism_version=$MISM_BULLSEQUANA_EDGE_VERSION
+
 . ./check_prerequisites.sh
 # comment the next line if you build from your own Dockerfiles with build_awx.sh
 . ./remove_awx_containers.sh
 . ./proxy.sh
 . ./versions.sh
+
+if [ ! -z $MISM_BULLSEQUANA_EDGE_VERSION ]
+then
+  if [ $old_mism_version != $MISM_BULLSEQUANA_EDGE_VERSION  ]
+  then
+    rm -f bullsequana-edge-system-management_awx_web.$old_mism_version.tar
+    rm -f bullsequana-edge-system-management_awx_task.$old_mism_version.tar
+    rm -f awx_web.$old_mism_version.tar
+    rm -f awx_task.$old_mism_version.tar
+    rm -f rabbitmq.$old_mism_version.tar
+    rm -f memcached.$old_mism_version.tar
+    rm -f postgres.$old_mism_version.tar
+    rm -f pgadmin4.$old_mism_version.tar
+  fi
+fi
 
 export docker_image=`docker images |grep $MISM_BULLSEQUANA_EDGE_VERSION |grep 'bullsequana-edge-system-management_awx_web' |awk '{ print $3; }'`
 if [ -z "$docker_image" ] 
@@ -94,15 +111,6 @@ fi
 
 echo "starting BullSequana Edge Ansible AWX containers ...."
 docker-compose -f docker_compose_awx.yml up -d
-
-rm -f bullsequana-edge-system-management_awx_web.*.tar
-rm -f bullsequana-edge-system-management_awx_task.*.tar
-rm -f awx_web.*.tar
-rm -f awx_task.*.tar
-rm -f rabbitmq.*.tar
-rm -f memcached.*.tar
-rm -f postgres.*.tar
-rm -f pgadmin4.*.tar
 
 echo "----------------------------------------------------------------------------------------------------"
 echo "now wait 10 minutes for the migration to complete...."

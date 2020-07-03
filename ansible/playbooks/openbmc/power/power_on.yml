@@ -26,8 +26,8 @@
 
   - include_tasks: ../utils/utils_power_on.yml    
 
-  - name: Count down "{{poweron_countdown}}" seconds before checking power on
-    pause:
-      seconds: "{{poweron_countdown}}"
+  - name: Retry until power on
+    include_tasks: ../utils/wait_until_success_power_on.yml   
 
   - include_tasks: ../utils/utils_check_power_on.yml    
+

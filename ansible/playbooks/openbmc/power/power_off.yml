@@ -26,9 +26,8 @@
 
   - include_tasks: ../utils/utils_host_power_off.yml
 
-  - name: Count down "{{poweroff_countdown}}" seconds before checking power off
-    pause:
-      seconds: "{{poweroff_countdown}}"
+  - name: Retry until power off
+    include_tasks: ../utils/wait_until_success_power_off.yml   
 
-  - include_tasks: ../utils/utils_check_power_off.yml    
+  - include_tasks: ../utils/utils_check_power_off.yml
 
