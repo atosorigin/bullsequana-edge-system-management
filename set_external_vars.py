@@ -12,7 +12,7 @@ if( not os.path.exists(ansible_vars) ):
   f = open(ansible_vars,"a")
   f.close()
 
-external_vars = {a:b for a, b in [i.strip('\n').split(":") for i in open(ansible_vars) if (i.strip()) and (not '#' in i) ] }
+external_vars = {a:b for a, b in [i.strip('\n').split(":") for i in open(ansible_vars) if (not '#' in i) ] }
 
 f = open(ansible_vars, "a")
 if(not external_vars.get('technical_state_path')):
@@ -20,16 +20,16 @@ if(not external_vars.get('technical_state_path')):
   f.write("technical_state_path: /mnt\n")
 if(not external_vars.get('rsyslog_server_ip')):
   f.write("# Define rsyslog ip\n")
-  f.write("rsyslog_server_ip:\n")
+  f.write("rsyslog_server_ip: \n")
 if(not external_vars.get('purpose_to_delete')):
   f.write("# To delete a ready image : uncomment and fill the Purpose and the Version\n")
-  f.write("purpose_to_delete:\n")
+  f.write("purpose_to_delete: \n")
 if(not external_vars.get('version_to_delete')):
-  f.write("version_to_delete:\n")
+  f.write("version_to_delete: \n")
 if(not external_vars.get('file_to_upload')):
   f.write("# File to upload with update_firmware_from_file.yml playbook\n")
   f.write("#file_to_upload: /mnt/Resources/Firmware_and_related_documents/BIOS/<here your file .tar or .gzip>\n")
-  f.write("file_to_upload:\n")
+  f.write("file_to_upload: \n")
 if(not external_vars.get('rsyslog_server_port')):
   print("Adding rsyslog_server_port: 514")
   f.write("# rsyslog port (default is 514)\n")

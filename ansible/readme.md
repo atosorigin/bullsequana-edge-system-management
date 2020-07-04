@@ -213,9 +213,9 @@ if you never want to automatically force the remote server power off, you need t
 #### - power_cap
 **power_cap** is used in *Set Power Cap on* playbook
 
-So, the **power_cap** variable is defined localy inside extra_vars section of the playbook
+So, the **power_cap** variable is defined localy inside external_vars section of the playbook
 
-Change the extra_vars section as needed:  
+Change the external_vars section as needed:  
 `power_cap: 500`  
 
 Adjust the prompt on launch option as needed, you can unselect it:  
@@ -230,9 +230,9 @@ By default, the "prompt on launch" option is selected and this is a way to chang
 #### - file_to_upload
 **file_to_upload** is used in *Update firmware from file* playbook
 
-So, the **file_to_upload** variable is defined localy inside extra_vars section of the playbook
+So, the **file_to_upload** variable is defined localy inside external_vars section of the playbook
 
-Change the extra_vars section as needed:  
+Change the external_vars section as needed:  
 ` file_to_upload: /host/mnt/Resources/your_image.ext" `  
 Adjust the prompt on launch option as needed:  
 `prompt on launch`  
@@ -241,6 +241,9 @@ Adjust the prompt on launch option as needed:
 In your inventory *Variables* section, just change the appropriate countdown variable:
 
 ![alt text](https://raw.githubusercontent.com/atosorigin/bullsequana-edge-system-management/master/ansible/doc/awx_variables_inventory_section.png)
+
+#### - maxretries
+In your inventory *Variables* section, just change the appropriate maxretries variable (same as countdowns)
 
 #### - rsyslog_server_ip / port
 Following playbooks need these variables:
@@ -426,7 +429,7 @@ To summarize, two main possibilities:
 
 `ansible-playbook yourfile.yml --extra-vars "ma_variable=your_value"`
 
-2. In the appropriate extra_vars file <install_dir>/ansible/vars/external_vars.yml, uncomment and set the desired variable :
+2. In the appropriate external_vars file <install_dir>/ansible/vars/external_vars.yml, uncomment and set the desired variable :
 `your_variable: your_value`
 
 ![#f03c15](https://placehold.it/15/f03c15/000000?text=+) Warning : You can set extra variables differently but care the precedence order  
@@ -512,21 +515,41 @@ ex: [root@awx logs]# ansible-playbook set_rsyslog_server_port.yml
 ### power capabilities
 
 #### how to limit power capability
-in your extra_vars file, just uncomment the appropriate value:
+in your external_vars file, just uncomment the appropriate value:
 power_cap: 500
 
 ### countdowns
 
 #### how to change countdowns 
-in your extra_vars file, just change the appropriate value:
+in your external_vars file, just change the appropriate value:
 
 ```
 # Count down before checking a successfull reboot in MINUTES
 reboot_countdown: 3
 # Count down before checking a successfull for power on/off in SECONDS
-poweron_countdown: 15
-poweroff_countdown: 15
+poweron_countdown: 5
+poweroff_countdown: 5
+# Count down before checking a successfull end of  activating state in SECONDS
+activating_countdown: 30
 ```
+
+### maxretries
+
+#### how to change countdowns 
+in your external_vars file, just change the appropriate value:
+
+```
+# Max retries for reboot in in repeated
+reboot_maxretries: 10
+# Max retries for power on/off in repeated times
+poweron_maxretries: 10
+poweroff_maxretries: 10
+# Max retries for activation (update) in repeated times
+activating_maxretries: 10
+
+```
+
+
 
 ### <a name="howto_nmap"></a>how to use the nmap plugin inventory for redfish 
 #### how to detect nmap hosts

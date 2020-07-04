@@ -10,16 +10,19 @@ export old_mism_version=$MISM_BULLSEQUANA_EDGE_VERSION
 
 if [ ! -z $MISM_BULLSEQUANA_EDGE_VERSION ]
 then
-  if [ $old_mism_version != $MISM_BULLSEQUANA_EDGE_VERSION  ]
+  if [ ! -z $old_mism_version ]
   then
-    rm -f bullsequana-edge-system-management_awx_web.$old_mism_version.tar
-    rm -f bullsequana-edge-system-management_awx_task.$old_mism_version.tar
-    rm -f awx_web.$old_mism_version.tar
-    rm -f awx_task.$old_mism_version.tar
-    rm -f rabbitmq.$old_mism_version.tar
-    rm -f memcached.$old_mism_version.tar
-    rm -f postgres.$old_mism_version.tar
-    rm -f pgadmin4.$old_mism_version.tar
+    if [ $old_mism_version != $MISM_BULLSEQUANA_EDGE_VERSION  ]
+    then
+      rm -f bullsequana-edge-system-management_awx_web.$old_mism_version.tar
+      rm -f bullsequana-edge-system-management_awx_task.$old_mism_version.tar
+      rm -f awx_web.$old_mism_version.tar
+      rm -f awx_task.$old_mism_version.tar
+      rm -f rabbitmq.$old_mism_version.tar
+      rm -f memcached.$old_mism_version.tar
+      rm -f postgres.$old_mism_version.tar
+      rm -f pgadmin4.$old_mism_version.tar
+    fi
   fi
 fi
 

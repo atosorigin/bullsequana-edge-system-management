@@ -13,6 +13,7 @@
     assert:
       that:
         - purpose_to_delete is defined
+        - purpose_to_delete |default(None)
       fail_msg: "Please enter the purpose to delete like purpose_to_delete=BMC"
       success_msg: "The purpose_to_delete is defined"
     run_once: true
@@ -21,6 +22,7 @@
     assert:
       that:
         - version_to_delete is defined
+        - version_to_delete |default(None)
       fail_msg: "Please enter the purpose to delete like version_to_delete=33.0.0"
       success_msg: "The version_to_delete is defined"
     run_once: true

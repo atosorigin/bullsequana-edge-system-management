@@ -12,6 +12,7 @@ COPY ansible.cors.py /etc/tower/conf.d/cors.py
 COPY ansible.SECRET_KEY /etc/tower/SECRET_KEY
 COPY ansible.nginx.conf /etc/nginx/nginx.conf
 
+COPY app.5df28f9a9231a828dd6d.css /var/lib/awx/venv/awx/lib64/python3.6/site-packages/awx/ui/static/css/
 COPY logo-header.svg /var/lib/awx/venv/awx/lib64/python3.6/site-packages/awx/ui/static/assets/ 
 COPY logo-atos-login.png /var/lib/awx/venv/awx/lib64/python3.6/site-packages/awx/ui/static/assets/
 COPY logo-atos-login.svg /var/lib/awx/venv/awx/lib64/python3.6/site-packages/awx/ui/static/assets/ 

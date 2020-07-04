@@ -12,6 +12,7 @@
     assert:
       that:
         - rsyslog_server_ip is defined
+        - rsyslog_server_ip |default(None)
       fail_msg: "The variable rsyslog_server_ip is NOT defined in inventory (AWX) or vars/external_vars file (Ansible). See readme.md for more details."
       success_msg: "The variable rsyslog_server_ip is defined"
     run_once: true
