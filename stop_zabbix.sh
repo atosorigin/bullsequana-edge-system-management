@@ -2,7 +2,6 @@
 
 . ./versions.sh
 
-
 export always_or_no=no
 ./update_zabbix_containers_restart_option.sh
 

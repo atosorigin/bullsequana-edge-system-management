@@ -38,7 +38,7 @@
       item.value.Activation == "xyz.openbmc_project.Software.Activation.Activations.Active" and
       item.value.RequestedActivation == "xyz.openbmc_project.Software.Activation.RequestedActivations.None"
 
-  - name: Load functional firmwares from Technical State xml file
+  - name: Compare functional firmwares to Technical State xml file
     local_action: atos_openbmc technical_state_path={{ technical_state_path }} category=Update command=EvaluateFirmwareUpdate firmwares={{ firmware_inventory }}
     register: result_evaluate_firmware_update
     when: check_technical_state_path_exists.stat.exists == True and check_technical_state_path_exists.stat.isdir == True

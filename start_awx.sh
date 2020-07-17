@@ -3,7 +3,7 @@
 . ./proxy.sh
 . ./versions.sh
 
-export unless_stopped_or_no=unless_stopped
+export always_or_no=always
 ./update_awx_containers_restart_option.sh
 
 echo "starting BullSequana Edge Ansible AWX containers ...."
