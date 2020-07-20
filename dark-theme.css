@@ -233,15 +233,6 @@ main {
 footer {
   margin-top: auto; }
 
-.logo {
-  float: left;
-  display: block;
-  width: 95px;
-  height: 35px;
-  background: url(../img/logo-header.svg) no-repeat 0;
-  background-size: 95px 30px;
-}
-
 output {
   display: block; }
 
@@ -966,17 +957,17 @@ pre, pre a, pre td, pre span {
 .zabbix-logo {
   width: 114px;
   height: 30px;
-  background: url("../img/logo-zabbix-header.png") no-repeat 0 -864px; }
+  background: url("../img/icon-sprite.svg?20200407") no-repeat 0 -864px; }
 
 .zabbix-sidebar-logo {
   width: 91px;
   height: 24px;
-  background: url("../img/logo-zabbix-header.png") no-repeat -570px -400px; }
+  background: url("../img/icon-sprite.svg?20200407") no-repeat -570px -400px; }
 
 .zabbix-sidebar-logo-compact {
   width: 24px;
   height: 24px;
-  background: url("../img/logo-zabbix-header.png") no-repeat -540px -400px; }
+  background: url("../img/icon-sprite.svg?20200407") no-repeat -540px -400px; }
 
 .object-group {
   min-height: 24px;
