@@ -3,7 +3,7 @@ FROM zabbix/zabbix-agent:centos-4.4.1
 
 USER root 
 
-ENV MISM_BULLSEQUANA_EDGE_VERSION=3.0-test
+ENV MISM_BULLSEQUANA_EDGE_VERSION=2.1.2
 
 ENV PYTHONWARNINGS="ignore:Unverified HTTPS request"
 

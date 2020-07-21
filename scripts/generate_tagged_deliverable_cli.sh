@@ -15,22 +15,22 @@ git tag -d $mism_version
 git push --delete origin $mism_version
 
 echo "export MISM_BULLSEQUANA_EDGE_VERSION=${mism_version}" > versions.sh
-#echo "export MISM_TAG_BULLSEQUANA_EDGE_VERSION=tag" >> versions.sh
-#echo "export AWX_BULLSEQUANA_EDGE_VERSION=9.0.1" >> versions.sh
-#echo "export RABBITMQ_AWX_BULLSEQUANA_EDGE_VERSION=3.8.1-management" >> versions.sh
-#echo "export POSTGRES_AWX_BULLSEQUANA_EDGE_VERSION=12.0-alpine" >> versions.sh
-#echo "export PGADMIN_AWX_BULLSEQUANA_EDGE_VERSION=4.14" >> versions.sh
-#echo "export MEMCACHED_AWX_BULLSEQUANA_EDGE_VERSION=1.5.20-alpine" >> versions.sh
-#echo "export ZABBIX_BULLSEQUANA_EDGE_VERSION=centos-4.4.1" >> versions.sh
-#echo "export POSTGRES_ZABBIX_BULLSEQUANA_EDGE_VERSION=12.0-alpine" >> versions.sh
+echo "export MISM_TAG_BULLSEQUANA_EDGE_VERSION=tag" >> versions.sh
+echo "export AWX_BULLSEQUANA_EDGE_VERSION=9.0.1" >> versions.sh
+echo "export RABBITMQ_AWX_BULLSEQUANA_EDGE_VERSION=3.8.1-management" >> versions.sh
+echo "export POSTGRES_AWX_BULLSEQUANA_EDGE_VERSION=12.0-alpine" >> versions.sh
+echo "export PGADMIN_AWX_BULLSEQUANA_EDGE_VERSION=4.14" >> versions.sh
+echo "export MEMCACHED_AWX_BULLSEQUANA_EDGE_VERSION=1.5.20-alpine" >> versions.sh
+echo "export ZABBIX_BULLSEQUANA_EDGE_VERSION=centos-4.4.1" >> versions.sh
+echo "export POSTGRES_ZABBIX_BULLSEQUANA_EDGE_VERSION=12.0-alpine" >> versions.sh
 
-echo "export AWX_BULLSEQUANA_EDGE_VERSION=latest" >> versions.sh
-echo "export RABBITMQ_AWX_BULLSEQUANA_EDGE_VERSION=latest" >> versions.sh
-echo "export POSTGRES_AWX_BULLSEQUANA_EDGE_VERSION=latest" >> versions.sh
-echo "export PGADMIN_AWX_BULLSEQUANA_EDGE_VERSION=latest" >> versions.sh
-echo "export MEMCACHED_AWX_BULLSEQUANA_EDGE_VERSION=latest" >> versions.sh
-echo "export ZABBIX_BULLSEQUANA_EDGE_VERSION=centos-latest" >> versions.sh
-echo "export POSTGRES_ZABBIX_BULLSEQUANA_EDGE_VERSION=latest" >> versions.sh
+#echo "export AWX_BULLSEQUANA_EDGE_VERSION=latest" >> versions.sh
+#echo "export RABBITMQ_AWX_BULLSEQUANA_EDGE_VERSION=latest" >> versions.sh
+#echo "export POSTGRES_AWX_BULLSEQUANA_EDGE_VERSION=latest" >> versions.sh
+#echo "export PGADMIN_AWX_BULLSEQUANA_EDGE_VERSION=latest" >> versions.sh
+#echo "export MEMCACHED_AWX_BULLSEQUANA_EDGE_VERSION=latest" >> versions.sh
+#echo "export ZABBIX_BULLSEQUANA_EDGE_VERSION=centos-latest" >> versions.sh
+#echo "export POSTGRES_ZABBIX_BULLSEQUANA_EDGE_VERSION=latest" >> versions.sh
 
 . ./versions.sh
 
