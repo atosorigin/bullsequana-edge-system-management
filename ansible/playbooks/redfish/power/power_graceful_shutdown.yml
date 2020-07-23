@@ -1,0 +1,15 @@
+---
+- hosts: all
+  connection: local
+  name: Manage System Power - Graceful shutdown
+  gather_facts: False
+
+  tasks:
+
+  - name: Shutdown system power gracefully
+    redfish_command:
+      category: Systems
+      command: PowerGracefulShutdown
+      baseuri: "{{ baseuri }}"
+      user: "{{ username }}"
+      password: "{{ password }}"
