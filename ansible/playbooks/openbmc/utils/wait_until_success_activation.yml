@@ -40,6 +40,11 @@
                   not item.value.Purpose == "xyz.openbmc_project.Software.Version.VersionPurpose.Host" and
                   (
                     ( 
+                      item.value.Activation == "xyz.openbmc_project.Software.Activation.Activations.Active" and
+                      item.value.RequestedActivation == "xyz.openbmc_project.Software.Activation.RequestedActivations.Active"
+                    )
+                    or
+                    ( 
                       item.value.Activation == "xyz.openbmc_project.Software.Activation.Activations.Failed" and
                       item.value.RequestedActivation == "xyz.openbmc_project.Software.Activation.RequestedActivations.Active"
                     )

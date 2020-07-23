@@ -119,7 +119,7 @@ echo "starting BullSequana Edge Zabbix containers ...."
 docker-compose -f docker_compose_zabbix.yml up -d
 
 echo "---------------------------------------------------------------------------------------------------"
-echo "Zabbix is now available on https://localhost:4443"
+echo -e "Zabbix is now available on \e[101mhttps://localhost:4443\e[0m"
 echo "for more info, refer to github site https://github.com/atosorigin/bullsequana-edge-system-management"
 echo "----------------------------------------------------------------------------------------------------"
 
