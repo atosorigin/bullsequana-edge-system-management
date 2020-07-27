@@ -20,15 +20,21 @@
       verbosity: 2 
     when: should_reboot is defined and should_reboot == True
 
+  - name: Determine if BMC (CPLD) should reboot
+    debug:
+      msg: "BMC / CPLD update on {{ baseuri }} should reboot and reboot is {{ reboot }}"
+      verbosity: 2 
+    when: should_reboot is defined and should_reboot == True
+
   - name: Check if BMC/CPLD update is possible and reboot is True
     fail: msg="Global Update stopped - Your environment variable reboot is False and BMC should reboot => Cannot update BMC/CPLD"
     when: reboot == False and should_reboot is defined and should_reboot == True
 
   - name: Reboot BMC
-    include_tasks: ../utils/utils_reboot.yml
+    include_tasks: utils_reboot.yml
     when: reboot == True and should_reboot is defined and should_reboot == True
 
   - name: Retry until reboot
-    include_tasks: ../utils/wait_until_success_reboot.yml   
+    include_tasks: wait_until_success_reboot.yml   
     when: reboot == True and should_reboot is defined and should_reboot == True
 

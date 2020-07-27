@@ -1,22 +1,31 @@
 ---
 
+  - set_fact:
+        should_poweroff: False
+
+  - name: Should power off = False
+    debug:
+      var: should_poweroff
+    when: should_poweroff is defined
+
   - name: Should power off if Purpose=Host/CPLD in evaluated inventory (TS global)
     set_fact:
         should_poweroff: True
     when: >
-         item.name is defined and
-         (
-             item.name == "xyz.openbmc_project.Software.Version.VersionPurpose.Host"
-             or
-             item.name == "xyz.openbmc_project.Software.Version.VersionPurpose.CPLD"
-         )
+        evaluate_firmware_update is defined and
+        item.name is defined and
+        (
+            item.name == "xyz.openbmc_project.Software.Version.VersionPurpose.Host"
+            or
+            item.name == "xyz.openbmc_project.Software.Version.VersionPurpose.CPLD"
+        )
     with_items: "{{ evaluate_firmware_update }}"
-    when: evaluate_firmware_update is defined
 
   - name: Should power off if Purpose=Host/CPLD in firmware inventory
     set_fact:
         should_poweroff: True
     when: > 
+        not evaluate_firmware_update is defined and
         item.value.Activation is defined and 
         item.value.Activation == "xyz.openbmc_project.Software.Activation.Activations.Ready" and
         (
@@ -25,12 +34,15 @@
            item.value.Purpose == "xyz.openbmc_project.Software.Version.VersionPurpose.CPLD"
         )
     with_dict: "{{ firmware_inventory }}"
-    when: not evaluate_firmware_update is defined
+
+  - name: Should power off
+    debug:
+      var: should_poweroff
+    when: should_poweroff is defined
 
   - name: Determine if Host should be powered off
     debug:
       msg: "Host {{ baseuri }} should be powered off and forceoff is {{ forceoff }}"
-      verbosity: 2
     when: should_poweroff is defined and should_poweroff == True
 
   - name: Check if BIOS / CPLD update is possible and forceoff is True

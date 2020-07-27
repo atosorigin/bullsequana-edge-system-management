@@ -72,6 +72,9 @@ cp /var/mism/.gitignore .
 rm -rf cli
 rm -rf ansible/pgdata
 rm -rf zabbix/pgdata
+rm -rf ansible/playbooks/redfish
+rm -rf ansible/vars/external_vars.yml
+rm -rf ansible/vars/passwords.yml
 rm -rf pkg/mism*
 rm -rf *readme.*
 rm -rf test*
@@ -239,8 +242,6 @@ echo -e "\033[32mCount tar ok : $count_tar / 14\033[0m"
 mv mism.$MISM_BULLSEQUANA_EDGE_VERSION.tar.gz $PKG
 
 cd $CWD
-
-git checkout master
 
 echo "export MISM_BULLSEQUANA_EDGE_VERSION=latest" > versions.sh
 echo "export MISM_TAG_BULLSEQUANA_EDGE_VERSION=latest" >> versions.sh

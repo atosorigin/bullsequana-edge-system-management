@@ -81,7 +81,7 @@ Optionaly, 2 ready-to-go AWX-Ansible images are available on Dockerhub
 - `Set LED on/off`: Set BullSequana Edge LED state
 - `Set Power Cap on/off`: Set BullSequana Edge Power cap on/off
 
-## <a name="what_AWX"></a>What to do first on AWX
+## <a name="what_awx"></a>What to do first on AWX
 
 ### check proxy configuration
 
