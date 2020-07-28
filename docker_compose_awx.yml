@@ -15,7 +15,7 @@ services:
       - "443:8052"
     hostname: awx_web
     user: root
-    restart: unless-stopped
+    restart: always
     volumes:
       - ./ansible/playbooks:/var/lib/awx/projects:rw
       - ./ansible/inventory:/var/lib/awx/inventory:rw
@@ -51,7 +51,7 @@ services:
     # command: ["/var/lib/awx/projects/add_playbooks.py", "/var/lib/awx/projects/playbooks.yml"]
     hostname: awx
     user: root
-    restart: unless-stopped
+    restart: always
     volumes:
       - ./ansible/playbooks:/var/lib/awx/projects:rw
       - ./ansible/inventory:/var/lib/awx/inventory:rw
@@ -75,7 +75,7 @@ services:
   rabbitmq:
     image: rabbitmq:${RABBITMQ_AWX_BULLSEQUANA_EDGE_VERSION}
     container_name: awx_rabbitmq
-    restart: unless-stopped
+    restart: always
     hostname: rabbitmq
     expose:
       - 15672
@@ -89,13 +89,13 @@ services:
   memcached:
     image: memcached:${MEMCACHED_AWX_BULLSEQUANA_EDGE_VERSION}
     container_name: awx_memcached
-    restart: unless-stopped
+    restart: always
 
   awx_postgres:
     image: postgres:${POSTGRES_AWX_BULLSEQUANA_EDGE_VERSION}
     container_name: awx_postgres
     hostname: awx_postgres
-    restart: unless-stopped
+    restart: always
     ports:
       - 5432:5432
     expose: 
@@ -113,7 +113,7 @@ services:
     depends_on:
       - awx_postgres
     user: root
-    restart: unless-stopped
+    restart: always
     ports:
       - 7070:80
     volumes:
