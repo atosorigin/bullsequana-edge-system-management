@@ -51,9 +51,9 @@ git commit -am "deliverable ${mism_version}"
 git push
 git push origin master --tags
 
-docker container stop $(docker container ls -aq)
-docker container rm $(docker container ls -aq)
-docker image rmi $(docker image ls -aq)
+#docker container stop $(docker container ls -aq)
+#docker container rm $(docker container ls -aq)
+#docker image rmi $(docker image ls -aq)
 
 cd /var/livraisons/
 
