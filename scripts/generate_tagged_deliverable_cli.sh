@@ -119,8 +119,8 @@ git push origin master --tags
 git checkout $MISM_BULLSEQUANA_EDGE_VERSION
 
 echo "building images tag $MISM_BULLSEQUANA_EDGE_VERSION"
-docker-compose -f docker_compose_awx.yml build --no-cache
-docker-compose -f docker_compose_zabbix.yml build --no-cache
+#docker-compose -f docker_compose_awx.yml build --no-cache
+#docker-compose -f docker_compose_zabbix.yml build --no-cache
 docker-compose -f docker_compose_awx.yml pull --ignore-pull-failures
 docker-compose -f docker_compose_zabbix.yml pull --ignore-pull-failures
 
