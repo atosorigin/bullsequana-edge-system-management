@@ -51,9 +51,9 @@ git commit -am "deliverable ${mism_version}"
 git push
 git push origin master --tags
 
-#docker container stop $(docker container ls -aq)
-#docker container rm $(docker container ls -aq)
-#docker image rmi $(docker image ls -aq)
+docker container stop $(docker container ls -aq)
+docker container rm $(docker container ls -aq)
+docker image rmi $(docker image ls -aq)
 
 cd /var/livraisons/
 
@@ -119,13 +119,13 @@ git push origin master --tags
 git checkout $MISM_BULLSEQUANA_EDGE_VERSION
 
 echo "building images tag $MISM_BULLSEQUANA_EDGE_VERSION"
-#docker-compose -f docker_compose_awx.yml build --no-cache
-#docker-compose -f docker_compose_zabbix.yml build --no-cache
-docker-compose -f docker_compose_awx.yml build
-docker-compose -f docker_compose_zabbix.yml build
-# docker-compose -f docker_compose_awx.yml pull --ignore-pull-failures
+docker-compose -f docker_compose_awx.yml build --no-cache
+docker-compose -f docker_compose_zabbix.yml build --no-cache
+#docker-compose -f docker_compose_awx.yml build
+#docker-compose -f docker_compose_zabbix.yml build
+docker-compose -f docker_compose_awx.yml pull --ignore-pull-failures
 #docker-compose -f docker_compose_awx.yml pull
-#docker-compose -f docker_compose_zabbix.yml pull --ignore-pull-failures
+docker-compose -f docker_compose_zabbix.yml pull --ignore-pull-failures
 #docker-compose -f docker_compose_zabbix.yml pull
 
 echo "docker save tag $MISM_BULLSEQUANA_EDGE_VERSION"
