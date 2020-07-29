@@ -95,7 +95,7 @@ echo -e "\033[32m---------------------------------------------------------------
 if [ ! -f $ANSIBLE_EXTERNAL_VARS ] 
 then
   touch $ANSIBLE_EXTERNAL_VARS
-  echo -e "\033[32ma$ANSIBLE_EXTERNAL_VARS was successfully created\033[0m"
+  echo -e "\033[32m$ANSIBLE_EXTERNAL_VARS was successfully created\033[0m"
 fi
 
 ./set_external_vars.py
@@ -115,7 +115,6 @@ echo -e "\033[32m---------------------------------------------------------------
 
 # ansible plugin module is copied in default shared directory /usr/share/ansible/plugins/modules/
 # you can adapt it if you have another ansible plugin module directory
-
 
 if [ ! -d "/usr/share/ansible/plugins/callback/ansible_stdout_compact_logger" ]
 then

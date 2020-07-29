@@ -6,7 +6,7 @@ if not ansible_vars:
   print("ANSIBLE_EXTERNAL_VARS environment variable shoud be defined")
   exit(-1)
 
-print("$ANSIBLE_EXTERNAL_VARS is {ansible_vars}".format(ansible_vars=ansible_vars))
+print("$ANSIBLE_EXTERNAL_VARS={ansible_vars}".format(ansible_vars=ansible_vars))
 
 if( not os.path.exists(ansible_vars) ):
   f = open(ansible_vars,"a")
