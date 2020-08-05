@@ -247,6 +247,8 @@ mv mism.$MISM_BULLSEQUANA_EDGE_VERSION.tar.gz $PKG
 
 cd $CWD
 
+git checkout master
+
 echo "export MISM_BULLSEQUANA_EDGE_VERSION=latest" > versions.sh
 echo "export MISM_TAG_BULLSEQUANA_EDGE_VERSION=latest" >> versions.sh
 echo "export AWX_BULLSEQUANA_EDGE_VERSION=latest" >> versions.sh
