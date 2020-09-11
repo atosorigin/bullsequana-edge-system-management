@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <zabbix_export>
     <version>4.4</version>
-    <date>2020-02-28T08:59:58Z</date>
+    <date>2020-09-02T17:27:00Z</date>
     <images>
         <image>
             <name>Server_(96)</name>
@@ -47,8 +47,7 @@
                     <elementtype>0</elementtype>
                     <label>BullSequana Edge&#13;
 {HOST.HOST}&#13;
-{HOST.IP1}&#13;
-{HOST.CONN1}&#13;
+{INVENTORY.OOB.IP}&#13;
 </label>
                     <label_location>-1</label_location>
                     <x>139</x>

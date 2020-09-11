@@ -35,4 +35,5 @@ rm -f *.md
 rm -f *.tar
 #echo "gz files"
 rm -f *.gz
-
+#echo "py files"
+rm -f *.py

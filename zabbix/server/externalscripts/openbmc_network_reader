@@ -36,7 +36,7 @@ def main(args):
   parser.add_argument("-e", "--eth", dest="eth", help="eth0 or eth1 of the item")
   args = parser.parse_args()
   file_item = args.file.strip()  
-
+  response=None
   items = get_json_from_file(file_item)
   targeted_item = args.item.strip()  
   for key, item in items.iteritems() :    
@@ -46,14 +46,30 @@ def main(args):
     else:
       if not key.startswith("/xyz/openbmc_project/network/"+targeted_item):      
         continue
+    targeted_property = args.property.strip() 
+    
+    if args.origin:
+      targeted_origin = args.origin.strip()
+      if not targeted_origin == item.get("Origin", None):
+        continue
+    
+    if args.item:
+      targeted_type = args.item.strip()
+      if args.item.strip() == "ipv4":
+        targeted_type = "xyz.openbmc_project.Network.IP.Protocol.IPv4"
+      if args.item.strip() == "ipv6":
+        targeted_type = "xyz.openbmc_project.Network.IP.Protocol.IPv6"
+      if not targeted_type == item.get("Type", None):
+        continue
 
-    # key OK
-    targeted_property = args.property.strip()  
+#    print(key)
+#    print(targeted_property) 
     response = item.get(targeted_property, None)
     break
+  
   if response:
     if type(response) == unicode and response.startswith("xyz.openbmc_project.Network."):
       response = response.replace('xyz.openbmc_project.Network.','')
     print(json.dumps(response))
-
+  
 main(sys.argv)
