@@ -8,7 +8,7 @@ DB="mism"
 
 usage()
 {
-  echo "Usage: $0 [-v(verbose)] [-t target (awx*/zabbix)] [-u user] -f filename"
+  echo "Usage: $0 [-v(verbose)] [-u user] -t target (awx*/zabbix) -f filename"
   exit 2
 }
 
@@ -69,7 +69,7 @@ then
 fi
 
 echo "HOST=$HOST"
-export DEST_DIR="pgadmin/pgadmin_bullsequana.com"
+export DEST_DIR="storage/pgadmin_bullsequana.com"
 echo "DEST_DIR=$DEST_DIR"
 
 if [ ! -d $DEST_DIR ]
@@ -77,7 +77,7 @@ then
     mkdir -p $DEST_DIR
 fi
 
-docker exec -e PGPASSWORD=${PASSWORD} ${CONTAINER} /usr/local/pgsql-12/pg_dump -f "/var/lib/pgadmin/storage/pgadmin_bullsequana.com/${FILENAME}" --host ${HOST} --port "5432" --username=${USER} ${VERBOSE} --format=c --clean --column-inserts $DB
+docker exec -e PGPASSWORD=${PASSWORD} ${CONTAINER} /usr/local/pgsql-12/pg_dump -f "/var/lib/pgadmin/storage/pgadmin_bullsequana.com/$FILENAME" --host ${HOST} --port "5432" --username=${USER} ${VERBOSE} --format=c --clean --column-inserts $DB
 
 if [ $? -ne 0 ]
 then

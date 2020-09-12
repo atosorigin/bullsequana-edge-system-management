@@ -117,7 +117,7 @@ services:
     ports:
       - 7070:80
     volumes:
-      - ./ansible/pgadmin:/var/lib/pgadmin/storage:Z
+      - ./storage:/var/lib/pgadmin/storage:Z
     env_file:
       - Dockerfiles/ansible.env
 

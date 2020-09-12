@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <zabbix_export>
     <version>4.4</version>
-    <date>2020-07-03T12:55:49Z</date>
+    <date>2020-09-12T06:36:21Z</date>
     <groups>
         <group>
             <name>Templates</name>
@@ -11,6 +11,7 @@
         <template>
             <template>Template Hw Atos BullSequanaEdge LLD</template>
             <name>Template Hw Atos BullSequanaEdge LLD</name>
+            <description>2.1.12</description>
             <groups>
                 <group>
                     <name>Templates</name>

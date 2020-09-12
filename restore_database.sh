@@ -8,13 +8,8 @@ DB="mism"
 
 usage()
 {
-  echo "Usage: $0 [-v(verbose)] [-t target (awx*/zabbix)] [-u user] -f dump_file"
-  echo "the dump_file must be under [INSTALL_DIR]/pgadmin/pgadmin_bullsequana.com/ directory"
-  exit 2
-}
-
-{
-  echo "Usage: $0 [-v(verbose)] -f filename "
+  echo "Usage: $0 [-v(verbose)] [-u user] -t target (awx*/zabbix) -f dump_file"
+  echo "the dump_file must be under [INSTALL_DIR]/storage/pgadmin_bullsequana.com/ directory"
   exit 2
 }
 
@@ -43,8 +38,9 @@ echo "TARGET=$TARGET"
 echo "FILENAME=$FILENAME"
 echo "USER=$USER"
 
-if [[ -z  ${FILENAME} ]];then
-	usage
+if [ -z ${FILENAME} ]
+then
+    usage
 fi
 
 if [ ${TARGET} = "awx" ]
@@ -59,7 +55,7 @@ fi
 
 echo "HOST=$HOST"
 
-docker exec -e PGPASSWORD=${PWD} ${CONTAINER} /usr/local/pgsql-12/pg_restore --host -h ${HOST} --port "5432" --username=${USER} --dbname $DB -c ${VERBOSE} "/var/lib/pgadmin/storage/pgadmin_bullsequana.com/${FILENAME}"
+docker exec -e PGPASSWORD=${PWD} ${CONTAINER} /usr/local/pgsql-12/pg_restore --host ${HOST} --port "5432" --username=${USER} --dbname $DB -c ${VERBOSE} "/var/lib/pgadmin/storage/pgadmin_bullsequana.com/${FILENAME}"
 
 if [ $? -ne 0 ]; then
     echo ">> Database restore failed !!!"

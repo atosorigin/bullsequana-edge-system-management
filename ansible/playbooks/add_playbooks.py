@@ -96,13 +96,13 @@ if tower.inventories:
         
 if tower.projects:
     for p in tower.projects:
-        p['description'] = "Playbooks {version} for BullSequana Edge".format(version=os.environ.get('MISM_BULLSEQUANA_EDGE_VERSION'))        
+        p['description'] = "Playbooks {version} for BullSequana Edge".format(version=os.environ.get('MISM_BULLSEQUANA_EDGE_PLAYBOOKS_VERSION'))        
         try:
             proj = project_res.get(name=p['name'])
-            print("Updating Project: {name} description\n".format(name=p['name']))
+            print("Updating Project description: {description}\n".format(description=p['description']))
             project_res.modify(name=p['name'], description=p['description'])
         except:
-            print("Creating Project: Playbooks {version} for BullSequana Edge\n".format(version=os.environ.get('MISM_BULLSEQUANA_EDGE_VERSION')))
+            print("Creating Project: Playbooks {version} for BullSequana Edge\n".format(version=os.environ.get('MISM_BULLSEQUANA_EDGE_PLAYBOOKS_VERSION')))
             p['organization'] = org_id
             project_res.create(**p)
             bool_force_create=True

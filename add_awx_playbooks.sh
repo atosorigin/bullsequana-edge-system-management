@@ -1,5 +1,7 @@
 #!/bin/sh
 
+export MISM_BULLSEQUANA_EDGE_PLAYBOOKS_VERSION=latest
+
 ###################################################################################################################
 # passwords.yml
 ###################################################################################################################
@@ -16,7 +18,7 @@ fi
 # playbooks
 ###################################################################################################################
 echo "adding playbooks ..."
-docker exec -it awx_web projects/add_playbooks.py
+docker exec -e MISM_BULLSEQUANA_EDGE_PLAYBOOKS_VERSION=$MISM_BULLSEQUANA_EDGE_PLAYBOOKS_VERSION -it awx_web projects/add_playbooks.py
 
-echo -e "\033[32mif you get an error: check https://localhost/api/v2/ on the docker host and re-run this script\033[0m"
+echo -e "\033[32mif you get an error: check https://localhost/api/v2/ and re-run this script\033[0m"
 
