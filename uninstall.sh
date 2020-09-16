@@ -37,3 +37,7 @@ rm -f *.tar
 rm -f *.gz
 #echo "py files"
 rm -f *.py
+#echo "css files"
+rm -f *.css
+#echo "storage"
+rm -f storage
