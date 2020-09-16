@@ -34,10 +34,6 @@ while getopts "vu:t:f:" option; do
     esac
 done
 
-echo "TARGET=$TARGET"
-echo "FILENAME=$FILENAME"
-echo "USER=$USER"
-
 if [ -z ${FILENAME} ]
 then
     usage
@@ -46,19 +42,22 @@ fi
 if [ ${TARGET} = "awx" ]
 then
     HOST="awx_postgres"
+    DB="mism"
 fi
 
 if [ ${TARGET} = "zabbix" ]
 then
     HOST="zabbix-postgres"
+    DB="zabbix"
 fi
-
-echo "HOST=$HOST"
 
 docker exec -e PGPASSWORD=${PWD} ${CONTAINER} /usr/local/pgsql-12/pg_restore --host ${HOST} --port "5432" --username=${USER} --dbname $DB -c ${VERBOSE} "/var/lib/pgadmin/storage/pgadmin_bullsequana.com/${FILENAME}"
 
 if [ $? -ne 0 ]; then
-    echo ">> Database restore failed !!!"
-else
-    echo ">> The Database is restored !"
+    echo -e "\e[101m>> The database restore failed !!! \e[0m"
+    exit -1
 fi
+
+echo -e "\e[42m>> The database is restored ! \e[0m"
+
+

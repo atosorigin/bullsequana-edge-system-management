@@ -4,7 +4,7 @@ VERBOSE=""
 CONTAINER="pgadmin"
 BASEDIR=$(dirname $0)
 USER="mism"
-DB="mism"
+DB=""
 
 usage()
 {
@@ -33,10 +33,6 @@ while getopts "vu:t:f:" option; do
     esac
 done
 
-echo "TARGET=$TARGET"
-echo "FILENAME=$FILENAME"
-echo "USER=$USER"
-
 if [ -z ${FILENAME} ]
 then
     usage
@@ -61,16 +57,17 @@ fi
 if [ ${TARGET} = "awx" ]
 then
     HOST="awx_postgres"
+    DB="mism"
+
 fi
 
 if [ ${TARGET} = "zabbix" ]
 then
     HOST="zabbix-postgres"
+    DB="zabbix"
 fi
 
-echo "HOST=$HOST"
 export DEST_DIR="storage/pgadmin_bullsequana.com"
-echo "DEST_DIR=$DEST_DIR"
 
 if [ ! -d $DEST_DIR ]
 then
@@ -87,9 +84,10 @@ fi
 
 if [ ! -f $DEST_DIR/$FILENAME ]    
 then
-    echo ">> Database dump not generated in $DEST_DIR/$FILENAME !!!"
+    
+    echo -e "\e[101m>> Database dump not generated in $DEST_DIR/$FILENAME !!!\e[0m"
     exit -1
 fi
 
-echo ">> The Database dump is saved under $BASEDIR/$DEST_DIR/${FILENAME}"
+echo -e "\e[42m>> The Database dump is saved under $BASEDIR/$DEST_DIR/${FILENAME}\e[0m"
 

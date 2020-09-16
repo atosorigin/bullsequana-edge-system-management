@@ -116,7 +116,7 @@ echo "starting BullSequana Edge Ansible AWX containers ...."
 docker-compose -f docker_compose_awx.yml up -d
 
 echo "----------------------------------------------------------------------------------------------------"
-echo "now wait 10 minutes for the migration to complete...."
+echo -e "Now wait \e[101m10 minutes\e[0m for the migration to complete...."
 echo "check the login page at https://localhost"
 echo "and run ./add_awx_playbooks.sh"
 echo "AWX is available on https://localhost"
