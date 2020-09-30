@@ -25,8 +25,6 @@ RUN yum install -y ansible
 
 RUN pip3 install --upgrade pip
 
-RUN pip install ansible
-
 # Warning : NOT nmap => https://stackoverflow.com/questions/14913153/module-object-has-no-attribute-portscanner
 RUN pip install python-nmap
 RUN pip install requests
