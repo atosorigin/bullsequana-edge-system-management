@@ -12,12 +12,10 @@ COPY ansible.SECRET_KEY /etc/tower/SECRET_KEY
 # To be done manually from container : RUN yum update
 RUN yum install -y nano which nmap
 RUN yum install -y epel-release
+RUN yum install -y ansible
 
 RUN pip3 install --upgrade pip 
 
-RUN pip uninstall ansible
-
-RUN pip install ansible
 
 # Warning : NOT nmap => https://stackoverflow.com/questions/14913153/module-object-has-no-attribute-portscanner
 RUN pip install python-nmap
