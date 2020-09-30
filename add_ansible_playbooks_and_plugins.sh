@@ -16,8 +16,15 @@ fi
 ###################################################################################################################
 if [ -z $ANSIBLE_CONFIG ]
 then
-  export ANSIBLE_CONFIG=/etc/ansible/ansible.cfg
+  if [ -f /etc/ansible/ansible.cfg ]
+  then 
+      export ANSIBLE_CONFIG=/etc/ansible/ansible.cfg
+  else
+     echo "your ansible has NO configuration file"
+     exit -1
+  fi
 fi
+
 echo "your ansible configuration file is $ANSIBLE_CONFIG"
 
 if [ -z $ANSIBLE_INVENTORY ]
