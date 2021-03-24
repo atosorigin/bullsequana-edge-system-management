@@ -1,6 +1,6 @@
 #!/bin/sh
 
-export MISM_BULLSEQUANA_EDGE_PLAYBOOKS_VERSION=2.1.3
+export MISM_BULLSEQUANA_EDGE_PLAYBOOKS_VERSION=2.1.5
 
 ###################################################################################################################
 # passwords.yml
