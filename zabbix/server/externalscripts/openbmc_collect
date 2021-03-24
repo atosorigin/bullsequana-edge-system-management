@@ -19,7 +19,6 @@
 
 import sys
 import requests
-import urllib
 import urllib3
 from requests.auth import HTTPBasicAuth
 import os

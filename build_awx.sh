@@ -23,20 +23,27 @@ while true; do
     esac
 done
 
-. ./check_prerequisites.sh
-. ./remove_awx_containers.sh
+#. ./check_prerequisites.sh
+#. ./remove_awx_containers.sh
 . ./versions.sh
 
 echo "building BullSequana Edge Ansible AWX containers and images ...."
-docker-compose -f docker_compose_awx.yml build
+export REGISTRY=ansible
+docker-compose -f docker_compose_awx.yml build \
+ --build-arg MISM_BULLSEQUANA_EDGE_VERSION=$MISM_BULLSEQUANA_EDGE_VERSION \
+ --build-arg REGISTRY=$REGISTRY \
+ --build-arg BASE_IMAGE_AWX_TASK=$BASE_IMAGE_AWX_TASK \
+ --build-arg TAG_AWX=$AWX_BULLSEQUANA_EDGE_VERSION \
+ --build-arg BASE_IMAGE_AWX_WEB=$BASE_IMAGE_AWX_WEB \
+ --no-cache
 
 echo "saving BullSequana Edge Ansible AWX containers and images in tar files ...."
 echo -e "\033[31mit will take several minutes\033[0m"
-docker save -o bullsequana-edge-system-management_awx_task.$MISM_BULLSEQUANA_EDGE_VERSION.tar bullsequana-edge-system-management_awx_task:$MISM_BULLSEQUANA_EDGE_VERSION
-docker save -o bullsequana-edge-system-management_awx_web.$MISM_BULLSEQUANA_EDGE_VERSION.tar bullsequana-edge-system-management_awx_web:$MISM_BULLSEQUANA_EDGE_VERSION
+#docker save -o bullsequana-edge-system-management_awx_task.$MISM_BULLSEQUANA_EDGE_VERSION.tar bullsequana-edge-system-management_awx_task:$MISM_BULLSEQUANA_EDGE_VERSION
+#docker save -o bullsequana-edge-system-management_awx_web.$MISM_BULLSEQUANA_EDGE_VERSION.tar bullsequana-edge-system-management_awx_web:$MISM_BULLSEQUANA_EDGE_VERSION
 
-echo "... save completed"
-echo "----------------------------------------------------------------------------------------------------"
-echo -e "\033[31mnow you can run ./install_awx.sh... enjoy your customization !!\033[0m"
-echo "----------------------------------------------------------------------------------------------------"
+#echo "... save completed"
+#echo "----------------------------------------------------------------------------------------------------"
+#echo -e "\033[31mnow you can run ./install_awx.sh... enjoy your customization !!\033[0m"
+#echo "----------------------------------------------------------------------------------------------------"
 

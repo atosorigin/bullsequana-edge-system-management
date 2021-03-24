@@ -8,11 +8,16 @@ zabbix_file=Dockerfiles/zabbix.env
 
 grep -q NO_PROXY= $ansible_file && sed -i.bak '/NO_PROXY=.*/d' $ansible_file
 grep -q NO_PROXY= $zabbix_file && sed -i.bak '/NO_PROXY=.*/d' $zabbix_file
+grep -q no_proxy= $ansible_file && sed -i.bak '/no_proxy=.*/d' $ansible_file
+grep -q no_proxy= $zabbix_file && sed -i.bak '/no_proxy=.*/d' $zabbix_file
 if [ -v NO_PROXY ]
 then
   echo "NO_PROXY=$NO_PROXY" >> $ansible_file
   echo "NO_PROXY=$NO_PROXY" >> $zabbix_file
+  echo "no_proxy=$NO_PROXY" >> $ansible_file
+  echo "no_proxy=$NO_PROXY" >> $zabbix_file
   echo "NO_PROXY="$NO_PROXY
+  echo "no_proxy="$no_proxy
 else
   echo "NO_PROXY environment variable not found"
 fi
@@ -28,6 +33,7 @@ then
   echo "http_proxy=$HTTP_PROXY" >> $ansible_file
   echo "http_proxy=$HTTP_PROXY" >> $zabbix_file
   echo "HTTP_PROXY="$HTTP_PROXY
+  echo "http_proxy="$http_proxy
 else
   echo "HTTP_PROXY environment variable not found"
 fi
@@ -43,6 +49,7 @@ then
   echo "https_proxy=$HTTPS_PROXY" >> $ansible_file
   echo "https_proxy=$HTTPS_PROXY" >> $zabbix_file
   echo "HTTPS_PROXY="$HTTPS_PROXY
+  echo "https_proxy="$https_proxy
 else
   echo "HTTPS_PROXY environment variable not found"
 fi

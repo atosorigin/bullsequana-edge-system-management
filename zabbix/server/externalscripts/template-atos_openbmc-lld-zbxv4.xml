@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <zabbix_export>
     <version>4.4</version>
-    <date>2020-09-12T06:36:21Z</date>
+    <date>2021-03-01T19:12:52Z</date>
     <groups>
         <group>
             <name>Templates</name>
@@ -11,7 +11,7 @@
         <template>
             <template>Template Hw Atos BullSequanaEdge LLD</template>
             <name>Template Hw Atos BullSequanaEdge LLD</name>
-            <description>2.1.12</description>
+            <description>2.1.4</description>
             <groups>
                 <group>
                     <name>Templates</name>
@@ -995,6 +995,20 @@
                     </applications>
                 </item>
                 <item>
+                    <name>System: Motherboard cpu 0</name>
+                    <type>EXTERNAL</type>
+                    <key>openbmc_reader[-f={$OPENBMC}-system.json,-i=/xyz/openbmc_project/inventory/system/chassis/motherboard/cpu0]</key>
+                    <delay>10m</delay>
+                    <history>7d</history>
+                    <trends>0</trends>
+                    <value_type>TEXT</value_type>
+                    <applications>
+                        <application>
+                            <name>BullSequanaEdge System Information</name>
+                        </application>
+                    </applications>
+                </item>
+                <item>
                     <name>System: Motherboard Dimm 0</name>
                     <type>EXTERNAL</type>
                     <key>openbmc_reader[-f={$OPENBMC}-system.json,-i=/xyz/openbmc_project/inventory/system/chassis/motherboard/dimm0]</key>
@@ -1091,6 +1105,246 @@
                             <name>BullSequanaEdge Presence and Functional Information</name>
                         </application>
                     </applications>
+                </item>
+                <item>
+                    <name>System: Motherboard HDD 0</name>
+                    <type>EXTERNAL</type>
+                    <key>openbmc_reader[-f={$OPENBMC}-system.json,-i=/xyz/openbmc_project/inventory/system/chassis/motherboard/HDD_0]</key>
+                    <delay>10m</delay>
+                    <history>7d</history>
+                    <trends>0</trends>
+                    <value_type>TEXT</value_type>
+                    <applications>
+                        <application>
+                            <name>BullSequanaEdge System Information</name>
+                        </application>
+                    </applications>
+                </item>
+                <item>
+                    <name>System: Motherboard HDD 1</name>
+                    <type>EXTERNAL</type>
+                    <key>openbmc_reader[-f={$OPENBMC}-system.json,-i=/xyz/openbmc_project/inventory/system/chassis/motherboard/HDD_1]</key>
+                    <delay>10m</delay>
+                    <history>7d</history>
+                    <trends>0</trends>
+                    <value_type>TEXT</value_type>
+                    <applications>
+                        <application>
+                            <name>BullSequanaEdge System Information</name>
+                        </application>
+                    </applications>
+                </item>
+                <item>
+                    <name>System: Motherboard PCI 0</name>
+                    <type>EXTERNAL</type>
+                    <key>openbmc_reader[-f={$OPENBMC}-system.json,-i=/xyz/openbmc_project/inventory/system/chassis/motherboard/PCI_0]</key>
+                    <delay>10m</delay>
+                    <history>7d</history>
+                    <trends>0</trends>
+                    <value_type>TEXT</value_type>
+                    <applications>
+                        <application>
+                            <name>BullSequanaEdge System Information</name>
+                        </application>
+                    </applications>
+                </item>
+                <item>
+                    <name>System: Motherboard PCI 1</name>
+                    <type>EXTERNAL</type>
+                    <key>openbmc_reader[-f={$OPENBMC}-system.json,-i=/xyz/openbmc_project/inventory/system/chassis/motherboard/PCI_1]</key>
+                    <delay>10m</delay>
+                    <history>7d</history>
+                    <trends>0</trends>
+                    <value_type>TEXT</value_type>
+                    <applications>
+                        <application>
+                            <name>BullSequanaEdge System Information</name>
+                        </application>
+                    </applications>
+                </item>
+                <item>
+                    <name>System: CPU 0 Microcode Version</name>
+                    <type>DEPENDENT</type>
+                    <key>system_cpu0_microcodeversion</key>
+                    <delay>0</delay>
+                    <history>1d</history>
+                    <trends>0</trends>
+                    <value_type>TEXT</value_type>
+                    <applications>
+                        <application>
+                            <name>BullSequanaEdge System Information</name>
+                        </application>
+                    </applications>
+                    <preprocessing>
+                        <step>
+                            <type>JSONPATH</type>
+                            <params>$.MicrocodeVersion</params>
+                        </step>
+                    </preprocessing>
+                    <master_item>
+                        <key>openbmc_reader[-f={$OPENBMC}-system.json,-i=/xyz/openbmc_project/inventory/system/chassis/motherboard/cpu0]</key>
+                    </master_item>
+                </item>
+                <item>
+                    <name>System: CPU 0 Pch Name</name>
+                    <type>DEPENDENT</type>
+                    <key>system_cpu0_pchname</key>
+                    <delay>0</delay>
+                    <history>1d</history>
+                    <trends>0</trends>
+                    <value_type>TEXT</value_type>
+                    <applications>
+                        <application>
+                            <name>BullSequanaEdge System Information</name>
+                        </application>
+                    </applications>
+                    <preprocessing>
+                        <step>
+                            <type>JSONPATH</type>
+                            <params>$.PchName</params>
+                        </step>
+                    </preprocessing>
+                    <master_item>
+                        <key>openbmc_reader[-f={$OPENBMC}-system.json,-i=/xyz/openbmc_project/inventory/system/chassis/motherboard/cpu0]</key>
+                    </master_item>
+                </item>
+                <item>
+                    <name>System: CPU 0 Pch Stepping</name>
+                    <type>DEPENDENT</type>
+                    <key>system_cpu0_pchstepping</key>
+                    <delay>0</delay>
+                    <history>1d</history>
+                    <trends>0</trends>
+                    <value_type>TEXT</value_type>
+                    <applications>
+                        <application>
+                            <name>BullSequanaEdge System Information</name>
+                        </application>
+                    </applications>
+                    <preprocessing>
+                        <step>
+                            <type>JSONPATH</type>
+                            <params>$.PchStepping</params>
+                        </step>
+                    </preprocessing>
+                    <master_item>
+                        <key>openbmc_reader[-f={$OPENBMC}-system.json,-i=/xyz/openbmc_project/inventory/system/chassis/motherboard/cpu0]</key>
+                    </master_item>
+                </item>
+                <item>
+                    <name>System: CPU 0 Present</name>
+                    <type>DEPENDENT</type>
+                    <key>system_cpu0_present</key>
+                    <delay>0</delay>
+                    <history>1d</history>
+                    <trends>0</trends>
+                    <value_type>TEXT</value_type>
+                    <applications>
+                        <application>
+                            <name>BullSequanaEdge Presence and Functional Information</name>
+                        </application>
+                    </applications>
+                    <preprocessing>
+                        <step>
+                            <type>JSONPATH</type>
+                            <params>$.Present</params>
+                        </step>
+                    </preprocessing>
+                    <master_item>
+                        <key>openbmc_reader[-f={$OPENBMC}-system.json,-i=/xyz/openbmc_project/inventory/system/chassis/motherboard/cpu0]</key>
+                    </master_item>
+                </item>
+                <item>
+                    <name>System: CPU 0 Processor Cores</name>
+                    <type>DEPENDENT</type>
+                    <key>system_cpu0_processorcores</key>
+                    <delay>0</delay>
+                    <history>1d</history>
+                    <trends>7d</trends>
+                    <units>Core(s)</units>
+                    <applications>
+                        <application>
+                            <name>BullSequanaEdge System Information</name>
+                        </application>
+                    </applications>
+                    <preprocessing>
+                        <step>
+                            <type>JSONPATH</type>
+                            <params>$.ProcessorCores</params>
+                        </step>
+                    </preprocessing>
+                    <master_item>
+                        <key>openbmc_reader[-f={$OPENBMC}-system.json,-i=/xyz/openbmc_project/inventory/system/chassis/motherboard/cpu0]</key>
+                    </master_item>
+                </item>
+                <item>
+                    <name>System: CPU 0 Signature</name>
+                    <type>DEPENDENT</type>
+                    <key>system_cpu0_signature</key>
+                    <delay>0</delay>
+                    <history>1d</history>
+                    <trends>0</trends>
+                    <value_type>TEXT</value_type>
+                    <applications>
+                        <application>
+                            <name>BullSequanaEdge System Information</name>
+                        </application>
+                    </applications>
+                    <preprocessing>
+                        <step>
+                            <type>JSONPATH</type>
+                            <params>$.Signature</params>
+                        </step>
+                    </preprocessing>
+                    <master_item>
+                        <key>openbmc_reader[-f={$OPENBMC}-system.json,-i=/xyz/openbmc_project/inventory/system/chassis/motherboard/cpu0]</key>
+                    </master_item>
+                </item>
+                <item>
+                    <name>System: CPU 0 Sku Number</name>
+                    <type>DEPENDENT</type>
+                    <key>system_cpu0_skunumber</key>
+                    <delay>0</delay>
+                    <history>1d</history>
+                    <trends>0</trends>
+                    <value_type>TEXT</value_type>
+                    <applications>
+                        <application>
+                            <name>BullSequanaEdge System Information</name>
+                        </application>
+                    </applications>
+                    <preprocessing>
+                        <step>
+                            <type>JSONPATH</type>
+                            <params>$.SkuNumber</params>
+                        </step>
+                    </preprocessing>
+                    <master_item>
+                        <key>openbmc_reader[-f={$OPENBMC}-system.json,-i=/xyz/openbmc_project/inventory/system/chassis/motherboard/cpu0]</key>
+                    </master_item>
+                </item>
+                <item>
+                    <name>System: CPU 0 Sku Revision</name>
+                    <type>DEPENDENT</type>
+                    <key>system_cpu0_skurevision</key>
+                    <delay>0</delay>
+                    <history>1d</history>
+                    <trends>0</trends>
+                    <value_type>TEXT</value_type>
+                    <applications>
+                        <application>
+                            <name>BullSequanaEdge System Information</name>
+                        </application>
+                    </applications>
+                    <preprocessing>
+                        <step>
+                            <type>JSONPATH</type>
+                            <params>$.SkuRevision</params>
+                        </step>
+                    </preprocessing>
+                    <master_item>
+                        <key>openbmc_reader[-f={$OPENBMC}-system.json,-i=/xyz/openbmc_project/inventory/system/chassis/motherboard/cpu0]</key>
+                    </master_item>
                 </item>
                 <item>
                     <name>System: Dimm 0 Manufacturer</name>
@@ -1246,7 +1500,7 @@
                     <preprocessing>
                         <step>
                             <type>JSONPATH</type>
-                            <params>$.CustomField2</params>
+                            <params>$.Version</params>
                         </step>
                     </preprocessing>
                     <master_item>
@@ -1407,7 +1661,7 @@
                     <preprocessing>
                         <step>
                             <type>JSONPATH</type>
-                            <params>$.CustomField2</params>
+                            <params>$.Version</params>
                         </step>
                     </preprocessing>
                     <master_item>
@@ -1568,7 +1822,7 @@
                     <preprocessing>
                         <step>
                             <type>JSONPATH</type>
-                            <params>$.CustomField2</params>
+                            <params>$.Version</params>
                         </step>
                     </preprocessing>
                     <master_item>
@@ -1729,11 +1983,195 @@
                     <preprocessing>
                         <step>
                             <type>JSONPATH</type>
-                            <params>$.CustomField2</params>
+                            <params>$.Version</params>
                         </step>
                     </preprocessing>
                     <master_item>
                         <key>openbmc_reader[-f={$OPENBMC}-system.json,-i=/xyz/openbmc_project/inventory/system/chassis/motherboard/dimm3]</key>
+                    </master_item>
+                </item>
+                <item>
+                    <name>System: HDD 0 Model Name</name>
+                    <type>DEPENDENT</type>
+                    <key>system_hdd0_modelname</key>
+                    <delay>0</delay>
+                    <history>1d</history>
+                    <trends>0</trends>
+                    <value_type>TEXT</value_type>
+                    <applications>
+                        <application>
+                            <name>BullSequanaEdge System Information</name>
+                        </application>
+                    </applications>
+                    <preprocessing>
+                        <step>
+                            <type>JSONPATH</type>
+                            <params>$.ModelName</params>
+                        </step>
+                    </preprocessing>
+                    <master_item>
+                        <key>openbmc_reader[-f={$OPENBMC}-system.json,-i=/xyz/openbmc_project/inventory/system/chassis/motherboard/HDD_0]</key>
+                    </master_item>
+                </item>
+                <item>
+                    <name>System: HDD 0 Port</name>
+                    <type>DEPENDENT</type>
+                    <key>system_hdd0_port</key>
+                    <delay>0</delay>
+                    <history>1d</history>
+                    <trends>0</trends>
+                    <value_type>TEXT</value_type>
+                    <applications>
+                        <application>
+                            <name>BullSequanaEdge System Information</name>
+                        </application>
+                    </applications>
+                    <preprocessing>
+                        <step>
+                            <type>JSONPATH</type>
+                            <params>$.Port</params>
+                        </step>
+                    </preprocessing>
+                    <master_item>
+                        <key>openbmc_reader[-f={$OPENBMC}-system.json,-i=/xyz/openbmc_project/inventory/system/chassis/motherboard/HDD_0]</key>
+                    </master_item>
+                </item>
+                <item>
+                    <name>System: HDD 0 Present</name>
+                    <type>DEPENDENT</type>
+                    <key>system_hdd0_Present</key>
+                    <delay>0</delay>
+                    <history>1d</history>
+                    <trends>0</trends>
+                    <value_type>TEXT</value_type>
+                    <applications>
+                        <application>
+                            <name>BullSequanaEdge Presence and Functional Information</name>
+                        </application>
+                    </applications>
+                    <preprocessing>
+                        <step>
+                            <type>JSONPATH</type>
+                            <params>$.Present</params>
+                        </step>
+                    </preprocessing>
+                    <master_item>
+                        <key>openbmc_reader[-f={$OPENBMC}-system.json,-i=/xyz/openbmc_project/inventory/system/chassis/motherboard/HDD_0]</key>
+                    </master_item>
+                </item>
+                <item>
+                    <name>System: HDD 0 Size</name>
+                    <type>DEPENDENT</type>
+                    <key>system_hdd0_size</key>
+                    <delay>0</delay>
+                    <history>1d</history>
+                    <trends>0</trends>
+                    <value_type>TEXT</value_type>
+                    <applications>
+                        <application>
+                            <name>BullSequanaEdge System Information</name>
+                        </application>
+                    </applications>
+                    <preprocessing>
+                        <step>
+                            <type>JSONPATH</type>
+                            <params>$.HDDsize</params>
+                        </step>
+                    </preprocessing>
+                    <master_item>
+                        <key>openbmc_reader[-f={$OPENBMC}-system.json,-i=/xyz/openbmc_project/inventory/system/chassis/motherboard/HDD_0]</key>
+                    </master_item>
+                </item>
+                <item>
+                    <name>System: HDD 1 Model Name</name>
+                    <type>DEPENDENT</type>
+                    <key>system_hdd1_modelname</key>
+                    <delay>0</delay>
+                    <history>1d</history>
+                    <trends>0</trends>
+                    <value_type>TEXT</value_type>
+                    <applications>
+                        <application>
+                            <name>BullSequanaEdge System Information</name>
+                        </application>
+                    </applications>
+                    <preprocessing>
+                        <step>
+                            <type>JSONPATH</type>
+                            <params>$.ModelName</params>
+                        </step>
+                    </preprocessing>
+                    <master_item>
+                        <key>openbmc_reader[-f={$OPENBMC}-system.json,-i=/xyz/openbmc_project/inventory/system/chassis/motherboard/HDD_1]</key>
+                    </master_item>
+                </item>
+                <item>
+                    <name>System: HDD 1 Port</name>
+                    <type>DEPENDENT</type>
+                    <key>system_hdd1_port</key>
+                    <delay>0</delay>
+                    <history>1d</history>
+                    <trends>0</trends>
+                    <value_type>TEXT</value_type>
+                    <applications>
+                        <application>
+                            <name>BullSequanaEdge System Information</name>
+                        </application>
+                    </applications>
+                    <preprocessing>
+                        <step>
+                            <type>JSONPATH</type>
+                            <params>$.Port</params>
+                        </step>
+                    </preprocessing>
+                    <master_item>
+                        <key>openbmc_reader[-f={$OPENBMC}-system.json,-i=/xyz/openbmc_project/inventory/system/chassis/motherboard/HDD_1]</key>
+                    </master_item>
+                </item>
+                <item>
+                    <name>System: HDD 1 Present</name>
+                    <type>DEPENDENT</type>
+                    <key>system_hdd1_Present</key>
+                    <delay>0</delay>
+                    <history>1d</history>
+                    <trends>0</trends>
+                    <value_type>TEXT</value_type>
+                    <applications>
+                        <application>
+                            <name>BullSequanaEdge Presence and Functional Information</name>
+                        </application>
+                    </applications>
+                    <preprocessing>
+                        <step>
+                            <type>JSONPATH</type>
+                            <params>$.Present</params>
+                        </step>
+                    </preprocessing>
+                    <master_item>
+                        <key>openbmc_reader[-f={$OPENBMC}-system.json,-i=/xyz/openbmc_project/inventory/system/chassis/motherboard/HDD_1]</key>
+                    </master_item>
+                </item>
+                <item>
+                    <name>System: HDD 1 Size</name>
+                    <type>DEPENDENT</type>
+                    <key>system_hdd1_size</key>
+                    <delay>0</delay>
+                    <history>1d</history>
+                    <trends>0</trends>
+                    <value_type>TEXT</value_type>
+                    <applications>
+                        <application>
+                            <name>BullSequanaEdge System Information</name>
+                        </application>
+                    </applications>
+                    <preprocessing>
+                        <step>
+                            <type>JSONPATH</type>
+                            <params>$.HDDsize</params>
+                        </step>
+                    </preprocessing>
+                    <master_item>
+                        <key>openbmc_reader[-f={$OPENBMC}-system.json,-i=/xyz/openbmc_project/inventory/system/chassis/motherboard/HDD_1]</key>
                     </master_item>
                 </item>
             </items>
@@ -2372,6 +2810,189 @@
             </httptests>
             <screens>
                 <screen>
+                    <name>CPU 0</name>
+                    <hsize>4</hsize>
+                    <vsize>2</vsize>
+                    <screen_items>
+                        <screen_item>
+                            <resourcetype>3</resourcetype>
+                            <style>0</style>
+                            <resource>
+                                <key>system_cpu0_skunumber</key>
+                                <host>Template Hw Atos BullSequanaEdge LLD</host>
+                            </resource>
+                            <width>500</width>
+                            <height>100</height>
+                            <x>0</x>
+                            <y>0</y>
+                            <colspan>1</colspan>
+                            <rowspan>1</rowspan>
+                            <elements>1</elements>
+                            <valign>0</valign>
+                            <halign>0</halign>
+                            <dynamic>0</dynamic>
+                            <sort_triggers>0</sort_triggers>
+                            <url/>
+                            <application/>
+                            <max_columns>3</max_columns>
+                        </screen_item>
+                        <screen_item>
+                            <resourcetype>3</resourcetype>
+                            <style>0</style>
+                            <resource>
+                                <key>system_cpu0_skurevision</key>
+                                <host>Template Hw Atos BullSequanaEdge LLD</host>
+                            </resource>
+                            <width>500</width>
+                            <height>100</height>
+                            <x>1</x>
+                            <y>0</y>
+                            <colspan>1</colspan>
+                            <rowspan>1</rowspan>
+                            <elements>1</elements>
+                            <valign>0</valign>
+                            <halign>0</halign>
+                            <dynamic>0</dynamic>
+                            <sort_triggers>0</sort_triggers>
+                            <url/>
+                            <application/>
+                            <max_columns>3</max_columns>
+                        </screen_item>
+                        <screen_item>
+                            <resourcetype>3</resourcetype>
+                            <style>0</style>
+                            <resource>
+                                <key>system_cpu0_microcodeversion</key>
+                                <host>Template Hw Atos BullSequanaEdge LLD</host>
+                            </resource>
+                            <width>500</width>
+                            <height>100</height>
+                            <x>2</x>
+                            <y>0</y>
+                            <colspan>1</colspan>
+                            <rowspan>1</rowspan>
+                            <elements>1</elements>
+                            <valign>0</valign>
+                            <halign>0</halign>
+                            <dynamic>0</dynamic>
+                            <sort_triggers>0</sort_triggers>
+                            <url/>
+                            <application/>
+                            <max_columns>3</max_columns>
+                        </screen_item>
+                        <screen_item>
+                            <resourcetype>3</resourcetype>
+                            <style>0</style>
+                            <resource>
+                                <key>system_cpu0_processorcores</key>
+                                <host>Template Hw Atos BullSequanaEdge LLD</host>
+                            </resource>
+                            <width>500</width>
+                            <height>100</height>
+                            <x>3</x>
+                            <y>0</y>
+                            <colspan>1</colspan>
+                            <rowspan>1</rowspan>
+                            <elements>1</elements>
+                            <valign>0</valign>
+                            <halign>0</halign>
+                            <dynamic>0</dynamic>
+                            <sort_triggers>0</sort_triggers>
+                            <url/>
+                            <application/>
+                            <max_columns>3</max_columns>
+                        </screen_item>
+                        <screen_item>
+                            <resourcetype>3</resourcetype>
+                            <style>0</style>
+                            <resource>
+                                <key>system_cpu0_pchname</key>
+                                <host>Template Hw Atos BullSequanaEdge LLD</host>
+                            </resource>
+                            <width>500</width>
+                            <height>100</height>
+                            <x>0</x>
+                            <y>1</y>
+                            <colspan>1</colspan>
+                            <rowspan>1</rowspan>
+                            <elements>1</elements>
+                            <valign>0</valign>
+                            <halign>0</halign>
+                            <dynamic>0</dynamic>
+                            <sort_triggers>0</sort_triggers>
+                            <url/>
+                            <application/>
+                            <max_columns>3</max_columns>
+                        </screen_item>
+                        <screen_item>
+                            <resourcetype>3</resourcetype>
+                            <style>0</style>
+                            <resource>
+                                <key>system_cpu0_pchstepping</key>
+                                <host>Template Hw Atos BullSequanaEdge LLD</host>
+                            </resource>
+                            <width>500</width>
+                            <height>100</height>
+                            <x>1</x>
+                            <y>1</y>
+                            <colspan>1</colspan>
+                            <rowspan>1</rowspan>
+                            <elements>1</elements>
+                            <valign>0</valign>
+                            <halign>0</halign>
+                            <dynamic>0</dynamic>
+                            <sort_triggers>0</sort_triggers>
+                            <url/>
+                            <application/>
+                            <max_columns>3</max_columns>
+                        </screen_item>
+                        <screen_item>
+                            <resourcetype>3</resourcetype>
+                            <style>0</style>
+                            <resource>
+                                <key>system_cpu0_signature</key>
+                                <host>Template Hw Atos BullSequanaEdge LLD</host>
+                            </resource>
+                            <width>500</width>
+                            <height>100</height>
+                            <x>2</x>
+                            <y>1</y>
+                            <colspan>1</colspan>
+                            <rowspan>1</rowspan>
+                            <elements>1</elements>
+                            <valign>0</valign>
+                            <halign>0</halign>
+                            <dynamic>0</dynamic>
+                            <sort_triggers>0</sort_triggers>
+                            <url/>
+                            <application/>
+                            <max_columns>3</max_columns>
+                        </screen_item>
+                        <screen_item>
+                            <resourcetype>3</resourcetype>
+                            <style>0</style>
+                            <resource>
+                                <key>system_cpu0_present</key>
+                                <host>Template Hw Atos BullSequanaEdge LLD</host>
+                            </resource>
+                            <width>500</width>
+                            <height>100</height>
+                            <x>3</x>
+                            <y>1</y>
+                            <colspan>1</colspan>
+                            <rowspan>1</rowspan>
+                            <elements>1</elements>
+                            <valign>0</valign>
+                            <halign>0</halign>
+                            <dynamic>0</dynamic>
+                            <sort_triggers>0</sort_triggers>
+                            <url/>
+                            <application/>
+                            <max_columns>3</max_columns>
+                        </screen_item>
+                    </screen_items>
+                </screen>
+                <screen>
                     <name>Fans</name>
                     <hsize>1</hsize>
                     <vsize>1</vsize>
@@ -2504,6 +3125,189 @@
                             <height>100</height>
                             <x>0</x>
                             <y>4</y>
+                            <colspan>1</colspan>
+                            <rowspan>1</rowspan>
+                            <elements>1</elements>
+                            <valign>0</valign>
+                            <halign>0</halign>
+                            <dynamic>0</dynamic>
+                            <sort_triggers>0</sort_triggers>
+                            <url/>
+                            <application/>
+                            <max_columns>3</max_columns>
+                        </screen_item>
+                    </screen_items>
+                </screen>
+                <screen>
+                    <name>HDD</name>
+                    <hsize>4</hsize>
+                    <vsize>2</vsize>
+                    <screen_items>
+                        <screen_item>
+                            <resourcetype>3</resourcetype>
+                            <style>0</style>
+                            <resource>
+                                <key>system_hdd0_modelname</key>
+                                <host>Template Hw Atos BullSequanaEdge LLD</host>
+                            </resource>
+                            <width>500</width>
+                            <height>100</height>
+                            <x>0</x>
+                            <y>0</y>
+                            <colspan>1</colspan>
+                            <rowspan>1</rowspan>
+                            <elements>1</elements>
+                            <valign>0</valign>
+                            <halign>0</halign>
+                            <dynamic>0</dynamic>
+                            <sort_triggers>0</sort_triggers>
+                            <url/>
+                            <application/>
+                            <max_columns>3</max_columns>
+                        </screen_item>
+                        <screen_item>
+                            <resourcetype>3</resourcetype>
+                            <style>0</style>
+                            <resource>
+                                <key>system_hdd0_size</key>
+                                <host>Template Hw Atos BullSequanaEdge LLD</host>
+                            </resource>
+                            <width>500</width>
+                            <height>100</height>
+                            <x>1</x>
+                            <y>0</y>
+                            <colspan>1</colspan>
+                            <rowspan>1</rowspan>
+                            <elements>1</elements>
+                            <valign>0</valign>
+                            <halign>0</halign>
+                            <dynamic>0</dynamic>
+                            <sort_triggers>0</sort_triggers>
+                            <url/>
+                            <application/>
+                            <max_columns>3</max_columns>
+                        </screen_item>
+                        <screen_item>
+                            <resourcetype>3</resourcetype>
+                            <style>0</style>
+                            <resource>
+                                <key>system_hdd0_port</key>
+                                <host>Template Hw Atos BullSequanaEdge LLD</host>
+                            </resource>
+                            <width>500</width>
+                            <height>100</height>
+                            <x>2</x>
+                            <y>0</y>
+                            <colspan>1</colspan>
+                            <rowspan>1</rowspan>
+                            <elements>1</elements>
+                            <valign>0</valign>
+                            <halign>0</halign>
+                            <dynamic>0</dynamic>
+                            <sort_triggers>0</sort_triggers>
+                            <url/>
+                            <application/>
+                            <max_columns>3</max_columns>
+                        </screen_item>
+                        <screen_item>
+                            <resourcetype>3</resourcetype>
+                            <style>0</style>
+                            <resource>
+                                <key>system_hdd0_Present</key>
+                                <host>Template Hw Atos BullSequanaEdge LLD</host>
+                            </resource>
+                            <width>500</width>
+                            <height>100</height>
+                            <x>3</x>
+                            <y>0</y>
+                            <colspan>1</colspan>
+                            <rowspan>1</rowspan>
+                            <elements>1</elements>
+                            <valign>0</valign>
+                            <halign>0</halign>
+                            <dynamic>0</dynamic>
+                            <sort_triggers>0</sort_triggers>
+                            <url/>
+                            <application/>
+                            <max_columns>3</max_columns>
+                        </screen_item>
+                        <screen_item>
+                            <resourcetype>3</resourcetype>
+                            <style>0</style>
+                            <resource>
+                                <key>system_hdd1_modelname</key>
+                                <host>Template Hw Atos BullSequanaEdge LLD</host>
+                            </resource>
+                            <width>500</width>
+                            <height>100</height>
+                            <x>0</x>
+                            <y>1</y>
+                            <colspan>1</colspan>
+                            <rowspan>1</rowspan>
+                            <elements>1</elements>
+                            <valign>0</valign>
+                            <halign>0</halign>
+                            <dynamic>0</dynamic>
+                            <sort_triggers>0</sort_triggers>
+                            <url/>
+                            <application/>
+                            <max_columns>3</max_columns>
+                        </screen_item>
+                        <screen_item>
+                            <resourcetype>3</resourcetype>
+                            <style>0</style>
+                            <resource>
+                                <key>system_hdd1_size</key>
+                                <host>Template Hw Atos BullSequanaEdge LLD</host>
+                            </resource>
+                            <width>500</width>
+                            <height>100</height>
+                            <x>1</x>
+                            <y>1</y>
+                            <colspan>1</colspan>
+                            <rowspan>1</rowspan>
+                            <elements>1</elements>
+                            <valign>0</valign>
+                            <halign>0</halign>
+                            <dynamic>0</dynamic>
+                            <sort_triggers>0</sort_triggers>
+                            <url/>
+                            <application/>
+                            <max_columns>3</max_columns>
+                        </screen_item>
+                        <screen_item>
+                            <resourcetype>3</resourcetype>
+                            <style>0</style>
+                            <resource>
+                                <key>system_hdd1_port</key>
+                                <host>Template Hw Atos BullSequanaEdge LLD</host>
+                            </resource>
+                            <width>500</width>
+                            <height>100</height>
+                            <x>2</x>
+                            <y>1</y>
+                            <colspan>1</colspan>
+                            <rowspan>1</rowspan>
+                            <elements>1</elements>
+                            <valign>0</valign>
+                            <halign>0</halign>
+                            <dynamic>0</dynamic>
+                            <sort_triggers>0</sort_triggers>
+                            <url/>
+                            <application/>
+                            <max_columns>3</max_columns>
+                        </screen_item>
+                        <screen_item>
+                            <resourcetype>3</resourcetype>
+                            <style>0</style>
+                            <resource>
+                                <key>system_hdd1_Present</key>
+                                <host>Template Hw Atos BullSequanaEdge LLD</host>
+                            </resource>
+                            <width>500</width>
+                            <height>100</height>
+                            <x>3</x>
+                            <y>1</y>
                             <colspan>1</colspan>
                             <rowspan>1</rowspan>
                             <elements>1</elements>

@@ -19,7 +19,6 @@
 
 import sys
 import requests
-import urllib
 import urllib3
 from requests.auth import HTTPBasicAuth
 import os
@@ -42,7 +41,7 @@ def write_collect(file_name, json_to_write):
   with open(file_name, 'w') as file_to_write:
     json.dump(json_to_write, file_to_write)
 
-def create_macro_lld(macro, json_lld, substring_to_remove, b_timeout):
+def create_macro_lld(macro, json_lld, substring_to_remove):
   macros = {}
   discovery_list = []
   macro_key = r"{#" + macro + r"}"
@@ -84,21 +83,13 @@ def main(args):
   try:
     response = requests.get(uri, auth=HTTPBasicAuth(args.user.strip(), password), verify=False, timeout=timeout)
     data = response.json()
-    b_Timeout = False
-  except requests.exceptions.Timeout:
-    # Maybe set up for a retry, or continue in a retry loop
-    b_Timeout = True
-  except requests.exceptions.TooManyRedirects:
-    # Tell the user their URL was bad and try a different one
-    b_Timeout = True
-  except requests.exceptions.RequestException as e:
-    # catastrophic error. bail.
-    b_Timeout = True
-
+  except Exception as e:
+    data["data"] = None
+    
   item = args.item.strip()
   filename, macro = get_filename(item, args.bmc.strip())
   write_collect(filename, data["data"])
-  macro_list = create_macro_lld(macro, data["data"], item.split('enumerate')[0], b_Timeout)
+  macro_list = create_macro_lld(macro, data["data"], item.split('enumerate')[0])
   macro_json = json.dumps(macro_list)
   print('{macro_json}'.format(macro_json=macro_json))
 

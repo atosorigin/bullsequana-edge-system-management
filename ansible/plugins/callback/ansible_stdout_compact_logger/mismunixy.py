@@ -361,8 +361,12 @@ class CallbackModule(Default):
 
         if abridged_result:
             if not render_one:
-                dumped += '\n'            
-            dumped += to_text(yaml.dump(abridged_result, allow_unicode=True, width=1000, Dumper=AnsibleDumper, default_flow_style=False)).replace("xyz.openbmc_project.", "")
+                dumped += '\n'
+            frus = result.get("frus", None)         
+            if frus:
+                dumped += to_text(yaml.dump(abridged_result, allow_unicode=True, width=1000, Dumper=AnsibleDumper, default_flow_style=False)).replace("xyz.openbmc_project.", "").replace("/xyz/openbmc_project/inventory/system/chassis/motherboard/","")
+            else:
+                dumped += to_text(yaml.dump(abridged_result, allow_unicode=True, width=1000, Dumper=AnsibleDumper, default_flow_style=False)).replace("xyz.openbmc_project.", "")
 
         # indent by a couple of spaces
         if not render_one:

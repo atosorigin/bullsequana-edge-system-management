@@ -1,2 +1,4 @@
+urllib3
 requests
+pycryptodome
 nmap

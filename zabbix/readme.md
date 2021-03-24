@@ -194,6 +194,9 @@ You must add 3 macros on each mipocket host:
 ![alt text](https://github.com/atosorigin/bullsequana-edge-system-management/blob/master/zabbix/doc/macros.png)
 
 ## <a name="edge_template"></a>How to install LLD BullSequana Edge template
+### template order
+This template should be the **first** imported template.
+
 ### template content
 - applications: All items are categorized inside applications with the following rules :
 ![alt text](https://github.com/atosorigin/bullsequana-edge-system-management/blob/master/zabbix/doc/Applications.png)
@@ -305,10 +308,12 @@ Volt: *
 ![alt text](https://github.com/atosorigin/bullsequana-edge-system-management/blob/master/zabbix/doc/network.png)
 
 ## <a name="host_template"></a>How to install BullSequana Edge Host template
+### template order
+This template should be the **second** imported template.
 ### template content
 - 1 host as an example  
 ### prerequisite
-![#c5f015](https://placehold.it/15/c5f015/000000?text=+) Info: You should install LLD Bull Sequana Edge before: [How to install BullSequana Edge template](#edge_template)  
+![#c5f015](https://placehold.it/15/c5f015/000000?text=+) Info: You should install LLD and Sysmap Bull Sequana Edge templates before: [How to install BullSequana Edge template](#edge_template)  
 ### import
 1. Copy the templates from <install_dir>\zabbix\server\externalscripts\ to a **local path on you client computer running the browser**
 2. Open a browser and go to Configuration / **Hosts**
@@ -461,6 +466,9 @@ You can flush the iptables rules
 ![#f03c15](https://placehold.it/15/f03c15/000000?text=+) Be careful to be able to recreate iptables rules after this command ` iptables -F `
 
 ## <a name="map_template"></a>BullSequanaEdgeMap template installation
+### template order
+This template should be the **third** imported template.
+
 ### template content
 - 1 Map template  
 ![#f03c15](https://placehold.it/15/f03c15/000000?text=+) WARNING: The BullSequanaEdgeIconMapping should be created BEFORE importing BullSequanaEdgeMap template [Create BullSequanaEdge icons](#create_icons) and [Create BullSequanaEdge icon mapping](#create_icon_mapping)

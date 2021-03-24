@@ -22,7 +22,6 @@ import os
 import json
 import argparse
 import requests
-import urllib
 import urllib3
 from requests.auth import HTTPBasicAuth
 
