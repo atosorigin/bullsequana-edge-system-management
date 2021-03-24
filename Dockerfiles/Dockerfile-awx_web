@@ -1,0 +1,53 @@
+ARG REGISTRY
+ARG BASE_IMAGE_AWX_WEB
+ARG TAG_AWX
+ARG MISM_BULLSEQUANA_EDGE_VERSION
+
+FROM $REGISTRY/$BASE_IMAGE_AWX_WEB:$TAG_AWX
+
+#set base image 
+#FROM ansible/awx_web:9.0.1
+
+USER root 
+
+ENV MISM_BULLSEQUANA_EDGE_VERSION=2.1.5
+
+# security
+COPY ansible.credentials.py /etc/tower/conf.d/credentials.py
+COPY ansible.env /etc/tower/conf.d/environment.sh
+COPY ansible.cors.py /etc/tower/conf.d/cors.py
+COPY ansible.SECRET_KEY /etc/tower/SECRET_KEY
+COPY ansible.nginx.conf /etc/nginx/nginx.conf
+
+COPY app.5df28f9a9231a828dd6d.css /var/lib/awx/venv/awx/lib64/python3.6/site-packages/awx/ui/static/css/
+COPY logo-header.svg /var/lib/awx/venv/awx/lib64/python3.6/site-packages/awx/ui/static/assets/ 
+COPY logo-atos-login.png /var/lib/awx/venv/awx/lib64/python3.6/site-packages/awx/ui/static/assets/ 
+COPY logo-atos-login.svg /var/lib/awx/venv/awx/lib64/python3.6/site-packages/awx/ui/static/assets/
+COPY loginModal.partial.html /var/lib/awx/venv/awx/lib64/python3.6/site-packages/awx/ui/static/partials/login/loginModal/
+
+# RUN yum update
+# RUN pip install ansible-cmdb && \
+# Warning : NOT nmap => https://stackoverflow.com/questions/14913153/module-object-has-no-attribute-portscanner
+RUN yum install -y nano which nmap && \
+    yum install -y epel-release && \
+    yum install -y ansible && \
+    pip3 install --upgrade pip && \
+    pip install python-nmap && \
+    pip install requests && \
+    pip install lxml && \
+    pip install urllib3 && \
+    pip install ansible-vault && \
+    pip install pika
+
+# tower-cli install and config
+RUN pip install ansible-tower-cli
+RUN export TOWER_HOST=https://localhost:8052  && \
+    pip install paramiko --upgrade && \
+    pip install pycryptodome && \
+    pip install netaddr
+#Install netaddr so we can use ipaddr filter in ansible
+
+EXPOSE 8052
+
+WORKDIR /var/lib/awx
+

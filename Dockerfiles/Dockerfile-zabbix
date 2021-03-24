@@ -1,0 +1,31 @@
+ARG REGISTRY
+ARG BASE_IMAGE_ZABBIX
+ARG TAG_ZABBIX
+ARG MISM_BULLSEQUANA_EDGE_VERSION
+
+FROM $REGISTRY/$BASE_IMAGE_ZABBIX:$TAG_ZABBIX
+
+#set base image 
+#FROM zabbix/zabbix-server-pgsql:centos-4.4.1
+
+USER root 
+
+ENV MISM_BULLSEQUANA_EDGE_VERSION=2.1.5
+
+ENV PYTHONWARNINGS="ignore:Unverified HTTPS request"
+
+# security
+# COPY zabbix_server.conf /etc/zabbix
+
+WORKDIR /usr/lib/zabbix/externalscripts
+
+RUN yum -y update && \ 
+    yum -y install gcc && \ 
+    yum -y install openssl && \ 
+    yum -y install epel-release && \
+    yum -y install python-pip && \ 
+    pip install urllib3  && \ 
+    pip install requests && \
+    pip install pycryptodome && \
+    pip install nmap  && \ 
+    yum -y update
