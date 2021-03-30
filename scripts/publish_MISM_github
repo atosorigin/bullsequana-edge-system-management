@@ -1,0 +1,86 @@
+#!/bin/sh
+
+unset $mism_version 
+
+CWD="$(pwd)"
+PKG=$CWD/pkg
+
+read -p "Enter new version ? " mism_version
+
+echo ------------------------------
+echo -- Building MISM $mism_version
+echo ------------------------------
+
+cd /var/livraisons/
+
+rm -rf $mism_version-bullsequana-edge-system-management 
+mkdir $mism_version-bullsequana-edge-system-management
+cd $mism_version-bullsequana-edge-system-management
+
+echo --------------------------------
+echo -- Copying MISM to $mism_version
+echo --------------------------------
+
+git clone https://github.com/atosorigin/bullsequana-edge-system-management.git
+
+cd bullsequana-edge-system-management
+
+cp -r /var/mism/* .
+
+git tag -d $mism_version
+git push --delete origin $mism_version
+
+echo "export MISM_BULLSEQUANA_EDGE_VERSION=${mism_version}" > versions.sh
+echo "export AWX_BULLSEQUANA_EDGE_VERSION=9.0.1" >> versions.sh
+echo "export RABBITMQ_AWX_BULLSEQUANA_EDGE_VERSION=3.8.1-management" >> versions.sh
+echo "export POSTGRES_AWX_BULLSEQUANA_EDGE_VERSION=12.0-alpine" >> versions.sh
+echo "export PGADMIN_AWX_BULLSEQUANA_EDGE_VERSION=4.14" >> versions.sh
+echo "export MEMCACHED_AWX_BULLSEQUANA_EDGE_VERSION=1.5.20-alpine" >> versions.sh
+echo "export ZABBIX_BULLSEQUANA_EDGE_VERSION=centos-4.4.1" >> versions.sh
+echo "export POSTGRES_ZABBIX_BULLSEQUANA_EDGE_VERSION=12.0-alpine" >> versions.sh
+echo "export BASE_IMAGE_ZABBIX=zabbix-server-pgsql" >> versions.sh
+echo "export BASE_IMAGE_ZABBIX_WEB=zabbix-web-nginx-pgsql" >> versions.sh
+echo "export BASE_IMAGE_ZABBIX_AGENT=zabbix-agent" >> versions.sh
+echo "export BASE_IMAGE_AWX_WEB=awx_web" >> versions.sh
+echo "export BASE_IMAGE_AWX_TASK=awx_task" >> versions.sh
+
+chmod ugo+x versions.sh
+. ./versions.sh
+
+sed -i "s/export MISM_BULLSEQUANA_EDGE_PLAYBOOKS_VERSION=.*/export MISM_BULLSEQUANA_EDGE_PLAYBOOKS_VERSION=${mism_version}/" add_awx_playbooks.sh
+sed -i "s/MISM_BULLSEQUANA_EDGE_VERSION=.*/MISM_BULLSEQUANA_EDGE_VERSION=${mism_version}/" Dockerfiles/Dockerfile-awx_web
+sed -i "s/MISM_BULLSEQUANA_EDGE_VERSION=.*/MISM_BULLSEQUANA_EDGE_VERSION=${mism_version}/" Dockerfiles/Dockerfile-awx_task
+sed -i "s/MISM_BULLSEQUANA_EDGE_VERSION=.*/MISM_BULLSEQUANA_EDGE_VERSION=${mism_version}/" Dockerfiles/Dockerfile-zabbix
+sed -i "s/MISM_BULLSEQUANA_EDGE_VERSION=.*/MISM_BULLSEQUANA_EDGE_VERSION=${mism_version}/" Dockerfiles/Dockerfile-zabbix-web
+sed -i "s/MISM_BULLSEQUANA_EDGE_VERSION=.*/MISM_BULLSEQUANA_EDGE_VERSION=${mism_version}/" Dockerfiles/Dockerfile-zabbix-agent
+
+echo current Branch is 
+git branch
+echo parameter is ${MISM_BULLSEQUANA_EDGE_VERSION}
+
+echo "removing useless files for mism livraison $mism_version"
+rm -rf cli
+rm -rf ansible/pgdata
+rm -rf zabbix/pgdata
+rm -rf ansible/playbooks/redfish
+rm -rf ansible/vars/external_vars.yml
+rm -rf ansible/vars/passwords.yml
+rm -rf ansible/plugins/modules/remote_management/openbmc/.vscode/
+rm -rf ansible/plugins/callback/ansible_stdout_compact_logger/__pycache__/
+rm -rf pkg
+rm -rf scripts
+rm -rf readme-*
+rm -rf test*
+rm -rf token*
+rm -rf *.bak
+rm install_ansible_prequisites.sh
+rm -f zabbix/server/externalscripts/openbmc/*
+
+git add . --all
+git commit -am "deliverable ${mism_version}"
+git push
+
+git tag $mism_version
+git push origin master --tags
+
+echo -e "\e[104mYour version ${mism_version} is published to github \e[0m"

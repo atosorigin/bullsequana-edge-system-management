@@ -10,7 +10,7 @@ FROM $REGISTRY/$BASE_IMAGE_AWX_WEB:$TAG_AWX
 
 USER root 
 
-ENV MISM_BULLSEQUANA_EDGE_VERSION=2.1.5
+ENV MISM_BULLSEQUANA_EDGE_VERSION=
 
 # security
 COPY ansible.credentials.py /etc/tower/conf.d/credentials.py

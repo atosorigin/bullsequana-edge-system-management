@@ -1,0 +1,62 @@
+#!/bin/sh
+
+unset $mism_version 
+
+CWD="$(pwd)"
+PKG=$CWD/pkg
+
+read -p "Enter  new version ? " mism_version
+
+echo --------------------------------
+echo -- Copying MISM to $mism_version
+echo --------------------------------
+
+echo "export MISM_BULLSEQUANA_EDGE_VERSION=${mism_version}" > versions.sh
+echo "export AWX_BULLSEQUANA_EDGE_VERSION=9.0.1" >> versions.sh
+echo "export RABBITMQ_AWX_BULLSEQUANA_EDGE_VERSION=3.8.1-management" >> versions.sh
+echo "export POSTGRES_AWX_BULLSEQUANA_EDGE_VERSION=12.0-alpine" >> versions.sh
+echo "export PGADMIN_AWX_BULLSEQUANA_EDGE_VERSION=4.14" >> versions.sh
+echo "export MEMCACHED_AWX_BULLSEQUANA_EDGE_VERSION=1.5.20-alpine" >> versions.sh
+echo "export ZABBIX_BULLSEQUANA_EDGE_VERSION=centos-4.4.1" >> versions.sh
+echo "export POSTGRES_ZABBIX_BULLSEQUANA_EDGE_VERSION=12.0-alpine" >> versions.sh
+echo "export BASE_IMAGE_ZABBIX=zabbix-server-pgsql" >> versions.sh
+echo "export BASE_IMAGE_ZABBIX_WEB=zabbix-web-nginx-pgsql" >> versions.sh
+echo "export BASE_IMAGE_ZABBIX_AGENT=zabbix-agent" >> versions.sh
+echo "export BASE_IMAGE_AWX_WEB=awx_web" >> versions.sh
+echo "export BASE_IMAGE_AWX_TASK=awx_task" >> versions.sh
+
+chmod ugo+x versions.sh
+. ./versions.sh
+
+sed -i "s/export MISM_BULLSEQUANA_EDGE_PLAYBOOKS_VERSION=.*/export MISM_BULLSEQUANA_EDGE_PLAYBOOKS_VERSION=${mism_version}/" add_awx_playbooks.sh
+sed -i "s/MISM_BULLSEQUANA_EDGE_VERSION=.*/MISM_BULLSEQUANA_EDGE_VERSION=${mism_version}/" Dockerfiles/Dockerfile-awx_web
+sed -i "s/MISM_BULLSEQUANA_EDGE_VERSION=.*/MISM_BULLSEQUANA_EDGE_VERSION=${mism_version}/" Dockerfiles/Dockerfile-awx_task
+sed -i "s/MISM_BULLSEQUANA_EDGE_VERSION=.*/MISM_BULLSEQUANA_EDGE_VERSION=${mism_version}/" Dockerfiles/Dockerfile-zabbix
+sed -i "s/MISM_BULLSEQUANA_EDGE_VERSION=.*/MISM_BULLSEQUANA_EDGE_VERSION=${mism_version}/" Dockerfiles/Dockerfile-zabbix-web
+sed -i "s/MISM_BULLSEQUANA_EDGE_VERSION=.*/MISM_BULLSEQUANA_EDGE_VERSION=${mism_version}/" Dockerfiles/Dockerfile-zabbix-agent
+
+docker container stop $(docker container ls -aq)
+#docker container rm $(docker container ls -aq)
+#docker image rmi $(docker image ls -aq)
+
+echo --------------------------------
+echo -- Building Images $mism_version
+echo --------------------------------
+
+export REGISTRY=zabbix
+docker-compose -f docker_compose_zabbix.yml build \
+ --build-arg MISM_BULLSEQUANA_EDGE_VERSION=$MISM_BULLSEQUANA_EDGE_VERSION \
+ --build-arg REGISTRY=$REGISTRY \
+ --build-arg BASE_IMAGE_ZABBIX=$BASE_IMAGE_ZABBIX \
+ --build-arg TAG_ZABBIX=$ZABBIX_BULLSEQUANA_EDGE_VERSION \
+ --build-arg BASE_IMAGE_ZABBIX_WEB=$BASE_IMAGE_ZABBIX_WEB \
+ --build-arg BASE_IMAGE_ZABBIX_AGENT=$BASE_IMAGE_ZABBIX_AGENT \
+--no-cache
+
+#docker-compose -f docker_compose_awx.yml pull --ignore-pull-failures
+#docker-compose -f docker_compose_awx.yml pull
+#docker-compose -f docker_compose_zabbix.yml pull --ignore-pull-failures
+#docker-compose -f docker_compose_zabbix.yml pull
+
+echo "docker save tag $MISM_BULLSEQUANA_EDGE_VERSION"
+
