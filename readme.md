@@ -1,5 +1,5 @@
 ![alt text](https://atos.net/wp-content/uploads/2019/05/BullSequana-Edge-1.png) 
-bloblo
+blublu
 
 # Bull Sequana Edge Ansible playbooks/modules and Zabbix templates
 
