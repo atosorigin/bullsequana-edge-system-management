@@ -19,9 +19,9 @@ RUN yum -y update && \
     yum -y install gcc && \ 
     yum -y install openssl
 
-RUN yum -y install epel
+RUN yum -y install epel-release
 
-RUN yum -y install --enablerepo="epel" python-pip && yum clean all
+RUN yum -y install python-pip && yum clean all
 
 RUN pip install urllib3  && \ 
     pip install requests && \
