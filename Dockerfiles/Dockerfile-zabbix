@@ -1,7 +1,6 @@
-ARG REGISTRY
-ARG BASE_IMAGE_ZABBIX
-ARG TAG_ZABBIX
-ARG MISM_BULLSEQUANA_EDGE_VERSION
+ARG REGISTRY=$REGISTRY
+ARG BASE_IMAGE_ZABBIX=$BASE_IMAGE_ZABBIX
+ARG TAG_ZABBIX=$TAG_ZABBIX
 
 FROM $REGISTRY/$BASE_IMAGE_ZABBIX:$TAG_ZABBIX
 
@@ -21,10 +20,13 @@ WORKDIR /usr/lib/zabbix/externalscripts
 
 RUN yum -y update && \ 
     yum -y install gcc && \ 
-    yum -y install openssl && \ 
-    yum -y install epel-release && \
-    yum -y install python-pip && \ 
-    pip install urllib3  && \ 
+    yum -y install openssl
+
+RUN yum -y install epel
+
+RUN yum -y install --enablerepo="epel" python-pip && yum clean all
+
+RUN pip install urllib3  && \ 
     pip install requests && \
     pip install pycryptodome && \
     pip install nmap  && \ 
