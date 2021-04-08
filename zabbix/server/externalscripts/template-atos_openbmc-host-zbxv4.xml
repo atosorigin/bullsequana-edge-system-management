@@ -11,7 +11,7 @@
         <host>
             <host>BullSequanaEdge</host>
             <name>Bull Sequana Edge</name>
-            <description>centos-4.4.1</description>
+            <description>latest</description>
             <templates>
                 <template>
                     <name>Template Hw Atos BullSequanaEdge LLD</name>
