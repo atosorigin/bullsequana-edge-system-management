@@ -11,7 +11,7 @@
         <template>
             <template>Template Hw Atos BullSequanaEdge Rsyslog</template>
             <name>Template Hw Atos BullSequanaEdge Rsyslog</name>
-            <description>latest</description>
+            <description>centos-4.4.1</description>
             <groups>
                 <group>
                     <name>Templates</name>
