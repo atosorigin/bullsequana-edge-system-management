@@ -40,4 +40,4 @@ rm -f *.py
 #echo "css files"
 rm -f *.css
 #echo "storage"
-rm -f storage
+rm -rf storage

@@ -11,7 +11,7 @@
         <template>
             <template>Template Hw Atos BullSequanaEdge LLD</template>
             <name>Template Hw Atos BullSequanaEdge LLD</name>
-            <description>2.1.4</description>
+            <description>centos-4.4.1</description>
             <groups>
                 <group>
                     <name>Templates</name>
