@@ -149,7 +149,7 @@ You should have now:
 - 1 Credential : Bull Sequana Edge Vault
 - Bull playbooks
 
-![#f03c15](https://placehold.it/15/f03c15/000000?text=+) Warning: on existing installation, tower-cli should be installed to run add_awx_playbooks.sh
+:warning: Warning: on existing installation, tower-cli should be installed to run add_awx_playbooks.sh
 
 ### complete your inventory first
 1. go to Inventory 
@@ -188,7 +188,7 @@ if you never want to automatically reboot the BMC, you need to change *reboot* v
 
 ![alt text](https://raw.githubusercontent.com/atosorigin/bullsequana-edge-system-management/master/ansible/doc/awx_reboot_variable.png)
 
-![#f03c15](https://placehold.it/15/f03c15/000000?text=+) Warnings if **reboot** = False
+:warning: Warning if **reboot** = False
 - Default is True meaning the BMC will reboot automatically after an update  
 - Playbooks needing a **reboot** will not proceed to reboot: BMC update will be effective next reboot   
 - *Reboot* playbook does NOT care this variable  
@@ -205,7 +205,7 @@ if you never want to automatically force the remote server power off, you need t
 
 `forceoff = False`
 
-![#f03c15](https://placehold.it/15/f03c15/000000?text=+) Warnings if **forceoff** = False
+:warning: Warning if **forceoff** = False
 - Default is **True** meaning the BMC will power off automatically the host (server) during BIOS update   
 - Playbooks needing a **forceoff** will not activate BIOS update: BIOS update will be effective next power off / on cycle  
 - *Immediate Shutdown* and *Orderly Shutdown* playbooks do NOT care this variable  
