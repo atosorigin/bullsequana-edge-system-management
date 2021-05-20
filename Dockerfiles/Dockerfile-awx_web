@@ -5,12 +5,9 @@ ARG MISM_BULLSEQUANA_EDGE_VERSION
 
 FROM $REGISTRY/$BASE_IMAGE_AWX_WEB:$TAG_AWX
 
-#set base image 
-#FROM ansible/awx_web:9.0.1
-
 USER root 
 
-ENV MISM_BULLSEQUANA_EDGE_VERSION=2.1.6
+ENV MISM_BULLSEQUANA_EDGE_VERSION=2.1.7-devel
 
 # security
 COPY ansible.credentials.py /etc/tower/conf.d/credentials.py

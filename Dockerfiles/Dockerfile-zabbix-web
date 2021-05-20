@@ -1,13 +1,11 @@
 ARG REGISTRY=zabbix
 ARG BASE_IMAGE_ZABBIX_WEB=zabbix-web-nginx-pgsql
 ARG TAG_ZABBIX=centos-4.4.1
+ARG MISM_BULLSEQUANA_EDGE_VERSION
 
 FROM $REGISTRY/$BASE_IMAGE_ZABBIX_WEB:$TAG_ZABBIX
 
-#set base image 
-#FROM zabbix/zabbix-web-nginx-pgsql:centos-4.4.1
-
-ENV MISM_BULLSEQUANA_EDGE_VERSION=2.1.6
+ENV MISM_BULLSEQUANA_EDGE_VERSION=2.1.7-devel
 
 COPY items.inc.php           /usr/share/zabbix/include/
 COPY logo-header.svg         /usr/share/zabbix/assets/img/

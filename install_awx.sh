@@ -4,7 +4,7 @@ export old_mism_version=$MISM_BULLSEQUANA_EDGE_VERSION
 
 . ./check_prerequisites.sh
 # comment the next line if you build from your own Dockerfiles with build_awx.sh
-. ./remove_awx_containers.sh
+. ./remove_awx_containers_and_images.sh
 . ./proxy.sh
 . ./versions.sh
 
@@ -111,6 +111,15 @@ then
   echo -e "\033[32mansible/vars/passwords.yml was successfully created\033[0m"
   touch ansible/vars/passwords.yml
 fi
+
+echo "building BullSequana Edge Ansible AWX containers ...."
+export REGISTRY=ansible
+docker-compose -f docker_compose_awx.yml build \
+ --build-arg MISM_BULLSEQUANA_EDGE_VERSION=$VERSION \
+ --build-arg REGISTRY=$REGISTRY \
+ --build-arg BASE_IMAGE_AWX_TASK=$BASE_IMAGE_AWX_TASK \
+ --build-arg TAG_AWX=$AWX_BULLSEQUANA_EDGE_VERSION \
+ --build-arg BASE_IMAGE_AWX_WEB=$BASE_IMAGE_AWX_WEB
 
 echo "starting BullSequana Edge Ansible AWX containers ...."
 docker-compose -f docker_compose_awx.yml up -d

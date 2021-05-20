@@ -1,7 +1,7 @@
 #!/bin/sh
 
 . ./check_prerequisites.sh
-. ./remove_awx_containers.sh
+. ./remove_awx_containers_and_images.sh
 . ./proxy.sh
 . ./versions.sh
 

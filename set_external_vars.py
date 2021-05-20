@@ -81,4 +81,12 @@ if(not external_vars.get('activating_maxretries')):
   print("Adding activating_maxretries: 10 times")
   f.write("# Number of retries while activating firmwares before failure\n")
   f.write("activating_maxretries: 10\n")
+if(not external_vars.get('ntp_server_ip')):
+  print("Adding default NTP server ip: 127.0.0.1")
+  f.write("# Define the NTP server IP\n")
+  f.write("power_cap: 500\n")
+if(not external_vars.get('ntp_server_sync')):
+  print("Adding default NTP server Sync time: 604800")
+  f.write("# Define the NTP server Sync time in SECONDS\n")
+  f.write("ntp_server_sync: 604800\n")
 f.close()

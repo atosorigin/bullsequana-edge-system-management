@@ -67,8 +67,10 @@ Optionaly, 2 ready-to-go AWX-Ansible images are available on Dockerhub
 - `Get System`: Get BullSequana Edge System information
 - `Check Rsyslog Server IP and Port`: Compare Rsyslog Server IP and Port to variables defined in inventory
 - `Rsyslog Server IP and Port`: Get BullSequana Edge Rsyslog IP and Port
+- `NTP Server Ip and Sync`: NTP Server Ip and Sync
 - `Set Rsyslog Server IP`: Set Rsyslog BullSequana Edge IP
 - `Set Rsyslog Server Port: `Set Rsyslog BullSequana Edge Port
+- `Set NTP Server Ip and Sync`: Set BullSequana Edge Server Ip and Sync
 - `Immediate Shutdown`: Request an Immediate Shutdown
 - `Check BMC alive`: Check if BullSequana Edge device is alive
 - `Check Power Off`: Check if BullSequana Edge host is powered off
@@ -124,9 +126,9 @@ Just choose your favorite installation for your environment
 
 For more information about dockerhub installation Visit https://hub.docker.com/repository/docker/atosorigin/bull-sequana-edge-awx-web
  
-![#9ECBFF](https://placehold.it/15/9ECBFF/000000?text=+) Best Practice: remove useless install, stop and start scripts  
-![#f03c15](https://placehold.it/15/f03c15/000000?text=+) Warning: atosorigin dockerhub images have no warranty, do not use in production  
-![#c5f015](https://placehold.it/15/c5f015/000000?text=+) Info: if tar files are not present, images are loaded from internet  
+:thumbsup: Best Practice: remove useless install, stop and start scripts  
+:warning: Warning: atosorigin dockerhub images have no warranty, do not use in production  
+:earth_americas: Info: if tar files are not present, images are loaded from internet  
 
 ### access your dashboard
 run a browser with: ` https://<your_server>`  
@@ -159,7 +161,7 @@ You should have now:
 
 ![alt text](https://raw.githubusercontent.com/atosorigin/bullsequana-edge-system-management/master/ansible/doc/awx_inventory.png)
 
-*Don't forget to copy/paste baseuri in every host as is `baseuri: {{inventory_hostname}}`  
+**Don't forget to copy/paste baseuri in every host as is** `baseuri: {{inventory_hostname}}`  
 
 Optionally, your can import hosts from ansible: [See how to export ansible inventory hosts file to awx inventory section](#howto_export_inventory)  
 Optionally, your can detect hosts with nmap inventory script: [See nmap in Command line section](#howto_nmap)  
@@ -260,7 +262,7 @@ The *add_awx_playbooks.sh* script already creates a vault for you and associates
 
 The default *Bull Sequana Edge Vault* has intentionaly NO password, so you should define your own password  
 
-![#f03c15](https://placehold.it/15/f03c15/000000?text=+) Warning : You should remember your vault password  
+:warning: Warning : You should remember your vault password  
 
 1. go to AWX Credentials
 2. select *Bull Sequana Edge Vault*
@@ -270,10 +272,10 @@ The default *Bull Sequana Edge Vault* has intentionaly NO password, so you shoul
 4. save your change
 ![alt text](https://raw.githubusercontent.com/atosorigin/bullsequana-edge-system-management/master/ansible/doc/vault_id.png)
   
-![#c5f015](https://placehold.it/15/c5f015/000000?text=+) Info: The vault-id can be used in ansible command line  
+:lock: Info: The vault-id can be used in ansible command line  
 ![alt text](https://raw.githubusercontent.com/atosorigin/bullsequana-edge-system-management/master/ansible/doc/vault_ansible_id.png)
 
-![#c5f015](https://placehold.it/15/c5f015/000000?text=+) Info: If you forget to change vault AWX vault credential, you have the following run error  
+:lock: Info: If you forget to change vault AWX vault credential, you have the following run error  
 ![alt text](https://raw.githubusercontent.com/atosorigin/bullsequana-edge-system-management/master/ansible/doc/awx_credential_vault_failed.png)
 
 #### - generate your passwords
@@ -331,7 +333,7 @@ If you already have an Ansible installation, you can just install ansible playbo
 `pip3 install pycryptodome`  
 `pip3 install ansible-vault`  
 
-![#f03c15](https://placehold.it/15/f03c15/000000?text=+) Warning: If you already changed default ansible directories, you should adapt the target directories of the install_playbooks_and_plugins.sh scrit as needed  
+:warning: Warning: If you already changed default ansible directories, you should adapt the target directories of the install_playbooks_and_plugins.sh scrit as needed  
 
 Check your ansible python version:  
 `ansible --version`  
@@ -345,7 +347,7 @@ Bull Sequana Edge Ansible Extensions has three docker installers: Just choose yo
 2. `<install_dir>/install_awx.sh` build and run from local Dockerfile that you can adapt => use stop_awx.sh and start_awx.sh after  
 3. `<install_dir>/install_awx_from_dockerhub.sh` download and run atosorigin dockerhub images => use stop_awx.sh and start_awx.sh after  
 
-![#9ECBFF](https://placehold.it/15/9ECBFF/000000?text=+) Best Practice: remove useless install, stop and start scripts
+:thumbsup: Best Practice: remove useless install, stop and start scripts
 
 ### how to change ansible configuration
 Here is the basic configuration for ansible:  
@@ -354,7 +356,7 @@ inventory = /etc/ansible/inventory/hosts file
 variables = <install_dir>/ansible/vars/external_vars.yml file  
 encrypted passwords = <install_dir>/ansible/vars/passwords.yml file  
 
-![#9ECBFF](https://placehold.it/15/9ECBFF/000000?text=+) With docker installation, for all CLI commands like *ansible* or *ansible-playbook*, you should be logged on a docker awx_web container: [See How to log on a docker container](#howto_docker_logon)
+:computer: Info: With docker installation, for all CLI commands like *ansible* or *ansible-playbook*, you should be logged on a docker awx_web container: [See How to log on a docker container](#howto_docker_logon)
 
 ### how to add a host in ansible inventory
 1. edit <install_dir>/ansible/inventory/hosts file
@@ -382,7 +384,7 @@ For test purpose, you can always use a clear password in your *hosts* file
 2. go to your playbook directory
 3. execute ansible-playbook command with appropriate parameters and desired playbook
   
-![#f03c15](https://placehold.it/15/f03c15/000000?text=+) Warning : --vault-id bullsequana_edge_password@<source> is mandatory if you use vault credentials  
+:warning: Warning : --vault-id bullsequana_edge_password@<source> is mandatory if you use vault credentials  
 *<source can be @prompt to be prompted or any encrypted source file>*
   
 ![alt text](https://raw.githubusercontent.com/atosorigin/bullsequana-edge-system-management/master/ansible/doc/ansible_playbook_vault_id.png)
@@ -432,7 +434,7 @@ To summarize, two main possibilities:
 2. In the appropriate external_vars file <install_dir>/ansible/vars/external_vars.yml, uncomment and set the desired variable :
 `your_variable: your_value`
 
-![#f03c15](https://placehold.it/15/f03c15/000000?text=+) Warning : You can set extra variables differently but care the precedence order  
+:warning: Warning : You can set extra variables differently but care the precedence order  
 ![alt text](https://raw.githubusercontent.com/atosorigin/bullsequana-edge-system-management/master/ansible/doc/precedence_order.png)
 Best site that explain variable orders and conflicts: Visit https://subscription.packtpub.com/book/networking_and_servers/9781787125681/1/ch01lvl1sec13/variable-precedence
 
@@ -508,7 +510,7 @@ ansible-playbook set_rsyslog_server_port.yml
 
 ex: [root@awx logs]# ansible-playbook set_rsyslog_server_port.yml
 
-![#f03c15](https://placehold.it/15/f03c15/000000?text=+) Warning : default rsyslog IP address is a fake
+:warning: Warning : default rsyslog IP address is a fake
 - rsyslog_server_ip: 0.0.0.0
 - rsyslog_server_port: 514
 
@@ -688,7 +690,7 @@ You can see your PROXY environment while starting up your AWX:
 
 ![alt text](https://raw.githubusercontent.com/atosorigin/bullsequana-edge-system-management/master/ansible/doc/proxy.png)
 
-![#f03c15](https://placehold.it/15/f03c15/000000?text=+) If your bullsequana edge IP address is not declared in proxy: You may need to add your bullsequana edge IP address in your NO_PROXY configuration to bypass the proxy 
+:computer: Info: If your bullsequana edge IP address is not declared in proxy: You may need to add your bullsequana edge IP address in your NO_PROXY configuration to bypass the proxy 
 
 ```
 export NO_PROXY="<your bullsequana edge IP address>,$NO_PROXY"
@@ -711,7 +713,7 @@ If you don't want to use the host configuration for XX_PROXY environment variabl
       ...
 ```
 
-![#f03c15](https://placehold.it/15/f03c15/000000?text=+) Info: If you change a XXX_PROXY env variable, you should restart the containers :
+:computer: Info: If you change a XXX_PROXY env variable, you should restart the containers :
 
 ```
 ./stop.sh or ./stop_awx.sh
@@ -743,7 +745,7 @@ For any reason, if you really need to adapt the 'volumes' mapping, follow the in
 /tmp:/tmp => do NOT map /tmp directory => it change AWX behavior
 /:/ => NO sens
 ```
-![#f03c15](https://placehold.it/15/f03c15/000000?text=+) Info: Be careful to change both awx_web and awx_task docker containers and to adapt the technical_state_path variable of your inventory  
+:no_entry: Warning: Be careful to change both awx_web and awx_task docker containers and to adapt the technical_state_path variable of your inventory  
 
 `technical_state_path: /mnt`  
 
@@ -783,7 +785,7 @@ awx_postgres
 memcached  
 rabbitmq   
 
-![#c5f015](https://placehold.it/15/c5f015/000000?text=+) Info: tower-cli is installed on awx_web. You can use any tower-cli command. For more info Visit https://docs.ansible.com/ansible-tower/latest/html/towerapi/index.html
+:computer: Info: tower-cli is installed on awx_web. You can use any tower-cli command. For more info Visit https://docs.ansible.com/ansible-tower/latest/html/towerapi/index.html
 
 examples  
 ```
@@ -801,7 +803,7 @@ If you need to adapt a Dockerfile in Dockerfiles directory:
 
 ![alt text](https://raw.githubusercontent.com/atosorigin/bullsequana-edge-system-management/master/ansible/doc/dockerfiles_tag_latest.png) 
 
-![#f03c15](https://placehold.it/15/f03c15/000000?text=+) Warning: if you change MISM_TAG_BULLSEQUANA_EDGE_VERSION=**tag** to MISM_TAG_BULLSEQUANA_EDGE_VERSION=**latest**, you should use Dockerfile-xxx.**latest** files
+:warning: Warning: if you change MISM_TAG_BULLSEQUANA_EDGE_VERSION=**tag** to MISM_TAG_BULLSEQUANA_EDGE_VERSION=**latest**, you should use Dockerfile-xxx.**latest** files
 
 if you need to adapt the versions:
 1. edit versions.sh and adapt it
@@ -815,7 +817,7 @@ if you need to adapt the versions:
 - versions **latest**
 ![alt text](https://raw.githubusercontent.com/atosorigin/bullsequana-edge-system-management/master/ansible/doc/versions_latest.png) 
 
-![#f03c15](https://placehold.it/15/f03c15/000000?text=+) Warning: do *NOT* forget to comment the remove-xxx-containers.sh line at the beginning of the install-xxx script
+:warning: Warning: do *NOT* forget to comment the remove-xxx-containers.sh line at the beginning of the install-xxx script
 
 ![alt text](https://raw.githubusercontent.com/atosorigin/bullsequana-edge-system-management/master/ansible/doc/comment_remove.png) 
 
@@ -850,7 +852,7 @@ You should replace " password= " in your hosts file
 ![alt text](https://raw.githubusercontent.com/atosorigin/bullsequana-edge-system-management/master/ansible/doc/your_ansible_password_in_host.png)
 
 
-![#c5f015](https://placehold.it/15/c5f015/000000?text=+) Info: you should run your playbooks with *--ask-vault-pass* or *--vault-id* in command line (alternatively you can indicate a vault_password_file in your ansible.cfg : See next section)  
+:lock: Info: you should run your playbooks with *--ask-vault-pass* or *--vault-id* in command line (alternatively you can indicate a vault_password_file in your ansible.cfg : See next section)  
 
 *--ask-vault-pass*
 
@@ -860,11 +862,11 @@ or alternatively *--vault-id*
 
 ![alt text](https://raw.githubusercontent.com/atosorigin/bullsequana-edge-system-management/master/ansible/doc/ansible_prompt_vault_id.png) 
 
-![#f03c15](https://placehold.it/15/f03c15/000000?text=+) Warning: If you do *NOT* add --vault-id followed by bull_sequana_edge_password vault identifier, you will have the following error: *no vault secrets found*
+:warning: Warning: If you do *NOT* add --vault-id followed by bull_sequana_edge_password vault identifier, you will have the following error: *no vault secrets found*
  
 ![alt text](https://raw.githubusercontent.com/atosorigin/bullsequana-edge-system-management/master/ansible/doc/error_secure_password.png)
   
-![#c5f015](https://placehold.it/15/c5f015/000000?text=+) Info: you should install optional prerequisites => See [install ansible locally](#install_locally)
+:lock: Info: you should install optional prerequisites => See [install ansible locally](#install_locally)
 
 ### add a Ansible vault password file
 The previous chapter create only encrypted variables in a vault-id named *bullsequana_edge_password*.    
@@ -878,7 +880,7 @@ The following steps is an example of how to create a file that contains the vaul
 
 ![alt text](https://raw.githubusercontent.com/atosorigin/bullsequana-edge-system-management/master/ansible/doc/protected_secret_file.png)
 
-![#f03c15](https://placehold.it/15/f03c15/000000?text=+) Warning: If you want to be compatible with AWX vault-id, you need to name the vault password file with the vault password id : *bullsequana_edge_password*
+:warning: Warning: If you want to be compatible with AWX vault-id, you need to name the vault password file with the vault password id : *bullsequana_edge_password*
 
 2. edit your *ansible.cfg* file 
 3. uncomment the vault_password_file section
@@ -891,9 +893,9 @@ The following steps is an example of how to create a file that contains the vaul
   
 you can now generate as many encrypted password variables as needed and play your playbooks without been prompted to the vault password
 
-![#f03c15](https://placehold.it/15/f03c15/000000?text=+) Warning: Vault password is in clear inside, care to protect strongly the file or prefer python script to provide vault password 
+:warning: Warning: Vault password is in clear inside, care to protect strongly the file or prefer python script to provide vault password 
 
-![#9ECBFF](https://placehold.it/15/9ECBFF/000000?text=+) Best Practice: Vault passwords could be retrieved from python script. For more information See https://docs.ansible.com/ansible/latest/user_guide/vault.html
+:thumbsup: Best Practice: Vault passwords could be retrieved from python script. For more information See https://docs.ansible.com/ansible/latest/user_guide/vault.html
 
 ### remove an encrypted password
 1. edit the file <install_dir>/ansible/vars/passwords.yml  
@@ -942,7 +944,7 @@ You should replace your " password:" in your inventory / hosts VARIABLES part:
 ![alt text](https://raw.githubusercontent.com/atosorigin/bullsequana-edge-system-management/master/ansible/doc/your_awx_password_in_host.png)
 
 ## <a name="warning_updates"></a>Warning for updates
-![#f03c15](https://placehold.it/15/f03c15/000000?text=+) Never change original playbooks => duplicate playbooks  
+:warning: Never change original playbooks => duplicate playbooks  
   
 You can use the directory ansible/playbooks to add your own playbooks.  
 

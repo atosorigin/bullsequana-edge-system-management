@@ -24,7 +24,7 @@ while true; do
 done
 
 #. ./check_prerequisites.sh
-#. ./remove_awx_containers.sh
+#. ./remove_awx_containers_and_images.sh
 . ./versions.sh
 
 echo "building BullSequana Edge Ansible AWX containers and images ...."

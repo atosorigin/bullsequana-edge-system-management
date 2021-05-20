@@ -22,7 +22,7 @@ while true; do
 done
 
 #. ./check_prerequisites.sh
-#. ./remove_zabbix_containers.sh
+#. ./remove_zabbix_containers_and_images.sh
 . ./versions.sh
 
 echo "building BullSequana Edge Zabbix containers and images ...."

@@ -1,0 +1,64 @@
+---
+- hosts: all
+  connection: local
+  name: Set NTP Server Ip and Sync
+  gather_facts: False
+  vars_files:
+    - "{{ ANSIBLE_EXTERNAL_VARS }}"
+    - "{{ ANSIBLE_PASSWORDS }}"
+
+  tasks:
+
+  - name: validate ntp_server_ip variable
+    assert:
+      that:
+        - ntp_server_ip is defined
+        - ntp_server_ip |default(None)
+      fail_msg: "The variable ntp_server_ip is NOT defined in inventory (AWX) or vars/external_vars file (Ansible). See readme.md for more details."
+      success_msg: "The variable ntp_server_ip is defined"
+    run_once: true
+
+  - debug:
+      msg: "NTP server ip = {{ ntp_server_ip }}"
+    when: ntp_server_ip is defined
+    run_once: true
+
+  - name: validate ntp_server_sync variable
+    assert:
+      that:
+        - ntp_server_sync is defined
+        - ntp_server_sync |default(None)
+      fail_msg: "The variable ntp_server_sync is NOT defined in inventory (AWX) or vars/external_vars file (Ansible). See readme.md for more details."
+      success_msg: "The variable ntp_server_sync is defined"
+    run_once: true
+
+  - debug:
+      msg: "ntp server sync in vars file = {{ ntp_server_sync }}"
+    when: ntp_server_sync is defined
+    run_once: true
+
+  - include_tasks: ../utils/utils_create_token.yml
+
+  - name: set NTP Server Ip
+    uri:
+      url: https://{{ baseuri }}/xyz/openbmc_project/network/eth0/attr/NTPServers
+      method: PUT
+      validate_certs: no
+      headers:
+        X-Auth-Token: "{{ x_token }}"
+      body_format: json
+      body:
+        data: "{{ ntp_server_ip }}"
+    register: result_ntp_server_ip
+
+  - name: set NTP Server Sync
+    uri:
+      url: https://{{ baseuri }}/xyz/openbmc_project/time/sync_method/attr/TimeSyncMethod
+      method: PUT
+      validate_certs: no
+      headers:
+        X-Auth-Token: "{{ x_token }}"
+      body_format: json
+      body:
+        data: "{{ ntp_server_sync }}"
+    register: result_ntp_server_sync

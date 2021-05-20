@@ -11,7 +11,7 @@
         <template>
             <template>Template Hw Atos BullSequanaEdge Rsyslog</template>
             <name>Template Hw Atos BullSequanaEdge Rsyslog</name>
-            <description>2.1.6</description>
+            <description>2.1.7-devel</description>
             <groups>
                 <group>
                     <name>Templates</name>

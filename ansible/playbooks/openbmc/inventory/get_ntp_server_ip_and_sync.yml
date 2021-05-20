@@ -1,0 +1,70 @@
+---
+- hosts: all
+  connection: local
+  name: Get NTP Server IP and Sync Method
+  gather_facts: False
+  vars_files:
+    - "{{ ANSIBLE_EXTERNAL_VARS }}"
+    - "{{ ANSIBLE_PASSWORDS }}"
+
+  tasks:
+
+  - name: validate ntp_server_ip variable
+    assert:
+      that:
+        - ntp_server_ip is defined
+        - ntp_server_ip |default(None)
+      fail_msg: "The variable ntp_server_ip is NOT defined in inventory (AWX) or vars/external_vars file (Ansible). See readme.md for more details."
+      success_msg: "The variable ntp_server_ip is defined"
+    run_once: true
+
+  - name: validate ntp_server_sync variable
+    assert:
+      that:
+        - ntp_server_sync is defined
+        - ntp_server_sync |default(None)
+      fail_msg: "The variable ntp_server_sync is NOT defined in inventory (AWX) or vars/external_vars file (Ansible). See readme.md for more details."
+      success_msg: "The variable ntp_server_sync is defined"
+    run_once: true
+
+  - debug:
+      msg: "ntp server ip in vars file = {{ ntp_server_ip }}"
+    when: ntp_server_ip is defined
+    run_once: true
+
+  - debug:
+      msg: "ntp server sync in vars file = {{ ntp_server_sync }}"
+    when: ntp_server_sync is defined
+    run_once: true
+
+  - include_tasks: ../utils/utils_create_token.yml
+
+  - name: get NTP Server IP
+    uri:
+      url: https://{{ baseuri }}/xyz/openbmc_project/network/eth0/attr/NTPServers
+      method: GET
+      validate_certs: no
+      headers:
+        X-Auth-Token: "{{ x_token }}"
+    register: result_ntp_server_ip
+
+  - name: get NTP Server Sync
+    uri:
+      url: https://{{ baseuri }}/xyz/openbmc_project/time/sync_method/attr/TimeSyncMethod
+      method: GET
+      validate_certs: no
+      headers:
+        X-Auth-Token: "{{ x_token }}"
+    register: result_ntp_server_sync
+
+  - set_fact:
+      address_ip: "{{ result_ntp_server_ip.json.data }}"
+
+  - set_fact:
+      sync: "{{ result_ntp_server_sync.json.data }}"
+
+  - name: debug NTP Server Ip and Sync
+   debug:
+      msg: "NTP Ip = {{address_ip}} / Sync method = {{sync}}"
+    when: address_ip is defined and sync is defined
+

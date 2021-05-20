@@ -79,9 +79,9 @@ Just choose your favorite installation for your environment
 `try it: <install_dir>/install_zabbix_from_dockerhub.sh` mainly dedicated to try bullsequana edge system management tool, it will install dockerhub atosorigin images, you cannot adapt the local Dockerfiles => use **stop_zabbix.sh*** and **start_zabbix.sh** after  
 For more information about dockerhub installation Visit https://hub.docker.com/repository/docker/atosorigin/bull-sequana-edge-zabbix-server
  
-![#9ECBFF](https://placehold.it/15/9ECBFF/000000?text=+) Best Practice: remove useless install, stop and start scripts  
-![#f03c15](https://placehold.it/15/f03c15/000000?text=+) Warning: atosorigin dockerhub images have no warranty, do not use in production  
-![#c5f015](https://placehold.it/15/c5f015/000000?text=+) Info: if tar files are not present, images are loaded from internet  
+:thumbsup: Best Practice: remove useless install, stop and start scripts  
+:warning: Warning: atosorigin dockerhub images have no warranty, do not use in production  
+:earth_americas: Info: if tar files are not present, images are loaded from internet  
 
 ### log on to zabbix
 - default url: `https://<ip_address_of_your_host>:4443`
@@ -95,7 +95,7 @@ For more information about dockerhub installation Visit https://hub.docker.com/r
 
 ### rename Zabbix Server
 
-![#f03c15](https://placehold.it/15/f03c15/000000?text=+) !!! VERY IMPORTANT !!! ![#f03c15](https://placehold.it/15/f03c15/000000?text=+) 
+:no_entry: !!! VERY IMPORTANT !!! :no_entry:
 You should first rename your Zabbix Server
 => It is highly recommanded to have a hostname without space (by default Zabbix Server hostname has a blank space)
 
@@ -106,9 +106,9 @@ Visible name : Zabbix Server
 4. Enter name with a minus '-'
 Host Name    : zabbix-server
 
-![#f03c15](https://placehold.it/15/f03c15/000000?text=+) Be careful: The "Visible name" is used by Zabbix Dashboards, so let "Zabbix server" persist as a Visible name.
+:no_entry: Be careful: The "Visible name" is used by Zabbix Dashboards, so let "Zabbix server" persist as a Visible name.
 
-![#c5f015](https://placehold.it/15/c5f015/000000?text=+) => stop and start zabbix docker containers
+:no_entry: => stop and start zabbix docker containers
 
 ![alt text](https://github.com/atosorigin/bullsequana-edge-system-management/blob/master/zabbix/doc/Zabbix_Server_Configuration.png)
 
@@ -127,14 +127,14 @@ Available Atos templates:
 
 ### add your host
 #### add your hosts from host template
-![#f03c15](https://placehold.it/15/f03c15/000000?text=+) Warning: You should import lld Bull Sequana Edge template BEFORE  
+:warning: Warning: You should import lld Bull Sequana Edge template BEFORE  
 When you import the host template, you will have a host "BullSequana Edge" automatically configured as your first example
 - Zabbix agent is configured to zabbix-agen:10050
 - Automatic Inventory is configured
 - Macros are prepared
 - Atos Bull Sequana Edge LLD Template is linked
 
-![#c5f015](https://placehold.it/15/c5f015/000000?text=+) Info: All you need is to complete empty Macros : go to" Fill Atos template macros" below
+:pen: Info: All you need is to complete empty Macros : go to" Fill Atos template macros" below
 
 #### add your hosts manually
 1. Go to Configuration / Hosts
@@ -168,7 +168,7 @@ Optionaly, you can use the Zabbix discovery service to add your hosts.
 ![alt text](https://github.com/atosorigin/bullsequana-edge-system-management/blob/master/zabbix/doc/operations_discovery_rule.png)
 3. Go to section **Fill Atos template macros** to complete your host with {$OPENBMC},{$USER}, {$PASSWORD} 
 
-![#f03c15](https://placehold.it/15/f03c15/000000?text=+) Warning: after Discovery complete, you may disable the Action to stop discovering hosts all the time and do some changes on you discovered hosts.
+:warning: Warning: after Discovery complete, you may disable the Action to stop discovering hosts all the time and do some changes on you discovered hosts.
 
 #### link Atos template to your host
 1. Go to Configuration/Hosts
@@ -296,9 +296,9 @@ Volt: *
 ![alt text](https://github.com/atosorigin/bullsequana-edge-system-management/blob/master/zabbix/doc/plain_text.png)
 
 1. Select "Plain text"
-2. Select whatever items you want
+2. Select whatever items you want: 
 
-![#c5f015](https://placehold.it/15/c5f015/000000?text=+) items are prefixed with application names like "Control:" "Network:" "State:" ...
+:briefcase: Tips: items are prefixed with application names like "Control:" "Network:" "State:" ...
 
 ![alt text](https://github.com/atosorigin/bullsequana-edge-system-management/blob/master/zabbix/doc/select_items.png)
 
@@ -313,7 +313,7 @@ This template should be the **second** imported template.
 ### template content
 - 1 host as an example  
 ### prerequisite
-![#c5f015](https://placehold.it/15/c5f015/000000?text=+) Info: You should install LLD and Sysmap Bull Sequana Edge templates before: [How to install BullSequana Edge template](#edge_template)  
+:warning: Warning : You should install LLD and Sysmap Bull Sequana Edge templates before: [How to install BullSequana Edge template](#edge_template)  
 ### import
 1. Copy the templates from <install_dir>\zabbix\server\externalscripts\ to a **local path on you client computer running the browser**
 2. Open a browser and go to Configuration / **Hosts**
@@ -331,7 +331,7 @@ A unique item is detecting rsyslog file change
 - 1 trigger  
 A unique trigger is triggering on BullSequana Edge device error events
 
-![#f03c15](https://placehold.it/15/f03c15/000000?text=+) The rsyslog should be activated BEFORE loading rsyslog template
+:stop_sign: The rsyslog should be activated BEFORE loading rsyslog template
 
 ### import
 1. Copy the templates from <install_dir>\zabbix\server\externalscripts\ to a **local path on you client computer running the browser**
@@ -371,11 +371,11 @@ example:
 - chmod ugo+rw /var/log/rsyslog
 ```
 
-![#f03c15](https://placehold.it/15/f03c15/000000?text=+) The rsyslog should have read / write rights all along the **path**
+:stop_sign: Be careful: The rsyslog should have read / write rights all along the **path**
 
 ![alt text](https://raw.githubusercontent.com/atosorigin/bullsequana-edge-system-management/master/zabbix/doc/rsyslog_rights.png)
 
-The **rsyslog* file is monitored after the import of the template, so the collect will be triggered by the next line written in the rsyslog file.
+The **rsyslog** file is monitored after the import of the template, so the collect will be triggered by the next line written in the rsyslog file.
 
 ![alt text](https://raw.githubusercontent.com/atosorigin/bullsequana-edge-system-management/master/zabbix/doc/rsyslog_key.png)
 
@@ -453,9 +453,9 @@ You should add 2 firewall rules
 [root@server ~]# firewall-cmd --permanent --zone=public --add-port=514/udp
 [root@server ~]# firewall-cmd --reload 
 ```
-![#f03c15](https://placehold.it/15/f03c15/000000?text=+) Be careful to reload it after changes
+:stop_sign: Be careful to reload it after changes
 
-![#f03c15](https://placehold.it/15/f03c15/000000?text=+) More information: Visit https://www.itzgeek.com/how-tos/linux/centos-how-tos/setup-syslog-server-on-centos-7-rhel-7.html
+:earth_america: More information: Visit https://www.itzgeek.com/how-tos/linux/centos-how-tos/setup-syslog-server-on-centos-7-rhel-7.html
 
 ![alt text](https://github.com/atosorigin/bullsequana-edge-system-management/blob/master/zabbix/doc/sysLog_firewall_add_exception.png)
 
@@ -463,7 +463,7 @@ You should add 2 firewall rules
 If telnet is not working but the ping is working: iptables rules could be the issue  
 You can flush the iptables rules   
 
-![#f03c15](https://placehold.it/15/f03c15/000000?text=+) Be careful to be able to recreate iptables rules after this command ` iptables -F `
+:stop_sign: Be careful to be able to recreate iptables rules after this command ` iptables -F `
 
 ## <a name="map_template"></a>BullSequanaEdgeMap template installation
 ### template order
@@ -471,10 +471,10 @@ This template should be the **third** imported template.
 
 ### template content
 - 1 Map template  
-![#f03c15](https://placehold.it/15/f03c15/000000?text=+) WARNING: The BullSequanaEdgeIconMapping should be created BEFORE importing BullSequanaEdgeMap template [Create BullSequanaEdge icons](#create_icons) and [Create BullSequanaEdge icon mapping](#create_icon_mapping)
+:warning: Warning: The BullSequanaEdgeIconMapping should be created BEFORE importing BullSequanaEdgeMap template [Create BullSequanaEdge icons](#create_icons) and [Create BullSequanaEdge icon mapping](#create_icon_mapping)
 
 ### prerequisite
-![#c5f015](https://placehold.it/15/c5f015/000000?text=+) Info: You should install Host Bull Sequana Edge BEFORE: [How to install Host BullSequana Edge template](#host_template)  
+:no_entry: Info: You should install Host Bull Sequana Edge **before**: See [How to install Host BullSequana Edge template](#host_template)  
 
 ### import
 1. Copy the templates from <install_dir>\zabbix\server\externalscripts\ to a **local path on you client computer running the browser**
@@ -506,7 +506,7 @@ This template should be the **third** imported template.
 
 ![alt text](https://github.com/atosorigin/bullsequana-edge-system-management/blob/master/zabbix/doc/BullSequanaEdge_icon_mapping.png)
   
-![#f03c15](https://placehold.it/15/f03c15/000000?text=+) WARNING: Inventory should be "Automatic" for your BullSequana Edge (Model field should be filled)
+:warning: Warning: Inventory should be **Automatic** for your BullSequana Edge (Model field should be filled)
 
 ### Import BullSequanaEdge Map
 1. Copy the templates from <install_dir>\zabbix\server\externalscripts\ to a **local path on you client computer running the browser**
@@ -515,7 +515,7 @@ This template should be the **third** imported template.
 4. Check Maps and Images checkboxes only for Create New
 5. Import **template-atos_openbmc-sysmaps-zbxv4.xml**
 
-![#c5f015](https://placehold.it/15/c5f015/000000?text=+) INFO: Your icons will be automatically detected for BullSequana Edge while creating your maps
+:computer: Your icons will be automatically detected for BullSequana Edge while creating your maps
 
 ### Create a map 
 1. Go to Monitoring / Maps
@@ -544,7 +544,7 @@ You can check your PROXY environment while starting up your AWX:
 
 ![alt text](https://github.com/atosorigin/bullsequana-edge-system-management/blob/master/zabbix/doc/proxy.png)
 
-![#f03c15](https://placehold.it/15/f03c15/000000?text=+) If your bullsequana edge IP address is not declared in proxy: You may need to add your bullsequana edge IP address in your NO_PROXY configuration to bypass the proxy 
+:stop_sign: Be careful: If your bullsequana edge IP address is not declared in proxy: You may need to add your bullsequana edge IP address in your **NO_PROXY** configuration to bypass the proxy 
 
 ```
 export NO_PROXY="<your bullsequana edge IP address>,$NO_PROXY"
@@ -567,7 +567,7 @@ If you don't want to use the host configuration for XX_PROXY environment variabl
       ...
 ```
 
-![#f03c15](https://placehold.it/15/f03c15/000000?text=+) INFO: If you change a XXX_PROXY env variable, you should restart the containers :
+:no_entry: Be Careful: If you change a XXX_PROXY env variable, you should restart the containers
 
 ```
 ./stop.sh or ./stop_zabbix.sh 
@@ -622,7 +622,7 @@ echo PSK: <your psk>
 
 ![alt text](https://raw.githubusercontent.com/atosorigin/bullsequana-edge-system-management/master/zabbix/doc/BullSequanaEdge_Zabbix_vault_generate_steps.png)
 
-![#c5f015](https://placehold.it/15/c5f015/000000?text=+) you should restart docker containers
+:stop_sign: you should restart docker containers
 
 *more info on https://www.zabbix.com/documentation/4.0/fr/manual/encryption/using_pre_shared_keys*
 
@@ -653,8 +653,6 @@ See https://ui.smsmode.com
 3. Copy it for further usage
 4. You can consult your SMS list to check SMS traffic
 ![alt text](https://raw.githubusercontent.com/atosorigin/bullsequana-edge-system-management/master/zabbix/doc/BullSequanaEdge_SMS_smsMode_SMSList.png)
-
-![#f03c15](https://placehold.it/15/f03c15/000000?text=+) INFO: 
 
 ### Configure SMS
 1. Go to Administration / Media types
@@ -752,7 +750,7 @@ If you need to adapt a Dockerfile in Dockerfiles directory:
 
 ![alt text](https://raw.githubusercontent.com/atosorigin/bullsequana-edge-system-management/master/zabbix/doc/dockerfiles_tag_latest.png) 
 
-![#f03c15](https://placehold.it/15/f03c15/000000?text=+) Warning: if you change MISM_TAG_BULLSEQUANA_EDGE_VERSION=**tag** to MISM_TAG_BULLSEQUANA_EDGE_VERSION=**latest**, you should use Dockerfile-xxx.**latest** files
+:warning: Warning: if you change MISM_TAG_BULLSEQUANA_EDGE_VERSION=**tag** to MISM_TAG_BULLSEQUANA_EDGE_VERSION=**latest**, you should use Dockerfile-xxx.**latest** files
 
 if you need to adapt the versions:
 1. edit versions.sh and adapt it
@@ -766,7 +764,7 @@ if you need to adapt the versions:
 - versions **latest**
 ![alt text](https://raw.githubusercontent.com/atosorigin/bullsequana-edge-system-management/master/zabbix/doc/versions_latest.png) 
 
-![#f03c15](https://placehold.it/15/f03c15/000000?text=+) Warning: do *NOT* forget to comment the remove-xxx-containers.sh line at the beginning of the install-xxx script
+:warning: Warning: do *NOT* forget to comment the remove-xxx-containers.sh line at the beginning of the install-xxx script
 
 ![alt text](https://raw.githubusercontent.com/atosorigin/bullsequana-edge-system-management/master/zabbix/doc/comment_remove.png) 
 
@@ -775,7 +773,7 @@ After a build and install process, the result should be:
 
 ## <a name="updates"></a>Warning for updates
 
-![#f03c15](https://placehold.it/15/f03c15/000000?text=+) Never change original templates => duplicate or create your own template
+:no_entry: Never change original templates => duplicate or create your own template
 
 ## <a name="support"></a>Support
   * This branch corresponds to the release actively under development.

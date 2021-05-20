@@ -1,7 +1,7 @@
 #!/bin/sh
 
 . ./check_prerequisites.sh
-. ./remove_awx_containers.sh
+. ./remove_zabbix_containers_and_images.sh
 
 chmod ugo+w zabbix/server/externalscripts/openbmc
 

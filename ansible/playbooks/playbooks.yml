@@ -12,7 +12,7 @@ inventories:
         hosts:
         - name: <here an ip address>
           variables: '{ "baseuri": "{{inventory_hostname}}", "username": "<here bmc user name>", "password": "{{ here_your_encryted_password_variable }}" }'
-    variables: '{ "ANSIBLE_PASSWORDS": "/etc/ansible/vars/passwords.yml", "technical_state_path": "/host/mnt", "forceoff": True, "reboot": True, "rsyslog_server_ip": "0.0.0.0", "rsyslog_server_port": 514, "reboot_countdown": "2", "poweron_countdown": "5", "activating_countdown": "30", "poweroff_countdown": "5" , "reboot_maxretries": "10", "poweron_maxretries": "10", "activating_maxretries": "10", "poweroff_maxretries": "10", token_timeout: "5" }'
+    variables: '{ "ANSIBLE_PASSWORDS": "/etc/ansible/vars/passwords.yml", "technical_state_path": "/host/mnt", "forceoff": True, "reboot": True, "ntp_server_ip": "127.0.0.1", "ntp_server_sync": 604800, "rsyslog_server_ip": "0.0.0.0", "rsyslog_server_port": 514, "reboot_countdown": "2", "poweron_countdown": "5", "activating_countdown": "30", "poweroff_countdown": "5" , "reboot_maxretries": "10", "poweron_maxretries": "10", "activating_maxretries": "10", "poweroff_maxretries": "10", token_timeout: "5" }'
       
 credentials:
   - name: Bull Sequana Edge Vault
@@ -207,6 +207,22 @@ job_templates:
     playbook: inventory/get_sensors.yml
     job-type: run
     verbosity: 0
+  - name: NTP Server IP and Sync Method
+    description: Get NTP Server IP and Sync Method
+    inventory: BullSequana Edge Inventory
+    project: BullSequana Edge Playbooks
+    playbook: inventory/get_ntp_server_ip_and_sync.yml
+    job-type: run
+    verbosity: 0
+  - name: Set Server IP and Sync Method
+    description: Set Server IP and Sync Method
+    inventory: BullSequana Edge Inventory
+    project: BullSequana Edge Playbooks
+    playbook: inventory/set_ntp_server_ip_and_sync.yml
+    job-type: run
+    verbosity: 0
+    extra_vars: ["ntp_server_ip:, ntp_server_sync:604800"]
+    ask_variables_on_launch: 1
   - name: System
     description: Get System
     inventory: BullSequana Edge Inventory

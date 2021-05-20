@@ -8,8 +8,8 @@ docker-compose -f docker_compose_zabbix.yml down --remove-orphans &>/dev/null
 docker-compose -f docker_compose_awx_from_atos_dockerhub.yml down --remove-orphans &>/dev/null
 docker-compose -f docker_compose_zabbix_from_atos_dockerhub.yml down --remove-orphans &>/dev/null
 
-. ./remove_awx_containers.sh
-. ./remove_zabbix_containers.sh
+. ./remove_awx_containers_and_images.sh
+. ./remove_zabbix_containers_and_images.sh
 
 docker container list
 docker images
