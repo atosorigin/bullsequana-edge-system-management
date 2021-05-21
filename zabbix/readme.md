@@ -213,10 +213,25 @@ Fans, Temperature and Voltage are discovered - values are float => it could be a
 
 Firmware update failures are triggered
 
-- 4 discovered triggers
-1. Critical high & low triggers corresponding to Critical Alarms Threshold fo BullSequana Edge device are Enabled by default
-2. Warning high & low triggers to Warning Alarms Threshold fo BullSequana Edge device are Disabled by default
+- 4 discovered triggers per sensor
+1. Critical high & low triggers corresponding to Critical Alarms Threshold fo BullSequana Edge device are **Enabled** by default
+2. Warning high & low triggers to Warning Alarms Threshold fo BullSequana Edge device are **Disabled** by default
+
+
+- 6 system triggers
+-- Firmware Update Failures (High)
+-- Obsolete Versions (Warning)
 ![alt text](https://github.com/atosorigin/bullsequana-edge-system-management/blob/master/zabbix/doc/4_triggers.png)
+
+:warning: Warning : If obsolete versions are detected at first startup, remove the History for corresponding item or disable the trigger  
+Go to Templates  
+Select Atos LLD  
+Select Items  
+Filter on "Collect Information"  
+Select your item  
+` Version: BMC - Obsolete `  
+Remove the history  
+![alt text](https://github.com/atosorigin/bullsequana-edge-system-management/blob/master/zabbix/doc/clear_trigger_history.png)
 
 - automatic inventory mapping
 

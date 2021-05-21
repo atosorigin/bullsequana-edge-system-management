@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <zabbix_export>
     <version>4.4</version>
-    <date>2021-05-21T10:16:32Z</date>
+    <date>2021-05-21T12:24:32Z</date>
     <groups>
         <group>
             <name>Templates</name>
@@ -169,6 +169,20 @@
                     </applications>
                 </item>
                 <item>
+                    <name>Version: BMC - Obsolete</name>
+                    <type>EXTERNAL</type>
+                    <key>openbmc_firmware_reader[-f={$OPENBMC}-software.json,-i=BMC,-p=Activation,-a=Active]</key>
+                    <delay>30s</delay>
+                    <history>7d</history>
+                    <trends>0</trends>
+                    <value_type>TEXT</value_type>
+                    <applications>
+                        <application>
+                            <name>BullSequanaEdge Collect Information</name>
+                        </application>
+                    </applications>
+                </item>
+                <item>
                     <name>Version: BMC - Failed to activate</name>
                     <type>EXTERNAL</type>
                     <key>openbmc_firmware_reader[-f={$OPENBMC}-software.json,-i=BMC,-p=Activation,-a=Failed]</key>
@@ -215,6 +229,28 @@
                     <applications>
                         <application>
                             <name>BullSequanaEdge Firmware Version  Information</name>
+                        </application>
+                    </applications>
+                    <triggers>
+                        <trigger>
+                            <expression>{str(N/A)}=0</expression>
+                            <name>Mipocket: Obsolete BMC Firmware Version</name>
+                            <priority>WARNING</priority>
+                            <manual_close>YES</manual_close>
+                        </trigger>
+                    </triggers>
+                </item>
+                <item>
+                    <name>Version: CPLD - Obsolete</name>
+                    <type>EXTERNAL</type>
+                    <key>openbmc_firmware_reader[-f={$OPENBMC}-software.json,-i=CPLD,-p=Activation,-a=Active]</key>
+                    <delay>30s</delay>
+                    <history>7d</history>
+                    <trends>0</trends>
+                    <value_type>TEXT</value_type>
+                    <applications>
+                        <application>
+                            <name>BullSequanaEdge Collect Information</name>
                         </application>
                     </applications>
                 </item>
@@ -267,6 +303,28 @@
                             <name>BullSequanaEdge Firmware Version  Information</name>
                         </application>
                     </applications>
+                    <triggers>
+                        <trigger>
+                            <expression>{str(N/A)}=0</expression>
+                            <name>Mipocket: Obsolete CPLD Firmware Version</name>
+                            <priority>WARNING</priority>
+                            <manual_close>YES</manual_close>
+                        </trigger>
+                    </triggers>
+                </item>
+                <item>
+                    <name>Version: BIOS - Obsolete</name>
+                    <type>EXTERNAL</type>
+                    <key>openbmc_firmware_reader[-f={$OPENBMC}-software.json,-i=Host,-p=Activation,-a=Active]</key>
+                    <delay>30s</delay>
+                    <history>7d</history>
+                    <trends>0</trends>
+                    <value_type>TEXT</value_type>
+                    <applications>
+                        <application>
+                            <name>BullSequanaEdge Collect Information</name>
+                        </application>
+                    </applications>
                 </item>
                 <item>
                     <name>Version: BIOS - Failed to activate</name>
@@ -317,6 +375,14 @@
                             <name>BullSequanaEdge Firmware Version  Information</name>
                         </application>
                     </applications>
+                    <triggers>
+                        <trigger>
+                            <expression>{str(N/A)}=0</expression>
+                            <name>Mipocket: Obsolete BIOS Firmware Version</name>
+                            <priority>WARNING</priority>
+                            <manual_close>YES</manual_close>
+                        </trigger>
+                    </triggers>
                 </item>
                 <item>
                     <name>Network: DHCP</name>
