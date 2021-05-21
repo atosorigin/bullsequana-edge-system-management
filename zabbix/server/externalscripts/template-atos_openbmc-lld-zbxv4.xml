@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <zabbix_export>
     <version>4.4</version>
-    <date>2021-03-01T19:12:52Z</date>
+    <date>2021-05-21T10:16:32Z</date>
     <groups>
         <group>
             <name>Templates</name>
@@ -71,6 +71,20 @@
                 </application>
             </applications>
             <items>
+                <item>
+                    <name>Collect Chassis</name>
+                    <type>EXTERNAL</type>
+                    <key>openbmc_collect[-u={$USER},-p={$PASSWORD},-b={$OPENBMC},-i=/xyz/openbmc_project/Chassis/enumerate]</key>
+                    <delay>10m</delay>
+                    <history>7d</history>
+                    <trends>0</trends>
+                    <value_type>TEXT</value_type>
+                    <applications>
+                        <application>
+                            <name>BullSequanaEdge Collect Information</name>
+                        </application>
+                    </applications>
+                </item>
                 <item>
                     <name>Collect Control</name>
                     <type>EXTERNAL</type>
@@ -376,6 +390,20 @@
                     </applications>
                 </item>
                 <item>
+                    <name>Chassis: Intrusion - Status</name>
+                    <type>EXTERNAL</type>
+                    <key>openbmc_reader[-f={$OPENBMC}-Chassis.json,-i=/xyz/openbmc_project/Chassis/Intrusion,-p=Status]</key>
+                    <delay>10m</delay>
+                    <history>7d</history>
+                    <trends>0</trends>
+                    <value_type>TEXT</value_type>
+                    <applications>
+                        <application>
+                            <name>BullSequanaEdge Control Information</name>
+                        </application>
+                    </applications>
+                </item>
+                <item>
                     <name>Control: Auto Reboot</name>
                     <type>EXTERNAL</type>
                     <key>openbmc_reader[-f={$OPENBMC}-control.json,-i=/xyz/openbmc_project/control/host0/auto_reboot,-p=AutoReboot]</key>
@@ -519,6 +547,20 @@
                     <name>Control: Turbo Allowed</name>
                     <type>EXTERNAL</type>
                     <key>openbmc_reader[-f={$OPENBMC}-control.json,-i=/xyz/openbmc_project/control/host0/restriction_mode,-p=TurboAllowed]</key>
+                    <delay>10m</delay>
+                    <history>7d</history>
+                    <trends>0</trends>
+                    <value_type>TEXT</value_type>
+                    <applications>
+                        <application>
+                            <name>BullSequanaEdge Control Information</name>
+                        </application>
+                    </applications>
+                </item>
+                <item>
+                    <name>Control: TPM Enable</name>
+                    <type>EXTERNAL</type>
+                    <key>openbmc_reader[-f={$OPENBMC}-control.json,-i=/xyz/openbmc_project/control/host0/TPMEnable,-p=TPMEnable]</key>
                     <delay>10m</delay>
                     <history>7d</history>
                     <trends>0</trends>
@@ -2172,6 +2214,282 @@
                     </preprocessing>
                     <master_item>
                         <key>openbmc_reader[-f={$OPENBMC}-system.json,-i=/xyz/openbmc_project/inventory/system/chassis/motherboard/HDD_1]</key>
+                    </master_item>
+                </item>
+                <item>
+                    <name>System: PCI 0 Port Number</name>
+                    <type>DEPENDENT</type>
+                    <key>system_pci0_portnumber</key>
+                    <delay>0</delay>
+                    <history>1d</history>
+                    <trends>0</trends>
+                    <value_type>TEXT</value_type>
+                    <applications>
+                        <application>
+                            <name>BullSequanaEdge System Information</name>
+                        </application>
+                    </applications>
+                    <preprocessing>
+                        <step>
+                            <type>JSONPATH</type>
+                            <params>$.PortNumber</params>
+                        </step>
+                    </preprocessing>
+                    <master_item>
+                        <key>openbmc_reader[-f={$OPENBMC}-system.json,-i=/xyz/openbmc_project/inventory/system/chassis/motherboard/PCI_0]</key>
+                    </master_item>
+                </item>
+                <item>
+                    <name>System: PCI 0 Port Speed</name>
+                    <type>DEPENDENT</type>
+                    <key>system_pci0_portspeed</key>
+                    <delay>0</delay>
+                    <history>1d</history>
+                    <trends>0</trends>
+                    <value_type>TEXT</value_type>
+                    <applications>
+                        <application>
+                            <name>BullSequanaEdge System Information</name>
+                        </application>
+                    </applications>
+                    <preprocessing>
+                        <step>
+                            <type>JSONPATH</type>
+                            <params>$.PortSpeed</params>
+                        </step>
+                    </preprocessing>
+                    <master_item>
+                        <key>openbmc_reader[-f={$OPENBMC}-system.json,-i=/xyz/openbmc_project/inventory/system/chassis/motherboard/PCI_0]</key>
+                    </master_item>
+                </item>
+                <item>
+                    <name>System: PCI 0 Port Width</name>
+                    <type>DEPENDENT</type>
+                    <key>system_pci0_portwidth</key>
+                    <delay>0</delay>
+                    <history>1d</history>
+                    <trends>0</trends>
+                    <value_type>TEXT</value_type>
+                    <applications>
+                        <application>
+                            <name>BullSequanaEdge System Information</name>
+                        </application>
+                    </applications>
+                    <preprocessing>
+                        <step>
+                            <type>JSONPATH</type>
+                            <params>$.PortWidth</params>
+                        </step>
+                    </preprocessing>
+                    <master_item>
+                        <key>openbmc_reader[-f={$OPENBMC}-system.json,-i=/xyz/openbmc_project/inventory/system/chassis/motherboard/PCI_0]</key>
+                    </master_item>
+                </item>
+                <item>
+                    <name>System: PCI 0 Present</name>
+                    <type>DEPENDENT</type>
+                    <key>system_pci0_present</key>
+                    <delay>0</delay>
+                    <history>1d</history>
+                    <trends>0</trends>
+                    <value_type>TEXT</value_type>
+                    <applications>
+                        <application>
+                            <name>BullSequanaEdge Presence and Functional Information</name>
+                        </application>
+                    </applications>
+                    <preprocessing>
+                        <step>
+                            <type>JSONPATH</type>
+                            <params>$.Present</params>
+                        </step>
+                    </preprocessing>
+                    <master_item>
+                        <key>openbmc_reader[-f={$OPENBMC}-system.json,-i=/xyz/openbmc_project/inventory/system/chassis/motherboard/PCI_0]</key>
+                    </master_item>
+                </item>
+                <item>
+                    <name>System: PCI 0 Subsystem Dev ID</name>
+                    <type>DEPENDENT</type>
+                    <key>system_pci0_subsystemdevid</key>
+                    <delay>0</delay>
+                    <history>1d</history>
+                    <trends>0</trends>
+                    <value_type>TEXT</value_type>
+                    <applications>
+                        <application>
+                            <name>BullSequanaEdge System Information</name>
+                        </application>
+                    </applications>
+                    <preprocessing>
+                        <step>
+                            <type>JSONPATH</type>
+                            <params>$.SubsystemDevID</params>
+                        </step>
+                    </preprocessing>
+                    <master_item>
+                        <key>openbmc_reader[-f={$OPENBMC}-system.json,-i=/xyz/openbmc_project/inventory/system/chassis/motherboard/PCI_0]</key>
+                    </master_item>
+                </item>
+                <item>
+                    <name>System: PCI 0 Vendor ID</name>
+                    <type>DEPENDENT</type>
+                    <key>system_pci0_vendorid</key>
+                    <delay>0</delay>
+                    <history>1d</history>
+                    <trends>0</trends>
+                    <value_type>TEXT</value_type>
+                    <applications>
+                        <application>
+                            <name>BullSequanaEdge System Information</name>
+                        </application>
+                    </applications>
+                    <preprocessing>
+                        <step>
+                            <type>JSONPATH</type>
+                            <params>$.VendorID</params>
+                        </step>
+                    </preprocessing>
+                    <master_item>
+                        <key>openbmc_reader[-f={$OPENBMC}-system.json,-i=/xyz/openbmc_project/inventory/system/chassis/motherboard/PCI_0]</key>
+                    </master_item>
+                </item>
+                <item>
+                    <name>System: PCI 1 Port Number</name>
+                    <type>DEPENDENT</type>
+                    <key>system_pci1_portnumber</key>
+                    <delay>0</delay>
+                    <history>1d</history>
+                    <trends>0</trends>
+                    <value_type>TEXT</value_type>
+                    <applications>
+                        <application>
+                            <name>BullSequanaEdge System Information</name>
+                        </application>
+                    </applications>
+                    <preprocessing>
+                        <step>
+                            <type>JSONPATH</type>
+                            <params>$.PortNumber</params>
+                        </step>
+                    </preprocessing>
+                    <master_item>
+                        <key>openbmc_reader[-f={$OPENBMC}-system.json,-i=/xyz/openbmc_project/inventory/system/chassis/motherboard/PCI_1]</key>
+                    </master_item>
+                </item>
+                <item>
+                    <name>System: PCI 1 Port Speed</name>
+                    <type>DEPENDENT</type>
+                    <key>system_pci1_portspeed</key>
+                    <delay>0</delay>
+                    <history>1d</history>
+                    <trends>0</trends>
+                    <value_type>TEXT</value_type>
+                    <applications>
+                        <application>
+                            <name>BullSequanaEdge System Information</name>
+                        </application>
+                    </applications>
+                    <preprocessing>
+                        <step>
+                            <type>JSONPATH</type>
+                            <params>$.PortSpeed</params>
+                        </step>
+                    </preprocessing>
+                    <master_item>
+                        <key>openbmc_reader[-f={$OPENBMC}-system.json,-i=/xyz/openbmc_project/inventory/system/chassis/motherboard/PCI_1]</key>
+                    </master_item>
+                </item>
+                <item>
+                    <name>System: PCI 1 Port Width</name>
+                    <type>DEPENDENT</type>
+                    <key>system_pci1_portwidth</key>
+                    <delay>0</delay>
+                    <history>1d</history>
+                    <trends>0</trends>
+                    <value_type>TEXT</value_type>
+                    <applications>
+                        <application>
+                            <name>BullSequanaEdge System Information</name>
+                        </application>
+                    </applications>
+                    <preprocessing>
+                        <step>
+                            <type>JSONPATH</type>
+                            <params>$.PortWidth</params>
+                        </step>
+                    </preprocessing>
+                    <master_item>
+                        <key>openbmc_reader[-f={$OPENBMC}-system.json,-i=/xyz/openbmc_project/inventory/system/chassis/motherboard/PCI_1]</key>
+                    </master_item>
+                </item>
+                <item>
+                    <name>System: PCI 1 Present</name>
+                    <type>DEPENDENT</type>
+                    <key>system_pci1_present</key>
+                    <delay>0</delay>
+                    <history>1d</history>
+                    <trends>0</trends>
+                    <value_type>TEXT</value_type>
+                    <applications>
+                        <application>
+                            <name>BullSequanaEdge Presence and Functional Information</name>
+                        </application>
+                    </applications>
+                    <preprocessing>
+                        <step>
+                            <type>JSONPATH</type>
+                            <params>$.Present</params>
+                        </step>
+                    </preprocessing>
+                    <master_item>
+                        <key>openbmc_reader[-f={$OPENBMC}-system.json,-i=/xyz/openbmc_project/inventory/system/chassis/motherboard/PCI_1]</key>
+                    </master_item>
+                </item>
+                <item>
+                    <name>System: PCI 1 Subsystem Dev ID</name>
+                    <type>DEPENDENT</type>
+                    <key>system_pci1_subsystemdevid</key>
+                    <delay>0</delay>
+                    <history>1d</history>
+                    <trends>0</trends>
+                    <value_type>TEXT</value_type>
+                    <applications>
+                        <application>
+                            <name>BullSequanaEdge System Information</name>
+                        </application>
+                    </applications>
+                    <preprocessing>
+                        <step>
+                            <type>JSONPATH</type>
+                            <params>$.SubsystemDevID</params>
+                        </step>
+                    </preprocessing>
+                    <master_item>
+                        <key>openbmc_reader[-f={$OPENBMC}-system.json,-i=/xyz/openbmc_project/inventory/system/chassis/motherboard/PCI_1]</key>
+                    </master_item>
+                </item>
+                <item>
+                    <name>System: PCI 1 Vendor ID</name>
+                    <type>DEPENDENT</type>
+                    <key>system_pci1_vendorid</key>
+                    <delay>0</delay>
+                    <history>1d</history>
+                    <trends>0</trends>
+                    <value_type>TEXT</value_type>
+                    <applications>
+                        <application>
+                            <name>BullSequanaEdge System Information</name>
+                        </application>
+                    </applications>
+                    <preprocessing>
+                        <step>
+                            <type>JSONPATH</type>
+                            <params>$.VendorID</params>
+                        </step>
+                    </preprocessing>
+                    <master_item>
+                        <key>openbmc_reader[-f={$OPENBMC}-system.json,-i=/xyz/openbmc_project/inventory/system/chassis/motherboard/PCI_1]</key>
                     </master_item>
                 </item>
             </items>

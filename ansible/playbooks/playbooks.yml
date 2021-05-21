@@ -221,7 +221,7 @@ job_templates:
     playbook: inventory/set_ntp_server_ip_and_sync.yml
     job-type: run
     verbosity: 0
-    extra_vars: ["ntp_server_ip:, ntp_server_sync:604800"]
+    extra_vars: ["ntp_server_ip:127.0.0.1, ntp_server_sync:604800"]
     ask_variables_on_launch: 1
   - name: System
     description: Get System
