@@ -15,6 +15,8 @@ import tower_cli
 import time
 from select import select
 import os 
+import json
+import re
 
 class Config:
     def __init__(self, **entries):
@@ -48,6 +50,9 @@ print(tower.org, tower.org_desc)
 org = org_res.create(name=tower.org, description=tower.org_desc)
 org_id = org['id']
 
+regex = r"[\"]?(?P<cle>[0-9a-zA-Z_\-\.]*)[\"]?: [\"]?(?P<valeur>[0-9a-zA-Z_\-\/\.]*)[\"]?[,]?"
+pat = re.compile(regex) 
+
 if tower.credentials:
     for i in tower.credentials:
         try:
@@ -68,9 +73,38 @@ if tower.inventories:
         try:
             inv = inv_res.get(name=i['name'])
             print("Updating Inventory: {name} variables\n".format(name=i['name']))
-            inv_res.modify(name=i['name'], variables=i['variables'])
+
+            variables = inv.get("variables", None)
+            
+            if not variables:
+                # no variables => creating all default variables
+                print("Creating Inventory variables: {name} \n".format(name=i['name']))
+                inv_res.modify(name=i['name'], variables=i['variables'])
+                break
+            matches = re.finditer(pat, variables)
+            existing_variables = {}
+            for match in matches:
+                existing_variables[match.group("cle")] = match.group("valeur")
+            for cle, valeur in i['variables'].items():
+                if not cle in existing_variables:
+                    print("Key not found => Creating key={} with value={} in your ANSIBLE VARIABLES".format(cle, valeur))
+                    if type(valeur)=="str" and valeur.isdigit():
+                        print(type(valeur))
+                        valeur = int(valeur)
+                    existing_variables[cle]=valeur
+                else: # do NOT change existing variables
+                    valeur_existing = existing_variables[cle]
+                    if type(valeur_existing)=="str" and valeur_existing.isdigit():
+                        valeur_existing = int(valeur_existing)
+                    print("Key found => {} = {}".format(cle, valeur_existing))
+                    existing_variables[cle] = valeur_existing
+
+            result = json.dumps(existing_variables)
+            inv_res.modify(name=i['name'], variables=result)
+            print("Updated Inventory: {name} variables\n".format(name=i['name']))
         except:
-            print("Creating Inventory: {name}\n".format(name=i['name']))
+            print("Exception !! Recreating Inventory: {name}\n".format(name=i['name']))
+            i['variables'] = json.dumps(i['variables'])
             inv = inv_res.create(**i)
             bool_force_create=True
             # create dynamic groups, static ones can be imported better with awx-manage

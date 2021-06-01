@@ -12,8 +12,25 @@ inventories:
         hosts:
         - name: <here an ip address>
           variables: '{ "baseuri": "{{inventory_hostname}}", "username": "<here bmc user name>", "password": "{{ here_your_encryted_password_variable }}" }'
-    variables: '{ "ANSIBLE_PASSWORDS": "/etc/ansible/vars/passwords.yml", "technical_state_path": "/host/mnt", "forceoff": True, "reboot": True, "ntp_server_ip": "127.0.0.1", "ntp_server_sync": 604800, "rsyslog_server_ip": "0.0.0.0", "rsyslog_server_port": 514, "reboot_countdown": "2", "poweron_countdown": "5", "activating_countdown": "30", "poweroff_countdown": "5" , "reboot_maxretries": "10", "poweron_maxretries": "10", "activating_maxretries": "10", "poweroff_maxretries": "10", token_timeout: "5" }'
-      
+    variables: 
+        ANSIBLE_PASSWORDS: /etc/ansible/vars/passwords.yml
+        technical_state_path: /host/mnt
+        forceoff: true
+        reboot: true
+        ntp_server_ip: 127.0.0.1
+        ntp_server_sync: 604800
+        rsyslog_server_ip: 0.0.0.0
+        rsyslog_server_port: 514
+        reboot_countdown: 2
+        poweron_countdown: 5
+        activating_countdown: 30
+        poweroff_countdown: 5
+        reboot_maxretries: 10
+        poweron_maxretries: 10
+        activating_maxretries: 10
+        poweroff_maxretries: 10
+        token_timeout: 5
+  
 credentials:
   - name: Bull Sequana Edge Vault
     description: Bull Sequana Edge Vault associated to ansible/playbooks/vars/passwords.yml file
@@ -221,7 +238,7 @@ job_templates:
     playbook: inventory/set_ntp_server_ip_and_sync.yml
     job-type: run
     verbosity: 0
-    extra_vars: ["ntp_server_ip:127.0.0.1, ntp_server_sync:604800"]
+    extra_vars: ["ntp_server_ip: 127.0.0.1", "ntp_server_sync: 604800"]
     ask_variables_on_launch: 1
   - name: System
     description: Get System

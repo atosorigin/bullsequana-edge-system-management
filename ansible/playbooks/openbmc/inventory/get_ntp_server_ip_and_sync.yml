@@ -64,7 +64,7 @@
       sync: "{{ result_ntp_server_sync.json.data }}"
 
   - name: debug NTP Server Ip and Sync
-   debug:
+    debug:
       msg: "NTP Ip = {{address_ip}} / Sync method = {{sync}}"
     when: address_ip is defined and sync is defined
 
