@@ -1,5 +1,9 @@
 #!/bin/sh
 
+rm -f install_awx.sh
+rm -f start_awx.sh
+rm -f stop_awx.sh
+
 . ./check_prerequisites.sh
 . ./remove_awx_containers_and_images.sh
 . ./proxy.sh
@@ -7,6 +11,10 @@
 
 echo "starting BullSequana Edge Ansible AWX containers ...."
 docker-compose -f docker_compose_awx_from_atos_dockerhub.yml up -d
+
+rm -f install.sh install_awx.sh
+rm -f start.sh start_awx.sh
+rm -f stop.sh stop_awx.sh
 
 echo "----------------------------------------------------------------------------------------------------"
 echo "now wait 10 minutes for the migration to complete...."

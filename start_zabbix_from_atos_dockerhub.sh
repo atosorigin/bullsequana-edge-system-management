@@ -1,13 +1,6 @@
 #!/bin/sh
 
-rm -f install_zabbix.sh
-rm -f start_zabbix.sh
-rm -f stop_zabbix.sh
-
-. ./check_prerequisites.sh
-. ./remove_zabbix_containers_and_images.sh
-
-chmod ugo+w zabbix/server/externalscripts/openbmc
+chmod uo+w zabbix/server/externalscripts/openbmc
 
 set -euo pipefail
 
@@ -29,17 +22,14 @@ echo $timezone
 . ./proxy.sh
 . ./versions.sh
 
-rm -f install.sh install_zabbix.sh
-rm -f start.sh start_zabbix.sh
-rm -f stop.sh stop_zabbix.sh
+export always_or_no=always
+./update_zabbix_containers_restart_option.sh
 
-echo "starting BullSequana Edge Zabbix containers ...."
+echo "starting MISM containers ...."
 docker-compose -f docker_compose_zabbix_from_atos_dockerhub.yml up -d
-
-echo "---------------------------------------------------------------------------------------------------"
-echo "Zabbix is now available on https://localhost:4443"
-echo "for more info, refer to github site https://github.com/atosorigin/bullsequana-edge-system-management"
-echo "----------------------------------------------------------------------------------------------------"
-
-
+echo "----------------------------------------------------------------"
+echo "Zabbix is available on https://localhost:4443"
+echo "for more info, refer to github site "
+echo "https://github.com/atosorigin/bullsequana-edge-system-management"
+echo "----------------------------------------------------------------"
 

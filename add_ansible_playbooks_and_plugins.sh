@@ -61,7 +61,7 @@ add_lines()
 }
 
 while true; do
-    read -p "Do you wish to overwrite your $ANSIBLE_CONFIG file ? y yes / n no: " yn
+    read -p "Do you wish to overwrite your $ANSIBLE_CONFIG file ? [y yes / n no]: " yn
     case $yn in
         [Yy]* ) cp ansible/inventory/ansible.cfg $ANSIBLE_CONFIG ; break;;
         [Nn]* ) add_lines; break;;

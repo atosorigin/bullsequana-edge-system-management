@@ -2,6 +2,10 @@
 
 export old_mism_version=$MISM_BULLSEQUANA_EDGE_VERSION
 
+rm -f install_zabbix_from_atos_dockerhub.sh
+rm -f start_zabbix_from_atos_dockerhub.sh
+rm -f stop_zabbix_from_atos_dockerhub.sh
+
 . ./check_prerequisites.sh
 # comment the next line if you build from your own Dockerfiles with build_zabbix.sh
 . ./remove_zabbix_containers_and_images.sh
@@ -114,16 +118,6 @@ then
     docker load --input postgres.$MISM_BULLSEQUANA_EDGE_VERSION.tar
   fi
 fi
-
-echo "building BullSequana Edge Zabbix containers ...."
-export REGISTRY=zabbix
-docker-compose -f docker_compose_zabbix.yml build \
- --build-arg MISM_BULLSEQUANA_EDGE_VERSION=$MISM_BULLSEQUANA_EDGE_VERSION \
- --build-arg REGISTRY=$REGISTRY \
- --build-arg BASE_IMAGE_ZABBIX=$BASE_IMAGE_ZABBIX \
- --build-arg TAG_ZABBIX=$ZABBIX_BULLSEQUANA_EDGE_VERSION \
- --build-arg BASE_IMAGE_ZABBIX_WEB=$BASE_IMAGE_ZABBIX_WEB \
- --build-arg BASE_IMAGE_ZABBIX_AGENT=$BASE_IMAGE_ZABBIX_AGENT 
 
 echo "starting BullSequana Edge Zabbix containers ...."
 docker-compose -f docker_compose_zabbix.yml up -d
