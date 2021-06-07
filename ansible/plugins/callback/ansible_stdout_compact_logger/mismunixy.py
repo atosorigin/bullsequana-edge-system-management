@@ -385,38 +385,50 @@ class CallbackModule(Default):
     '''
     def deep_serialize_sensors(self, name, sensors, check=False):
         self._display.display("{header_name}".format(header_name=name+" | sensors:"))
-        output = "{header_key:<40}:{header_value:>10}{header_crit_low:>10}{header_crit_high:>10}{unit:>9}".format(header_key="sensor", header_value="current",header_crit_low="crit low",header_crit_high="crit high",unit="unit")
+        output = "{header_key:<40}:{header_value:>14}{header_crit_low:>14}{header_crit_high:>14}{unit:>9}".format(header_key="sensor", header_value="current",header_crit_low="crit low",header_crit_high="crit high",unit="unit")
         self._display.display(output, color='bright blue')
         sorted_sensors = sorted(sensors.items(), key=getKey)
         for (key, sensor) in sorted_sensors:
             value = sensor.get("Value", None)
-            crit_low = sensor.get("CriticalLow", None)
-            crit_high = sensor.get("CriticalHigh", None)
+            crit_low = sensor.get("CriticalLow", "0.0")
+            crit_high = sensor.get("CriticalHigh", "0.0")
 
             unit = sensor.get("Unit", None).replace("xyz.openbmc_project.Sensor.Value.Unit.", "")
-            scale = sensor.get("Scale", None)                        
-            value_float = float(value)
-            crit_low_float = float(crit_low)
-            crit_high_float = float(crit_high)
-            if scale == -3 :
-                value_float = value_float / 1000
-                crit_low_float = crit_low_float / 1000
-                crit_high_float = crit_high_float / 1000
-                unit = "{unit}".format(unit=unit)
-                
-            if scale == 3 :
-                unit = "k{unit}".format(unit=unit)
-            output = "{key:<40}:{value:10.2f}{crit_low:10.2f}{crit_high:10.2F}{unit:>9}".format(key=key.replace("/xyz/openbmc_project/sensors/",""),value=value_float,crit_low=crit_low_float,crit_high=crit_high_float,unit=unit)
+            scale = sensor.get("Scale", None)
+            value_float = None
+            crit_low_float = None
+            crit_high_float = None
+            try:
+                value_float = float(value)
+                crit_low_float = float(crit_low)
+                crit_high_float = float(crit_high)
+                if scale == -3 :
+                    value_float = value_float / 1000
+                    crit_low_float = crit_low_float / 1000
+                    crit_high_float = crit_high_float / 1000
+                    unit = "{unit}".format(unit=unit)
+                if scale == -6 :
+                    value_float = value_float / 1000000
+                    crit_low_float = crit_low_float / 1000000
+                    crit_high_float = crit_high_float / 1000000
+                    unit = "{unit}".format(unit=unit)
+                    
+                if scale == 3 :
+                    unit = "k{unit}".format(unit=unit)
+                if scale == 6 :
+                    unit = "M{unit}".format(unit=unit)
+                output = "{key:<40}:{value:14.2f}{crit_low:14.2f}{crit_high:14.2f}{unit:>9}".format(key=key.replace("/xyz/openbmc_project/sensors/",""),value=value_float,crit_low=crit_low_float,crit_high=crit_high_float,unit=unit)
+            except:
+                output = "{key:<40}:{value:>14}{crit_low:>14}{crit_high:14}{unit:>9}".format(key=key.replace("/xyz/openbmc_project/sensors/",""),value=value,crit_low=crit_low,crit_high=crit_high,unit=unit)
+            
             if value_float < crit_low_float :
                 self._display.display(output, color='red')
-            else:
-                if not check:
-                    self._display.display(output, color='green')
+                continue
 
             if value_float > crit_high_float :
                 self._display.display(output, color='red')
-                if not check:
-                    self._display.display(output, color='green')
+                continue
+            self._display.display(output, color='green')
 
     # get_logs.yml
     '''
