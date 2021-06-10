@@ -1,0 +1,15 @@
+---
+- hosts: all
+  connection: local
+  name: ipmi power
+  gather_facts: False
+
+  tasks:
+ 
+  # Ensure machine is powered on.
+  - ipmi_power:
+      name: "{{host}}"
+      user: root
+      password: sdd@atos
+      state: on
+    register: result

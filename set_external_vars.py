@@ -39,12 +39,12 @@ if(not external_vars.get('power_cap')):
   f.write("# Define a power capability\n")
   f.write("power_cap: 500\n")
 if(not external_vars.get('forceoff')):
-  print("Adding forceoff: False")
+  print("Adding forceoff: false")
   f.write("# Update and Activate playbooks use these variables if needed\n")
-  f.write("forceoff: False\n")
+  f.write("forceoff: false\n")
 if(not external_vars.get('reboot')):
-  print("Adding reboot: False")
-  f.write("reboot: False\n")
+  print("Adding reboot: true")
+  f.write("reboot: true\n")
 if(not external_vars.get('token_timeout')):
   print("Adding token timeout in SECONDS: 5")
   f.write("# url timeout when creating token\n")

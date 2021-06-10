@@ -1,0 +1,21 @@
+---
+- hosts: all
+  connection: local
+  name: firmware Inventory
+  gather_facts: False
+
+  tasks:
+  - name: Getting firmware inventory
+    redfish_info:
+      category: Systems
+      baseuri: "{{baseuri}}"
+      username: "{{username}}"
+      password: "{{password}}"
+    register: result
+
+  - debug:
+      var: result
+      verbosity: 2
+
+
+

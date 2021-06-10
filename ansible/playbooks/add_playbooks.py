@@ -15,7 +15,6 @@ import tower_cli
 import time
 from select import select
 import os 
-import json
 import re
 
 class Config:
@@ -99,12 +98,12 @@ if tower.inventories:
                     print("Key found => {} = {}".format(cle, valeur_existing))
                     existing_variables[cle] = valeur_existing
 
-            result = json.dumps(existing_variables)
+            result = yaml.dump(existing_variables)
             inv_res.modify(name=i['name'], variables=result)
             print("Updated Inventory: {name} variables\n".format(name=i['name']))
         except:
             print("Exception !! Recreating Inventory: {name}\n".format(name=i['name']))
-            i['variables'] = json.dumps(i['variables'])
+            i['variables'] = yaml.dump(i['variables'])
             inv = inv_res.create(**i)
             bool_force_create=True
             # create dynamic groups, static ones can be imported better with awx-manage

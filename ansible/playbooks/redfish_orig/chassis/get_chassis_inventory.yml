@@ -1,0 +1,21 @@
+---
+- hosts: all
+  connection: local
+  name: Chassis Inventory
+  gather_facts: False
+
+  tasks:
+  - name: Getting chassis inventory
+    redfish_info:
+      category: Chassis
+      baseuri: "{{baseuri}}"
+      username: "{{username}}"
+      password: "{{password}}"
+    register: result
+
+  - debug:
+      var: result
+      verbosity: 2
+
+
+

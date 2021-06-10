@@ -1,0 +1,40 @@
+---
+- hosts: all
+  connection: local
+  name: Get BIOS attributes
+  gather_facts: False
+
+  vars:
+    datatype: BiosAttributes
+
+  tasks:
+
+  - name: Define output file
+    include_tasks: create_output_file.yml
+
+  - name: Get BIOS attributes
+    redfish_facts:
+      category: Systems
+      command: GetBiosAttributes
+      baseuri: "{{ baseuri }}"
+      user: "{{ username }}"
+      password: "{{ password }}"
+    register: result
+    failed_when: ansible_facts.redfish_facts.bios_attribute.ret == false
+
+  - set_fact:
+      bios_attribute: "{{ result.ansible_facts.redfish_facts.bios_attribute }}"
+      verbosity: 4
+
+  - debug:
+      var: bios_attribute.msg
+      verbosity: 4
+
+  - debug:
+      var: bios_attribute.ret
+      verbosity: 4
+
+  - name: Copy results to output file
+    copy:
+      content: "{{ result | to_nice_json }}"
+      dest: "{{ template }}.json"
