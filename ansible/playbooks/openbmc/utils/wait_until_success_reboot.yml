@@ -10,8 +10,12 @@
         pause:
           minutes: "{{ reboot_countdown }}"
 
+      - name: Recreate token after reboot
+        include_tasks: utils_create_token.yml
+
       - name: Get Firmware inventory
         include_tasks: utils_firmware_inventory.yml
+        ignore_errors: True
 
       - debug:
           msg: "{{ item.value.Purpose }} - {{ item.value.RequestedActivation }} - {{ item.value.Activation }}"
@@ -21,10 +25,6 @@
             item.value.Activation is defined and
             item.value.Purpose is defined
         with_dict: "{{ firmware_inventory }}"
-
-      - name: Recreate token when lost
-        include_tasks: utils_create_token.yml
-        when: not result_firmware_inventory.status == 200
 
       - fail:
           msg: "Token lost ==> recreating token"
