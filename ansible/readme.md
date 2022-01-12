@@ -964,4 +964,5 @@ Ansible Help is accessible as Ansible Documentation :
 This project is licensed under GPL-3.0 License. Please see the [COPYING](../COPYING.md) for more information
 
 ## <a name="version"></a>Version
-BullSequana Edge System Management Tool version 2.0.1
+BullSequana Edge System Management Playbook version 2.1.10
+MISM_BULLSEQUANA_EDGE_PLAYBOOKS_VERSION=2.1.10

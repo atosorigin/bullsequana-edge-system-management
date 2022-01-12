@@ -1,13 +1,41 @@
 #!/usr/bin/env python3
-# # -*- coding: utf-8 -*-
-#
-# Atos BullSequana Edge Ansible Modules
-# Version 2.0
-# Copyright (C) 2019 Atos or its subsidiaries. All Rights Reserved.
+# -*- coding: utf-8 -*-
 
-# GNU General Public License v3.0+ (see COPYING or https://www.gnu.org/licenses/gpl-3.0.txt)
-#
-# Inspired from https://github.com/jsmartin/tower_populator
+"""
+This script add ansible playbooks to awx
+This script is called fomr add_awx_playbooks.sh file
+Inspired from https://github.com/jsmartin/tower_populator
+
+Copyright (C) 2022 Atos
+
+This program is free software: you can redistribute it and/or modify it under
+the terms of the GNU General Public License as published by the Free Software
+Foundation, either version 3 of the License, or (at your option) any later
+version.
+This program is distributed in the hope that it will be useful, but WITHOUT
+ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+You should have received a copy of the GNU General Public License along with
+this program. If not, see <http://www.gnu.org/licenses/>.
+
+All users shall be bound by the terms and 
+conditions of the GNU General Public License v3.0  
+which are stated extensively at the following address : 
+https://www.gnu.org/licenses/gpl-3.0.en.html
+
+"""
+
+__author__ = "Francine Sauvage"
+__contact__ = "support@atos.net"
+__date__ = "2022/01/12"
+__deprecated__ = False
+__email__ =  "francine.sauvage@atos.net"
+__license__ = "GPLv3"
+__status__ = "Production"
+__version__ = "2.1.10"
+__copyright__ = "Copyright 2022, Atos"
+__maintainer__ = "Francine Sauvage"
+__credits__ = ["Francine Sauvage"]
 
 import yaml
 import sys
@@ -84,26 +112,50 @@ if tower.inventories:
             existing_variables = {}
             for match in matches:
                 existing_variables[match.group("cle")] = match.group("valeur")
+            #print(i['variables'].items())
+
             for cle, valeur in i['variables'].items():
+                #print("{} {}".format(cle, valeur) )
+                if cle == 'ntp_server_sync':                   
+                    existing_variables[cle] = 'NTP'
+                    print("Key found => {} = {}".format(cle, 'NTP'))
+                    continue
                 if not cle in existing_variables:
                     print("Key not found => Creating key={} with value={} in your ANSIBLE VARIABLES".format(cle, valeur))
-                    if type(valeur)=="str" and valeur.isdigit():
+                    if isinstance(valeur, "str") and valeur.isdigit():
                         print(type(valeur))
                         valeur = int(valeur)
                     existing_variables[cle]=valeur
                 else: # do NOT change existing variables
                     valeur_existing = existing_variables[cle]
-                    if type(valeur_existing)=="str" and valeur_existing.isdigit():
+                    if valeur_existing.isdigit():
                         valeur_existing = int(valeur_existing)
-                    print("Key found => {} = {}".format(cle, valeur_existing))
+                        print("Key found as integer => {} = {}".format(cle, valeur_existing))
+                    elif isinstance(valeur_existing, bool) and valeur_existing :
+                        print("Key found as True => {} = {}".format(cle, valeur_existing))
+                        valeur_existing = True
+                    elif isinstance(valeur_existing, bool) and not valeur_existing:
+                        print("Key found as False => {} = {}".format(cle, valeur_existing))
+                        valeur_existing = False
+                    elif valeur_existing.lower() == 'true':
+                        valeur_existing = True
+                        print("Key found as bool=true => {} = {}".format(cle, valeur_existing))
+                    elif valeur_existing.lower() == 'false':
+                        valeur_existing = False
+                        print("Key found as bool=false => {} = {}".format(cle, valeur_existing))
+                    else :
+                        print("Key found as string => {} = {}".format(cle, valeur_existing))
                     existing_variables[cle] = valeur_existing
 
-            result = yaml.dump(existing_variables)
+            # result = yaml.dump(existing_variables)
+            result = yaml.safe_dump(existing_variables, default_flow_style=False)
+            # print(result)
             inv_res.modify(name=i['name'], variables=result)
             print("Updated Inventory: {name} variables\n".format(name=i['name']))
         except:
             print("Exception !! Recreating Inventory: {name}\n".format(name=i['name']))
-            i['variables'] = yaml.dump(i['variables'])
+            i['variables'] = yaml.safe_dump(i['variables'], default_flow_style=False)
+            print(i['variables'])
             inv = inv_res.create(**i)
             bool_force_create=True
             # create dynamic groups, static ones can be imported better with awx-manage
@@ -127,6 +179,7 @@ if tower.inventories:
                             host = host_res.create(**h)
                             host_res.associate(host=host['id'], group=group['id'])
         
+       
 if tower.projects:
     for p in tower.projects:
         p['description'] = "Playbooks {version} for BullSequana Edge".format(version=os.environ.get('MISM_BULLSEQUANA_EDGE_PLAYBOOKS_VERSION'))        

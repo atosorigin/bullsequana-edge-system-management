@@ -637,9 +637,14 @@ echo PSK: <your psk>
 
 ![alt text](https://raw.githubusercontent.com/atosorigin/bullsequana-edge-system-management/master/zabbix/doc/BullSequanaEdge_Zabbix_vault_generate_steps.png)
 
-:stop_sign: you should restart docker containers
+:stop_sign: you should restart docker containers  
 
-*more info on https://www.zabbix.com/documentation/4.0/fr/manual/encryption/using_pre_shared_keys*
+*more info on https://www.zabbix.com/documentation/4.0/fr/manual/encryption/using_pre_shared_keys*  
+
+:warning: Warning: You may need to change recursively <install_dir>/zabbix/agent directory rights as zabbix agent runs under **zabbix** user
+![alt text](https://raw.githubusercontent.com/atosorigin/bullsequana-edge-system-management/master/zabbix/doc/zabbix_agent_rights.png)
+`chmod uo+w zabbix_agentd.conf`
+`chmod uo+w zabbix_agentd.psk`
 
 ### generate an encrypted passwords
 1. generate an encrypted password for each different password 
@@ -799,4 +804,5 @@ After a build and install process, the result should be:
 This project is licensed under GPL-3.0 License. Please see the [COPYING](../COPYING.md) for more information
 
 ## <a name="version"></a>Version
-BullSequana Edge System Management Tool version 2.0.1
+BullSequana Edge System Management Template version 2.1.10
+MISM_BULLSEQUANA_EDGE_TEMPLATE_VERSION=2.1.10

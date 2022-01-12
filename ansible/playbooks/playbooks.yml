@@ -18,7 +18,7 @@ inventories:
         forceoff: true
         reboot: true
         ntp_server_ip: 127.0.0.1
-        ntp_server_sync: 604800
+        ntp_server_sync: NTP
         rsyslog_server_ip: 0.0.0.0
         rsyslog_server_port: 514
         reboot_countdown: 2
@@ -238,7 +238,7 @@ job_templates:
     playbook: inventory/set_ntp_server_ip_and_sync.yml
     job-type: run
     verbosity: 0
-    extra_vars: ["ntp_server_ip: 127.0.0.1", "ntp_server_sync: 604800"]
+    extra_vars: ["ntp_server_ip: 127.0.0.1", "ntp_server_sync: NTP"]
     ask_variables_on_launch: 1
   - name: System
     description: Get System
@@ -375,3 +375,17 @@ job_templates:
     verbosity: 0
     extra_vars: ["power_cap: 500"]
     ask_variables_on_launch: 1
+  - name: Enable ssh
+    description: Set SSH to Enabled
+    inventory: BullSequana Edge Inventory
+    project: BullSequana Edge Playbooks
+    playbook: power/enable_ssh.yml
+    job-type: run
+    verbosity: 0
+  - name: Disable ssh
+    description: Set SSH to Disabled
+    inventory: BullSequana Edge Inventory
+    project: BullSequana Edge Playbooks
+    playbook: power/disable_ssh.yml
+    job-type: run
+    verbosity: 0    

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <zabbix_export>
     <version>4.4</version>
-    <date>2020-09-12T06:53:41Z</date>
+    <date>2021-09-14T16:49:30Z</date>
     <groups>
         <group>
             <name>Templates</name>
@@ -11,7 +11,7 @@
         <template>
             <template>Template Hw Atos BullSequanaEdge Rsyslog</template>
             <name>Template Hw Atos BullSequanaEdge Rsyslog</name>
-            <description>2.1.9</description>
+            <description>2.1.10</description>
             <groups>
                 <group>
                     <name>Templates</name>
@@ -70,10 +70,11 @@
                     </preprocessing>
                     <triggers>
                         <trigger>
-                            <expression>{str(user:err)}=1</expression>
+                            <expression>{str(user:err)}&gt;=1</expression>
                             <recovery_mode>NONE</recovery_mode>
                             <name>{ITEM.VALUE}</name>
                             <priority>DISASTER</priority>
+                            <type>MULTIPLE</type>
                             <manual_close>YES</manual_close>
                         </trigger>
                     </triggers>

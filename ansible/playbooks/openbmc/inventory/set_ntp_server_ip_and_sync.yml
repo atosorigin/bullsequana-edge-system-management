@@ -60,5 +60,5 @@
         X-Auth-Token: "{{ x_token }}"
       body_format: json
       body:
-        data: "{{ ntp_server_sync }}"
+        data: "xyz.openbmc_project.Time.Synchronization.Method.{{ntp_server_sync}}"
     register: result_ntp_server_sync

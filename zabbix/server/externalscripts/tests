@@ -1,31 +1,32 @@
 export HTTP_PROXY="http://193.56.47.20:8080"
 export HTTPS_PROXY="http://193.56.47.20:8080"
-export NO_PROXY="127.0.0.1,localhost,zabbix,webserver,0.0.0.0:9090,0.0.0.0,ansible,awx,awxweb, rabbitmq,postgres,memcached,elasticsearch,kibana,logstash,filebeat,metricbeat,heartbeat,auditbeat,grafana,prometheus,nodeexporter,caddy,cadvisor,alertmanager,172.31.130.224,172.31.60.18,172.31.92.239,172.31.100.156,172.31.60.18,172.31.92.249,172.31.92.222,172.31.92.44,172.31.92.34"
+export NO_PROXY="127.0.0.1,localhost,zabbix,zabbix-serv,10.22.87.132"
 
-./openbmc_collect --user="root" --password="sdd@atos" --bmc="172.31.92.34" --item="/xyz/openbmc_project/sensors/enumerate"
-./openbmc_reader --file=172.31.92.34-sensors.json  --property=WarningAlarmLow --item=/xyz/openbmc_project/sensors/temperature/vr13_pch_temp
+to test inside zabbix environement, first, go inside docker
+$> docker exec -it zabbix-server bash
 
-./openbmc_collect --user="root" --password="sdd@atos" --bmc="172.31.92.34" --item="/xyz/openbmc_project/system/chassis"
-./openbmc_reader --file=172.31.92.34-system.json  --property=WaterCooled
-./openbmc_reader --file=172.31.92.34-sensors.json  --property=Value --item=/xyz/openbmc_project/sensors/enumerate
-./openbmc_reader --file=172.31.92.34-state.json -i=/xyz/openbmc_project/state/bmc0 --property=CurrentBMCState
+./openbmc_collect --user="root" --password="sdd@atos" --bmc="10.22.87.132" --item="/xyz/openbmc_project/sensors/enumerate"
+./openbmc_reader --file=10.22.87.132-sensors.json  --property=WarningAlarmLow --item=/xyz/openbmc_project/sensors/temperature/vr13_pch_temp
 
-./openbmc_lld --user=root --password=sdd@atos --bmc="172.31.92.34" --item=/xyz/openbmc_project/sensors/enumerate
-./openbmc_reader --file=172.31.92.34-temperature.json  --property=Value --item=/xyz/openbmc_project/sensors/temperature/vr13_ddr_de_temp
+./openbmc_collect --user="root" --password="sdd@atos" --bmc="10.22.87.132" --item="/xyz/openbmc_project/system/chassis"
+./openbmc_reader --file=10.22.87.132-system.json  --property=WaterCooled
+./openbmc_reader --file=10.22.87.132-sensors.json  --property=Value --item=/xyz/openbmc_project/sensors/enumerate
+./openbmc_reader --file=10.22.87.132-state.json -i=/xyz/openbmc_project/state/bmc0 --property=CurrentBMCState
 
-./openbmc_firmware_reader --file=172.31.92.34-software.json --item=Host
-./openbmc_firmware_reader --file=172.31.92.34-software.json --item=Host --property="Activation" --item=Host --activation="Failed"
-./openbmc_firmware_reader --file=172.31.92.34-software.json --item=Host --property="Activation" --item=BMC --activation="Active"
+./openbmc_lld --user=root --password=sdd@atos --bmc="10.22.87.132" --item=/xyz/openbmc_project/sensors/enumerate
+./openbmc_reader --file=10.22.87.132-temperature.json  --property=Value --item=/xyz/openbmc_project/sensors/temperature/vr13_ddr_de_temp
 
-./openbmc_network_reader --file=172.31.92.34-network.json --item=ipv4
-./openbmc_network_reader --file=172.31.92.34-network.json --item=ipv4 --property="Origin" --eth="eth1"
+./openbmc_firmware_reader --file=10.22.87.132-software.json --item=Host
+./openbmc_firmware_reader --file=10.22.87.132-software.json --item=Host --property="Activation" --item=Host --activation="Failed"
+./openbmc_firmware_reader --file=10.22.87.132-software.json --item=Host --property="Activation" --item=BMC --activation="Active"
 
-./openbmc_discovery --bmc=172.31.92.34 --user=root --password=sdd@atos
+./openbmc_network_reader --file=10.22.87.132-network.json --item=ipv4
+./openbmc_network_reader --file=10.22.87.132-network.json --item=ipv4 --property="Origin" --eth="eth1"
 
-./openbmc_collect --user="root" --password=V2eD+VxLkwH2tTsLYS1t6+H+5ERx9FSQ1/BF/iq/5qo= --bmc="172.31.92.34" --item="/xyz/openbmc_project/system/chassis"
+./openbmc_collect --user="root" --password=V2eD+VxLkwH2tTsLYS1t6+H+5ERx9FSQ1/BF/iq/5qo= --bmc="10.22.87.132" --item="/xyz/openbmc_project/system/chassis"
 
-./openbmc_network_reader --file=172.31.92.34-network.json --item=ipv4 --property="Origin" --eth="eth1"
+./openbmc_network_reader --file=10.22.87.132-network.json --item=ipv4 --property="Origin" --eth="eth1"
 
-./openbmc_network_reader ---file=172.31.92.34-network.json i=config -p=DefaultGateway
+./openbmc_network_reader ---file=10.22.87.132-network.json i=config -p=DefaultGateway
 
-./openbmc_reader --file=172.31.92.34-system.json  -i=/xyz/openbmc_project/inventory/system --property=Manufacturer
+./openbmc_reader --file=10.22.87.132-system.json  -i=/xyz/openbmc_project/inventory/system --property=Manufacturer

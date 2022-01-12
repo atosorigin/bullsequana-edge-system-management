@@ -1,0 +1,25 @@
+---
+- hosts: all
+  connection: local
+  name: Disable Ssh 
+  gather_facts: False
+  vars_files:
+    - "{{ ANSIBLE_EXTERNAL_VARS }}"
+    - "{{ ANSIBLE_PASSWORDS }}"
+
+  tasks:
+
+  - include_tasks: ../utils/utils_create_token.yml
+
+  - name: diable SSH
+    uri:
+      url: https://{{ baseuri }}/xyz/openbmc_project/control/service/ssh/attr/Enabled
+      method: PUT
+      validate_certs: no
+      headers:
+        X-Auth-Token: "{{ x_token }}"
+      body_format: json
+      body: 
+        data: false
+    register: result_disable_ssh
+
